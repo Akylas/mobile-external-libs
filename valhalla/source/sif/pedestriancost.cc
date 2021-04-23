@@ -56,6 +56,7 @@ constexpr float kDefaultSideWalkFactor = 1.0f;     // Neutral value for sidewalk
 constexpr float kDefaultAlleyFactor = 2.0f;        // Avoid alleys
 constexpr float kDefaultDrivewayFactor = 5.0f;     // Avoid driveways
 constexpr float kDefaultUseFerry = 1.0f;
+constexpr float kDefaultUseRoad = 0.25f;          // Factor between 0 and 1
 
 // Maximum distance at the beginning or end of a multimodal route
 // that you are willing to travel for this mode.  In this case,
@@ -80,6 +81,24 @@ constexpr uint32_t kCrossingCosts[] = {0, 0, 1, 1, 2, 3, 5, 15};
 
 constexpr float kMinFactor = 0.1f;
 constexpr float kMaxFactor = 100000.0f;
+
+// User propensity to use "hilly" roads. Ranges from a value of 0 (avoid
+// hills) to 1 (take hills when they offer a more direct, less time, path).
+constexpr float kDefaultUseHills = 0.25f;
+
+// Weighting factor based on road class. These apply penalties to higher class
+// roads. These penalties are modulated by the useroads factor - further
+// avoiding higher class roads for those with low propensity for using roads.
+constexpr float kRoadClassFactor[] = {
+    1.0f,  // Motorway
+    0.4f,  // Trunk
+    0.2f,  // Primary
+    0.1f,  // Secondary
+    0.05f, // Tertiary
+    0.05f, // Unclassified
+    0.0f,  // Residential
+    0.5f   // Service, other
+};
 
 // Valid ranges and defaults
 constexpr ranged_default_t<uint32_t> kMaxDistanceWheelchairRange{0, kMaxDistanceWheelchair,
@@ -125,6 +144,8 @@ constexpr ranged_default_t<uint32_t> kTransitStartEndMaxDistanceRange{0, kTransi
 constexpr ranged_default_t<uint32_t> kTransitTransferMaxDistanceRange{0, kTransitTransferMaxDistance,
                                                                       50000}; // Max 50k
 constexpr ranged_default_t<float> kUseFerryRange{0, kDefaultUseFerry, 1.0f};
+constexpr ranged_default_t<float> kUseRoadRange{0.0f, kDefaultUseRoad, 1.0f};
+constexpr ranged_default_t<float> kUseHillsRange{0.0f, kDefaultUseHills, 1.0f};
 
 constexpr float kSacScaleSpeedFactor[] = {
     1.0f,  // kNone
@@ -144,6 +165,52 @@ constexpr float kSacScaleCostFactor[] = {
     2.0f,  // kAlpineHiking
     2.5f,  // kDemandingAlpineHiking
     3.0f   // kDifficultAlpineHiking
+};
+
+// Speed adjustment factors based on weighted grade. Comments here show an
+// example of speed changes based on "grade", using a base speed of 18 MPH
+// on flat roads
+constexpr float kGradeBasedSpeedFactor[] = {
+    2.2f,  // -10%  - 39.6
+    2.0f,  // -8%   - 36
+    1.9f,  // -6.5% - 34.2
+    1.7f,  // -5%   - 30.6
+    1.4f,  // -3%   - 25
+    1.2f,  // -1.5% - 21.6
+    1.0f,  // 0%    - 18
+    0.95f, // 1.5%  - 17
+    0.85f, // 3%    - 15
+    0.75f, // 5%    - 13.5
+    0.65f, // 6.5%  - 12
+    0.55f, // 8%    - 10
+    0.5f,  // 10%   - 9
+    0.45f, // 11.5% - 8
+    0.4f,  // 13%   - 7
+    0.3f   // 15%   - 5.5
+};
+
+// Avoid hills "strength". How much do we want to avoid a hill. Combines
+// with the usehills factor (1.0 - usehills = avoidhills factor) to create
+// a weighting penalty per weighted grade factor. This indicates how strongly
+// edges with the specified grade are weighted. Note that speed also is
+// influenced by grade, so these weights help further avoid hills.
+constexpr float kAvoidHillsStrength[] = {
+    2.0f,  // -10%  - Treacherous descent possible
+    1.0f,  // -8%   - Steep downhill
+    0.5f,  // -6.5% - Good downhill - where is the bottom?
+    0.2f,  // -5%   - Picking up speed!
+    0.1f,  // -3%   - Modest downhill
+    0.0f,  // -1.5% - Smooth slight downhill, ride this all day!
+    0.05f, // 0%    - Flat, no avoidance
+    0.1f,  // 1.5%  - These are called "false flat"
+    0.3f,  // 3%    - Slight rise
+    0.8f,  // 5%    - Small hill
+    2.0f,  // 6.5%  - Starting to feel this...
+    3.0f,  // 8%    - Moderately steep
+    4.5f,  // 10%   - Getting tough
+    6.5f,  // 11.5% - Tiring!
+    10.0f, // 13%   - Ooof - this hurts
+    12.0f  // 15%   - Only for the strongest!
 };
 
 } // namespace
@@ -394,6 +461,10 @@ public:
   }
 
 public:
+
+  float use_roads_;                     // Preference of using roads between 0 and 1
+  float road_factor_;                   // Road factor based on use_roads_
+  
   // Type: foot (default), wheelchair, etc.
   PedestrianType type_;
 
@@ -430,6 +501,10 @@ public:
   float alley_factor_;             // Avoid alleys factor.
   float driveway_factor_;          // Avoid driveways factor.
   float step_penalty_;             // Penalty applied to steps/stairs (seconds).
+
+  // Elevation/grade penalty (weighting applied based on the edge's weighted
+  // grade (relative value from 0-15)
+  float grade_penalty[16];
 
   /**
    * Override the base transition cost to not add maneuver penalties onto transit edges.
@@ -569,6 +644,14 @@ PedestrianCost::PedestrianCost(const Costing costing, const Options& options)
     max_hiking_difficulty_ = SacScale::kNone;
   }
 
+  // Willingness to use roads. Make sure this is within range [0, 1].
+  use_roads_ = costing_options.use_roads();
+
+  // Set the road classification factor. use_roads factors above 0.5 start to
+  // reduce the weight difference between road classes while factors below 0.5
+  // start to increase the differences.
+  road_factor_ = (use_roads_ >= 0.5f) ? 1.5f - use_roads_ : 2.0f - use_roads_ * 2.0f;
+
   mode_factor_ = costing_options.mode_factor();
   walkway_factor_ = costing_options.walkway_factor();
   sidewalk_factor_ = costing_options.sidewalk_factor();
@@ -579,6 +662,14 @@ PedestrianCost::PedestrianCost(const Costing costing, const Options& options)
 
   // Set the speed factor (to avoid division in costing)
   speedfactor_ = (kSecPerHour * 0.001f) / speed_;
+
+
+  // Populate the grade penalties (based on use_hills factor - value between 0 and 1)
+  float use_hills = costing_options.use_hills();
+  float avoid_hills = (1.0f - use_hills);
+  for (uint32_t i = 0; i <= kMaxGradeFactor; i++) {
+    grade_penalty[i] = avoid_hills * kAvoidHillsStrength[i];
+  }
 }
 
 // Check if access is allowed on the specified edge. Disallow if no
@@ -650,8 +741,60 @@ Cost PedestrianCost::EdgeCost(const baldr::DirectedEdge* edge,
     return {sec * ferry_factor_, sec};
   }
 
+  // Represents how stressful a roadway is without looking at grade or cycle accommodations
+  float roadway_stress = 1.0f;
+
+  float accommodation_factor = 1.0f;
+
+  // Special use cases: cycleway, footway, and path
+  if (edge->use() == Use::kCycleway || edge->use() == Use::kFootway || edge->use() == Use::kPath) {
+
+    // Differentiate how segregated the way is from pedestrians
+    if (edge->cyclelane() == CycleLane::kSeparated) { // No pedestrians allowed on path
+      accommodation_factor = use_roads_ * 0.8f;
+    } else if (edge->cyclelane() == CycleLane::kDedicated) { // Segregated lane from pedestrians
+      accommodation_factor = 0.1f + use_roads_ * 0.9f;
+    } else { // Share path with pedestrians
+      accommodation_factor = 0.2f + use_roads_;
+    }
+  } else if (edge->use() == Use::kMountainBike) {
+    // Slightly less reduction than a footway or path because even with a mountain bike
+    // these paths can be a little stressful to ride. No traffic though so still favorable
+    accommodation_factor = 0.3f + use_roads_;
+  } else if (edge->use() == Use::kLivingStreet) {
+    roadway_stress = 0.2f + use_roads_ * 0.8f;
+  } else if (edge->use() == Use::kTrack) {
+    roadway_stress = 0.5f + use_roads_;
+  } else {
+    // Favor roads where a cycle lane exists
+    if (edge->cyclelane() == CycleLane::kShared) {
+      accommodation_factor = 0.9f + use_roads_ * 0.05f;
+    } else if (edge->cyclelane() == CycleLane::kDedicated) {
+      accommodation_factor = 0.4f + use_roads_ * 0.45f;
+    } else if (edge->cyclelane() == CycleLane::kSeparated) {
+      accommodation_factor = 0.15f + use_roads_ * 0.6f;
+    } else if (edge->shoulder()) {
+      // If no cycle lane, but there is a shoulder then have a slight preference for this road
+      accommodation_factor = 0.7f + use_roads_ * 0.2f;
+    }
+
+    // Penalize roads that have more than one lane (in the direction of travel)
+    if (edge->lanecount() > 1) {
+      roadway_stress += (static_cast<float>(edge->lanecount()) - 1) * 0.05f * road_factor_;
+    }
+
+    // Add in penalization for road classification
+    roadway_stress += road_factor_ * kRoadClassFactor[static_cast<uint32_t>(edge->classification())];
+  }
+  
+  // Penalize roads that have more than one lane (in the direction of travel)
+  // Add in penalization for road classification
+  roadway_stress += road_factor_ * kRoadClassFactor[static_cast<uint32_t>(edge->classification())];
+
+  float total_stress = accommodation_factor * roadway_stress;
+
   // TODO - consider using an array of "use factors" to avoid this conditional
-  float factor = 1.0f + kSacScaleCostFactor[static_cast<uint8_t>(edge->sac_scale())];
+  float factor = 1.0f + kSacScaleCostFactor[static_cast<uint8_t>(edge->sac_scale())] + grade_penalty[edge->weighted_grade()] + total_stress;
   if (edge->use() == Use::kFootway || edge->use() == Use::kSidewalk) {
     factor *= walkway_factor_;
   } else if (edge->use() == Use::kAlley) {
@@ -759,6 +902,16 @@ void ParsePedestrianCostOptions(const rapidjson::Document& doc,
     pbf_costing_options->set_country_crossing_penalty(kCountryCrossingPenaltyRange(
         rapidjson::get_optional<float>(*json_costing_options, "/country_crossing_penalty")
             .get_value_or(kDefaultCountryCrossingPenalty)));
+
+    // use_roads
+    pbf_costing_options->set_use_roads(
+        kUseRoadRange(rapidjson::get_optional<float>(*json_costing_options, "/use_roads")
+                          .get_value_or(kDefaultUseRoad)));
+
+    // use_hills
+    pbf_costing_options->set_use_hills(
+        kUseHillsRange(rapidjson::get_optional<float>(*json_costing_options, "/use_hills")
+                           .get_value_or(kDefaultUseHills)));
 
     // ferry_cost
     pbf_costing_options->set_ferry_cost(
@@ -869,6 +1022,8 @@ void ParsePedestrianCostOptions(const rapidjson::Document& doc,
     pbf_costing_options->set_country_crossing_penalty(kDefaultCountryCrossingPenalty);
     pbf_costing_options->set_ferry_cost(kDefaultFerryCost);
     pbf_costing_options->set_use_ferry(kDefaultUseFerry);
+    pbf_costing_options->set_use_roads(kDefaultUseRoad);
+    pbf_costing_options->set_use_hills(kDefaultUseHills);
     pbf_costing_options->set_transport_type("foot");
     pbf_costing_options->set_max_distance(kMaxDistanceFoot);
     pbf_costing_options->set_walking_speed(kDefaultSpeedFoot);
