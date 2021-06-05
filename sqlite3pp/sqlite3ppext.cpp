@@ -165,11 +165,6 @@ namespace sqlite3pp
       return sqlite3_aggregate_context(ctx_, size);
     }
 
-    int context::aggregate_count()
-    {
-      return sqlite3_aggregate_count(ctx_);
-    }
-
     function::function(database& db) : db_(db.db_)
     {
     }
@@ -179,17 +174,6 @@ namespace sqlite3pp
       fh_[name] = pfunction_base(new function_handler(h));
       return sqlite3_create_function(db_, name, nargs, SQLITE_UTF8, fh_[name].get(), function_impl, 0, 0);
     }
-
-    aggregate::aggregate(database& db) : db_(db.db_)
-    {
-    }
-
-    int aggregate::create(char const* name, function_handler s, function_handler f, int nargs)
-    {
-      ah_[name] = std::make_pair(pfunction_base(new function_handler(s)), pfunction_base(new function_handler(f)));
-      return sqlite3_create_function(db_, name, nargs, SQLITE_UTF8, &ah_[name], 0, step_impl, finalize_impl);
-    }
-
   } // namespace ext
 
 } // namespace sqlite3pp
