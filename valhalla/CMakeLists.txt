@@ -12,7 +12,7 @@ elseif(ANDROID OR IOS)
   set(valhalla_FLAGS ${valhalla_FLAGS} "-Wno-narrowing" "-Wno-shorten-64-to-32")
 endif()
 
-set(valhalla_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/config" "${PROJECT_SOURCE_DIR}/config/valhalla" "${PROJECT_SOURCE_DIR}/proto" "${PROJECT_SOURCE_DIR}/proto/valhalla" "${PROJECT_SOURCE_DIR}/valhalla" "${PROJECT_SOURCE_DIR}/valhalla/valhalla" PARENT_SCOPE)
+set(valhalla_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/config" "${PROJECT_SOURCE_DIR}/config/valhalla" "${PROJECT_SOURCE_DIR}/config/valhalla/odin" "${PROJECT_SOURCE_DIR}/proto" "${PROJECT_SOURCE_DIR}/proto/valhalla" "${PROJECT_SOURCE_DIR}/valhalla" "${PROJECT_SOURCE_DIR}/valhalla/valhalla" PARENT_SCOPE)
 
 if(SINGLE_LIBRARY)
   set(valhalla_SRC_FILES ${valhalla_SRC_FILES} PARENT_SCOPE)
