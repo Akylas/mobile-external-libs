@@ -54,5 +54,5 @@
 	branch = nutiteq-fixes
 [submodule "valhalla/valhalla"]
 	path = valhalla/valhalla
-	url = https://github.com/nutiteq/valhalla.git
+	url = https://github.com/Akylas/valhalla.git
 	branch = mbtiles-support
