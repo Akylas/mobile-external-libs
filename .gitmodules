@@ -1,7 +1,3 @@
-[submodule "boost"]
-	path = boost
-	url = https://github.com/Akylas/boost.git
-	branch = carto
 [submodule "rapidjson"]
 	path = rapidjson
 	url = https://github.com/nutiteq/rapidjson.git
@@ -54,5 +50,5 @@
 	branch = nutiteq-fixes
 [submodule "valhalla/valhalla"]
 	path = valhalla/valhalla
-	url = https://github.com/Akylas/valhalla.git
+	url = https://github.com/nutiteq/valhalla.git
 	branch = mbtiles-support

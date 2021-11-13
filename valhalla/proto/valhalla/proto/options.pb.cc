@@ -46,7 +46,7 @@ constexpr CostingOptions::CostingOptions(
   : filter_stop_ids_()
   , filter_operator_ids_()
   , filter_route_ids_()
-  , avoid_edges_()
+  , exclude_edges_()
   , transport_type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , maneuver_penalty_(0)
@@ -118,6 +118,12 @@ constexpr CostingOptions::CostingOptions(
   , use_living_streets_(0)
   , service_factor_(0)
   , closure_factor_(0)
+  , private_access_penalty_(0)
+  , exclude_unpaved_(false)
+  , include_hot_(false)
+  , include_hov2_(false)
+  , include_hov3_(false)
+  , exclude_cash_only_tolls_(false)
   , costing_(0)
 
   , filter_closures_(true){}
@@ -146,7 +152,7 @@ constexpr Options::Options(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : costing_options_()
   , locations_()
-  , avoid_locations_()
+  , exclude_locations_()
   , sources_()
   , targets_()
   , shape_()
@@ -154,7 +160,7 @@ constexpr Options::Options(
   , trace_()
   , filter_attributes_()
   , recostings_()
-  , avoid_polygons_()
+  , exclude_polygons_()
   , language_(nullptr)
   , id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , jsonp_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -260,13 +266,13 @@ bool Options_Units_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Options_Units Options::kilometers;
 constexpr Options_Units Options::miles;
 constexpr Options_Units Options::Units_MIN;
 constexpr Options_Units Options::Units_MAX;
 constexpr int Options::Units_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool Options_Format_IsValid(int value) {
   switch (value) {
     case 0:
@@ -322,14 +328,14 @@ bool Options_Format_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Options_Format Options::json;
 constexpr Options_Format Options::gpx;
 constexpr Options_Format Options::osrm;
 constexpr Options_Format Options::Format_MIN;
 constexpr Options_Format Options::Format_MAX;
 constexpr int Options::Format_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool Options_Action_IsValid(int value) {
   switch (value) {
     case 1:
@@ -421,7 +427,7 @@ bool Options_Action_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Options_Action Options::route;
 constexpr Options_Action Options::locate;
 constexpr Options_Action Options::sources_to_targets;
@@ -437,7 +443,7 @@ constexpr Options_Action Options::status;
 constexpr Options_Action Options::Action_MIN;
 constexpr Options_Action Options::Action_MAX;
 constexpr int Options::Action_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool Options_DateTimeType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -497,7 +503,7 @@ bool Options_DateTimeType_Parse(
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Options_DateTimeType Options::current;
 constexpr Options_DateTimeType Options::depart_at;
 constexpr Options_DateTimeType Options::arrive_by;
@@ -505,7 +511,7 @@ constexpr Options_DateTimeType Options::invariant;
 constexpr Options_DateTimeType Options::DateTimeType_MIN;
 constexpr Options_DateTimeType Options::DateTimeType_MAX;
 constexpr int Options::DateTimeType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool ShapeMatch_IsValid(int value) {
   switch (value) {
     case 0:
@@ -727,7 +733,6 @@ bool Costing_IsValid(int value) {
     case 0:
     case 2:
     case 3:
-    case 4:
     case 5:
     case 6:
     case 7:
@@ -743,14 +748,13 @@ bool Costing_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Costing_strings[13] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Costing_strings[12] = {};
 
 static const char Costing_names[] =
   "auto_"
   "bicycle"
   "bikeshare"
   "bus"
-  "hov"
   "motor_scooter"
   "motorcycle"
   "multimodal"
@@ -765,30 +769,28 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Costing_entries[] = {
   { {Costing_names + 5, 7}, 2 },
   { {Costing_names + 12, 9}, 14 },
   { {Costing_names + 21, 3}, 3 },
-  { {Costing_names + 24, 3}, 4 },
-  { {Costing_names + 27, 13}, 5 },
-  { {Costing_names + 40, 10}, 10 },
-  { {Costing_names + 50, 10}, 6 },
-  { {Costing_names + 60, 5}, 13 },
-  { {Costing_names + 65, 10}, 7 },
-  { {Costing_names + 75, 4}, 12 },
-  { {Costing_names + 79, 7}, 8 },
-  { {Costing_names + 86, 5}, 9 },
+  { {Costing_names + 24, 13}, 5 },
+  { {Costing_names + 37, 10}, 10 },
+  { {Costing_names + 47, 10}, 6 },
+  { {Costing_names + 57, 5}, 13 },
+  { {Costing_names + 62, 10}, 7 },
+  { {Costing_names + 72, 4}, 12 },
+  { {Costing_names + 76, 7}, 8 },
+  { {Costing_names + 83, 5}, 9 },
 };
 
 static const int Costing_entries_by_number[] = {
   0, // 0 -> auto_
   1, // 2 -> bicycle
   3, // 3 -> bus
-  4, // 4 -> hov
-  5, // 5 -> motor_scooter
-  7, // 6 -> multimodal
-  9, // 7 -> pedestrian
-  11, // 8 -> transit
-  12, // 9 -> truck
-  6, // 10 -> motorcycle
-  10, // 12 -> taxi
-  8, // 13 -> none_
+  4, // 5 -> motor_scooter
+  6, // 6 -> multimodal
+  8, // 7 -> pedestrian
+  10, // 8 -> transit
+  11, // 9 -> truck
+  5, // 10 -> motorcycle
+  9, // 12 -> taxi
+  7, // 13 -> none_
   2, // 14 -> bikeshare
 };
 
@@ -798,12 +800,12 @@ const std::string& Costing_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Costing_entries,
           Costing_entries_by_number,
-          13, Costing_strings);
+          12, Costing_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Costing_entries,
       Costing_entries_by_number,
-      13, value);
+      12, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Costing_strings[idx].get();
 }
@@ -811,7 +813,7 @@ bool Costing_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Costing* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Costing_entries, 13, name, &int_value);
+      Costing_entries, 12, name, &int_value);
   if (success) {
     *value = static_cast<Costing>(int_value);
   }
@@ -848,6 +850,9 @@ Contour::Contour(const Contour& from)
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   color_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    color_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_color()) {
     color_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_color(), 
       GetArenaForAllocation());
@@ -858,8 +863,11 @@ Contour::Contour(const Contour& from)
   // @@protoc_insertion_point(copy_constructor:valhalla.Contour)
 }
 
-void Contour::SharedCtor() {
+inline void Contour::SharedCtor() {
 color_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  color_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&time_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&distance_) -
@@ -890,7 +898,7 @@ void Contour::SetCachedSize(int size) const {
 
 void Contour::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.Contour)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -911,12 +919,12 @@ const char* Contour::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional float time = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_time(&has_bits);
           time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -925,7 +933,7 @@ const char* Contour::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional string color = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_color();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -934,7 +942,7 @@ const char* Contour::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float distance = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _Internal::set_has_distance(&has_bits);
           distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -965,10 +973,10 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Contour::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Contour::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:valhalla.Contour)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
@@ -1002,7 +1010,7 @@ size_t Contour::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:valhalla.Contour)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1043,7 +1051,7 @@ void Contour::CheckTypeAndMergeFrom(
 void Contour::MergeFrom(const Contour& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:valhalla.Contour)
   GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
@@ -1129,7 +1137,7 @@ AvoidEdge::AvoidEdge(const AvoidEdge& from)
   // @@protoc_insertion_point(copy_constructor:valhalla.AvoidEdge)
 }
 
-void AvoidEdge::SharedCtor() {
+inline void AvoidEdge::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&percent_along_) -
@@ -1159,7 +1167,7 @@ void AvoidEdge::SetCachedSize(int size) const {
 
 void AvoidEdge::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.AvoidEdge)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1177,12 +1185,12 @@ const char* AvoidEdge::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 id = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
           id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -1191,7 +1199,7 @@ const char* AvoidEdge::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         continue;
       // optional float percent_along = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_percent_along(&has_bits);
           percent_along_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1222,10 +1230,10 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AvoidEdge::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* AvoidEdge::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:valhalla.AvoidEdge)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
@@ -1253,7 +1261,7 @@ size_t AvoidEdge::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:valhalla.AvoidEdge)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -1287,7 +1295,7 @@ void AvoidEdge::CheckTypeAndMergeFrom(
 void AvoidEdge::MergeFrom(const AvoidEdge& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:valhalla.AvoidEdge)
   GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
@@ -1537,14 +1545,32 @@ class CostingOptions::_Internal {
   static void set_has_closure_factor(HasBits* has_bits) {
     (*has_bits)[2] |= 8u;
   }
-  static void set_has_costing(HasBits* has_bits) {
+  static void set_has_private_access_penalty(HasBits* has_bits) {
     (*has_bits)[2] |= 16u;
+  }
+  static void set_has_exclude_unpaved(HasBits* has_bits) {
+    (*has_bits)[2] |= 32u;
+  }
+  static void set_has_include_hot(HasBits* has_bits) {
+    (*has_bits)[2] |= 64u;
+  }
+  static void set_has_include_hov2(HasBits* has_bits) {
+    (*has_bits)[2] |= 128u;
+  }
+  static void set_has_include_hov3(HasBits* has_bits) {
+    (*has_bits)[2] |= 256u;
+  }
+  static void set_has_exclude_cash_only_tolls(HasBits* has_bits) {
+    (*has_bits)[2] |= 512u;
+  }
+  static void set_has_costing(HasBits* has_bits) {
+    (*has_bits)[2] |= 1024u;
   }
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_filter_closures(HasBits* has_bits) {
-    (*has_bits)[2] |= 32u;
+    (*has_bits)[2] |= 2048u;
   }
 };
 
@@ -1554,7 +1580,7 @@ CostingOptions::CostingOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   filter_stop_ids_(arena),
   filter_operator_ids_(arena),
   filter_route_ids_(arena),
-  avoid_edges_(arena) {
+  exclude_edges_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1567,14 +1593,20 @@ CostingOptions::CostingOptions(const CostingOptions& from)
       filter_stop_ids_(from.filter_stop_ids_),
       filter_operator_ids_(from.filter_operator_ids_),
       filter_route_ids_(from.filter_route_ids_),
-      avoid_edges_(from.avoid_edges_) {
+      exclude_edges_(from.exclude_edges_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   transport_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    transport_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_transport_type()) {
     transport_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_transport_type(), 
       GetArenaForAllocation());
   }
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArenaForAllocation());
@@ -1585,9 +1617,15 @@ CostingOptions::CostingOptions(const CostingOptions& from)
   // @@protoc_insertion_point(copy_constructor:valhalla.CostingOptions)
 }
 
-void CostingOptions::SharedCtor() {
+inline void CostingOptions::SharedCtor() {
 transport_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  transport_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&maneuver_penalty_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&costing_) -
@@ -1620,14 +1658,14 @@ void CostingOptions::SetCachedSize(int size) const {
 
 void CostingOptions::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.CostingOptions)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   filter_stop_ids_.Clear();
   filter_operator_ids_.Clear();
   filter_route_ids_.Clear();
-  avoid_edges_.Clear();
+  exclude_edges_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
@@ -1679,10 +1717,15 @@ void CostingOptions::Clear() {
         reinterpret_cast<char*>(&rail_ferry_cost_)) + sizeof(use_tracks_));
   }
   cached_has_bits = _has_bits_[2];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x000000ffu) {
     ::memset(&use_distance_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&include_hov2_) -
+        reinterpret_cast<char*>(&use_distance_)) + sizeof(include_hov2_));
+  }
+  if (cached_has_bits & 0x00000f00u) {
+    ::memset(&include_hov3_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&costing_) -
-        reinterpret_cast<char*>(&use_distance_)) + sizeof(costing_));
+        reinterpret_cast<char*>(&include_hov3_)) + sizeof(costing_));
     filter_closures_ = true;
   }
   _has_bits_.Clear();
@@ -1692,12 +1735,12 @@ void CostingOptions::Clear() {
 const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional float maneuver_penalty = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_maneuver_penalty(&_has_bits_);
           maneuver_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1706,7 +1749,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float destination_only_penalty = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_destination_only_penalty(&_has_bits_);
           destination_only_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1715,7 +1758,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float gate_cost = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _Internal::set_has_gate_cost(&_has_bits_);
           gate_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1724,7 +1767,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float gate_penalty = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _Internal::set_has_gate_penalty(&_has_bits_);
           gate_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1733,7 +1776,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float toll_booth_cost = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
           _Internal::set_has_toll_booth_cost(&_has_bits_);
           toll_booth_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1742,7 +1785,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float toll_booth_penalty = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
           _Internal::set_has_toll_booth_penalty(&_has_bits_);
           toll_booth_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1751,7 +1794,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float alley_penalty = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 61)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 61)) {
           _Internal::set_has_alley_penalty(&_has_bits_);
           alley_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1760,7 +1803,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float country_crossing_cost = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 69)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
           _Internal::set_has_country_crossing_cost(&_has_bits_);
           country_crossing_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1769,7 +1812,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float country_crossing_penalty = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 77)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 77)) {
           _Internal::set_has_country_crossing_penalty(&_has_bits_);
           country_crossing_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1778,7 +1821,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float ferry_cost = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 85)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 85)) {
           _Internal::set_has_ferry_cost(&_has_bits_);
           ferry_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1787,7 +1830,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float avoid_bad_surfaces = 11;
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 93)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 93)) {
           _Internal::set_has_avoid_bad_surfaces(&_has_bits_);
           avoid_bad_surfaces_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1796,7 +1839,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_ferry = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 101)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 101)) {
           _Internal::set_has_use_ferry(&_has_bits_);
           use_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1805,7 +1848,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_highways = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 109)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
           _Internal::set_has_use_highways(&_has_bits_);
           use_highways_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1814,7 +1857,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_tolls = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 117)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
           _Internal::set_has_use_tolls(&_has_bits_);
           use_tolls_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1823,7 +1866,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_roads = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 125)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 125)) {
           _Internal::set_has_use_roads(&_has_bits_);
           use_roads_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1832,7 +1875,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional uint32 max_distance = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 128)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
           _Internal::set_has_max_distance(&_has_bits_);
           max_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -1841,7 +1884,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float walking_speed = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 141)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 141)) {
           _Internal::set_has_walking_speed(&_has_bits_);
           walking_speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1850,7 +1893,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float step_penalty = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 149)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 149)) {
           _Internal::set_has_step_penalty(&_has_bits_);
           step_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1859,7 +1902,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional uint32 max_grade = 19;
       case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
           _Internal::set_has_max_grade(&_has_bits_);
           max_grade_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -1868,7 +1911,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional uint32 max_hiking_difficulty = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
           _Internal::set_has_max_hiking_difficulty(&_has_bits_);
           max_hiking_difficulty_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -1877,7 +1920,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float mode_factor = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 173)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 173)) {
           _Internal::set_has_mode_factor(&_has_bits_);
           mode_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1886,7 +1929,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float walkway_factor = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 181)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 181)) {
           _Internal::set_has_walkway_factor(&_has_bits_);
           walkway_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1895,7 +1938,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float sidewalk_factor = 23;
       case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 189)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 189)) {
           _Internal::set_has_sidewalk_factor(&_has_bits_);
           sidewalk_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1904,7 +1947,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float alley_factor = 24;
       case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 197)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 197)) {
           _Internal::set_has_alley_factor(&_has_bits_);
           alley_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1913,7 +1956,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float driveway_factor = 25;
       case 25:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 205)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 205)) {
           _Internal::set_has_driveway_factor(&_has_bits_);
           driveway_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1922,7 +1965,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float driveway_penalty = 26;
       case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 213)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 213)) {
           _Internal::set_has_driveway_penalty(&_has_bits_);
           driveway_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1931,7 +1974,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional uint32 transit_start_end_max_distance = 27;
       case 27:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 216)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 216)) {
           _Internal::set_has_transit_start_end_max_distance(&_has_bits_);
           transit_start_end_max_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -1940,7 +1983,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional uint32 transit_transfer_max_distance = 28;
       case 28:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 224)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
           _Internal::set_has_transit_transfer_max_distance(&_has_bits_);
           transit_transfer_max_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -1949,7 +1992,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional string transport_type = 29;
       case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 234)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 234)) {
           auto str = _internal_mutable_transport_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -1958,7 +2001,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float top_speed = 30;
       case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 245)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 245)) {
           _Internal::set_has_top_speed(&_has_bits_);
           top_speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1967,7 +2010,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_hills = 31;
       case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 253)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 253)) {
           _Internal::set_has_use_hills(&_has_bits_);
           use_hills_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1976,7 +2019,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_primary = 32;
       case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 5)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 5)) {
           _Internal::set_has_use_primary(&_has_bits_);
           use_primary_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1985,7 +2028,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_trails = 33;
       case 33:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_use_trails(&_has_bits_);
           use_trails_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -1994,7 +2037,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float low_class_penalty = 34;
       case 34:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_low_class_penalty(&_has_bits_);
           low_class_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2003,7 +2046,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool hazmat = 35;
       case 35:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_hazmat(&_has_bits_);
           hazmat_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2012,7 +2055,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float weight = 36;
       case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _Internal::set_has_weight(&_has_bits_);
           weight_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2021,7 +2064,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float axle_load = 37;
       case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
           _Internal::set_has_axle_load(&_has_bits_);
           axle_load_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2030,7 +2073,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float height = 38;
       case 38:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
           _Internal::set_has_height(&_has_bits_);
           height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2039,7 +2082,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float width = 39;
       case 39:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 61)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 61)) {
           _Internal::set_has_width(&_has_bits_);
           width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2048,7 +2091,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float length = 40;
       case 40:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 69)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
           _Internal::set_has_length(&_has_bits_);
           length_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2057,7 +2100,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float cycling_speed = 41;
       case 41:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 77)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 77)) {
           _Internal::set_has_cycling_speed(&_has_bits_);
           cycling_speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2066,7 +2109,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool wheelchair = 42;
       case 42:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_wheelchair(&_has_bits_);
           wheelchair_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2075,7 +2118,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool bicycle = 43;
       case 43:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_bicycle(&_has_bits_);
           bicycle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2084,7 +2127,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_bus = 44;
       case 44:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 101)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 101)) {
           _Internal::set_has_use_bus(&_has_bits_);
           use_bus_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2093,7 +2136,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_rail = 45;
       case 45:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 109)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
           _Internal::set_has_use_rail(&_has_bits_);
           use_rail_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2102,7 +2145,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_transfers = 46;
       case 46:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 117)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
           _Internal::set_has_use_transfers(&_has_bits_);
           use_transfers_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2111,7 +2154,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float transfer_cost = 47;
       case 47:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 125)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 125)) {
           _Internal::set_has_transfer_cost(&_has_bits_);
           transfer_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2120,7 +2163,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float transfer_penalty = 48;
       case 48:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 133)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 133)) {
           _Internal::set_has_transfer_penalty(&_has_bits_);
           transfer_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2129,8 +2172,8 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional .valhalla.FilterAction filter_stop_action = 49;
       case 49:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::FilterAction_IsValid(val))) {
             _internal_set_filter_stop_action(static_cast<::valhalla::FilterAction>(val));
@@ -2142,7 +2185,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // repeated string filter_stop_ids = 50;
       case 50:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 146)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -2156,8 +2199,8 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional .valhalla.FilterAction filter_operator_action = 51;
       case 51:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::FilterAction_IsValid(val))) {
             _internal_set_filter_operator_action(static_cast<::valhalla::FilterAction>(val));
@@ -2169,7 +2212,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // repeated string filter_operator_ids = 52;
       case 52:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -2183,8 +2226,8 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional .valhalla.FilterAction filter_route_action = 53;
       case 53:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::FilterAction_IsValid(val))) {
             _internal_set_filter_route_action(static_cast<::valhalla::FilterAction>(val));
@@ -2196,7 +2239,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // repeated string filter_route_ids = 54;
       case 54:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 178)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -2210,7 +2253,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional uint32 flow_mask = 55;
       case 55:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
           _Internal::set_has_flow_mask(&_has_bits_);
           flow_mask_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -2219,7 +2262,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float bike_share_cost = 56;
       case 56:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 197)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 197)) {
           _Internal::set_has_bike_share_cost(&_has_bits_);
           bike_share_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2228,7 +2271,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float bike_share_penalty = 57;
       case 57:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 205)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 205)) {
           _Internal::set_has_bike_share_penalty(&_has_bits_);
           bike_share_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2237,7 +2280,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float rail_ferry_cost = 58;
       case 58:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 213)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 213)) {
           _Internal::set_has_rail_ferry_cost(&_has_bits_);
           rail_ferry_cost_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2246,7 +2289,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_rail_ferry = 59;
       case 59:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 221)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 221)) {
           _Internal::set_has_use_rail_ferry(&_has_bits_);
           use_rail_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2255,7 +2298,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool ignore_restrictions = 60;
       case 60:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 224)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
           _Internal::set_has_ignore_restrictions(&_has_bits_);
           ignore_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2264,7 +2307,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool ignore_oneways = 61;
       case 61:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
           _Internal::set_has_ignore_oneways(&_has_bits_);
           ignore_oneways_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2273,7 +2316,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool ignore_access = 62;
       case 62:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 240)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 240)) {
           _Internal::set_has_ignore_access(&_has_bits_);
           ignore_access_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2282,7 +2325,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool ignore_closures = 63;
       case 63:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 248)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 248)) {
           _Internal::set_has_ignore_closures(&_has_bits_);
           ignore_closures_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2291,7 +2334,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool shortest = 64;
       case 64:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 0)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
           _Internal::set_has_shortest(&_has_bits_);
           shortest_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2300,7 +2343,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float service_penalty = 65;
       case 65:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 13)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_service_penalty(&_has_bits_);
           service_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2309,7 +2352,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_tracks = 66;
       case 66:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_use_tracks(&_has_bits_);
           use_tracks_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2318,7 +2361,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_distance = 67;
       case 67:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 29)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _Internal::set_has_use_distance(&_has_bits_);
           use_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2327,7 +2370,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float use_living_streets = 68;
       case 68:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _Internal::set_has_use_living_streets(&_has_bits_);
           use_living_streets_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2336,7 +2379,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float service_factor = 69;
       case 69:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
           _Internal::set_has_service_factor(&_has_bits_);
           service_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -2345,17 +2388,71 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional float closure_factor = 70;
       case 70:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
           _Internal::set_has_closure_factor(&_has_bits_);
           closure_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
+      // optional float private_access_penalty = 71;
+      case 71:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 61)) {
+          _Internal::set_has_private_access_penalty(&_has_bits_);
+          private_access_penalty_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool exclude_unpaved = 72;
+      case 72:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          _Internal::set_has_exclude_unpaved(&_has_bits_);
+          exclude_unpaved_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool include_hot = 73;
+      case 73:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _Internal::set_has_include_hot(&_has_bits_);
+          include_hot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool include_hov2 = 74;
+      case 74:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _Internal::set_has_include_hov2(&_has_bits_);
+          include_hov2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool include_hov3 = 75;
+      case 75:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _Internal::set_has_include_hov3(&_has_bits_);
+          include_hov3_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool exclude_cash_only_tolls = 76;
+      case 76:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          _Internal::set_has_exclude_cash_only_tolls(&_has_bits_);
+          exclude_cash_only_tolls_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       // optional .valhalla.Costing costing = 90;
       case 90:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::Costing_IsValid(val))) {
             _internal_set_costing(static_cast<::valhalla::Costing>(val));
@@ -2367,20 +2464,20 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional string name = 91;
       case 91:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 218)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 218)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // repeated .valhalla.AvoidEdge avoid_edges = 92;
+      // repeated .valhalla.AvoidEdge exclude_edges = 92;
       case 92:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 226)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
           ptr -= 2;
           do {
             ptr += 2;
-            ptr = ctx->ParseMessage(_internal_add_avoid_edges(), ptr);
+            ptr = ctx->ParseMessage(_internal_add_exclude_edges(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<738>(ptr));
@@ -2389,7 +2486,7 @@ const char* CostingOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         continue;
       // optional bool filter_closures = 93 [default = true];
       case 93:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
           _Internal::set_has_filter_closures(&_has_bits_);
           filter_closures_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -2419,10 +2516,10 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* CostingOptions::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* CostingOptions::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:valhalla.CostingOptions)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
@@ -2851,8 +2948,44 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(70, this->_internal_closure_factor(), target);
   }
 
-  // optional .valhalla.Costing costing = 90;
+  // optional float private_access_penalty = 71;
   if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(71, this->_internal_private_access_penalty(), target);
+  }
+
+  // optional bool exclude_unpaved = 72;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(72, this->_internal_exclude_unpaved(), target);
+  }
+
+  // optional bool include_hot = 73;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(73, this->_internal_include_hot(), target);
+  }
+
+  // optional bool include_hov2 = 74;
+  if (cached_has_bits & 0x00000080u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(74, this->_internal_include_hov2(), target);
+  }
+
+  // optional bool include_hov3 = 75;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(75, this->_internal_include_hov3(), target);
+  }
+
+  // optional bool exclude_cash_only_tolls = 76;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(76, this->_internal_exclude_cash_only_tolls(), target);
+  }
+
+  // optional .valhalla.Costing costing = 90;
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       90, this->_internal_costing(), target);
@@ -2865,17 +2998,17 @@ failure:
         91, this->_internal_name(), target);
   }
 
-  // repeated .valhalla.AvoidEdge avoid_edges = 92;
+  // repeated .valhalla.AvoidEdge exclude_edges = 92;
   for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_avoid_edges_size()); i < n; i++) {
+      n = static_cast<unsigned int>(this->_internal_exclude_edges_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(92, this->_internal_avoid_edges(i), target, stream);
+      InternalWriteMessage(92, this->_internal_exclude_edges(i), target, stream);
   }
 
   cached_has_bits = _has_bits_[2];
   // optional bool filter_closures = 93 [default = true];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(93, this->_internal_filter_closures(), target);
   }
@@ -2892,7 +3025,7 @@ size_t CostingOptions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:valhalla.CostingOptions)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -2920,9 +3053,9 @@ size_t CostingOptions::ByteSizeLong() const {
       filter_route_ids_.Get(i));
   }
 
-  // repeated .valhalla.AvoidEdge avoid_edges = 92;
-  total_size += 2UL * this->_internal_avoid_edges_size();
-  for (const auto& msg : this->avoid_edges_) {
+  // repeated .valhalla.AvoidEdge exclude_edges = 92;
+  total_size += 2UL * this->_internal_exclude_edges_size();
+  for (const auto& msg : this->exclude_edges_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3285,7 +3418,7 @@ size_t CostingOptions::ByteSizeLong() const {
 
   }
   cached_has_bits = _has_bits_[2];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional float use_distance = 67;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 + 4;
@@ -3306,14 +3439,46 @@ size_t CostingOptions::ByteSizeLong() const {
       total_size += 2 + 4;
     }
 
-    // optional .valhalla.Costing costing = 90;
+    // optional float private_access_penalty = 71;
     if (cached_has_bits & 0x00000010u) {
+      total_size += 2 + 4;
+    }
+
+    // optional bool exclude_unpaved = 72;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool include_hot = 73;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool include_hov2 = 74;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 2 + 1;
+    }
+
+  }
+  if (cached_has_bits & 0x00000f00u) {
+    // optional bool include_hov3 = 75;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool exclude_cash_only_tolls = 76;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 2 + 1;
+    }
+
+    // optional .valhalla.Costing costing = 90;
+    if (cached_has_bits & 0x00000400u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_costing());
     }
 
     // optional bool filter_closures = 93 [default = true];
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 + 1;
     }
 
@@ -3335,13 +3500,13 @@ void CostingOptions::CheckTypeAndMergeFrom(
 void CostingOptions::MergeFrom(const CostingOptions& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:valhalla.CostingOptions)
   GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   filter_stop_ids_.MergeFrom(from.filter_stop_ids_);
   filter_operator_ids_.MergeFrom(from.filter_operator_ids_);
   filter_route_ids_.MergeFrom(from.filter_route_ids_);
-  avoid_edges_.MergeFrom(from.avoid_edges_);
+  exclude_edges_.MergeFrom(from.exclude_edges_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -3561,7 +3726,7 @@ void CostingOptions::MergeFrom(const CostingOptions& from) {
     _has_bits_[1] |= cached_has_bits;
   }
   cached_has_bits = from._has_bits_[2];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       use_distance_ = from.use_distance_;
     }
@@ -3575,9 +3740,30 @@ void CostingOptions::MergeFrom(const CostingOptions& from) {
       closure_factor_ = from.closure_factor_;
     }
     if (cached_has_bits & 0x00000010u) {
-      costing_ = from.costing_;
+      private_access_penalty_ = from.private_access_penalty_;
     }
     if (cached_has_bits & 0x00000020u) {
+      exclude_unpaved_ = from.exclude_unpaved_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      include_hot_ = from.include_hot_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      include_hov2_ = from.include_hov2_;
+    }
+    _has_bits_[2] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000f00u) {
+    if (cached_has_bits & 0x00000100u) {
+      include_hov3_ = from.include_hov3_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      exclude_cash_only_tolls_ = from.exclude_cash_only_tolls_;
+    }
+    if (cached_has_bits & 0x00000400u) {
+      costing_ = from.costing_;
+    }
+    if (cached_has_bits & 0x00000800u) {
       filter_closures_ = from.filter_closures_;
     }
     _has_bits_[2] |= cached_has_bits;
@@ -3607,7 +3793,7 @@ void CostingOptions::InternalSwap(CostingOptions* other) {
   filter_stop_ids_.InternalSwap(&other->filter_stop_ids_);
   filter_operator_ids_.InternalSwap(&other->filter_operator_ids_);
   filter_route_ids_.InternalSwap(&other->filter_route_ids_);
-  avoid_edges_.InternalSwap(&other->avoid_edges_);
+  exclude_edges_.InternalSwap(&other->exclude_edges_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &transport_type_, lhs_arena,
@@ -3658,7 +3844,7 @@ Options_Ring::Options_Ring(const Options_Ring& from)
   // @@protoc_insertion_point(copy_constructor:valhalla.Options.Ring)
 }
 
-void Options_Ring::SharedCtor() {
+inline void Options_Ring::SharedCtor() {
 }
 
 Options_Ring::~Options_Ring() {
@@ -3684,7 +3870,7 @@ void Options_Ring::SetCachedSize(int size) const {
 
 void Options_Ring::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.Options.Ring)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3695,12 +3881,12 @@ void Options_Ring::Clear() {
 const char* Options_Ring::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .valhalla.LatLng coords = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -3734,10 +3920,10 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Options_Ring::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Options_Ring::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:valhalla.Options.Ring)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .valhalla.LatLng coords = 1;
@@ -3760,7 +3946,7 @@ size_t Options_Ring::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:valhalla.Options.Ring)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -3788,7 +3974,7 @@ void Options_Ring::CheckTypeAndMergeFrom(
 void Options_Ring::MergeFrom(const Options_Ring& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:valhalla.Options.Ring)
   GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   coords_.MergeFrom(from.coords_);
@@ -3930,8 +4116,8 @@ const ::PROTOBUF_NAMESPACE_ID::internal::LazyString Options::_i_give_permission_
 void Options::clear_locations() {
   locations_.Clear();
 }
-void Options::clear_avoid_locations() {
-  avoid_locations_.Clear();
+void Options::clear_exclude_locations() {
+  exclude_locations_.Clear();
 }
 void Options::clear_sources() {
   sources_.Clear();
@@ -3950,7 +4136,7 @@ Options::Options(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   costing_options_(arena),
   locations_(arena),
-  avoid_locations_(arena),
+  exclude_locations_(arena),
   sources_(arena),
   targets_(arena),
   shape_(arena),
@@ -3958,7 +4144,7 @@ Options::Options(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   trace_(arena),
   filter_attributes_(arena),
   recostings_(arena),
-  avoid_polygons_(arena) {
+  exclude_polygons_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -3970,7 +4156,7 @@ Options::Options(const Options& from)
       _has_bits_(from._has_bits_),
       costing_options_(from.costing_options_),
       locations_(from.locations_),
-      avoid_locations_(from.avoid_locations_),
+      exclude_locations_(from.exclude_locations_),
       sources_(from.sources_),
       targets_(from.targets_),
       shape_(from.shape_),
@@ -3978,7 +4164,7 @@ Options::Options(const Options& from)
       trace_(from.trace_),
       filter_attributes_(from.filter_attributes_),
       recostings_(from.recostings_),
-      avoid_polygons_(from.avoid_polygons_) {
+      exclude_polygons_(from.exclude_polygons_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   language_.UnsafeSetDefault(nullptr);
   if (from._internal_has_language()) {
@@ -3986,21 +4172,33 @@ Options::Options(const Options& from)
       GetArenaForAllocation());
   }
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_id()) {
     id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
       GetArenaForAllocation());
   }
   jsonp_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    jsonp_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_jsonp()) {
     jsonp_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_jsonp(), 
       GetArenaForAllocation());
   }
   encoded_polyline_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    encoded_polyline_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_encoded_polyline()) {
     encoded_polyline_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_encoded_polyline(), 
       GetArenaForAllocation());
   }
   date_time_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    date_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_date_time()) {
     date_time_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_date_time(), 
       GetArenaForAllocation());
@@ -4011,12 +4209,24 @@ Options::Options(const Options& from)
   // @@protoc_insertion_point(copy_constructor:valhalla.Options)
 }
 
-void Options::SharedCtor() {
+inline void Options::SharedCtor() {
 language_.UnsafeSetDefault(nullptr);
 id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 jsonp_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  jsonp_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 encoded_polyline_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  encoded_polyline_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 date_time_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  date_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&units_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&height_precision_) -
@@ -4058,13 +4268,13 @@ void Options::SetCachedSize(int size) const {
 
 void Options::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.Options)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   costing_options_.Clear();
   locations_.Clear();
-  avoid_locations_.Clear();
+  exclude_locations_.Clear();
   sources_.Clear();
   targets_.Clear();
   shape_.Clear();
@@ -4072,7 +4282,7 @@ void Options::Clear() {
   trace_.Clear();
   filter_attributes_.Clear();
   recostings_.Clear();
-  avoid_polygons_.Clear();
+  exclude_polygons_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -4128,13 +4338,13 @@ void Options::Clear() {
 const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .valhalla.Options.Units units = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::Options_Units_IsValid(val))) {
             _internal_set_units(static_cast<::valhalla::Options_Units>(val));
@@ -4146,7 +4356,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional string language = 2 [default = "en-US"];
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_language();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -4155,8 +4365,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.DirectionsType directions_type = 3 [default = instructions];
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::DirectionsType_IsValid(val))) {
             _internal_set_directions_type(static_cast<::valhalla::DirectionsType>(val));
@@ -4168,8 +4378,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.Options.Format format = 4 [default = json];
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::Options_Format_IsValid(val))) {
             _internal_set_format(static_cast<::valhalla::Options_Format>(val));
@@ -4181,7 +4391,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional string id = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -4190,7 +4400,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional string jsonp = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_jsonp();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -4199,7 +4409,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional string encoded_polyline = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_encoded_polyline();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -4208,8 +4418,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.Options.Action action = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::Options_Action_IsValid(val))) {
             _internal_set_action(static_cast<::valhalla::Options_Action>(val));
@@ -4221,7 +4431,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool do_not_track = 9 [default = false];
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _Internal::set_has_do_not_track(&_has_bits_);
           do_not_track_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4230,7 +4440,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool range = 10 [default = false];
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_range(&_has_bits_);
           range_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4239,7 +4449,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool verbose = 11 [default = false];
       case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_verbose(&_has_bits_);
           verbose_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4248,8 +4458,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.Costing costing = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::Costing_IsValid(val))) {
             _internal_set_costing(static_cast<::valhalla::Costing>(val));
@@ -4261,7 +4471,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.CostingOptions costing_options = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4274,7 +4484,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.Location locations = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -4285,13 +4495,13 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         } else
           goto handle_unusual;
         continue;
-      // repeated .valhalla.Location avoid_locations = 15;
+      // repeated .valhalla.Location exclude_locations = 15;
       case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_avoid_locations(), ptr);
+            ptr = ctx->ParseMessage(_internal_add_exclude_locations(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<122>(ptr));
@@ -4300,7 +4510,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.Location sources = 16;
       case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4313,7 +4523,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.Location targets = 17;
       case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 138)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4326,8 +4536,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.Options.DateTimeType date_time_type = 18;
       case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 144)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::Options_DateTimeType_IsValid(val))) {
             _internal_set_date_time_type(static_cast<::valhalla::Options_DateTimeType>(val));
@@ -4339,7 +4549,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional string date_time = 19;
       case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 154)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
           auto str = _internal_mutable_date_time();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -4348,7 +4558,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.Location shape = 20;
       case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4361,7 +4571,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional double resample_distance = 21;
       case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 169)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 169)) {
           _Internal::set_has_resample_distance(&_has_bits_);
           resample_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
@@ -4370,7 +4580,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.Contour contours = 22;
       case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 178)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4383,7 +4593,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool polygons = 23;
       case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 184)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
           _Internal::set_has_polygons(&_has_bits_);
           polygons_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4392,7 +4602,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float denoise = 24 [default = 1];
       case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 197)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 197)) {
           _Internal::set_has_denoise(&_has_bits_);
           denoise_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4401,7 +4611,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float generalize = 25;
       case 25:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 205)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 205)) {
           _Internal::set_has_generalize(&_has_bits_);
           generalize_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4410,7 +4620,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool show_locations = 26;
       case 26:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 208)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
           _Internal::set_has_show_locations(&_has_bits_);
           show_locations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4419,7 +4629,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.Location trace = 27;
       case 27:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 218)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 218)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4432,8 +4642,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.ShapeMatch shape_match = 28 [default = walk_or_snap];
       case 28:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 224)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::ShapeMatch_IsValid(val))) {
             _internal_set_shape_match(static_cast<::valhalla::ShapeMatch>(val));
@@ -4445,7 +4655,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional uint32 best_paths = 29 [default = 1];
       case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 232)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
           _Internal::set_has_best_paths(&_has_bits_);
           best_paths_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -4454,7 +4664,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float gps_accuracy = 30;
       case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 245)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 245)) {
           _Internal::set_has_gps_accuracy(&_has_bits_);
           gps_accuracy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4463,7 +4673,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float search_radius = 31;
       case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 253)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 253)) {
           _Internal::set_has_search_radius(&_has_bits_);
           search_radius_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4472,7 +4682,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float turn_penalty_factor = 32;
       case 32:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 5)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 5)) {
           _Internal::set_has_turn_penalty_factor(&_has_bits_);
           turn_penalty_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4481,8 +4691,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.FilterAction filter_action = 33;
       case 33:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::FilterAction_IsValid(val))) {
             _internal_set_filter_action(static_cast<::valhalla::FilterAction>(val));
@@ -4494,7 +4704,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated string filter_attributes = 34;
       case 34:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4508,7 +4718,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float breakage_distance = 36;
       case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _Internal::set_has_breakage_distance(&_has_bits_);
           breakage_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4517,7 +4727,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool use_timestamps = 37 [default = false];
       case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_use_timestamps(&_has_bits_);
           use_timestamps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4526,8 +4736,8 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional .valhalla.ShapeFormat shape_format = 38 [default = polyline6];
       case 38:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           if (PROTOBUF_PREDICT_TRUE(::valhalla::ShapeFormat_IsValid(val))) {
             _internal_set_shape_format(static_cast<::valhalla::ShapeFormat>(val));
@@ -4539,7 +4749,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional uint32 alternates = 39;
       case 39:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _Internal::set_has_alternates(&_has_bits_);
           alternates_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -4548,7 +4758,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional float interpolation_distance = 40;
       case 40:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 69)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
           _Internal::set_has_interpolation_distance(&_has_bits_);
           interpolation_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
@@ -4557,7 +4767,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool guidance_views = 41;
       case 41:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _Internal::set_has_guidance_views(&_has_bits_);
           guidance_views_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4566,7 +4776,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional uint32 height_precision = 43 [default = 0];
       case 43:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_height_precision(&_has_bits_);
           height_precision_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
@@ -4575,7 +4785,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool roundabout_exits = 44 [default = true];
       case 44:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           _Internal::set_has_roundabout_exits(&_has_bits_);
           roundabout_exits_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4584,7 +4794,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // optional bool linear_references = 45;
       case 45:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 104)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           _Internal::set_has_linear_references(&_has_bits_);
           linear_references_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
@@ -4593,7 +4803,7 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         continue;
       // repeated .valhalla.CostingOptions recostings = 46;
       case 46:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
           ptr -= 2;
           do {
             ptr += 2;
@@ -4604,13 +4814,13 @@ const char* Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         } else
           goto handle_unusual;
         continue;
-      // repeated .valhalla.Options.Ring avoid_polygons = 47;
+      // repeated .valhalla.Options.Ring exclude_polygons = 47;
       case 47:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
           ptr -= 2;
           do {
             ptr += 2;
-            ptr = ctx->ParseMessage(_internal_add_avoid_polygons(), ptr);
+            ptr = ctx->ParseMessage(_internal_add_exclude_polygons(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<378>(ptr));
@@ -4640,10 +4850,10 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Options::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Options::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:valhalla.Options)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
@@ -4740,12 +4950,12 @@ failure:
       InternalWriteMessage(14, this->_internal_locations(i), target, stream);
   }
 
-  // repeated .valhalla.Location avoid_locations = 15;
+  // repeated .valhalla.Location exclude_locations = 15;
   for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_avoid_locations_size()); i < n; i++) {
+      n = static_cast<unsigned int>(this->_internal_exclude_locations_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(15, this->_internal_avoid_locations(i), target, stream);
+      InternalWriteMessage(15, this->_internal_exclude_locations(i), target, stream);
   }
 
   // repeated .valhalla.Location sources = 16;
@@ -4942,12 +5152,12 @@ failure:
       InternalWriteMessage(46, this->_internal_recostings(i), target, stream);
   }
 
-  // repeated .valhalla.Options.Ring avoid_polygons = 47;
+  // repeated .valhalla.Options.Ring exclude_polygons = 47;
   for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_avoid_polygons_size()); i < n; i++) {
+      n = static_cast<unsigned int>(this->_internal_exclude_polygons_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(47, this->_internal_avoid_polygons(i), target, stream);
+      InternalWriteMessage(47, this->_internal_exclude_polygons(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4962,7 +5172,7 @@ size_t Options::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:valhalla.Options)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -4980,9 +5190,9 @@ size_t Options::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .valhalla.Location avoid_locations = 15;
-  total_size += 1UL * this->_internal_avoid_locations_size();
-  for (const auto& msg : this->avoid_locations_) {
+  // repeated .valhalla.Location exclude_locations = 15;
+  total_size += 1UL * this->_internal_exclude_locations_size();
+  for (const auto& msg : this->exclude_locations_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -5037,9 +5247,9 @@ size_t Options::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .valhalla.Options.Ring avoid_polygons = 47;
-  total_size += 2UL * this->_internal_avoid_polygons_size();
-  for (const auto& msg : this->avoid_polygons_) {
+  // repeated .valhalla.Options.Ring exclude_polygons = 47;
+  total_size += 2UL * this->_internal_exclude_polygons_size();
+  for (const auto& msg : this->exclude_polygons_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -5268,12 +5478,12 @@ void Options::CheckTypeAndMergeFrom(
 void Options::MergeFrom(const Options& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:valhalla.Options)
   GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   costing_options_.MergeFrom(from.costing_options_);
   locations_.MergeFrom(from.locations_);
-  avoid_locations_.MergeFrom(from.avoid_locations_);
+  exclude_locations_.MergeFrom(from.exclude_locations_);
   sources_.MergeFrom(from.sources_);
   targets_.MergeFrom(from.targets_);
   shape_.MergeFrom(from.shape_);
@@ -5281,7 +5491,7 @@ void Options::MergeFrom(const Options& from) {
   trace_.MergeFrom(from.trace_);
   filter_attributes_.MergeFrom(from.filter_attributes_);
   recostings_.MergeFrom(from.recostings_);
-  avoid_polygons_.MergeFrom(from.avoid_polygons_);
+  exclude_polygons_.MergeFrom(from.exclude_polygons_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -5424,7 +5634,7 @@ void Options::InternalSwap(Options* other) {
   swap(_has_bits_[1], other->_has_bits_[1]);
   costing_options_.InternalSwap(&other->costing_options_);
   locations_.InternalSwap(&other->locations_);
-  avoid_locations_.InternalSwap(&other->avoid_locations_);
+  exclude_locations_.InternalSwap(&other->exclude_locations_);
   sources_.InternalSwap(&other->sources_);
   targets_.InternalSwap(&other->targets_);
   shape_.InternalSwap(&other->shape_);
@@ -5432,7 +5642,7 @@ void Options::InternalSwap(Options* other) {
   trace_.InternalSwap(&other->trace_);
   filter_attributes_.InternalSwap(&other->filter_attributes_);
   recostings_.InternalSwap(&other->recostings_);
-  avoid_polygons_.InternalSwap(&other->avoid_polygons_);
+  exclude_polygons_.InternalSwap(&other->exclude_polygons_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       nullptr,
       &language_, lhs_arena,
