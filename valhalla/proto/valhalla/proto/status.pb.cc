@@ -16,12 +16,7 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace valhalla {
 constexpr Status::Status(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : bbox_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , has_tiles_(false)
-  , has_admins_(false)
-  , has_timezones_(false)
-  , has_live_traffic_(false){}
+  : _oneof_case_{}{}
 struct StatusDefaultTypeInternal {
   constexpr StatusDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -38,25 +33,6 @@ namespace valhalla {
 
 class Status::_Internal {
  public:
-  using HasBits = decltype(std::declval<Status>()._has_bits_);
-  static void set_has_has_tiles(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_has_admins(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static void set_has_has_timezones(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
-  static void set_has_has_live_traffic(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_bbox(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
 };
 
 Status::Status(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -69,44 +45,89 @@ Status::Status(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:valhalla.Status)
 }
 Status::Status(const Status& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  bbox_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    bbox_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_bbox()) {
-    bbox_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_bbox(), 
-      GetArenaForAllocation());
+  clear_has_has_has_tiles();
+  switch (from.has_has_tiles_case()) {
+    case kHasTiles: {
+      _internal_set_has_tiles(from._internal_has_tiles());
+      break;
+    }
+    case HAS_HAS_TILES_NOT_SET: {
+      break;
+    }
   }
-  version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_version()) {
-    version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_version(), 
-      GetArenaForAllocation());
+  clear_has_has_has_admins();
+  switch (from.has_has_admins_case()) {
+    case kHasAdmins: {
+      _internal_set_has_admins(from._internal_has_admins());
+      break;
+    }
+    case HAS_HAS_ADMINS_NOT_SET: {
+      break;
+    }
   }
-  ::memcpy(&has_tiles_, &from.has_tiles_,
-    static_cast<size_t>(reinterpret_cast<char*>(&has_live_traffic_) -
-    reinterpret_cast<char*>(&has_tiles_)) + sizeof(has_live_traffic_));
+  clear_has_has_has_timezones();
+  switch (from.has_has_timezones_case()) {
+    case kHasTimezones: {
+      _internal_set_has_timezones(from._internal_has_timezones());
+      break;
+    }
+    case HAS_HAS_TIMEZONES_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_has_live_traffic();
+  switch (from.has_has_live_traffic_case()) {
+    case kHasLiveTraffic: {
+      _internal_set_has_live_traffic(from._internal_has_live_traffic());
+      break;
+    }
+    case HAS_HAS_LIVE_TRAFFIC_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_bbox();
+  switch (from.has_bbox_case()) {
+    case kBbox: {
+      _internal_set_bbox(from._internal_bbox());
+      break;
+    }
+    case HAS_BBOX_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_version();
+  switch (from.has_version_case()) {
+    case kVersion: {
+      _internal_set_version(from._internal_version());
+      break;
+    }
+    case HAS_VERSION_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_tileset_last_modified();
+  switch (from.has_tileset_last_modified_case()) {
+    case kTilesetLastModified: {
+      _internal_set_tileset_last_modified(from._internal_tileset_last_modified());
+      break;
+    }
+    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:valhalla.Status)
 }
 
 inline void Status::SharedCtor() {
-bbox_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  bbox_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&has_tiles_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&has_live_traffic_) -
-    reinterpret_cast<char*>(&has_tiles_)) + sizeof(has_live_traffic_));
+clear_has_has_has_tiles();
+clear_has_has_has_admins();
+clear_has_has_has_timezones();
+clear_has_has_has_live_traffic();
+clear_has_has_bbox();
+clear_has_has_version();
+clear_has_has_tileset_last_modified();
 }
 
 Status::~Status() {
@@ -118,8 +139,27 @@ Status::~Status() {
 
 inline void Status::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  bbox_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (has_has_has_tiles()) {
+    clear_has_has_tiles();
+  }
+  if (has_has_has_admins()) {
+    clear_has_has_admins();
+  }
+  if (has_has_has_timezones()) {
+    clear_has_has_timezones();
+  }
+  if (has_has_has_live_traffic()) {
+    clear_has_has_live_traffic();
+  }
+  if (has_has_bbox()) {
+    clear_has_bbox();
+  }
+  if (has_has_version()) {
+    clear_has_version();
+  }
+  if (has_has_tileset_last_modified()) {
+    clear_has_tileset_last_modified();
+  }
 }
 
 void Status::ArenaDtor(void* object) {
@@ -132,85 +172,183 @@ void Status::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
+void Status::clear_has_has_tiles() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_has_tiles_case()) {
+    case kHasTiles: {
+      // No need to clear
+      break;
+    }
+    case HAS_HAS_TILES_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = HAS_HAS_TILES_NOT_SET;
+}
+
+void Status::clear_has_has_admins() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_has_admins_case()) {
+    case kHasAdmins: {
+      // No need to clear
+      break;
+    }
+    case HAS_HAS_ADMINS_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[1] = HAS_HAS_ADMINS_NOT_SET;
+}
+
+void Status::clear_has_has_timezones() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_has_timezones_case()) {
+    case kHasTimezones: {
+      // No need to clear
+      break;
+    }
+    case HAS_HAS_TIMEZONES_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[2] = HAS_HAS_TIMEZONES_NOT_SET;
+}
+
+void Status::clear_has_has_live_traffic() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_has_live_traffic_case()) {
+    case kHasLiveTraffic: {
+      // No need to clear
+      break;
+    }
+    case HAS_HAS_LIVE_TRAFFIC_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[3] = HAS_HAS_LIVE_TRAFFIC_NOT_SET;
+}
+
+void Status::clear_has_bbox() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_bbox_case()) {
+    case kBbox: {
+      has_bbox_.bbox_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      break;
+    }
+    case HAS_BBOX_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[4] = HAS_BBOX_NOT_SET;
+}
+
+void Status::clear_has_version() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_version_case()) {
+    case kVersion: {
+      has_version_.version_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      break;
+    }
+    case HAS_VERSION_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[5] = HAS_VERSION_NOT_SET;
+}
+
+void Status::clear_has_tileset_last_modified() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_tileset_last_modified_case()) {
+    case kTilesetLastModified: {
+      // No need to clear
+      break;
+    }
+    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[6] = HAS_TILESET_LAST_MODIFIED_NOT_SET;
+}
+
+
 void Status::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.Status)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      bbox_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      version_.ClearNonDefaultToEmpty();
-    }
-  }
-  ::memset(&has_tiles_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&has_live_traffic_) -
-      reinterpret_cast<char*>(&has_tiles_)) + sizeof(has_live_traffic_));
-  _has_bits_.Clear();
+  clear_has_has_tiles();
+  clear_has_has_admins();
+  clear_has_has_timezones();
+  clear_has_has_live_traffic();
+  clear_has_bbox();
+  clear_has_version();
+  clear_has_tileset_last_modified();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* Status::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional bool has_tiles = 1;
+      // bool has_tiles = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_has_tiles(&has_bits);
-          has_tiles_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _internal_set_has_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional bool has_admins = 2;
+      // bool has_admins = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _Internal::set_has_has_admins(&has_bits);
-          has_admins_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _internal_set_has_admins(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional bool has_timezones = 3;
+      // bool has_timezones = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _Internal::set_has_has_timezones(&has_bits);
-          has_timezones_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _internal_set_has_timezones(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional bool has_live_traffic = 4;
+      // bool has_live_traffic = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _Internal::set_has_has_live_traffic(&has_bits);
-          has_live_traffic_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _internal_set_has_live_traffic(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional string bbox = 5;
+      // string bbox = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_bbox();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional string version = 6;
+      // string version = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_version();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 tileset_last_modified = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _internal_set_tileset_last_modified(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -231,7 +369,6 @@ const char* Status::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -245,41 +382,54 @@ uint8_t* Status::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  // optional bool has_tiles = 1;
-  if (cached_has_bits & 0x00000004u) {
+  // bool has_tiles = 1;
+  if (_internal_has_has_tiles()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_has_tiles(), target);
   }
 
-  // optional bool has_admins = 2;
-  if (cached_has_bits & 0x00000008u) {
+  // bool has_admins = 2;
+  if (_internal_has_has_admins()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_has_admins(), target);
   }
 
-  // optional bool has_timezones = 3;
-  if (cached_has_bits & 0x00000010u) {
+  // bool has_timezones = 3;
+  if (_internal_has_has_timezones()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_has_timezones(), target);
   }
 
-  // optional bool has_live_traffic = 4;
-  if (cached_has_bits & 0x00000020u) {
+  // bool has_live_traffic = 4;
+  if (_internal_has_has_live_traffic()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_has_live_traffic(), target);
   }
 
-  // optional string bbox = 5;
-  if (cached_has_bits & 0x00000001u) {
+  // string bbox = 5;
+  if (_internal_has_bbox()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_bbox().data(), static_cast<int>(this->_internal_bbox().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "valhalla.Status.bbox");
     target = stream->WriteStringMaybeAliased(
         5, this->_internal_bbox(), target);
   }
 
-  // optional string version = 6;
-  if (cached_has_bits & 0x00000002u) {
+  // string version = 6;
+  if (_internal_has_version()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_version().data(), static_cast<int>(this->_internal_version().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "valhalla.Status.version");
     target = stream->WriteStringMaybeAliased(
         6, this->_internal_version(), target);
+  }
+
+  // uint32 tileset_last_modified = 7;
+  if (_internal_has_tileset_last_modified()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(7, this->_internal_tileset_last_modified(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -298,42 +448,79 @@ size_t Status::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
-    // optional string bbox = 5;
-    if (cached_has_bits & 0x00000001u) {
+  switch (has_has_tiles_case()) {
+    // bool has_tiles = 1;
+    case kHasTiles: {
+      total_size += 1 + 1;
+      break;
+    }
+    case HAS_HAS_TILES_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_has_admins_case()) {
+    // bool has_admins = 2;
+    case kHasAdmins: {
+      total_size += 1 + 1;
+      break;
+    }
+    case HAS_HAS_ADMINS_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_has_timezones_case()) {
+    // bool has_timezones = 3;
+    case kHasTimezones: {
+      total_size += 1 + 1;
+      break;
+    }
+    case HAS_HAS_TIMEZONES_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_has_live_traffic_case()) {
+    // bool has_live_traffic = 4;
+    case kHasLiveTraffic: {
+      total_size += 1 + 1;
+      break;
+    }
+    case HAS_HAS_LIVE_TRAFFIC_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_bbox_case()) {
+    // string bbox = 5;
+    case kBbox: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_bbox());
+      break;
     }
-
-    // optional string version = 6;
-    if (cached_has_bits & 0x00000002u) {
+    case HAS_BBOX_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_version_case()) {
+    // string version = 6;
+    case kVersion: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_version());
+      break;
     }
-
-    // optional bool has_tiles = 1;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+    case HAS_VERSION_NOT_SET: {
+      break;
     }
-
-    // optional bool has_admins = 2;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
+  }
+  switch (has_tileset_last_modified_case()) {
+    // uint32 tileset_last_modified = 7;
+    case kTilesetLastModified: {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_tileset_last_modified());
+      break;
     }
-
-    // optional bool has_timezones = 3;
-    if (cached_has_bits & 0x00000010u) {
-      total_size += 1 + 1;
+    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+      break;
     }
-
-    // optional bool has_live_traffic = 4;
-    if (cached_has_bits & 0x00000020u) {
-      total_size += 1 + 1;
-    }
-
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -355,27 +542,68 @@ void Status::MergeFrom(const Status& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
-    if (cached_has_bits & 0x00000001u) {
+  switch (from.has_has_tiles_case()) {
+    case kHasTiles: {
+      _internal_set_has_tiles(from._internal_has_tiles());
+      break;
+    }
+    case HAS_HAS_TILES_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_has_admins_case()) {
+    case kHasAdmins: {
+      _internal_set_has_admins(from._internal_has_admins());
+      break;
+    }
+    case HAS_HAS_ADMINS_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_has_timezones_case()) {
+    case kHasTimezones: {
+      _internal_set_has_timezones(from._internal_has_timezones());
+      break;
+    }
+    case HAS_HAS_TIMEZONES_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_has_live_traffic_case()) {
+    case kHasLiveTraffic: {
+      _internal_set_has_live_traffic(from._internal_has_live_traffic());
+      break;
+    }
+    case HAS_HAS_LIVE_TRAFFIC_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_bbox_case()) {
+    case kBbox: {
       _internal_set_bbox(from._internal_bbox());
+      break;
     }
-    if (cached_has_bits & 0x00000002u) {
+    case HAS_BBOX_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_version_case()) {
+    case kVersion: {
       _internal_set_version(from._internal_version());
+      break;
     }
-    if (cached_has_bits & 0x00000004u) {
-      has_tiles_ = from.has_tiles_;
+    case HAS_VERSION_NOT_SET: {
+      break;
     }
-    if (cached_has_bits & 0x00000008u) {
-      has_admins_ = from.has_admins_;
+  }
+  switch (from.has_tileset_last_modified_case()) {
+    case kTilesetLastModified: {
+      _internal_set_tileset_last_modified(from._internal_tileset_last_modified());
+      break;
     }
-    if (cached_has_bits & 0x00000010u) {
-      has_timezones_ = from.has_timezones_;
+    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+      break;
     }
-    if (cached_has_bits & 0x00000020u) {
-      has_live_traffic_ = from.has_live_traffic_;
-    }
-    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -393,26 +621,21 @@ bool Status::IsInitialized() const {
 
 void Status::InternalSwap(Status* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &bbox_, lhs_arena,
-      &other->bbox_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &version_, lhs_arena,
-      &other->version_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Status, has_live_traffic_)
-      + sizeof(Status::has_live_traffic_)
-      - PROTOBUF_FIELD_OFFSET(Status, has_tiles_)>(
-          reinterpret_cast<char*>(&has_tiles_),
-          reinterpret_cast<char*>(&other->has_tiles_));
+  swap(has_has_tiles_, other->has_has_tiles_);
+  swap(has_has_admins_, other->has_has_admins_);
+  swap(has_has_timezones_, other->has_has_timezones_);
+  swap(has_has_live_traffic_, other->has_has_live_traffic_);
+  swap(has_bbox_, other->has_bbox_);
+  swap(has_version_, other->has_version_);
+  swap(has_tileset_last_modified_, other->has_tileset_last_modified_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_oneof_case_[1], other->_oneof_case_[1]);
+  swap(_oneof_case_[2], other->_oneof_case_[2]);
+  swap(_oneof_case_[3], other->_oneof_case_[3]);
+  swap(_oneof_case_[4], other->_oneof_case_[4]);
+  swap(_oneof_case_[5], other->_oneof_case_[5]);
+  swap(_oneof_case_[6], other->_oneof_case_[6]);
 }
 
 std::string Status::GetTypeName() const {
