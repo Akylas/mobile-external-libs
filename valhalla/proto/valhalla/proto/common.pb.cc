@@ -109,6 +109,7 @@ constexpr Location::Location(
 
   , side_of_street_(0)
 
+  , waiting_secs_(0)
   , skip_ranking_candidates_(false)
   , preferred_side_(0)
 
@@ -3623,6 +3624,14 @@ const char* Location::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         } else
           goto handle_unusual;
         continue;
+      // float waiting_secs = 29;
+      case 29:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 237)) {
+          waiting_secs_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
       // .valhalla.Correlation correlation = 90;
       case 90:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
@@ -3807,6 +3816,16 @@ uint8_t* Location::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(28, this->_internal_preferred_layer(), target);
   }
 
+  // float waiting_secs = 29;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_waiting_secs = this->_internal_waiting_secs();
+  uint32_t raw_waiting_secs;
+  memcpy(&raw_waiting_secs, &tmp_waiting_secs, sizeof(tmp_waiting_secs));
+  if (raw_waiting_secs != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(29, this->_internal_waiting_secs(), target);
+  }
+
   // .valhalla.Correlation correlation = 90;
   if (this->_internal_has_correlation()) {
     target = stream->EnsureSpace(target);
@@ -3890,6 +3909,15 @@ size_t Location::ByteSizeLong() const {
   if (this->_internal_side_of_street() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_side_of_street());
+  }
+
+  // float waiting_secs = 29;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_waiting_secs = this->_internal_waiting_secs();
+  uint32_t raw_waiting_secs;
+  memcpy(&raw_waiting_secs, &tmp_waiting_secs, sizeof(tmp_waiting_secs));
+  if (raw_waiting_secs != 0) {
+    total_size += 2 + 4;
   }
 
   // bool skip_ranking_candidates = 21;
@@ -4073,6 +4101,13 @@ void Location::MergeFrom(const Location& from) {
   }
   if (from._internal_side_of_street() != 0) {
     _internal_set_side_of_street(from._internal_side_of_street());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_waiting_secs = from._internal_waiting_secs();
+  uint32_t raw_waiting_secs;
+  memcpy(&raw_waiting_secs, &tmp_waiting_secs, sizeof(tmp_waiting_secs));
+  if (raw_waiting_secs != 0) {
+    _internal_set_waiting_secs(from._internal_waiting_secs());
   }
   if (from._internal_skip_ranking_candidates() != 0) {
     _internal_set_skip_ranking_candidates(from._internal_skip_ranking_candidates());

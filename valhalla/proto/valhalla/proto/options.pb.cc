@@ -2691,6 +2691,16 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
   }
+  clear_has_has_non_network_penalty();
+  switch (from.has_non_network_penalty_case()) {
+    case kNonNetworkPenalty: {
+      _internal_set_non_network_penalty(from._internal_non_network_penalty());
+      break;
+    }
+    case HAS_NON_NETWORK_PENALTY_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:valhalla.Costing.Options)
 }
 
@@ -2771,6 +2781,7 @@ clear_has_has_include_hov3();
 clear_has_has_exclude_cash_only_tolls();
 clear_has_has_restriction_probability();
 clear_has_has_elevator_penalty();
+clear_has_has_non_network_penalty();
 }
 
 Costing_Options::~Costing_Options() {
@@ -2997,6 +3008,9 @@ inline void Costing_Options::SharedDtor() {
   }
   if (has_has_elevator_penalty()) {
     clear_has_elevator_penalty();
+  }
+  if (has_has_non_network_penalty()) {
+    clear_has_non_network_penalty();
   }
 }
 
@@ -4018,6 +4032,20 @@ void Costing_Options::clear_has_elevator_penalty() {
   _oneof_case_[71] = HAS_ELEVATOR_PENALTY_NOT_SET;
 }
 
+void Costing_Options::clear_has_non_network_penalty() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
+  switch (has_non_network_penalty_case()) {
+    case kNonNetworkPenalty: {
+      // No need to clear
+      break;
+    }
+    case HAS_NON_NETWORK_PENALTY_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[72] = HAS_NON_NETWORK_PENALTY_NOT_SET;
+}
+
 
 void Costing_Options::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.Costing.Options)
@@ -4104,6 +4132,7 @@ void Costing_Options::Clear() {
   clear_has_exclude_cash_only_tolls();
   clear_has_restriction_probability();
   clear_has_elevator_penalty();
+  clear_has_non_network_penalty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4792,6 +4821,14 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
         } else
           goto handle_unusual;
         continue;
+      // float non_network_penalty = 82;
+      case 82:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 149)) {
+          _internal_set_non_network_penalty(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5326,6 +5363,12 @@ uint8_t* Costing_Options::_InternalSerialize(
   if (this->_internal_axle_count() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(81, this->_internal_axle_count(), target);
+  }
+
+  // float non_network_penalty = 82;
+  if (_internal_has_non_network_penalty()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(82, this->_internal_non_network_penalty(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6143,6 +6186,16 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
   }
+  switch (has_non_network_penalty_case()) {
+    // float non_network_penalty = 82;
+    case kNonNetworkPenalty: {
+      total_size += 2 + 4;
+      break;
+    }
+    case HAS_NON_NETWORK_PENALTY_NOT_SET: {
+      break;
+    }
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -6830,6 +6883,15 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
   }
+  switch (from.has_non_network_penalty_case()) {
+    case kNonNetworkPenalty: {
+      _internal_set_non_network_penalty(from._internal_non_network_penalty());
+      break;
+    }
+    case HAS_NON_NETWORK_PENALTY_NOT_SET: {
+      break;
+    }
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6929,6 +6991,7 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(has_exclude_cash_only_tolls_, other->has_exclude_cash_only_tolls_);
   swap(has_restriction_probability_, other->has_restriction_probability_);
   swap(has_elevator_penalty_, other->has_elevator_penalty_);
+  swap(has_non_network_penalty_, other->has_non_network_penalty_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   swap(_oneof_case_[1], other->_oneof_case_[1]);
   swap(_oneof_case_[2], other->_oneof_case_[2]);
@@ -7001,6 +7064,7 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(_oneof_case_[69], other->_oneof_case_[69]);
   swap(_oneof_case_[70], other->_oneof_case_[70]);
   swap(_oneof_case_[71], other->_oneof_case_[71]);
+  swap(_oneof_case_[72], other->_oneof_case_[72]);
 }
 
 std::string Costing_Options::GetTypeName() const {
