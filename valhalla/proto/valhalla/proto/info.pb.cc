@@ -30,10 +30,25 @@ struct StatisticDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StatisticDefaultTypeInternal _Statistic_default_instance_;
+constexpr CodedDescription::CodedDescription(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : description_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , code_(uint64_t{0u}){}
+struct CodedDescriptionDefaultTypeInternal {
+  constexpr CodedDescriptionDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CodedDescriptionDefaultTypeInternal() {}
+  union {
+    CodedDescription _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CodedDescriptionDefaultTypeInternal _CodedDescription_default_instance_;
 constexpr Info::Info(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : statistics_()
-  , error_(false){}
+  , errors_()
+  , warnings_()
+  , is_service_(false){}
 struct InfoDefaultTypeInternal {
   constexpr InfoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -109,19 +124,6 @@ bool StatisticType_Parse(
 
 class Statistic::_Internal {
  public:
-  using HasBits = decltype(std::declval<Statistic>()._has_bits_);
-  static void set_has_key(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_value(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_frequency(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
 };
 
 Statistic::Statistic(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -134,14 +136,13 @@ Statistic::Statistic(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:valhalla.Statistic)
 }
 Statistic::Statistic(const Statistic& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_key()) {
+  if (!from._internal_key().empty()) {
     key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_key(), 
       GetArenaForAllocation());
   }
@@ -190,63 +191,51 @@ void Statistic::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    key_.ClearNonDefaultToEmpty();
-  }
-  if (cached_has_bits & 0x0000000eu) {
-    ::memset(&value_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&type_) -
-        reinterpret_cast<char*>(&value_)) + sizeof(type_));
-  }
-  _has_bits_.Clear();
+  key_.ClearToEmpty();
+  ::memset(&value_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&type_) -
+      reinterpret_cast<char*>(&value_)) + sizeof(type_));
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* Statistic::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional string key = 1;
+      // string key = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_key();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional double value = 2;
+      // double value = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
-          _Internal::set_has_value(&has_bits);
           value_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
         continue;
-      // optional float frequency = 3;
+      // float frequency = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
-          _Internal::set_has_frequency(&has_bits);
           frequency_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // optional .valhalla.StatisticType type = 4;
+      // .valhalla.StatisticType type = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::valhalla::StatisticType_IsValid(val))) {
-            _internal_set_type(static_cast<::valhalla::StatisticType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
-          }
+          _internal_set_type(static_cast<::valhalla::StatisticType>(val));
         } else
           goto handle_unusual;
         continue;
@@ -266,7 +255,6 @@ const char* Statistic::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -280,27 +268,38 @@ uint8_t* Statistic::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  // optional string key = 1;
-  if (cached_has_bits & 0x00000001u) {
+  // string key = 1;
+  if (!this->_internal_key().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_key().data(), static_cast<int>(this->_internal_key().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "valhalla.Statistic.key");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_key(), target);
   }
 
-  // optional double value = 2;
-  if (cached_has_bits & 0x00000002u) {
+  // double value = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_value = this->_internal_value();
+  uint64_t raw_value;
+  memcpy(&raw_value, &tmp_value, sizeof(tmp_value));
+  if (raw_value != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_value(), target);
   }
 
-  // optional float frequency = 3;
-  if (cached_has_bits & 0x00000004u) {
+  // float frequency = 3;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_frequency = this->_internal_frequency();
+  uint32_t raw_frequency;
+  memcpy(&raw_frequency, &tmp_frequency, sizeof(tmp_frequency));
+  if (raw_frequency != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_frequency(), target);
   }
 
-  // optional .valhalla.StatisticType type = 4;
-  if (cached_has_bits & 0x00000008u) {
+  // .valhalla.StatisticType type = 4;
+  if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       4, this->_internal_type(), target);
@@ -322,32 +321,37 @@ size_t Statistic::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
-    // optional string key = 1;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_key());
-    }
-
-    // optional double value = 2;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 + 8;
-    }
-
-    // optional float frequency = 3;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 4;
-    }
-
-    // optional .valhalla.StatisticType type = 4;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
-    }
-
+  // string key = 1;
+  if (!this->_internal_key().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_key());
   }
+
+  // double value = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_value = this->_internal_value();
+  uint64_t raw_value;
+  memcpy(&raw_value, &tmp_value, sizeof(tmp_value));
+  if (raw_value != 0) {
+    total_size += 1 + 8;
+  }
+
+  // float frequency = 3;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_frequency = this->_internal_frequency();
+  uint32_t raw_frequency;
+  memcpy(&raw_frequency, &tmp_frequency, sizeof(tmp_frequency));
+  if (raw_frequency != 0) {
+    total_size += 1 + 4;
+  }
+
+  // .valhalla.StatisticType type = 4;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -368,21 +372,25 @@ void Statistic::MergeFrom(const Statistic& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_set_key(from._internal_key());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      value_ = from.value_;
-    }
-    if (cached_has_bits & 0x00000004u) {
-      frequency_ = from.frequency_;
-    }
-    if (cached_has_bits & 0x00000008u) {
-      type_ = from.type_;
-    }
-    _has_bits_[0] |= cached_has_bits;
+  if (!from._internal_key().empty()) {
+    _internal_set_key(from._internal_key());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_value = from._internal_value();
+  uint64_t raw_value;
+  memcpy(&raw_value, &tmp_value, sizeof(tmp_value));
+  if (raw_value != 0) {
+    _internal_set_value(from._internal_value());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_frequency = from._internal_frequency();
+  uint32_t raw_frequency;
+  memcpy(&raw_frequency, &tmp_frequency, sizeof(tmp_frequency));
+  if (raw_frequency != 0) {
+    _internal_set_frequency(from._internal_frequency());
+  }
+  if (from._internal_type() != 0) {
+    _internal_set_type(from._internal_type());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -403,7 +411,6 @@ void Statistic::InternalSwap(Statistic* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &key_, lhs_arena,
@@ -424,18 +431,242 @@ std::string Statistic::GetTypeName() const {
 
 // ===================================================================
 
+class CodedDescription::_Internal {
+ public:
+};
+
+CodedDescription::CodedDescription(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:valhalla.CodedDescription)
+}
+CodedDescription::CodedDescription(const CodedDescription& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_description().empty()) {
+    description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_description(), 
+      GetArenaForAllocation());
+  }
+  code_ = from.code_;
+  // @@protoc_insertion_point(copy_constructor:valhalla.CodedDescription)
+}
+
+inline void CodedDescription::SharedCtor() {
+description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+code_ = uint64_t{0u};
+}
+
+CodedDescription::~CodedDescription() {
+  // @@protoc_insertion_point(destructor:valhalla.CodedDescription)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void CodedDescription::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  description_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void CodedDescription::ArenaDtor(void* object) {
+  CodedDescription* _this = reinterpret_cast< CodedDescription* >(object);
+  (void)_this;
+}
+void CodedDescription::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void CodedDescription::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CodedDescription::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.CodedDescription)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  description_.ClearToEmpty();
+  code_ = uint64_t{0u};
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CodedDescription::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string description = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_description();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint64 code = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CodedDescription::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.CodedDescription)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string description = 1;
+  if (!this->_internal_description().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_description().data(), static_cast<int>(this->_internal_description().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "valhalla.CodedDescription.description");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_description(), target);
+  }
+
+  // uint64 code = 2;
+  if (this->_internal_code() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_code(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.CodedDescription)
+  return target;
+}
+
+size_t CodedDescription::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.CodedDescription)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string description = 1;
+  if (!this->_internal_description().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_description());
+  }
+
+  // uint64 code = 2;
+  if (this->_internal_code() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CodedDescription::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CodedDescription*>(
+      &from));
+}
+
+void CodedDescription::MergeFrom(const CodedDescription& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.CodedDescription)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_description().empty()) {
+    _internal_set_description(from._internal_description());
+  }
+  if (from._internal_code() != 0) {
+    _internal_set_code(from._internal_code());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CodedDescription::CopyFrom(const CodedDescription& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.CodedDescription)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CodedDescription::IsInitialized() const {
+  return true;
+}
+
+void CodedDescription::InternalSwap(CodedDescription* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &description_, lhs_arena,
+      &other->description_, rhs_arena
+  );
+  swap(code_, other->code_);
+}
+
+std::string CodedDescription::GetTypeName() const {
+  return "valhalla.CodedDescription";
+}
+
+
+// ===================================================================
+
 class Info::_Internal {
  public:
-  using HasBits = decltype(std::declval<Info>()._has_bits_);
-  static void set_has_error(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
 };
 
 Info::Info(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  statistics_(arena) {
+  statistics_(arena),
+  errors_(arena),
+  warnings_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -444,15 +675,16 @@ Info::Info(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 Info::Info(const Info& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      statistics_(from.statistics_) {
+      statistics_(from.statistics_),
+      errors_(from.errors_),
+      warnings_(from.warnings_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_ = from.error_;
+  is_service_ = from.is_service_;
   // @@protoc_insertion_point(copy_constructor:valhalla.Info)
 }
 
 inline void Info::SharedCtor() {
-error_ = false;
+is_service_ = false;
 }
 
 Info::~Info() {
@@ -483,14 +715,14 @@ void Info::Clear() {
   (void) cached_has_bits;
 
   statistics_.Clear();
-  error_ = false;
-  _has_bits_.Clear();
+  errors_.Clear();
+  warnings_.Clear();
+  is_service_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* Info::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -508,11 +740,36 @@ const char* Info::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         } else
           goto handle_unusual;
         continue;
-      // optional bool error = 2;
+      // repeated .valhalla.CodedDescription errors = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _Internal::set_has_error(&has_bits);
-          error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_errors(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .valhalla.CodedDescription warnings = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_warnings(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_service = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          is_service_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -533,7 +790,6 @@ const char* Info::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -555,11 +811,26 @@ uint8_t* Info::_InternalSerialize(
       InternalWriteMessage(1, this->_internal_statistics(i), target, stream);
   }
 
-  cached_has_bits = _has_bits_[0];
-  // optional bool error = 2;
-  if (cached_has_bits & 0x00000001u) {
+  // repeated .valhalla.CodedDescription errors = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_errors_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_error(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, this->_internal_errors(i), target, stream);
+  }
+
+  // repeated .valhalla.CodedDescription warnings = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_warnings_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_warnings(i), target, stream);
+  }
+
+  // bool is_service = 4;
+  if (this->_internal_is_service() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_is_service(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -585,9 +856,22 @@ size_t Info::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // optional bool error = 2;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
+  // repeated .valhalla.CodedDescription errors = 2;
+  total_size += 1UL * this->_internal_errors_size();
+  for (const auto& msg : this->errors_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .valhalla.CodedDescription warnings = 3;
+  total_size += 1UL * this->_internal_warnings_size();
+  for (const auto& msg : this->warnings_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // bool is_service = 4;
+  if (this->_internal_is_service() != 0) {
     total_size += 1 + 1;
   }
 
@@ -612,8 +896,10 @@ void Info::MergeFrom(const Info& from) {
   (void) cached_has_bits;
 
   statistics_.MergeFrom(from.statistics_);
-  if (from._internal_has_error()) {
-    _internal_set_error(from._internal_error());
+  errors_.MergeFrom(from.errors_);
+  warnings_.MergeFrom(from.warnings_);
+  if (from._internal_is_service() != 0) {
+    _internal_set_is_service(from._internal_is_service());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -632,9 +918,10 @@ bool Info::IsInitialized() const {
 void Info::InternalSwap(Info* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
   statistics_.InternalSwap(&other->statistics_);
-  swap(error_, other->error_);
+  errors_.InternalSwap(&other->errors_);
+  warnings_.InternalSwap(&other->warnings_);
+  swap(is_service_, other->is_service_);
 }
 
 std::string Info::GetTypeName() const {
@@ -647,6 +934,9 @@ std::string Info::GetTypeName() const {
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::valhalla::Statistic* Arena::CreateMaybeMessage< ::valhalla::Statistic >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Statistic >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::CodedDescription* Arena::CreateMaybeMessage< ::valhalla::CodedDescription >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::CodedDescription >(arena);
 }
 template<> PROTOBUF_NOINLINE ::valhalla::Info* Arena::CreateMaybeMessage< ::valhalla::Info >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Info >(arena);
