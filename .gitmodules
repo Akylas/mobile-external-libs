@@ -16,7 +16,7 @@
 	branch = master
 [submodule "zlib/zlib"]
 	path = zlib/zlib
-	url = https://github.com/nutiteq/zlib.git
+	url = https://github.com/madler/zlib.git
 	branch = master
 [submodule "pugixml/pugixml"]
 	path = pugixml/pugixml
