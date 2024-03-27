@@ -13,23 +13,27 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace valhalla {
-constexpr Api::Api(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_CONSTEXPR Api::Api(
+    ::_pbi::ConstantInitialized)
   : options_(nullptr)
   , trip_(nullptr)
   , directions_(nullptr)
   , status_(nullptr)
   , info_(nullptr){}
 struct ApiDefaultTypeInternal {
-  constexpr ApiDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ApiDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ApiDefaultTypeInternal() {}
   union {
     Api _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ApiDefaultTypeInternal _Api_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ApiDefaultTypeInternal _Api_default_instance_;
 }  // namespace valhalla
 namespace valhalla {
 
@@ -98,9 +102,6 @@ Api::Api(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.Api)
 }
 Api::Api(const Api& from)
@@ -143,9 +144,11 @@ inline void Api::SharedCtor() {
 
 Api::~Api() {
   // @@protoc_insertion_point(destructor:valhalla.Api)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Api::SharedDtor() {
@@ -157,12 +160,6 @@ inline void Api::SharedDtor() {
   if (this != internal_default_instance()) delete info_;
 }
 
-void Api::ArenaDtor(void* object) {
-  Api* _this = reinterpret_cast< Api* >(object);
-  (void)_this;
-}
-void Api::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Api::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -196,11 +193,11 @@ void Api::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Api::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Api::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .valhalla.Options options = 1;
       case 1:
@@ -273,42 +270,37 @@ uint8_t* Api::_InternalSerialize(
 
   // .valhalla.Options options = 1;
   if (this->_internal_has_options()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::options(this), target, stream);
+      InternalWriteMessage(1, _Internal::options(this),
+        _Internal::options(this).GetCachedSize(), target, stream);
   }
 
   // .valhalla.Trip trip = 2;
   if (this->_internal_has_trip()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::trip(this), target, stream);
+      InternalWriteMessage(2, _Internal::trip(this),
+        _Internal::trip(this).GetCachedSize(), target, stream);
   }
 
   // .valhalla.Directions directions = 3;
   if (this->_internal_has_directions()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::directions(this), target, stream);
+      InternalWriteMessage(3, _Internal::directions(this),
+        _Internal::directions(this).GetCachedSize(), target, stream);
   }
 
   // .valhalla.Status status = 4;
   if (this->_internal_has_status()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::status(this), target, stream);
+      InternalWriteMessage(4, _Internal::status(this),
+        _Internal::status(this).GetCachedSize(), target, stream);
   }
 
   // .valhalla.Info info = 20;
   if (this->_internal_has_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        20, _Internal::info(this), target, stream);
+      InternalWriteMessage(20, _Internal::info(this),
+        _Internal::info(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -365,14 +357,14 @@ size_t Api::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Api::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Api*>(
+  MergeFrom(*::_pbi::DownCast<const Api*>(
       &from));
 }
 
@@ -430,7 +422,8 @@ std::string Api::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace valhalla
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::valhalla::Api* Arena::CreateMaybeMessage< ::valhalla::Api >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::Api*
+Arena::CreateMaybeMessage< ::valhalla::Api >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Api >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

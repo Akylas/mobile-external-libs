@@ -33,6 +33,8 @@ file(GLOB protobuf_SRC_FILES
   protobuf/src/google/protobuf/wire_format_lite.cc
 )
 
+#add_subdirectory("${PROJECT_SOURCE_DIR}/protobuf/third_party/abseil-cpp")
+
 set(protobuf_FLAGS "")
 if(WIN32)
   set(protobuf_FLAGS ${protobuf_FLAGS} "/wd4018" "/wd4065" "/wd4506" "/wd4267")
@@ -41,6 +43,9 @@ elseif(ANDROID OR APPLE)
 endif()
 
 set(protobuf_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/protobuf/src" PARENT_SCOPE)
+#set(protobuf_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/protobuf/src" "${PROJECT_SOURCE_DIR}/protobuf/third_party/abseil-cpp" "${PROJECT_SOURCE_DIR}/protobuf/third_party/utf8_range" PARENT_SCOPE)
+#include_directories("${PROJECT_SOURCE_DIR}/protobuf/third_party/abseil-cpp")
+#include_directories("${PROJECT_SOURCE_DIR}/protobuf/third_party/utf8_range")
 
 if(SINGLE_LIBRARY)
   set(protobuf_SRC_FILES ${protobuf_SRC_FILES} PARENT_SCOPE)

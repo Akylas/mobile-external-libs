@@ -13,24 +13,28 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace valhalla {
-constexpr TripSignElement::TripSignElement(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+PROTOBUF_CONSTEXPR TripSignElement::TripSignElement(
+    ::_pbi::ConstantInitialized)
+  : text_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , pronunciation_(nullptr)
   , is_route_number_(false)
   , consecutive_count_(0u){}
 struct TripSignElementDefaultTypeInternal {
-  constexpr TripSignElementDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TripSignElementDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TripSignElementDefaultTypeInternal() {}
   union {
     TripSignElement _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TripSignElementDefaultTypeInternal _TripSignElement_default_instance_;
-constexpr TripSign::TripSign(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TripSignElementDefaultTypeInternal _TripSignElement_default_instance_;
+PROTOBUF_CONSTEXPR TripSign::TripSign(
+    ::_pbi::ConstantInitialized)
   : exit_numbers_()
   , exit_onto_streets_()
   , exit_toward_locations_()
@@ -41,14 +45,14 @@ constexpr TripSign::TripSign(
   , guidance_view_junctions_()
   , guidance_view_signboards_(){}
 struct TripSignDefaultTypeInternal {
-  constexpr TripSignDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TripSignDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TripSignDefaultTypeInternal() {}
   union {
     TripSign _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TripSignDefaultTypeInternal _TripSign_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TripSignDefaultTypeInternal _TripSign_default_instance_;
 }  // namespace valhalla
 namespace valhalla {
 
@@ -73,20 +77,17 @@ TripSignElement::TripSignElement(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.TripSignElement)
 }
 TripSignElement::TripSignElement(const TripSignElement& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    text_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_text().empty()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
+    text_.Set(from._internal_text(), 
       GetArenaForAllocation());
   }
   if (from._internal_has_pronunciation()) {
@@ -101,9 +102,9 @@ TripSignElement::TripSignElement(const TripSignElement& from)
 }
 
 inline void TripSignElement::SharedCtor() {
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+text_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  text_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&pronunciation_) - reinterpret_cast<char*>(this)),
@@ -113,23 +114,19 @@ text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlready
 
 TripSignElement::~TripSignElement() {
   // @@protoc_insertion_point(destructor:valhalla.TripSignElement)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void TripSignElement::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  text_.Destroy();
   if (this != internal_default_instance()) delete pronunciation_;
 }
 
-void TripSignElement::ArenaDtor(void* object) {
-  TripSignElement* _this = reinterpret_cast< TripSignElement* >(object);
-  (void)_this;
-}
-void TripSignElement::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TripSignElement::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -151,19 +148,19 @@ void TripSignElement::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* TripSignElement::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TripSignElement::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -233,21 +230,20 @@ uint8_t* TripSignElement::_InternalSerialize(
   // bool is_route_number = 2;
   if (this->_internal_is_route_number() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_is_route_number(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_route_number(), target);
   }
 
   // uint32 consecutive_count = 3;
   if (this->_internal_consecutive_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_consecutive_count(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_consecutive_count(), target);
   }
 
   // .valhalla.Pronunciation pronunciation = 4;
   if (this->_internal_has_pronunciation()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::pronunciation(this), target, stream);
+      InternalWriteMessage(4, _Internal::pronunciation(this),
+        _Internal::pronunciation(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -287,20 +283,20 @@ size_t TripSignElement::ByteSizeLong() const {
 
   // uint32 consecutive_count = 3;
   if (this->_internal_consecutive_count() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_consecutive_count());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_consecutive_count());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void TripSignElement::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const TripSignElement*>(
+  MergeFrom(*::_pbi::DownCast<const TripSignElement*>(
       &from));
 }
 
@@ -342,7 +338,6 @@ void TripSignElement::InternalSwap(TripSignElement* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &text_, lhs_arena,
       &other->text_, rhs_arena
   );
@@ -378,9 +373,6 @@ TripSign::TripSign(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   guidance_view_junctions_(arena),
   guidance_view_signboards_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.TripSign)
 }
 TripSign::TripSign(const TripSign& from)
@@ -403,21 +395,17 @@ inline void TripSign::SharedCtor() {
 
 TripSign::~TripSign() {
   // @@protoc_insertion_point(destructor:valhalla.TripSign)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void TripSign::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void TripSign::ArenaDtor(void* object) {
-  TripSign* _this = reinterpret_cast< TripSign* >(object);
-  (void)_this;
-}
-void TripSign::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TripSign::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -440,11 +428,11 @@ void TripSign::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* TripSign::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TripSign::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .valhalla.TripSignElement exit_numbers = 1;
       case 1:
@@ -593,75 +581,75 @@ uint8_t* TripSign::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .valhalla.TripSignElement exit_numbers = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_exit_numbers_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_exit_numbers_size()); i < n; i++) {
+    const auto& repfield = this->_internal_exit_numbers(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_exit_numbers(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement exit_onto_streets = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_exit_onto_streets_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_exit_onto_streets_size()); i < n; i++) {
+    const auto& repfield = this->_internal_exit_onto_streets(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_exit_onto_streets(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement exit_toward_locations = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_exit_toward_locations_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_exit_toward_locations_size()); i < n; i++) {
+    const auto& repfield = this->_internal_exit_toward_locations(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_exit_toward_locations(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement exit_names = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_exit_names_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_exit_names_size()); i < n; i++) {
+    const auto& repfield = this->_internal_exit_names(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_exit_names(i), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement guide_onto_streets = 5;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_guide_onto_streets_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_guide_onto_streets_size()); i < n; i++) {
+    const auto& repfield = this->_internal_guide_onto_streets(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, this->_internal_guide_onto_streets(i), target, stream);
+        InternalWriteMessage(5, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement guide_toward_locations = 6;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_guide_toward_locations_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_guide_toward_locations_size()); i < n; i++) {
+    const auto& repfield = this->_internal_guide_toward_locations(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, this->_internal_guide_toward_locations(i), target, stream);
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement junction_names = 7;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_junction_names_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_junction_names_size()); i < n; i++) {
+    const auto& repfield = this->_internal_junction_names(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, this->_internal_junction_names(i), target, stream);
+        InternalWriteMessage(7, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement guidance_view_junctions = 8;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_guidance_view_junctions_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_guidance_view_junctions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_guidance_view_junctions(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, this->_internal_guidance_view_junctions(i), target, stream);
+        InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.TripSignElement guidance_view_signboards = 9;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_guidance_view_signboards_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_guidance_view_signboards_size()); i < n; i++) {
+    const auto& repfield = this->_internal_guidance_view_signboards(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(9, this->_internal_guidance_view_signboards(i), target, stream);
+        InternalWriteMessage(9, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -746,14 +734,14 @@ size_t TripSign::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void TripSign::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const TripSign*>(
+  MergeFrom(*::_pbi::DownCast<const TripSign*>(
       &from));
 }
 
@@ -808,10 +796,12 @@ std::string TripSign::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace valhalla
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::valhalla::TripSignElement* Arena::CreateMaybeMessage< ::valhalla::TripSignElement >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::TripSignElement*
+Arena::CreateMaybeMessage< ::valhalla::TripSignElement >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::TripSignElement >(arena);
 }
-template<> PROTOBUF_NOINLINE ::valhalla::TripSign* Arena::CreateMaybeMessage< ::valhalla::TripSign >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::TripSign*
+Arena::CreateMaybeMessage< ::valhalla::TripSign >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::TripSign >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

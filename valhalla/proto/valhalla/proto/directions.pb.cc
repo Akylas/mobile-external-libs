@@ -13,56 +13,57 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace valhalla {
-constexpr DirectionsLeg_Summary::DirectionsLeg_Summary(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_CONSTEXPR DirectionsLeg_Summary::DirectionsLeg_Summary(
+    ::_pbi::ConstantInitialized)
   : bbox_(nullptr)
   , time_(0)
   , length_(0)
-  , has_time_restrictions_(false)
-  , has_toll_(false)
-  , has_ferry_(false)
-  , has_highway_(false){}
+  , has_time_restrictions_(false){}
 struct DirectionsLeg_SummaryDefaultTypeInternal {
-  constexpr DirectionsLeg_SummaryDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DirectionsLeg_SummaryDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DirectionsLeg_SummaryDefaultTypeInternal() {}
   union {
     DirectionsLeg_Summary _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirectionsLeg_SummaryDefaultTypeInternal _DirectionsLeg_Summary_default_instance_;
-constexpr DirectionsLeg_GuidanceView::DirectionsLeg_GuidanceView(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsLeg_SummaryDefaultTypeInternal _DirectionsLeg_Summary_default_instance_;
+PROTOBUF_CONSTEXPR DirectionsLeg_GuidanceView::DirectionsLeg_GuidanceView(
+    ::_pbi::ConstantInitialized)
   : overlay_ids_()
-  , data_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , base_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , data_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , base_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , type_(0)
 {}
 struct DirectionsLeg_GuidanceViewDefaultTypeInternal {
-  constexpr DirectionsLeg_GuidanceViewDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DirectionsLeg_GuidanceViewDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DirectionsLeg_GuidanceViewDefaultTypeInternal() {}
   union {
     DirectionsLeg_GuidanceView _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirectionsLeg_GuidanceViewDefaultTypeInternal _DirectionsLeg_GuidanceView_default_instance_;
-constexpr DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsLeg_GuidanceViewDefaultTypeInternal _DirectionsLeg_GuidanceView_default_instance_;
+PROTOBUF_CONSTEXPR DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(
+    ::_pbi::ConstantInitialized)
   : street_name_()
   , begin_street_name_()
   , roundabout_exit_street_names_()
   , guidance_views_()
-  , text_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , verbal_transition_alert_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , verbal_pre_transition_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , verbal_post_transition_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , depart_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , verbal_depart_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , arrive_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , verbal_arrive_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , verbal_succinct_transition_instruction_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , text_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , verbal_transition_alert_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , verbal_pre_transition_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , verbal_post_transition_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , depart_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , verbal_depart_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , arrive_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , verbal_arrive_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , verbal_succinct_transition_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , sign_(nullptr)
   , transit_info_(nullptr)
   , bss_info_(nullptr)
@@ -93,62 +94,60 @@ constexpr DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(
   , begin_path_index_(0u)
   , end_path_index_(0u)
   , turn_degree_(0u)
-  , bss_maneuver_type_(0)
-
   , has_time_restrictions_(false)
-  , portions_highway_(false)
-  , portions_ferry_(false){}
+  , bss_maneuver_type_(0)
+{}
 struct DirectionsLeg_ManeuverDefaultTypeInternal {
-  constexpr DirectionsLeg_ManeuverDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DirectionsLeg_ManeuverDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DirectionsLeg_ManeuverDefaultTypeInternal() {}
   union {
     DirectionsLeg_Maneuver _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirectionsLeg_ManeuverDefaultTypeInternal _DirectionsLeg_Maneuver_default_instance_;
-constexpr DirectionsLeg::DirectionsLeg(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsLeg_ManeuverDefaultTypeInternal _DirectionsLeg_Maneuver_default_instance_;
+PROTOBUF_CONSTEXPR DirectionsLeg::DirectionsLeg(
+    ::_pbi::ConstantInitialized)
   : location_()
   , maneuver_()
-  , shape_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , shape_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , summary_(nullptr)
   , trip_id_(uint64_t{0u})
   , leg_id_(0u)
   , leg_count_(0u){}
 struct DirectionsLegDefaultTypeInternal {
-  constexpr DirectionsLegDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DirectionsLegDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DirectionsLegDefaultTypeInternal() {}
   union {
     DirectionsLeg _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirectionsLegDefaultTypeInternal _DirectionsLeg_default_instance_;
-constexpr DirectionsRoute::DirectionsRoute(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsLegDefaultTypeInternal _DirectionsLeg_default_instance_;
+PROTOBUF_CONSTEXPR DirectionsRoute::DirectionsRoute(
+    ::_pbi::ConstantInitialized)
   : legs_(){}
 struct DirectionsRouteDefaultTypeInternal {
-  constexpr DirectionsRouteDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DirectionsRouteDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DirectionsRouteDefaultTypeInternal() {}
   union {
     DirectionsRoute _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirectionsRouteDefaultTypeInternal _DirectionsRoute_default_instance_;
-constexpr Directions::Directions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsRouteDefaultTypeInternal _DirectionsRoute_default_instance_;
+PROTOBUF_CONSTEXPR Directions::Directions(
+    ::_pbi::ConstantInitialized)
   : routes_(){}
 struct DirectionsDefaultTypeInternal {
-  constexpr DirectionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DirectionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DirectionsDefaultTypeInternal() {}
   union {
     Directions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirectionsDefaultTypeInternal _Directions_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsDefaultTypeInternal _Directions_default_instance_;
 }  // namespace valhalla
 namespace valhalla {
 bool DirectionsLeg_GuidanceView_Type_IsValid(int value) {
@@ -685,9 +684,6 @@ DirectionsLeg_Summary::DirectionsLeg_Summary(::PROTOBUF_NAMESPACE_ID::Arena* are
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg.Summary)
 }
 DirectionsLeg_Summary::DirectionsLeg_Summary(const DirectionsLeg_Summary& from)
@@ -699,23 +695,25 @@ DirectionsLeg_Summary::DirectionsLeg_Summary(const DirectionsLeg_Summary& from)
     bbox_ = nullptr;
   }
   ::memcpy(&time_, &from.time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&has_highway_) -
-    reinterpret_cast<char*>(&time_)) + sizeof(has_highway_));
+    static_cast<size_t>(reinterpret_cast<char*>(&has_time_restrictions_) -
+    reinterpret_cast<char*>(&time_)) + sizeof(has_time_restrictions_));
   // @@protoc_insertion_point(copy_constructor:valhalla.DirectionsLeg.Summary)
 }
 
 inline void DirectionsLeg_Summary::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&bbox_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&has_highway_) -
-    reinterpret_cast<char*>(&bbox_)) + sizeof(has_highway_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&has_time_restrictions_) -
+    reinterpret_cast<char*>(&bbox_)) + sizeof(has_time_restrictions_));
 }
 
 DirectionsLeg_Summary::~DirectionsLeg_Summary() {
   // @@protoc_insertion_point(destructor:valhalla.DirectionsLeg.Summary)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DirectionsLeg_Summary::SharedDtor() {
@@ -723,12 +721,6 @@ inline void DirectionsLeg_Summary::SharedDtor() {
   if (this != internal_default_instance()) delete bbox_;
 }
 
-void DirectionsLeg_Summary::ArenaDtor(void* object) {
-  DirectionsLeg_Summary* _this = reinterpret_cast< DirectionsLeg_Summary* >(object);
-  (void)_this;
-}
-void DirectionsLeg_Summary::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DirectionsLeg_Summary::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -744,16 +736,16 @@ void DirectionsLeg_Summary::Clear() {
   }
   bbox_ = nullptr;
   ::memset(&time_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&has_highway_) -
-      reinterpret_cast<char*>(&time_)) + sizeof(has_highway_));
+      reinterpret_cast<char*>(&has_time_restrictions_) -
+      reinterpret_cast<char*>(&time_)) + sizeof(has_time_restrictions_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DirectionsLeg_Summary::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DirectionsLeg_Summary::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // float length = 1;
       case 1:
@@ -783,30 +775,6 @@ const char* DirectionsLeg_Summary::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           has_time_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_toll = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          has_toll_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_ferry = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          has_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_highway = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          has_highway_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -847,7 +815,7 @@ uint8_t* DirectionsLeg_Summary::_InternalSerialize(
   memcpy(&raw_length, &tmp_length, sizeof(tmp_length));
   if (raw_length != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_length(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(1, this->_internal_length(), target);
   }
 
   // double time = 2;
@@ -857,39 +825,20 @@ uint8_t* DirectionsLeg_Summary::_InternalSerialize(
   memcpy(&raw_time, &tmp_time, sizeof(tmp_time));
   if (raw_time != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_time(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_time(), target);
   }
 
   // .valhalla.BoundingBox bbox = 3;
   if (this->_internal_has_bbox()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::bbox(this), target, stream);
+      InternalWriteMessage(3, _Internal::bbox(this),
+        _Internal::bbox(this).GetCachedSize(), target, stream);
   }
 
   // bool has_time_restrictions = 4;
   if (this->_internal_has_time_restrictions() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_has_time_restrictions(), target);
-  }
-
-  // bool has_toll = 5;
-  if (this->_internal_has_toll() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_has_toll(), target);
-  }
-
-  // bool has_ferry = 6;
-  if (this->_internal_has_ferry() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_has_ferry(), target);
-  }
-
-  // bool has_highway = 7;
-  if (this->_internal_has_highway() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_has_highway(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_has_time_restrictions(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -938,32 +887,17 @@ size_t DirectionsLeg_Summary::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool has_toll = 5;
-  if (this->_internal_has_toll() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool has_ferry = 6;
-  if (this->_internal_has_ferry() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool has_highway = 7;
-  if (this->_internal_has_highway() != 0) {
-    total_size += 1 + 1;
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DirectionsLeg_Summary::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DirectionsLeg_Summary*>(
+  MergeFrom(*::_pbi::DownCast<const DirectionsLeg_Summary*>(
       &from));
 }
 
@@ -993,15 +927,6 @@ void DirectionsLeg_Summary::MergeFrom(const DirectionsLeg_Summary& from) {
   if (from._internal_has_time_restrictions() != 0) {
     _internal_set_has_time_restrictions(from._internal_has_time_restrictions());
   }
-  if (from._internal_has_toll() != 0) {
-    _internal_set_has_toll(from._internal_has_toll());
-  }
-  if (from._internal_has_ferry() != 0) {
-    _internal_set_has_ferry(from._internal_has_ferry());
-  }
-  if (from._internal_has_highway() != 0) {
-    _internal_set_has_highway(from._internal_has_highway());
-  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1020,8 +945,8 @@ void DirectionsLeg_Summary::InternalSwap(DirectionsLeg_Summary* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, has_highway_)
-      + sizeof(DirectionsLeg_Summary::has_highway_)
+      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, has_time_restrictions_)
+      + sizeof(DirectionsLeg_Summary::has_time_restrictions_)
       - PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, bbox_)>(
           reinterpret_cast<char*>(&bbox_),
           reinterpret_cast<char*>(&other->bbox_));
@@ -1043,29 +968,26 @@ DirectionsLeg_GuidanceView::DirectionsLeg_GuidanceView(::PROTOBUF_NAMESPACE_ID::
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   overlay_ids_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg.GuidanceView)
 }
 DirectionsLeg_GuidanceView::DirectionsLeg_GuidanceView(const DirectionsLeg_GuidanceView& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       overlay_ids_(from.overlay_ids_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  data_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  data_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    data_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    data_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_data_id().empty()) {
-    data_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_data_id(), 
+    data_id_.Set(from._internal_data_id(), 
       GetArenaForAllocation());
   }
-  base_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  base_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    base_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    base_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_base_id().empty()) {
-    base_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_base_id(), 
+    base_id_.Set(from._internal_base_id(), 
       GetArenaForAllocation());
   }
   type_ = from.type_;
@@ -1073,36 +995,32 @@ DirectionsLeg_GuidanceView::DirectionsLeg_GuidanceView(const DirectionsLeg_Guida
 }
 
 inline void DirectionsLeg_GuidanceView::SharedCtor() {
-data_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+data_id_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  data_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  data_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-base_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+base_id_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  base_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  base_id_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 type_ = 0;
 }
 
 DirectionsLeg_GuidanceView::~DirectionsLeg_GuidanceView() {
   // @@protoc_insertion_point(destructor:valhalla.DirectionsLeg.GuidanceView)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DirectionsLeg_GuidanceView::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  data_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  base_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  data_id_.Destroy();
+  base_id_.Destroy();
 }
 
-void DirectionsLeg_GuidanceView::ArenaDtor(void* object) {
-  DirectionsLeg_GuidanceView* _this = reinterpret_cast< DirectionsLeg_GuidanceView* >(object);
-  (void)_this;
-}
-void DirectionsLeg_GuidanceView::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DirectionsLeg_GuidanceView::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -1120,19 +1038,19 @@ void DirectionsLeg_GuidanceView::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DirectionsLeg_GuidanceView::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DirectionsLeg_GuidanceView::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string data_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_data_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1149,9 +1067,9 @@ const char* DirectionsLeg_GuidanceView::_InternalParse(const char* ptr, ::PROTOB
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_base_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1162,9 +1080,9 @@ const char* DirectionsLeg_GuidanceView::_InternalParse(const char* ptr, ::PROTOB
           do {
             ptr += 1;
             auto str = _internal_add_overlay_ids();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
@@ -1212,7 +1130,7 @@ uint8_t* DirectionsLeg_GuidanceView::_InternalSerialize(
   // .valhalla.DirectionsLeg.GuidanceView.Type type = 2;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_type(), target);
   }
 
@@ -1277,20 +1195,20 @@ size_t DirectionsLeg_GuidanceView::ByteSizeLong() const {
   // .valhalla.DirectionsLeg.GuidanceView.Type type = 2;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DirectionsLeg_GuidanceView::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DirectionsLeg_GuidanceView*>(
+  MergeFrom(*::_pbi::DownCast<const DirectionsLeg_GuidanceView*>(
       &from));
 }
 
@@ -1331,12 +1249,10 @@ void DirectionsLeg_GuidanceView::InternalSwap(DirectionsLeg_GuidanceView* other)
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   overlay_ids_.InternalSwap(&other->overlay_ids_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &data_id_, lhs_arena,
       &other->data_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &base_id_, lhs_arena,
       &other->base_id_, rhs_arena
   );
@@ -1404,9 +1320,6 @@ DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(::PROTOBUF_NAMESPACE_ID::Arena* a
   roundabout_exit_street_names_(arena),
   guidance_views_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg.Maneuver)
 }
 DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(const DirectionsLeg_Maneuver& from)
@@ -1416,76 +1329,76 @@ DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(const DirectionsLeg_Maneuver& fro
       roundabout_exit_street_names_(from.roundabout_exit_street_names_),
       guidance_views_(from.guidance_views_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  text_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  text_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    text_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_text_instruction().empty()) {
-    text_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text_instruction(), 
+    text_instruction_.Set(from._internal_text_instruction(), 
       GetArenaForAllocation());
   }
-  verbal_transition_alert_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  verbal_transition_alert_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    verbal_transition_alert_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    verbal_transition_alert_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_verbal_transition_alert_instruction().empty()) {
-    verbal_transition_alert_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_verbal_transition_alert_instruction(), 
+    verbal_transition_alert_instruction_.Set(from._internal_verbal_transition_alert_instruction(), 
       GetArenaForAllocation());
   }
-  verbal_pre_transition_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  verbal_pre_transition_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    verbal_pre_transition_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    verbal_pre_transition_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_verbal_pre_transition_instruction().empty()) {
-    verbal_pre_transition_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_verbal_pre_transition_instruction(), 
+    verbal_pre_transition_instruction_.Set(from._internal_verbal_pre_transition_instruction(), 
       GetArenaForAllocation());
   }
-  verbal_post_transition_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  verbal_post_transition_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    verbal_post_transition_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    verbal_post_transition_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_verbal_post_transition_instruction().empty()) {
-    verbal_post_transition_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_verbal_post_transition_instruction(), 
+    verbal_post_transition_instruction_.Set(from._internal_verbal_post_transition_instruction(), 
       GetArenaForAllocation());
   }
-  depart_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  depart_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    depart_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    depart_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_depart_instruction().empty()) {
-    depart_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_depart_instruction(), 
+    depart_instruction_.Set(from._internal_depart_instruction(), 
       GetArenaForAllocation());
   }
-  verbal_depart_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  verbal_depart_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    verbal_depart_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    verbal_depart_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_verbal_depart_instruction().empty()) {
-    verbal_depart_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_verbal_depart_instruction(), 
+    verbal_depart_instruction_.Set(from._internal_verbal_depart_instruction(), 
       GetArenaForAllocation());
   }
-  arrive_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  arrive_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    arrive_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    arrive_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_arrive_instruction().empty()) {
-    arrive_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_arrive_instruction(), 
+    arrive_instruction_.Set(from._internal_arrive_instruction(), 
       GetArenaForAllocation());
   }
-  verbal_arrive_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  verbal_arrive_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    verbal_arrive_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    verbal_arrive_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_verbal_arrive_instruction().empty()) {
-    verbal_arrive_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_verbal_arrive_instruction(), 
+    verbal_arrive_instruction_.Set(from._internal_verbal_arrive_instruction(), 
       GetArenaForAllocation());
   }
-  verbal_succinct_transition_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  verbal_succinct_transition_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    verbal_succinct_transition_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    verbal_succinct_transition_instruction_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_verbal_succinct_transition_instruction().empty()) {
-    verbal_succinct_transition_instruction_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_verbal_succinct_transition_instruction(), 
+    verbal_succinct_transition_instruction_.Set(from._internal_verbal_succinct_transition_instruction(), 
       GetArenaForAllocation());
   }
   if (from._internal_has_sign()) {
@@ -1504,83 +1417,79 @@ DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(const DirectionsLeg_Maneuver& fro
     bss_info_ = nullptr;
   }
   ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&portions_ferry_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(portions_ferry_));
+    static_cast<size_t>(reinterpret_cast<char*>(&bss_maneuver_type_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(bss_maneuver_type_));
   // @@protoc_insertion_point(copy_constructor:valhalla.DirectionsLeg.Maneuver)
 }
 
 inline void DirectionsLeg_Maneuver::SharedCtor() {
-text_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+text_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  text_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-verbal_transition_alert_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+verbal_transition_alert_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  verbal_transition_alert_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  verbal_transition_alert_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-verbal_pre_transition_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+verbal_pre_transition_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  verbal_pre_transition_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  verbal_pre_transition_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-verbal_post_transition_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+verbal_post_transition_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  verbal_post_transition_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  verbal_post_transition_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-depart_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+depart_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  depart_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  depart_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-verbal_depart_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+verbal_depart_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  verbal_depart_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  verbal_depart_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-arrive_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+arrive_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  arrive_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  arrive_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-verbal_arrive_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+verbal_arrive_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  verbal_arrive_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  verbal_arrive_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-verbal_succinct_transition_instruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+verbal_succinct_transition_instruction_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  verbal_succinct_transition_instruction_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  verbal_succinct_transition_instruction_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&sign_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&portions_ferry_) -
-    reinterpret_cast<char*>(&sign_)) + sizeof(portions_ferry_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&bss_maneuver_type_) -
+    reinterpret_cast<char*>(&sign_)) + sizeof(bss_maneuver_type_));
 }
 
 DirectionsLeg_Maneuver::~DirectionsLeg_Maneuver() {
   // @@protoc_insertion_point(destructor:valhalla.DirectionsLeg.Maneuver)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DirectionsLeg_Maneuver::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  verbal_transition_alert_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  verbal_pre_transition_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  verbal_post_transition_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  depart_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  verbal_depart_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  arrive_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  verbal_arrive_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  verbal_succinct_transition_instruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  text_instruction_.Destroy();
+  verbal_transition_alert_instruction_.Destroy();
+  verbal_pre_transition_instruction_.Destroy();
+  verbal_post_transition_instruction_.Destroy();
+  depart_instruction_.Destroy();
+  verbal_depart_instruction_.Destroy();
+  arrive_instruction_.Destroy();
+  verbal_arrive_instruction_.Destroy();
+  verbal_succinct_transition_instruction_.Destroy();
   if (this != internal_default_instance()) delete sign_;
   if (this != internal_default_instance()) delete transit_info_;
   if (this != internal_default_instance()) delete bss_info_;
 }
 
-void DirectionsLeg_Maneuver::ArenaDtor(void* object) {
-  DirectionsLeg_Maneuver* _this = reinterpret_cast< DirectionsLeg_Maneuver* >(object);
-  (void)_this;
-}
-void DirectionsLeg_Maneuver::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DirectionsLeg_Maneuver::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -1617,16 +1526,16 @@ void DirectionsLeg_Maneuver::Clear() {
   }
   bss_info_ = nullptr;
   ::memset(&type_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&portions_ferry_) -
-      reinterpret_cast<char*>(&type_)) + sizeof(portions_ferry_));
+      reinterpret_cast<char*>(&bss_maneuver_type_) -
+      reinterpret_cast<char*>(&type_)) + sizeof(bss_maneuver_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .valhalla.DirectionsLeg.Maneuver.Type type = 1;
       case 1:
@@ -1641,9 +1550,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_text_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1729,9 +1638,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           auto str = _internal_mutable_verbal_transition_alert_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1739,9 +1648,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           auto str = _internal_mutable_verbal_pre_transition_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1749,9 +1658,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 14:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
           auto str = _internal_mutable_verbal_post_transition_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1788,9 +1697,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 18:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
           auto str = _internal_mutable_depart_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1798,9 +1707,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 19:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
           auto str = _internal_mutable_verbal_depart_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1808,9 +1717,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 20:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
           auto str = _internal_mutable_arrive_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1818,9 +1727,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 21:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
           auto str = _internal_mutable_verbal_arrive_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1964,9 +1873,9 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 37:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_verbal_succinct_transition_instruction();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1974,22 +1883,6 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 38:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_bss_info(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool portions_highway = 39;
-      case 39:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          portions_highway_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool portions_ferry = 40;
-      case 40:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          portions_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2026,7 +1919,7 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
   // .valhalla.DirectionsLeg.Maneuver.Type type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
@@ -2041,11 +1934,11 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
   }
 
   // repeated .valhalla.StreetName street_name = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_street_name_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_street_name_size()); i < n; i++) {
+    const auto& repfield = this->_internal_street_name(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_street_name(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // float length = 4;
@@ -2055,7 +1948,7 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
   memcpy(&raw_length, &tmp_length, sizeof(tmp_length));
   if (raw_length != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_length(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_length(), target);
   }
 
   // double time = 5;
@@ -2065,44 +1958,44 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
   memcpy(&raw_time, &tmp_time, sizeof(tmp_time));
   if (raw_time != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_time(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(5, this->_internal_time(), target);
   }
 
   // .valhalla.DirectionsLeg.Maneuver.CardinalDirection begin_cardinal_direction = 6;
   if (this->_internal_begin_cardinal_direction() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       6, this->_internal_begin_cardinal_direction(), target);
   }
 
   // uint32 begin_heading = 7;
   if (this->_internal_begin_heading() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(7, this->_internal_begin_heading(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_begin_heading(), target);
   }
 
   // uint32 begin_shape_index = 8;
   if (this->_internal_begin_shape_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(8, this->_internal_begin_shape_index(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(8, this->_internal_begin_shape_index(), target);
   }
 
   // uint32 end_shape_index = 9;
   if (this->_internal_end_shape_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(9, this->_internal_end_shape_index(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_end_shape_index(), target);
   }
 
   // bool portions_toll = 10;
   if (this->_internal_portions_toll() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_portions_toll(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_portions_toll(), target);
   }
 
   // bool portions_unpaved = 11;
   if (this->_internal_portions_unpaved() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(11, this->_internal_portions_unpaved(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_portions_unpaved(), target);
   }
 
   // string verbal_transition_alert_instruction = 12;
@@ -2136,25 +2029,24 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
   }
 
   // repeated .valhalla.StreetName begin_street_name = 15;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_begin_street_name_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_begin_street_name_size()); i < n; i++) {
+    const auto& repfield = this->_internal_begin_street_name(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(15, this->_internal_begin_street_name(i), target, stream);
+        InternalWriteMessage(15, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .valhalla.TripSign sign = 16;
   if (this->_internal_has_sign()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        16, _Internal::sign(this), target, stream);
+      InternalWriteMessage(16, _Internal::sign(this),
+        _Internal::sign(this).GetCachedSize(), target, stream);
   }
 
   // uint32 roundabout_exit_count = 17;
   if (this->_internal_roundabout_exit_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(17, this->_internal_roundabout_exit_count(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(17, this->_internal_roundabout_exit_count(), target);
   }
 
   // string depart_instruction = 18;
@@ -2199,103 +2091,102 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
 
   // .valhalla.TransitRouteInfo transit_info = 22;
   if (this->_internal_has_transit_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        22, _Internal::transit_info(this), target, stream);
+      InternalWriteMessage(22, _Internal::transit_info(this),
+        _Internal::transit_info(this).GetCachedSize(), target, stream);
   }
 
   // bool verbal_multi_cue = 23;
   if (this->_internal_verbal_multi_cue() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_verbal_multi_cue(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(23, this->_internal_verbal_multi_cue(), target);
   }
 
   // .valhalla.TravelMode travel_mode = 24;
   if (this->_internal_travel_mode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       24, this->_internal_travel_mode(), target);
   }
 
   // .valhalla.VehicleType vehicle_type = 25;
   if (this->_internal_vehicle_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       25, this->_internal_vehicle_type(), target);
   }
 
   // .valhalla.PedestrianType pedestrian_type = 26;
   if (this->_internal_pedestrian_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       26, this->_internal_pedestrian_type(), target);
   }
 
   // .valhalla.BicycleType bicycle_type = 27;
   if (this->_internal_bicycle_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       27, this->_internal_bicycle_type(), target);
   }
 
   // .valhalla.TransitType transit_type = 28;
   if (this->_internal_transit_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       28, this->_internal_transit_type(), target);
   }
 
   // uint32 begin_path_index = 29;
   if (this->_internal_begin_path_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(29, this->_internal_begin_path_index(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(29, this->_internal_begin_path_index(), target);
   }
 
   // uint32 end_path_index = 30;
   if (this->_internal_end_path_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(30, this->_internal_end_path_index(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(30, this->_internal_end_path_index(), target);
   }
 
   // bool to_stay_on = 31;
   if (this->_internal_to_stay_on() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(31, this->_internal_to_stay_on(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(31, this->_internal_to_stay_on(), target);
   }
 
   // repeated .valhalla.StreetName roundabout_exit_street_names = 32;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_roundabout_exit_street_names_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_roundabout_exit_street_names_size()); i < n; i++) {
+    const auto& repfield = this->_internal_roundabout_exit_street_names(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(32, this->_internal_roundabout_exit_street_names(i), target, stream);
+        InternalWriteMessage(32, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // uint32 turn_degree = 33;
   if (this->_internal_turn_degree() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(33, this->_internal_turn_degree(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(33, this->_internal_turn_degree(), target);
   }
 
   // bool has_time_restrictions = 34;
   if (this->_internal_has_time_restrictions() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(34, this->_internal_has_time_restrictions(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(34, this->_internal_has_time_restrictions(), target);
   }
 
   // repeated .valhalla.DirectionsLeg.GuidanceView guidance_views = 35;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_guidance_views_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_guidance_views_size()); i < n; i++) {
+    const auto& repfield = this->_internal_guidance_views(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(35, this->_internal_guidance_views(i), target, stream);
+        InternalWriteMessage(35, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .valhalla.DirectionsLeg.Maneuver.BssManeuverType bss_maneuver_type = 36;
   if (this->_internal_bss_maneuver_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       36, this->_internal_bss_maneuver_type(), target);
   }
 
@@ -2311,22 +2202,9 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
 
   // .valhalla.BikeShareStationInfo bss_info = 38;
   if (this->_internal_has_bss_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        38, _Internal::bss_info(this), target, stream);
-  }
-
-  // bool portions_highway = 39;
-  if (this->_internal_portions_highway() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(39, this->_internal_portions_highway(), target);
-  }
-
-  // bool portions_ferry = 40;
-  if (this->_internal_portions_ferry() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(40, this->_internal_portions_ferry(), target);
+      InternalWriteMessage(38, _Internal::bss_info(this),
+        _Internal::bss_info(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2460,7 +2338,7 @@ size_t DirectionsLeg_Maneuver::ByteSizeLong() const {
   // .valhalla.DirectionsLeg.Maneuver.Type type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   // float length = 4;
@@ -2484,28 +2362,28 @@ size_t DirectionsLeg_Maneuver::ByteSizeLong() const {
   // .valhalla.DirectionsLeg.Maneuver.CardinalDirection begin_cardinal_direction = 6;
   if (this->_internal_begin_cardinal_direction() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_begin_cardinal_direction());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_begin_cardinal_direction());
   }
 
   // uint32 begin_heading = 7;
   if (this->_internal_begin_heading() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_begin_heading());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_begin_heading());
   }
 
   // uint32 begin_shape_index = 8;
   if (this->_internal_begin_shape_index() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_begin_shape_index());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_begin_shape_index());
   }
 
   // uint32 end_shape_index = 9;
   if (this->_internal_end_shape_index() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_end_shape_index());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_end_shape_index());
   }
 
   // uint32 roundabout_exit_count = 17;
   if (this->_internal_roundabout_exit_count() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::_pbi::WireFormatLite::UInt32Size(
         this->_internal_roundabout_exit_count());
   }
 
@@ -2532,58 +2410,52 @@ size_t DirectionsLeg_Maneuver::ByteSizeLong() const {
   // .valhalla.TravelMode travel_mode = 24;
   if (this->_internal_travel_mode() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_travel_mode());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_travel_mode());
   }
 
   // .valhalla.VehicleType vehicle_type = 25;
   if (this->_internal_vehicle_type() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_vehicle_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_vehicle_type());
   }
 
   // .valhalla.PedestrianType pedestrian_type = 26;
   if (this->_internal_pedestrian_type() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_pedestrian_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_pedestrian_type());
   }
 
   // .valhalla.BicycleType bicycle_type = 27;
   if (this->_internal_bicycle_type() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_bicycle_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_bicycle_type());
   }
 
   // .valhalla.TransitType transit_type = 28;
   if (this->_internal_transit_type() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_transit_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_transit_type());
   }
 
   // uint32 begin_path_index = 29;
   if (this->_internal_begin_path_index() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::_pbi::WireFormatLite::UInt32Size(
         this->_internal_begin_path_index());
   }
 
   // uint32 end_path_index = 30;
   if (this->_internal_end_path_index() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::_pbi::WireFormatLite::UInt32Size(
         this->_internal_end_path_index());
   }
 
   // uint32 turn_degree = 33;
   if (this->_internal_turn_degree() != 0) {
     total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::_pbi::WireFormatLite::UInt32Size(
         this->_internal_turn_degree());
-  }
-
-  // .valhalla.DirectionsLeg.Maneuver.BssManeuverType bss_maneuver_type = 36;
-  if (this->_internal_bss_maneuver_type() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_bss_maneuver_type());
   }
 
   // bool has_time_restrictions = 34;
@@ -2591,27 +2463,23 @@ size_t DirectionsLeg_Maneuver::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // bool portions_highway = 39;
-  if (this->_internal_portions_highway() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool portions_ferry = 40;
-  if (this->_internal_portions_ferry() != 0) {
-    total_size += 2 + 1;
+  // .valhalla.DirectionsLeg.Maneuver.BssManeuverType bss_maneuver_type = 36;
+  if (this->_internal_bss_maneuver_type() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_bss_maneuver_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DirectionsLeg_Maneuver::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DirectionsLeg_Maneuver*>(
+  MergeFrom(*::_pbi::DownCast<const DirectionsLeg_Maneuver*>(
       &from));
 }
 
@@ -2729,17 +2597,11 @@ void DirectionsLeg_Maneuver::MergeFrom(const DirectionsLeg_Maneuver& from) {
   if (from._internal_turn_degree() != 0) {
     _internal_set_turn_degree(from._internal_turn_degree());
   }
-  if (from._internal_bss_maneuver_type() != 0) {
-    _internal_set_bss_maneuver_type(from._internal_bss_maneuver_type());
-  }
   if (from._internal_has_time_restrictions() != 0) {
     _internal_set_has_time_restrictions(from._internal_has_time_restrictions());
   }
-  if (from._internal_portions_highway() != 0) {
-    _internal_set_portions_highway(from._internal_portions_highway());
-  }
-  if (from._internal_portions_ferry() != 0) {
-    _internal_set_portions_ferry(from._internal_portions_ferry());
+  if (from._internal_bss_maneuver_type() != 0) {
+    _internal_set_bss_maneuver_type(from._internal_bss_maneuver_type());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -2765,53 +2627,44 @@ void DirectionsLeg_Maneuver::InternalSwap(DirectionsLeg_Maneuver* other) {
   roundabout_exit_street_names_.InternalSwap(&other->roundabout_exit_street_names_);
   guidance_views_.InternalSwap(&other->guidance_views_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &text_instruction_, lhs_arena,
       &other->text_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &verbal_transition_alert_instruction_, lhs_arena,
       &other->verbal_transition_alert_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &verbal_pre_transition_instruction_, lhs_arena,
       &other->verbal_pre_transition_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &verbal_post_transition_instruction_, lhs_arena,
       &other->verbal_post_transition_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &depart_instruction_, lhs_arena,
       &other->depart_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &verbal_depart_instruction_, lhs_arena,
       &other->verbal_depart_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &arrive_instruction_, lhs_arena,
       &other->arrive_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &verbal_arrive_instruction_, lhs_arena,
       &other->verbal_arrive_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &verbal_succinct_transition_instruction_, lhs_arena,
       &other->verbal_succinct_transition_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Maneuver, portions_ferry_)
-      + sizeof(DirectionsLeg_Maneuver::portions_ferry_)
+      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Maneuver, bss_maneuver_type_)
+      + sizeof(DirectionsLeg_Maneuver::bss_maneuver_type_)
       - PROTOBUF_FIELD_OFFSET(DirectionsLeg_Maneuver, sign_)>(
           reinterpret_cast<char*>(&sign_),
           reinterpret_cast<char*>(&other->sign_));
@@ -2842,9 +2695,6 @@ DirectionsLeg::DirectionsLeg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   location_(arena),
   maneuver_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg)
 }
 DirectionsLeg::DirectionsLeg(const DirectionsLeg& from)
@@ -2852,12 +2702,12 @@ DirectionsLeg::DirectionsLeg(const DirectionsLeg& from)
       location_(from.location_),
       maneuver_(from.maneuver_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  shape_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  shape_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    shape_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    shape_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_shape().empty()) {
-    shape_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_shape(), 
+    shape_.Set(from._internal_shape(), 
       GetArenaForAllocation());
   }
   if (from._internal_has_summary()) {
@@ -2872,9 +2722,9 @@ DirectionsLeg::DirectionsLeg(const DirectionsLeg& from)
 }
 
 inline void DirectionsLeg::SharedCtor() {
-shape_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+shape_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  shape_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  shape_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&summary_) - reinterpret_cast<char*>(this)),
@@ -2884,23 +2734,19 @@ shape_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
 
 DirectionsLeg::~DirectionsLeg() {
   // @@protoc_insertion_point(destructor:valhalla.DirectionsLeg)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DirectionsLeg::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  shape_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  shape_.Destroy();
   if (this != internal_default_instance()) delete summary_;
 }
 
-void DirectionsLeg::ArenaDtor(void* object) {
-  DirectionsLeg* _this = reinterpret_cast< DirectionsLeg* >(object);
-  (void)_this;
-}
-void DirectionsLeg::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DirectionsLeg::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -2924,11 +2770,11 @@ void DirectionsLeg::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DirectionsLeg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DirectionsLeg::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint64 trip_id = 1;
       case 1:
@@ -2992,9 +2838,9 @@ const char* DirectionsLeg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_shape();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3030,43 +2876,42 @@ uint8_t* DirectionsLeg::_InternalSerialize(
   // uint64 trip_id = 1;
   if (this->_internal_trip_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_trip_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_trip_id(), target);
   }
 
   // uint32 leg_id = 2;
   if (this->_internal_leg_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_leg_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_leg_id(), target);
   }
 
   // uint32 leg_count = 3;
   if (this->_internal_leg_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_leg_count(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_leg_count(), target);
   }
 
   // repeated .valhalla.Location location = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_location_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_location_size()); i < n; i++) {
+    const auto& repfield = this->_internal_location(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_location(i), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .valhalla.DirectionsLeg.Summary summary = 5;
   if (this->_internal_has_summary()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::summary(this), target, stream);
+      InternalWriteMessage(5, _Internal::summary(this),
+        _Internal::summary(this).GetCachedSize(), target, stream);
   }
 
   // repeated .valhalla.DirectionsLeg.Maneuver maneuver = 6;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_maneuver_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_maneuver_size()); i < n; i++) {
+    const auto& repfield = this->_internal_maneuver(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, this->_internal_maneuver(i), target, stream);
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // string shape = 7;
@@ -3125,30 +2970,30 @@ size_t DirectionsLeg::ByteSizeLong() const {
 
   // uint64 trip_id = 1;
   if (this->_internal_trip_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_trip_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_trip_id());
   }
 
   // uint32 leg_id = 2;
   if (this->_internal_leg_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_leg_id());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_leg_id());
   }
 
   // uint32 leg_count = 3;
   if (this->_internal_leg_count() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_leg_count());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_leg_count());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DirectionsLeg::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DirectionsLeg*>(
+  MergeFrom(*::_pbi::DownCast<const DirectionsLeg*>(
       &from));
 }
 
@@ -3197,7 +3042,6 @@ void DirectionsLeg::InternalSwap(DirectionsLeg* other) {
   location_.InternalSwap(&other->location_);
   maneuver_.InternalSwap(&other->maneuver_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &shape_, lhs_arena,
       &other->shape_, rhs_arena
   );
@@ -3225,9 +3069,6 @@ DirectionsRoute::DirectionsRoute(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   legs_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsRoute)
 }
 DirectionsRoute::DirectionsRoute(const DirectionsRoute& from)
@@ -3242,21 +3083,17 @@ inline void DirectionsRoute::SharedCtor() {
 
 DirectionsRoute::~DirectionsRoute() {
   // @@protoc_insertion_point(destructor:valhalla.DirectionsRoute)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DirectionsRoute::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void DirectionsRoute::ArenaDtor(void* object) {
-  DirectionsRoute* _this = reinterpret_cast< DirectionsRoute* >(object);
-  (void)_this;
-}
-void DirectionsRoute::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DirectionsRoute::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -3271,11 +3108,11 @@ void DirectionsRoute::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DirectionsRoute::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DirectionsRoute::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .valhalla.DirectionsLeg legs = 1;
       case 1:
@@ -3320,11 +3157,11 @@ uint8_t* DirectionsRoute::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .valhalla.DirectionsLeg legs = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_legs_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_legs_size()); i < n; i++) {
+    const auto& repfield = this->_internal_legs(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_legs(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3353,14 +3190,14 @@ size_t DirectionsRoute::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DirectionsRoute::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DirectionsRoute*>(
+  MergeFrom(*::_pbi::DownCast<const DirectionsRoute*>(
       &from));
 }
 
@@ -3407,9 +3244,6 @@ Directions::Directions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   routes_(arena) {
   SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
   // @@protoc_insertion_point(arena_constructor:valhalla.Directions)
 }
 Directions::Directions(const Directions& from)
@@ -3424,21 +3258,17 @@ inline void Directions::SharedCtor() {
 
 Directions::~Directions() {
   // @@protoc_insertion_point(destructor:valhalla.Directions)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Directions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void Directions::ArenaDtor(void* object) {
-  Directions* _this = reinterpret_cast< Directions* >(object);
-  (void)_this;
-}
-void Directions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Directions::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -3453,11 +3283,11 @@ void Directions::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Directions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Directions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .valhalla.DirectionsRoute routes = 1;
       case 1:
@@ -3502,11 +3332,11 @@ uint8_t* Directions::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .valhalla.DirectionsRoute routes = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_routes_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_routes_size()); i < n; i++) {
+    const auto& repfield = this->_internal_routes(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_routes(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3535,14 +3365,14 @@ size_t Directions::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Directions::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Directions*>(
+  MergeFrom(*::_pbi::DownCast<const Directions*>(
       &from));
 }
 
@@ -3581,22 +3411,28 @@ std::string Directions::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace valhalla
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_Summary* Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_Summary >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_Summary*
+Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_Summary >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::DirectionsLeg_Summary >(arena);
 }
-template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_GuidanceView* Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_GuidanceView >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_GuidanceView*
+Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_GuidanceView >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::DirectionsLeg_GuidanceView >(arena);
 }
-template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_Maneuver* Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_Maneuver >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_Maneuver*
+Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_Maneuver >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::DirectionsLeg_Maneuver >(arena);
 }
-template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg* Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg*
+Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::DirectionsLeg >(arena);
 }
-template<> PROTOBUF_NOINLINE ::valhalla::DirectionsRoute* Arena::CreateMaybeMessage< ::valhalla::DirectionsRoute >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::DirectionsRoute*
+Arena::CreateMaybeMessage< ::valhalla::DirectionsRoute >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::DirectionsRoute >(arena);
 }
-template<> PROTOBUF_NOINLINE ::valhalla::Directions* Arena::CreateMaybeMessage< ::valhalla::Directions >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::valhalla::Directions*
+Arena::CreateMaybeMessage< ::valhalla::Directions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Directions >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
