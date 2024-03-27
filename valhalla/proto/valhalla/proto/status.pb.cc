@@ -20,7 +20,10 @@ namespace _pbi = _pb::internal;
 namespace valhalla {
 PROTOBUF_CONSTEXPR Status::Status(
     ::_pbi::ConstantInitialized)
-  : _oneof_case_{}{}
+  : available_actions_()
+  , version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , tileset_last_modified_(0u)
+  , _oneof_case_{}{}
 struct StatusDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StatusDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -41,13 +44,24 @@ class Status::_Internal {
 
 Status::Status(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  available_actions_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.Status)
 }
 Status::Status(const Status& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      available_actions_(from.available_actions_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_version().empty()) {
+    version_.Set(from._internal_version(), 
+      GetArenaForAllocation());
+  }
+  tileset_last_modified_ = from.tileset_last_modified_;
   clear_has_has_has_tiles();
   switch (from.has_has_tiles_case()) {
     case kHasTiles: {
@@ -98,23 +112,23 @@ Status::Status(const Status& from)
       break;
     }
   }
-  clear_has_has_version();
-  switch (from.has_version_case()) {
-    case kVersion: {
-      _internal_set_version(from._internal_version());
+  clear_has_has_has_transit_tiles();
+  switch (from.has_has_transit_tiles_case()) {
+    case kHasTransitTiles: {
+      _internal_set_has_transit_tiles(from._internal_has_transit_tiles());
       break;
     }
-    case HAS_VERSION_NOT_SET: {
+    case HAS_HAS_TRANSIT_TILES_NOT_SET: {
       break;
     }
   }
-  clear_has_has_tileset_last_modified();
-  switch (from.has_tileset_last_modified_case()) {
-    case kTilesetLastModified: {
-      _internal_set_tileset_last_modified(from._internal_tileset_last_modified());
+  clear_has_has_osm_changeset();
+  switch (from.has_osm_changeset_case()) {
+    case kOsmChangeset: {
+      _internal_set_osm_changeset(from._internal_osm_changeset());
       break;
     }
-    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+    case HAS_OSM_CHANGESET_NOT_SET: {
       break;
     }
   }
@@ -122,13 +136,18 @@ Status::Status(const Status& from)
 }
 
 inline void Status::SharedCtor() {
+version_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  version_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+tileset_last_modified_ = 0u;
 clear_has_has_has_tiles();
 clear_has_has_has_admins();
 clear_has_has_has_timezones();
 clear_has_has_has_live_traffic();
 clear_has_has_bbox();
-clear_has_has_version();
-clear_has_has_tileset_last_modified();
+clear_has_has_has_transit_tiles();
+clear_has_has_osm_changeset();
 }
 
 Status::~Status() {
@@ -142,6 +161,7 @@ Status::~Status() {
 
 inline void Status::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  version_.Destroy();
   if (has_has_has_tiles()) {
     clear_has_has_tiles();
   }
@@ -157,11 +177,11 @@ inline void Status::SharedDtor() {
   if (has_has_bbox()) {
     clear_has_bbox();
   }
-  if (has_has_version()) {
-    clear_has_version();
+  if (has_has_has_transit_tiles()) {
+    clear_has_has_transit_tiles();
   }
-  if (has_has_tileset_last_modified()) {
-    clear_has_tileset_last_modified();
+  if (has_has_osm_changeset()) {
+    clear_has_osm_changeset();
   }
 }
 
@@ -239,32 +259,32 @@ void Status::clear_has_bbox() {
   _oneof_case_[4] = HAS_BBOX_NOT_SET;
 }
 
-void Status::clear_has_version() {
+void Status::clear_has_has_transit_tiles() {
 // @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
-  switch (has_version_case()) {
-    case kVersion: {
-      has_version_.version_.Destroy();
-      break;
-    }
-    case HAS_VERSION_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[5] = HAS_VERSION_NOT_SET;
-}
-
-void Status::clear_has_tileset_last_modified() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
-  switch (has_tileset_last_modified_case()) {
-    case kTilesetLastModified: {
+  switch (has_has_transit_tiles_case()) {
+    case kHasTransitTiles: {
       // No need to clear
       break;
     }
-    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+    case HAS_HAS_TRANSIT_TILES_NOT_SET: {
       break;
     }
   }
-  _oneof_case_[6] = HAS_TILESET_LAST_MODIFIED_NOT_SET;
+  _oneof_case_[5] = HAS_HAS_TRANSIT_TILES_NOT_SET;
+}
+
+void Status::clear_has_osm_changeset() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Status)
+  switch (has_osm_changeset_case()) {
+    case kOsmChangeset: {
+      // No need to clear
+      break;
+    }
+    case HAS_OSM_CHANGESET_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[6] = HAS_OSM_CHANGESET_NOT_SET;
 }
 
 
@@ -274,13 +294,16 @@ void Status::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  available_actions_.Clear();
+  version_.ClearToEmpty();
+  tileset_last_modified_ = 0u;
   clear_has_has_tiles();
   clear_has_has_admins();
   clear_has_has_timezones();
   clear_has_has_live_traffic();
   clear_has_bbox();
-  clear_has_version();
-  clear_has_tileset_last_modified();
+  clear_has_has_transit_tiles();
+  clear_has_osm_changeset();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -345,7 +368,38 @@ const char* Status::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // uint32 tileset_last_modified = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          _internal_set_tileset_last_modified(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          tileset_last_modified_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string available_actions = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_available_actions();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool has_transit_tiles = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _internal_set_has_transit_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint64 osm_changeset = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _internal_set_osm_changeset(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -414,7 +468,7 @@ uint8_t* Status::_InternalSerialize(
   }
 
   // string version = 6;
-  if (_internal_has_version()) {
+  if (!this->_internal_version().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_version().data(), static_cast<int>(this->_internal_version().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -424,9 +478,31 @@ uint8_t* Status::_InternalSerialize(
   }
 
   // uint32 tileset_last_modified = 7;
-  if (_internal_has_tileset_last_modified()) {
+  if (this->_internal_tileset_last_modified() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_tileset_last_modified(), target);
+  }
+
+  // repeated string available_actions = 8;
+  for (int i = 0, n = this->_internal_available_actions_size(); i < n; i++) {
+    const auto& s = this->_internal_available_actions(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "valhalla.Status.available_actions");
+    target = stream->WriteString(8, s, target);
+  }
+
+  // bool has_transit_tiles = 9;
+  if (_internal_has_has_transit_tiles()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_has_transit_tiles(), target);
+  }
+
+  // uint64 osm_changeset = 10;
+  if (_internal_has_osm_changeset()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(10, this->_internal_osm_changeset(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -444,6 +520,26 @@ size_t Status::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated string available_actions = 8;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(available_actions_.size());
+  for (int i = 0, n = available_actions_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      available_actions_.Get(i));
+  }
+
+  // string version = 6;
+  if (!this->_internal_version().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_version());
+  }
+
+  // uint32 tileset_last_modified = 7;
+  if (this->_internal_tileset_last_modified() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tileset_last_modified());
+  }
 
   switch (has_has_tiles_case()) {
     // bool has_tiles = 1;
@@ -497,25 +593,23 @@ size_t Status::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_version_case()) {
-    // string version = 6;
-    case kVersion: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_version());
+  switch (has_has_transit_tiles_case()) {
+    // bool has_transit_tiles = 9;
+    case kHasTransitTiles: {
+      total_size += 1 + 1;
       break;
     }
-    case HAS_VERSION_NOT_SET: {
+    case HAS_HAS_TRANSIT_TILES_NOT_SET: {
       break;
     }
   }
-  switch (has_tileset_last_modified_case()) {
-    // uint32 tileset_last_modified = 7;
-    case kTilesetLastModified: {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tileset_last_modified());
+  switch (has_osm_changeset_case()) {
+    // uint64 osm_changeset = 10;
+    case kOsmChangeset: {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_osm_changeset());
       break;
     }
-    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+    case HAS_OSM_CHANGESET_NOT_SET: {
       break;
     }
   }
@@ -539,6 +633,13 @@ void Status::MergeFrom(const Status& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  available_actions_.MergeFrom(from.available_actions_);
+  if (!from._internal_version().empty()) {
+    _internal_set_version(from._internal_version());
+  }
+  if (from._internal_tileset_last_modified() != 0) {
+    _internal_set_tileset_last_modified(from._internal_tileset_last_modified());
+  }
   switch (from.has_has_tiles_case()) {
     case kHasTiles: {
       _internal_set_has_tiles(from._internal_has_tiles());
@@ -584,21 +685,21 @@ void Status::MergeFrom(const Status& from) {
       break;
     }
   }
-  switch (from.has_version_case()) {
-    case kVersion: {
-      _internal_set_version(from._internal_version());
+  switch (from.has_has_transit_tiles_case()) {
+    case kHasTransitTiles: {
+      _internal_set_has_transit_tiles(from._internal_has_transit_tiles());
       break;
     }
-    case HAS_VERSION_NOT_SET: {
+    case HAS_HAS_TRANSIT_TILES_NOT_SET: {
       break;
     }
   }
-  switch (from.has_tileset_last_modified_case()) {
-    case kTilesetLastModified: {
-      _internal_set_tileset_last_modified(from._internal_tileset_last_modified());
+  switch (from.has_osm_changeset_case()) {
+    case kOsmChangeset: {
+      _internal_set_osm_changeset(from._internal_osm_changeset());
       break;
     }
-    case HAS_TILESET_LAST_MODIFIED_NOT_SET: {
+    case HAS_OSM_CHANGESET_NOT_SET: {
       break;
     }
   }
@@ -618,14 +719,22 @@ bool Status::IsInitialized() const {
 
 void Status::InternalSwap(Status* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  available_actions_.InternalSwap(&other->available_actions_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &version_, lhs_arena,
+      &other->version_, rhs_arena
+  );
+  swap(tileset_last_modified_, other->tileset_last_modified_);
   swap(has_has_tiles_, other->has_has_tiles_);
   swap(has_has_admins_, other->has_has_admins_);
   swap(has_has_timezones_, other->has_has_timezones_);
   swap(has_has_live_traffic_, other->has_has_live_traffic_);
   swap(has_bbox_, other->has_bbox_);
-  swap(has_version_, other->has_version_);
-  swap(has_tileset_last_modified_, other->has_tileset_last_modified_);
+  swap(has_has_transit_tiles_, other->has_has_transit_tiles_);
+  swap(has_osm_changeset_, other->has_osm_changeset_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   swap(_oneof_case_[1], other->_oneof_case_[1]);
   swap(_oneof_case_[2], other->_oneof_case_[2]);

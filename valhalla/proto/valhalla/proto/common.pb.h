@@ -1738,6 +1738,7 @@ class Location final :
     kSideOfStreetFieldNumber = 13,
     kSkipRankingCandidatesFieldNumber = 21,
     kPreferredSideFieldNumber = 22,
+    kWaitingSecsFieldNumber = 29,
     kHeadingFieldNumber = 3,
     kHeadingToleranceFieldNumber = 14,
     kNodeSnapToleranceFieldNumber = 15,
@@ -1898,6 +1899,15 @@ class Location final :
   private:
   ::valhalla::Location_PreferredSide _internal_preferred_side() const;
   void _internal_set_preferred_side(::valhalla::Location_PreferredSide value);
+  public:
+
+  // float waiting_secs = 29;
+  void clear_waiting_secs();
+  float waiting_secs() const;
+  void set_waiting_secs(float value);
+  private:
+  float _internal_waiting_secs() const;
+  void _internal_set_waiting_secs(float value);
   public:
 
   // uint32 heading = 3;
@@ -2127,6 +2137,7 @@ class Location final :
   int side_of_street_;
   bool skip_ranking_candidates_;
   int preferred_side_;
+  float waiting_secs_;
   union HasHeadingUnion {
     constexpr HasHeadingUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -6055,6 +6066,26 @@ inline int32_t Location::preferred_layer() const {
 inline void Location::set_preferred_layer(int32_t value) {
   _internal_set_preferred_layer(value);
   // @@protoc_insertion_point(field_set:valhalla.Location.preferred_layer)
+}
+
+// float waiting_secs = 29;
+inline void Location::clear_waiting_secs() {
+  waiting_secs_ = 0;
+}
+inline float Location::_internal_waiting_secs() const {
+  return waiting_secs_;
+}
+inline float Location::waiting_secs() const {
+  // @@protoc_insertion_point(field_get:valhalla.Location.waiting_secs)
+  return _internal_waiting_secs();
+}
+inline void Location::_internal_set_waiting_secs(float value) {
+  
+  waiting_secs_ = value;
+}
+inline void Location::set_waiting_secs(float value) {
+  _internal_set_waiting_secs(value);
+  // @@protoc_insertion_point(field_set:valhalla.Location.waiting_secs)
 }
 
 // .valhalla.Correlation correlation = 90;

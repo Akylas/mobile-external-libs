@@ -23,7 +23,10 @@ PROTOBUF_CONSTEXPR DirectionsLeg_Summary::DirectionsLeg_Summary(
   : bbox_(nullptr)
   , time_(0)
   , length_(0)
-  , has_time_restrictions_(false){}
+  , has_time_restrictions_(false)
+  , has_toll_(false)
+  , has_ferry_(false)
+  , has_highway_(false){}
 struct DirectionsLeg_SummaryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DirectionsLeg_SummaryDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -94,9 +97,11 @@ PROTOBUF_CONSTEXPR DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(
   , begin_path_index_(0u)
   , end_path_index_(0u)
   , turn_degree_(0u)
-  , has_time_restrictions_(false)
   , bss_maneuver_type_(0)
-{}
+
+  , has_time_restrictions_(false)
+  , portions_highway_(false)
+  , portions_ferry_(false){}
 struct DirectionsLeg_ManeuverDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DirectionsLeg_ManeuverDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -695,16 +700,16 @@ DirectionsLeg_Summary::DirectionsLeg_Summary(const DirectionsLeg_Summary& from)
     bbox_ = nullptr;
   }
   ::memcpy(&time_, &from.time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&has_time_restrictions_) -
-    reinterpret_cast<char*>(&time_)) + sizeof(has_time_restrictions_));
+    static_cast<size_t>(reinterpret_cast<char*>(&has_highway_) -
+    reinterpret_cast<char*>(&time_)) + sizeof(has_highway_));
   // @@protoc_insertion_point(copy_constructor:valhalla.DirectionsLeg.Summary)
 }
 
 inline void DirectionsLeg_Summary::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&bbox_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&has_time_restrictions_) -
-    reinterpret_cast<char*>(&bbox_)) + sizeof(has_time_restrictions_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&has_highway_) -
+    reinterpret_cast<char*>(&bbox_)) + sizeof(has_highway_));
 }
 
 DirectionsLeg_Summary::~DirectionsLeg_Summary() {
@@ -736,8 +741,8 @@ void DirectionsLeg_Summary::Clear() {
   }
   bbox_ = nullptr;
   ::memset(&time_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&has_time_restrictions_) -
-      reinterpret_cast<char*>(&time_)) + sizeof(has_time_restrictions_));
+      reinterpret_cast<char*>(&has_highway_) -
+      reinterpret_cast<char*>(&time_)) + sizeof(has_highway_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -775,6 +780,30 @@ const char* DirectionsLeg_Summary::_InternalParse(const char* ptr, ::_pbi::Parse
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           has_time_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool has_toll = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          has_toll_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool has_ferry = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          has_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool has_highway = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          has_highway_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -841,6 +870,24 @@ uint8_t* DirectionsLeg_Summary::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_has_time_restrictions(), target);
   }
 
+  // bool has_toll = 5;
+  if (this->_internal_has_toll() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_has_toll(), target);
+  }
+
+  // bool has_ferry = 6;
+  if (this->_internal_has_ferry() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_has_ferry(), target);
+  }
+
+  // bool has_highway = 7;
+  if (this->_internal_has_highway() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_has_highway(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -887,6 +934,21 @@ size_t DirectionsLeg_Summary::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool has_toll = 5;
+  if (this->_internal_has_toll() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool has_ferry = 6;
+  if (this->_internal_has_ferry() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool has_highway = 7;
+  if (this->_internal_has_highway() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -927,6 +989,15 @@ void DirectionsLeg_Summary::MergeFrom(const DirectionsLeg_Summary& from) {
   if (from._internal_has_time_restrictions() != 0) {
     _internal_set_has_time_restrictions(from._internal_has_time_restrictions());
   }
+  if (from._internal_has_toll() != 0) {
+    _internal_set_has_toll(from._internal_has_toll());
+  }
+  if (from._internal_has_ferry() != 0) {
+    _internal_set_has_ferry(from._internal_has_ferry());
+  }
+  if (from._internal_has_highway() != 0) {
+    _internal_set_has_highway(from._internal_has_highway());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -945,8 +1016,8 @@ void DirectionsLeg_Summary::InternalSwap(DirectionsLeg_Summary* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, has_time_restrictions_)
-      + sizeof(DirectionsLeg_Summary::has_time_restrictions_)
+      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, has_highway_)
+      + sizeof(DirectionsLeg_Summary::has_highway_)
       - PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, bbox_)>(
           reinterpret_cast<char*>(&bbox_),
           reinterpret_cast<char*>(&other->bbox_));
@@ -1417,8 +1488,8 @@ DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(const DirectionsLeg_Maneuver& fro
     bss_info_ = nullptr;
   }
   ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&bss_maneuver_type_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(bss_maneuver_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&portions_ferry_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(portions_ferry_));
   // @@protoc_insertion_point(copy_constructor:valhalla.DirectionsLeg.Maneuver)
 }
 
@@ -1461,8 +1532,8 @@ verbal_succinct_transition_instruction_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&sign_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&bss_maneuver_type_) -
-    reinterpret_cast<char*>(&sign_)) + sizeof(bss_maneuver_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&portions_ferry_) -
+    reinterpret_cast<char*>(&sign_)) + sizeof(portions_ferry_));
 }
 
 DirectionsLeg_Maneuver::~DirectionsLeg_Maneuver() {
@@ -1526,8 +1597,8 @@ void DirectionsLeg_Maneuver::Clear() {
   }
   bss_info_ = nullptr;
   ::memset(&type_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&bss_maneuver_type_) -
-      reinterpret_cast<char*>(&type_)) + sizeof(bss_maneuver_type_));
+      reinterpret_cast<char*>(&portions_ferry_) -
+      reinterpret_cast<char*>(&type_)) + sizeof(portions_ferry_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1887,6 +1958,22 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
+      // bool portions_highway = 39;
+      case 39:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          portions_highway_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool portions_ferry = 40;
+      case 40:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          portions_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2207,6 +2294,18 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
         _Internal::bss_info(this).GetCachedSize(), target, stream);
   }
 
+  // bool portions_highway = 39;
+  if (this->_internal_portions_highway() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(39, this->_internal_portions_highway(), target);
+  }
+
+  // bool portions_ferry = 40;
+  if (this->_internal_portions_ferry() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(40, this->_internal_portions_ferry(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2458,15 +2557,25 @@ size_t DirectionsLeg_Maneuver::ByteSizeLong() const {
         this->_internal_turn_degree());
   }
 
+  // .valhalla.DirectionsLeg.Maneuver.BssManeuverType bss_maneuver_type = 36;
+  if (this->_internal_bss_maneuver_type() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_bss_maneuver_type());
+  }
+
   // bool has_time_restrictions = 34;
   if (this->_internal_has_time_restrictions() != 0) {
     total_size += 2 + 1;
   }
 
-  // .valhalla.DirectionsLeg.Maneuver.BssManeuverType bss_maneuver_type = 36;
-  if (this->_internal_bss_maneuver_type() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_bss_maneuver_type());
+  // bool portions_highway = 39;
+  if (this->_internal_portions_highway() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool portions_ferry = 40;
+  if (this->_internal_portions_ferry() != 0) {
+    total_size += 2 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2597,11 +2706,17 @@ void DirectionsLeg_Maneuver::MergeFrom(const DirectionsLeg_Maneuver& from) {
   if (from._internal_turn_degree() != 0) {
     _internal_set_turn_degree(from._internal_turn_degree());
   }
+  if (from._internal_bss_maneuver_type() != 0) {
+    _internal_set_bss_maneuver_type(from._internal_bss_maneuver_type());
+  }
   if (from._internal_has_time_restrictions() != 0) {
     _internal_set_has_time_restrictions(from._internal_has_time_restrictions());
   }
-  if (from._internal_bss_maneuver_type() != 0) {
-    _internal_set_bss_maneuver_type(from._internal_bss_maneuver_type());
+  if (from._internal_portions_highway() != 0) {
+    _internal_set_portions_highway(from._internal_portions_highway());
+  }
+  if (from._internal_portions_ferry() != 0) {
+    _internal_set_portions_ferry(from._internal_portions_ferry());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -2663,8 +2778,8 @@ void DirectionsLeg_Maneuver::InternalSwap(DirectionsLeg_Maneuver* other) {
       &other->verbal_succinct_transition_instruction_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Maneuver, bss_maneuver_type_)
-      + sizeof(DirectionsLeg_Maneuver::bss_maneuver_type_)
+      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Maneuver, portions_ferry_)
+      + sizeof(DirectionsLeg_Maneuver::portions_ferry_)
       - PROTOBUF_FIELD_OFFSET(DirectionsLeg_Maneuver, sign_)>(
           reinterpret_cast<char*>(&sign_),
           reinterpret_cast<char*>(&other->sign_));

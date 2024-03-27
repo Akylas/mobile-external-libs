@@ -83,6 +83,8 @@ PROTOBUF_CONSTEXPR Costing_Options::Costing_Options(
 
   , fixed_speed_(0u)
   , axle_count_(0u)
+  , use_lit_(0)
+  , disable_hierarchy_pruning_(false)
   , _oneof_case_{}{}
 struct Costing_OptionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR Costing_OptionsDefaultTypeInternal()
@@ -153,7 +155,6 @@ PROTOBUF_CONSTEXPR Options::Options(
   , shape_format_(0)
 
   , reverse_(false)
-  , matrix_locations_(0u)
   , _oneof_case_{}{}
 struct OptionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OptionsDefaultTypeInternal()
@@ -1942,8 +1943,8 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       exclude_edges_(from.exclude_edges_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&filter_stop_action_, &from.filter_stop_action_,
-    static_cast<size_t>(reinterpret_cast<char*>(&axle_count_) -
-    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(axle_count_));
+    static_cast<size_t>(reinterpret_cast<char*>(&disable_hierarchy_pruning_) -
+    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(disable_hierarchy_pruning_));
   clear_has_has_maneuver_penalty();
   switch (from.has_maneuver_penalty_case()) {
     case kManeuverPenalty: {
@@ -2680,8 +2681,8 @@ Costing_Options::Costing_Options(const Costing_Options& from)
 inline void Costing_Options::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&filter_stop_action_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&axle_count_) -
-    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(axle_count_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&disable_hierarchy_pruning_) -
+    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(disable_hierarchy_pruning_));
 clear_has_has_maneuver_penalty();
 clear_has_has_destination_only_penalty();
 clear_has_has_gate_cost();
@@ -4027,8 +4028,8 @@ void Costing_Options::Clear() {
   filter_route_ids_.Clear();
   exclude_edges_.Clear();
   ::memset(&filter_stop_action_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&axle_count_) -
-      reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(axle_count_));
+      reinterpret_cast<char*>(&disable_hierarchy_pruning_) -
+      reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(disable_hierarchy_pruning_));
   clear_has_maneuver_penalty();
   clear_has_destination_only_penalty();
   clear_has_gate_cost();
@@ -4790,9 +4791,25 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // float non_network_penalty = 82;
+      // float use_lit = 82;
       case 82:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 149)) {
+          use_lit_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool disable_hierarchy_pruning = 83;
+      case 83:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+          disable_hierarchy_pruning_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float non_network_penalty = 84;
+      case 84:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 165)) {
           _internal_set_non_network_penalty(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
         } else
@@ -5334,10 +5351,26 @@ uint8_t* Costing_Options::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(81, this->_internal_axle_count(), target);
   }
 
-  // float non_network_penalty = 82;
+  // float use_lit = 82;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_use_lit = this->_internal_use_lit();
+  uint32_t raw_use_lit;
+  memcpy(&raw_use_lit, &tmp_use_lit, sizeof(tmp_use_lit));
+  if (raw_use_lit != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(82, this->_internal_use_lit(), target);
+  }
+
+  // bool disable_hierarchy_pruning = 83;
+  if (this->_internal_disable_hierarchy_pruning() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(83, this->_internal_disable_hierarchy_pruning(), target);
+  }
+
+  // float non_network_penalty = 84;
   if (_internal_has_non_network_penalty()) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(82, this->_internal_non_network_penalty(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(84, this->_internal_non_network_penalty(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5417,6 +5450,20 @@ size_t Costing_Options::ByteSizeLong() const {
     total_size += 2 +
       ::_pbi::WireFormatLite::UInt32Size(
         this->_internal_axle_count());
+  }
+
+  // float use_lit = 82;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_use_lit = this->_internal_use_lit();
+  uint32_t raw_use_lit;
+  memcpy(&raw_use_lit, &tmp_use_lit, sizeof(tmp_use_lit));
+  if (raw_use_lit != 0) {
+    total_size += 2 + 4;
+  }
+
+  // bool disable_hierarchy_pruning = 83;
+  if (this->_internal_disable_hierarchy_pruning() != 0) {
+    total_size += 2 + 1;
   }
 
   switch (has_maneuver_penalty_case()) {
@@ -6156,7 +6203,7 @@ size_t Costing_Options::ByteSizeLong() const {
     }
   }
   switch (has_non_network_penalty_case()) {
-    // float non_network_penalty = 82;
+    // float non_network_penalty = 84;
     case kNonNetworkPenalty: {
       total_size += 2 + 4;
       break;
@@ -6203,6 +6250,16 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
   }
   if (from._internal_axle_count() != 0) {
     _internal_set_axle_count(from._internal_axle_count());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_use_lit = from._internal_use_lit();
+  uint32_t raw_use_lit;
+  memcpy(&raw_use_lit, &tmp_use_lit, sizeof(tmp_use_lit));
+  if (raw_use_lit != 0) {
+    _internal_set_use_lit(from._internal_use_lit());
+  }
+  if (from._internal_disable_hierarchy_pruning() != 0) {
+    _internal_set_disable_hierarchy_pruning(from._internal_disable_hierarchy_pruning());
   }
   switch (from.has_maneuver_penalty_case()) {
     case kManeuverPenalty: {
@@ -6883,8 +6940,8 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   filter_route_ids_.InternalSwap(&other->filter_route_ids_);
   exclude_edges_.InternalSwap(&other->exclude_edges_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Costing_Options, axle_count_)
-      + sizeof(Costing_Options::axle_count_)
+      PROTOBUF_FIELD_OFFSET(Costing_Options, disable_hierarchy_pruning_)
+      + sizeof(Costing_Options::disable_hierarchy_pruning_)
       - PROTOBUF_FIELD_OFFSET(Costing_Options, filter_stop_action_)>(
           reinterpret_cast<char*>(&filter_stop_action_),
           reinterpret_cast<char*>(&other->filter_stop_action_));
@@ -7515,8 +7572,8 @@ Options::Options(const Options& from)
     pbf_field_selector_ = nullptr;
   }
   ::memcpy(&units_, &from.units_,
-    static_cast<size_t>(reinterpret_cast<char*>(&matrix_locations_) -
-    reinterpret_cast<char*>(&units_)) + sizeof(matrix_locations_));
+    static_cast<size_t>(reinterpret_cast<char*>(&reverse_) -
+    reinterpret_cast<char*>(&units_)) + sizeof(reverse_));
   clear_has_has_language();
   switch (from.has_language_case()) {
     case kLanguage: {
@@ -7777,14 +7834,24 @@ Options::Options(const Options& from)
       break;
     }
   }
+  clear_has_has_matrix_locations();
+  switch (from.has_matrix_locations_case()) {
+    case kMatrixLocations: {
+      _internal_set_matrix_locations(from._internal_matrix_locations());
+      break;
+    }
+    case HAS_MATRIX_LOCATIONS_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:valhalla.Options)
 }
 
 inline void Options::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&pbf_field_selector_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&matrix_locations_) -
-    reinterpret_cast<char*>(&pbf_field_selector_)) + sizeof(matrix_locations_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&reverse_) -
+    reinterpret_cast<char*>(&pbf_field_selector_)) + sizeof(reverse_));
 clear_has_has_language();
 clear_has_has_id();
 clear_has_has_jsonp();
@@ -7811,6 +7878,7 @@ clear_has_has_linear_references();
 clear_has_has_prioritize_bidirectional();
 clear_has_has_expansion_action();
 clear_has_has_skip_opposites();
+clear_has_has_matrix_locations();
 }
 
 Options::~Options() {
@@ -7903,6 +7971,9 @@ inline void Options::SharedDtor() {
   }
   if (has_has_skip_opposites()) {
     clear_has_skip_opposites();
+  }
+  if (has_has_matrix_locations()) {
+    clear_has_matrix_locations();
   }
 }
 
@@ -8274,6 +8345,20 @@ void Options::clear_has_skip_opposites() {
   _oneof_case_[25] = HAS_SKIP_OPPOSITES_NOT_SET;
 }
 
+void Options::clear_has_matrix_locations() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
+  switch (has_matrix_locations_case()) {
+    case kMatrixLocations: {
+      // No need to clear
+      break;
+    }
+    case HAS_MATRIX_LOCATIONS_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[26] = HAS_MATRIX_LOCATIONS_NOT_SET;
+}
+
 
 void Options::Clear() {
 // @@protoc_insertion_point(message_clear_start:valhalla.Options)
@@ -8298,8 +8383,8 @@ void Options::Clear() {
   }
   pbf_field_selector_ = nullptr;
   ::memset(&units_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&matrix_locations_) -
-      reinterpret_cast<char*>(&units_)) + sizeof(matrix_locations_));
+      reinterpret_cast<char*>(&reverse_) -
+      reinterpret_cast<char*>(&units_)) + sizeof(reverse_));
   clear_has_language();
   clear_has_id();
   clear_has_jsonp();
@@ -8326,6 +8411,7 @@ void Options::Clear() {
   clear_has_prioritize_bidirectional();
   clear_has_expansion_action();
   clear_has_skip_opposites();
+  clear_has_matrix_locations();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -8811,7 +8897,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // uint32 matrix_locations = 54;
       case 54:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
-          matrix_locations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _internal_set_matrix_locations(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9207,7 +9293,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // uint32 matrix_locations = 54;
-  if (this->_internal_matrix_locations() != 0) {
+  if (_internal_has_matrix_locations()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(54, this->_internal_matrix_locations(), target);
   }
@@ -9389,13 +9475,6 @@ size_t Options::ByteSizeLong() const {
   // bool reverse = 53;
   if (this->_internal_reverse() != 0) {
     total_size += 2 + 1;
-  }
-
-  // uint32 matrix_locations = 54;
-  if (this->_internal_matrix_locations() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::UInt32Size(
-        this->_internal_matrix_locations());
   }
 
   switch (has_language_case()) {
@@ -9673,6 +9752,18 @@ size_t Options::ByteSizeLong() const {
       break;
     }
   }
+  switch (has_matrix_locations_case()) {
+    // uint32 matrix_locations = 54;
+    case kMatrixLocations: {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_matrix_locations());
+      break;
+    }
+    case HAS_MATRIX_LOCATIONS_NOT_SET: {
+      break;
+    }
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -9737,9 +9828,6 @@ void Options::MergeFrom(const Options& from) {
   }
   if (from._internal_reverse() != 0) {
     _internal_set_reverse(from._internal_reverse());
-  }
-  if (from._internal_matrix_locations() != 0) {
-    _internal_set_matrix_locations(from._internal_matrix_locations());
   }
   switch (from.has_language_case()) {
     case kLanguage: {
@@ -9975,6 +10063,15 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
+  switch (from.has_matrix_locations_case()) {
+    case kMatrixLocations: {
+      _internal_set_matrix_locations(from._internal_matrix_locations());
+      break;
+    }
+    case HAS_MATRIX_LOCATIONS_NOT_SET: {
+      break;
+    }
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -10005,8 +10102,8 @@ void Options::InternalSwap(Options* other) {
   exclude_polygons_.InternalSwap(&other->exclude_polygons_);
   expansion_properties_.InternalSwap(&other->expansion_properties_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Options, matrix_locations_)
-      + sizeof(Options::matrix_locations_)
+      PROTOBUF_FIELD_OFFSET(Options, reverse_)
+      + sizeof(Options::reverse_)
       - PROTOBUF_FIELD_OFFSET(Options, pbf_field_selector_)>(
           reinterpret_cast<char*>(&pbf_field_selector_),
           reinterpret_cast<char*>(&other->pbf_field_selector_));
@@ -10036,6 +10133,7 @@ void Options::InternalSwap(Options* other) {
   swap(has_prioritize_bidirectional_, other->has_prioritize_bidirectional_);
   swap(has_expansion_action_, other->has_expansion_action_);
   swap(has_skip_opposites_, other->has_skip_opposites_);
+  swap(has_matrix_locations_, other->has_matrix_locations_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   swap(_oneof_case_[1], other->_oneof_case_[1]);
   swap(_oneof_case_[2], other->_oneof_case_[2]);
@@ -10062,6 +10160,7 @@ void Options::InternalSwap(Options* other) {
   swap(_oneof_case_[23], other->_oneof_case_[23]);
   swap(_oneof_case_[24], other->_oneof_case_[24]);
   swap(_oneof_case_[25], other->_oneof_case_[25]);
+  swap(_oneof_case_[26], other->_oneof_case_[26]);
 }
 
 std::string Options::GetTypeName() const {
