@@ -46,8 +46,8 @@
 	url = https://github.com/nutiteq/harfbuzz.git
 [submodule "protobuf/protobuf"]
 	path = protobuf/protobuf
-	url = https://github.com/nutiteq/protobuf.git
-	branch = nutiteq-fixes
+	url = https://github.com/Akylas/protobuf.git
+	branch = 3.20.x
 [submodule "valhalla/valhalla"]
 	path = valhalla/valhalla
 	url = https://github.com/Akylas/valhalla.git
