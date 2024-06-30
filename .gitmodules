@@ -12,7 +12,7 @@
 	branch = master
 [submodule "brotli/brotli"]
 	path = brotli/brotli
-	url = https://github.com/nutiteq/brotli.git
+	url = https://github.com/Akylas/brotli.git
 	branch = master
 [submodule "zlib/zlib"]
 	path = zlib/zlib
