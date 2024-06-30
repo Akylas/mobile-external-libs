@@ -43,7 +43,7 @@
 	url = https://github.com/nutiteq/cryptopp.git
 [submodule "harfbuzz/harfbuzz"]
 	path = harfbuzz/harfbuzz
-	url = https://github.com/nutiteq/harfbuzz.git
+	url = https://github.com/Akylas/harfbuzz.git
 [submodule "protobuf/protobuf"]
 	path = protobuf/protobuf
 	url = https://github.com/Akylas/protobuf.git
