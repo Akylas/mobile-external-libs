@@ -17,7 +17,7 @@
 [submodule "zlib/zlib"]
 	path = zlib/zlib
 	url = https://github.com/Akylas/zlib.git
-	branch = master
+	branch = develop
 [submodule "pugixml/pugixml"]
 	path = pugixml/pugixml
 	url = https://github.com/nutiteq/pugixml.git
