@@ -23,7 +23,9 @@ PROTOBUF_CONSTEXPR TripSignElement::TripSignElement(
   : text_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , pronunciation_(nullptr)
   , is_route_number_(false)
-  , consecutive_count_(0u){}
+  , consecutive_count_(0u)
+  , language_tag_(0)
+{}
 struct TripSignElementDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TripSignElementDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -96,8 +98,8 @@ TripSignElement::TripSignElement(const TripSignElement& from)
     pronunciation_ = nullptr;
   }
   ::memcpy(&is_route_number_, &from.is_route_number_,
-    static_cast<size_t>(reinterpret_cast<char*>(&consecutive_count_) -
-    reinterpret_cast<char*>(&is_route_number_)) + sizeof(consecutive_count_));
+    static_cast<size_t>(reinterpret_cast<char*>(&language_tag_) -
+    reinterpret_cast<char*>(&is_route_number_)) + sizeof(language_tag_));
   // @@protoc_insertion_point(copy_constructor:valhalla.TripSignElement)
 }
 
@@ -108,8 +110,8 @@ text_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&pronunciation_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&consecutive_count_) -
-    reinterpret_cast<char*>(&pronunciation_)) + sizeof(consecutive_count_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&language_tag_) -
+    reinterpret_cast<char*>(&pronunciation_)) + sizeof(language_tag_));
 }
 
 TripSignElement::~TripSignElement() {
@@ -143,8 +145,8 @@ void TripSignElement::Clear() {
   }
   pronunciation_ = nullptr;
   ::memset(&is_route_number_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&consecutive_count_) -
-      reinterpret_cast<char*>(&is_route_number_)) + sizeof(consecutive_count_));
+      reinterpret_cast<char*>(&language_tag_) -
+      reinterpret_cast<char*>(&is_route_number_)) + sizeof(language_tag_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -185,6 +187,15 @@ const char* TripSignElement::_InternalParse(const char* ptr, ::_pbi::ParseContex
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_pronunciation(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.LanguageTag language_tag = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_language_tag(static_cast<::valhalla::LanguageTag>(val));
         } else
           goto handle_unusual;
         continue;
@@ -246,6 +257,13 @@ uint8_t* TripSignElement::_InternalSerialize(
         _Internal::pronunciation(this).GetCachedSize(), target, stream);
   }
 
+  // .valhalla.LanguageTag language_tag = 5;
+  if (this->_internal_language_tag() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      5, this->_internal_language_tag(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -286,6 +304,12 @@ size_t TripSignElement::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_consecutive_count());
   }
 
+  // .valhalla.LanguageTag language_tag = 5;
+  if (this->_internal_language_tag() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_language_tag());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -318,6 +342,9 @@ void TripSignElement::MergeFrom(const TripSignElement& from) {
   if (from._internal_consecutive_count() != 0) {
     _internal_set_consecutive_count(from._internal_consecutive_count());
   }
+  if (from._internal_language_tag() != 0) {
+    _internal_set_language_tag(from._internal_language_tag());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -342,8 +369,8 @@ void TripSignElement::InternalSwap(TripSignElement* other) {
       &other->text_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TripSignElement, consecutive_count_)
-      + sizeof(TripSignElement::consecutive_count_)
+      PROTOBUF_FIELD_OFFSET(TripSignElement, language_tag_)
+      + sizeof(TripSignElement::language_tag_)
       - PROTOBUF_FIELD_OFFSET(TripSignElement, pronunciation_)>(
           reinterpret_cast<char*>(&pronunciation_),
           reinterpret_cast<char*>(&other->pronunciation_));

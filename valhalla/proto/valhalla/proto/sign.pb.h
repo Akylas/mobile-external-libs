@@ -165,6 +165,7 @@ class TripSignElement final :
     kPronunciationFieldNumber = 4,
     kIsRouteNumberFieldNumber = 2,
     kConsecutiveCountFieldNumber = 3,
+    kLanguageTagFieldNumber = 5,
   };
   // string text = 1;
   void clear_text();
@@ -216,6 +217,15 @@ class TripSignElement final :
   void _internal_set_consecutive_count(uint32_t value);
   public:
 
+  // .valhalla.LanguageTag language_tag = 5;
+  void clear_language_tag();
+  ::valhalla::LanguageTag language_tag() const;
+  void set_language_tag(::valhalla::LanguageTag value);
+  private:
+  ::valhalla::LanguageTag _internal_language_tag() const;
+  void _internal_set_language_tag(::valhalla::LanguageTag value);
+  public:
+
   // @@protoc_insertion_point(class_scope:valhalla.TripSignElement)
  private:
   class _Internal;
@@ -227,6 +237,7 @@ class TripSignElement final :
   ::valhalla::Pronunciation* pronunciation_;
   bool is_route_number_;
   uint32_t consecutive_count_;
+  int language_tag_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_sign_2eproto;
 };
@@ -710,6 +721,26 @@ inline void TripSignElement::set_allocated_pronunciation(::valhalla::Pronunciati
   }
   pronunciation_ = pronunciation;
   // @@protoc_insertion_point(field_set_allocated:valhalla.TripSignElement.pronunciation)
+}
+
+// .valhalla.LanguageTag language_tag = 5;
+inline void TripSignElement::clear_language_tag() {
+  language_tag_ = 0;
+}
+inline ::valhalla::LanguageTag TripSignElement::_internal_language_tag() const {
+  return static_cast< ::valhalla::LanguageTag >(language_tag_);
+}
+inline ::valhalla::LanguageTag TripSignElement::language_tag() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripSignElement.language_tag)
+  return _internal_language_tag();
+}
+inline void TripSignElement::_internal_set_language_tag(::valhalla::LanguageTag value) {
+  
+  language_tag_ = value;
+}
+inline void TripSignElement::set_language_tag(::valhalla::LanguageTag value) {
+  _internal_set_language_tag(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripSignElement.language_tag)
 }
 
 // -------------------------------------------------------------------

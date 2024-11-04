@@ -18,24 +18,6 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace valhalla {
-PROTOBUF_CONSTEXPR DirectionsLeg_Summary::DirectionsLeg_Summary(
-    ::_pbi::ConstantInitialized)
-  : bbox_(nullptr)
-  , time_(0)
-  , length_(0)
-  , has_time_restrictions_(false)
-  , has_toll_(false)
-  , has_ferry_(false)
-  , has_highway_(false){}
-struct DirectionsLeg_SummaryDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DirectionsLeg_SummaryDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DirectionsLeg_SummaryDefaultTypeInternal() {}
-  union {
-    DirectionsLeg_Summary _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DirectionsLeg_SummaryDefaultTypeInternal _DirectionsLeg_Summary_default_instance_;
 PROTOBUF_CONSTEXPR DirectionsLeg_GuidanceView::DirectionsLeg_GuidanceView(
     ::_pbi::ConstantInitialized)
   : overlay_ids_()
@@ -58,6 +40,7 @@ PROTOBUF_CONSTEXPR DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(
   , begin_street_name_()
   , roundabout_exit_street_names_()
   , guidance_views_()
+  , landmarks_()
   , text_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , verbal_transition_alert_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , verbal_pre_transition_instruction_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -670,366 +653,6 @@ constexpr int DirectionsLeg_Maneuver::BssManeuverType_ARRAYSIZE;
 
 // ===================================================================
 
-class DirectionsLeg_Summary::_Internal {
- public:
-  static const ::valhalla::BoundingBox& bbox(const DirectionsLeg_Summary* msg);
-};
-
-const ::valhalla::BoundingBox&
-DirectionsLeg_Summary::_Internal::bbox(const DirectionsLeg_Summary* msg) {
-  return *msg->bbox_;
-}
-void DirectionsLeg_Summary::clear_bbox() {
-  if (GetArenaForAllocation() == nullptr && bbox_ != nullptr) {
-    delete bbox_;
-  }
-  bbox_ = nullptr;
-}
-DirectionsLeg_Summary::DirectionsLeg_Summary(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg.Summary)
-}
-DirectionsLeg_Summary::DirectionsLeg_Summary(const DirectionsLeg_Summary& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_bbox()) {
-    bbox_ = new ::valhalla::BoundingBox(*from.bbox_);
-  } else {
-    bbox_ = nullptr;
-  }
-  ::memcpy(&time_, &from.time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&has_highway_) -
-    reinterpret_cast<char*>(&time_)) + sizeof(has_highway_));
-  // @@protoc_insertion_point(copy_constructor:valhalla.DirectionsLeg.Summary)
-}
-
-inline void DirectionsLeg_Summary::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&bbox_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&has_highway_) -
-    reinterpret_cast<char*>(&bbox_)) + sizeof(has_highway_));
-}
-
-DirectionsLeg_Summary::~DirectionsLeg_Summary() {
-  // @@protoc_insertion_point(destructor:valhalla.DirectionsLeg.Summary)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void DirectionsLeg_Summary::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete bbox_;
-}
-
-void DirectionsLeg_Summary::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void DirectionsLeg_Summary::Clear() {
-// @@protoc_insertion_point(message_clear_start:valhalla.DirectionsLeg.Summary)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaForAllocation() == nullptr && bbox_ != nullptr) {
-    delete bbox_;
-  }
-  bbox_ = nullptr;
-  ::memset(&time_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&has_highway_) -
-      reinterpret_cast<char*>(&time_)) + sizeof(has_highway_));
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* DirectionsLeg_Summary::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // float length = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
-          length_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      // double time = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
-          time_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-          ptr += sizeof(double);
-        } else
-          goto handle_unusual;
-        continue;
-      // .valhalla.BoundingBox bbox = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_bbox(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_time_restrictions = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          has_time_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_toll = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          has_toll_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_ferry = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          has_ferry_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool has_highway = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          has_highway_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* DirectionsLeg_Summary::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:valhalla.DirectionsLeg.Summary)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // float length = 1;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_length = this->_internal_length();
-  uint32_t raw_length;
-  memcpy(&raw_length, &tmp_length, sizeof(tmp_length));
-  if (raw_length != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(1, this->_internal_length(), target);
-  }
-
-  // double time = 2;
-  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
-  double tmp_time = this->_internal_time();
-  uint64_t raw_time;
-  memcpy(&raw_time, &tmp_time, sizeof(tmp_time));
-  if (raw_time != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_time(), target);
-  }
-
-  // .valhalla.BoundingBox bbox = 3;
-  if (this->_internal_has_bbox()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::bbox(this),
-        _Internal::bbox(this).GetCachedSize(), target, stream);
-  }
-
-  // bool has_time_restrictions = 4;
-  if (this->_internal_has_time_restrictions() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_has_time_restrictions(), target);
-  }
-
-  // bool has_toll = 5;
-  if (this->_internal_has_toll() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_has_toll(), target);
-  }
-
-  // bool has_ferry = 6;
-  if (this->_internal_has_ferry() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_has_ferry(), target);
-  }
-
-  // bool has_highway = 7;
-  if (this->_internal_has_highway() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_has_highway(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:valhalla.DirectionsLeg.Summary)
-  return target;
-}
-
-size_t DirectionsLeg_Summary::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:valhalla.DirectionsLeg.Summary)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .valhalla.BoundingBox bbox = 3;
-  if (this->_internal_has_bbox()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *bbox_);
-  }
-
-  // double time = 2;
-  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
-  double tmp_time = this->_internal_time();
-  uint64_t raw_time;
-  memcpy(&raw_time, &tmp_time, sizeof(tmp_time));
-  if (raw_time != 0) {
-    total_size += 1 + 8;
-  }
-
-  // float length = 1;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_length = this->_internal_length();
-  uint32_t raw_length;
-  memcpy(&raw_length, &tmp_length, sizeof(tmp_length));
-  if (raw_length != 0) {
-    total_size += 1 + 4;
-  }
-
-  // bool has_time_restrictions = 4;
-  if (this->_internal_has_time_restrictions() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool has_toll = 5;
-  if (this->_internal_has_toll() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool has_ferry = 6;
-  if (this->_internal_has_ferry() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool has_highway = 7;
-  if (this->_internal_has_highway() != 0) {
-    total_size += 1 + 1;
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void DirectionsLeg_Summary::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const DirectionsLeg_Summary*>(
-      &from));
-}
-
-void DirectionsLeg_Summary::MergeFrom(const DirectionsLeg_Summary& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.DirectionsLeg.Summary)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_has_bbox()) {
-    _internal_mutable_bbox()->::valhalla::BoundingBox::MergeFrom(from._internal_bbox());
-  }
-  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
-  double tmp_time = from._internal_time();
-  uint64_t raw_time;
-  memcpy(&raw_time, &tmp_time, sizeof(tmp_time));
-  if (raw_time != 0) {
-    _internal_set_time(from._internal_time());
-  }
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_length = from._internal_length();
-  uint32_t raw_length;
-  memcpy(&raw_length, &tmp_length, sizeof(tmp_length));
-  if (raw_length != 0) {
-    _internal_set_length(from._internal_length());
-  }
-  if (from._internal_has_time_restrictions() != 0) {
-    _internal_set_has_time_restrictions(from._internal_has_time_restrictions());
-  }
-  if (from._internal_has_toll() != 0) {
-    _internal_set_has_toll(from._internal_has_toll());
-  }
-  if (from._internal_has_ferry() != 0) {
-    _internal_set_has_ferry(from._internal_has_ferry());
-  }
-  if (from._internal_has_highway() != 0) {
-    _internal_set_has_highway(from._internal_has_highway());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void DirectionsLeg_Summary::CopyFrom(const DirectionsLeg_Summary& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.DirectionsLeg.Summary)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool DirectionsLeg_Summary::IsInitialized() const {
-  return true;
-}
-
-void DirectionsLeg_Summary::InternalSwap(DirectionsLeg_Summary* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, has_highway_)
-      + sizeof(DirectionsLeg_Summary::has_highway_)
-      - PROTOBUF_FIELD_OFFSET(DirectionsLeg_Summary, bbox_)>(
-          reinterpret_cast<char*>(&bbox_),
-          reinterpret_cast<char*>(&other->bbox_));
-}
-
-std::string DirectionsLeg_Summary::GetTypeName() const {
-  return "valhalla.DirectionsLeg.Summary";
-}
-
-
-// ===================================================================
-
 class DirectionsLeg_GuidanceView::_Internal {
  public:
 };
@@ -1383,13 +1006,17 @@ void DirectionsLeg_Maneuver::clear_bss_info() {
   }
   bss_info_ = nullptr;
 }
+void DirectionsLeg_Maneuver::clear_landmarks() {
+  landmarks_.Clear();
+}
 DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   street_name_(arena),
   begin_street_name_(arena),
   roundabout_exit_street_names_(arena),
-  guidance_views_(arena) {
+  guidance_views_(arena),
+  landmarks_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg.Maneuver)
 }
@@ -1398,7 +1025,8 @@ DirectionsLeg_Maneuver::DirectionsLeg_Maneuver(const DirectionsLeg_Maneuver& fro
       street_name_(from.street_name_),
       begin_street_name_(from.begin_street_name_),
       roundabout_exit_street_names_(from.roundabout_exit_street_names_),
-      guidance_views_(from.guidance_views_) {
+      guidance_views_(from.guidance_views_),
+      landmarks_(from.landmarks_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   text_instruction_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1575,6 +1203,7 @@ void DirectionsLeg_Maneuver::Clear() {
   begin_street_name_.Clear();
   roundabout_exit_street_names_.Clear();
   guidance_views_.Clear();
+  landmarks_.Clear();
   text_instruction_.ClearToEmpty();
   verbal_transition_alert_instruction_.ClearToEmpty();
   verbal_pre_transition_instruction_.ClearToEmpty();
@@ -1974,6 +1603,19 @@ const char* DirectionsLeg_Maneuver::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
+      // repeated .valhalla.RouteLandmark landmarks = 41;
+      case 41:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_landmarks(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<330>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2306,6 +1948,14 @@ uint8_t* DirectionsLeg_Maneuver::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(40, this->_internal_portions_ferry(), target);
   }
 
+  // repeated .valhalla.RouteLandmark landmarks = 41;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_landmarks_size()); i < n; i++) {
+    const auto& repfield = this->_internal_landmarks(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(41, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2346,6 +1996,13 @@ size_t DirectionsLeg_Maneuver::ByteSizeLong() const {
   // repeated .valhalla.DirectionsLeg.GuidanceView guidance_views = 35;
   total_size += 2UL * this->_internal_guidance_views_size();
   for (const auto& msg : this->guidance_views_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .valhalla.RouteLandmark landmarks = 41;
+  total_size += 2UL * this->_internal_landmarks_size();
+  for (const auto& msg : this->landmarks_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2602,6 +2259,7 @@ void DirectionsLeg_Maneuver::MergeFrom(const DirectionsLeg_Maneuver& from) {
   begin_street_name_.MergeFrom(from.begin_street_name_);
   roundabout_exit_street_names_.MergeFrom(from.roundabout_exit_street_names_);
   guidance_views_.MergeFrom(from.guidance_views_);
+  landmarks_.MergeFrom(from.landmarks_);
   if (!from._internal_text_instruction().empty()) {
     _internal_set_text_instruction(from._internal_text_instruction());
   }
@@ -2741,6 +2399,7 @@ void DirectionsLeg_Maneuver::InternalSwap(DirectionsLeg_Maneuver* other) {
   begin_street_name_.InternalSwap(&other->begin_street_name_);
   roundabout_exit_street_names_.InternalSwap(&other->roundabout_exit_street_names_);
   guidance_views_.InternalSwap(&other->guidance_views_);
+  landmarks_.InternalSwap(&other->landmarks_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &text_instruction_, lhs_arena,
       &other->text_instruction_, rhs_arena
@@ -2794,15 +2453,21 @@ std::string DirectionsLeg_Maneuver::GetTypeName() const {
 
 class DirectionsLeg::_Internal {
  public:
-  static const ::valhalla::DirectionsLeg_Summary& summary(const DirectionsLeg* msg);
+  static const ::valhalla::Summary& summary(const DirectionsLeg* msg);
 };
 
-const ::valhalla::DirectionsLeg_Summary&
+const ::valhalla::Summary&
 DirectionsLeg::_Internal::summary(const DirectionsLeg* msg) {
   return *msg->summary_;
 }
 void DirectionsLeg::clear_location() {
   location_.Clear();
+}
+void DirectionsLeg::clear_summary() {
+  if (GetArenaForAllocation() == nullptr && summary_ != nullptr) {
+    delete summary_;
+  }
+  summary_ = nullptr;
 }
 DirectionsLeg::DirectionsLeg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -2826,7 +2491,7 @@ DirectionsLeg::DirectionsLeg(const DirectionsLeg& from)
       GetArenaForAllocation());
   }
   if (from._internal_has_summary()) {
-    summary_ = new ::valhalla::DirectionsLeg_Summary(*from.summary_);
+    summary_ = new ::valhalla::Summary(*from.summary_);
   } else {
     summary_ = nullptr;
   }
@@ -2928,7 +2593,7 @@ const char* DirectionsLeg::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // .valhalla.DirectionsLeg.Summary summary = 5;
+      // .valhalla.Summary summary = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_summary(), ptr);
@@ -3014,7 +2679,7 @@ uint8_t* DirectionsLeg::_InternalSerialize(
         InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // .valhalla.DirectionsLeg.Summary summary = 5;
+  // .valhalla.Summary summary = 5;
   if (this->_internal_has_summary()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(5, _Internal::summary(this),
@@ -3076,7 +2741,7 @@ size_t DirectionsLeg::ByteSizeLong() const {
         this->_internal_shape());
   }
 
-  // .valhalla.DirectionsLeg.Summary summary = 5;
+  // .valhalla.Summary summary = 5;
   if (this->_internal_has_summary()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -3124,7 +2789,7 @@ void DirectionsLeg::MergeFrom(const DirectionsLeg& from) {
     _internal_set_shape(from._internal_shape());
   }
   if (from._internal_has_summary()) {
-    _internal_mutable_summary()->::valhalla::DirectionsLeg_Summary::MergeFrom(from._internal_summary());
+    _internal_mutable_summary()->::valhalla::Summary::MergeFrom(from._internal_summary());
   }
   if (from._internal_trip_id() != 0) {
     _internal_set_trip_id(from._internal_trip_id());
@@ -3526,10 +3191,6 @@ std::string Directions::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace valhalla
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_Summary*
-Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_Summary >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::valhalla::DirectionsLeg_Summary >(arena);
-}
 template<> PROTOBUF_NOINLINE ::valhalla::DirectionsLeg_GuidanceView*
 Arena::CreateMaybeMessage< ::valhalla::DirectionsLeg_GuidanceView >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::DirectionsLeg_GuidanceView >(arena);

@@ -58,6 +58,9 @@ extern TripLeg_AdminDefaultTypeInternal _TripLeg_Admin_default_instance_;
 class TripLeg_Closure;
 struct TripLeg_ClosureDefaultTypeInternal;
 extern TripLeg_ClosureDefaultTypeInternal _TripLeg_Closure_default_instance_;
+class TripLeg_ConditionalSpeedLimit;
+struct TripLeg_ConditionalSpeedLimitDefaultTypeInternal;
+extern TripLeg_ConditionalSpeedLimitDefaultTypeInternal _TripLeg_ConditionalSpeedLimit_default_instance_;
 class TripLeg_Cost;
 struct TripLeg_CostDefaultTypeInternal;
 extern TripLeg_CostDefaultTypeInternal _TripLeg_Cost_default_instance_;
@@ -85,6 +88,9 @@ extern TripLeg_RestrictionDefaultTypeInternal _TripLeg_Restriction_default_insta
 class TripLeg_ShapeAttributes;
 struct TripLeg_ShapeAttributesDefaultTypeInternal;
 extern TripLeg_ShapeAttributesDefaultTypeInternal _TripLeg_ShapeAttributes_default_instance_;
+class TripLeg_TimeDomain;
+struct TripLeg_TimeDomainDefaultTypeInternal;
+extern TripLeg_TimeDomainDefaultTypeInternal _TripLeg_TimeDomain_default_instance_;
 class TripLeg_TrafficSegment;
 struct TripLeg_TrafficSegmentDefaultTypeInternal;
 extern TripLeg_TrafficSegmentDefaultTypeInternal _TripLeg_TrafficSegment_default_instance_;
@@ -97,6 +103,7 @@ template<> ::valhalla::Trip* Arena::CreateMaybeMessage<::valhalla::Trip>(Arena*)
 template<> ::valhalla::TripLeg* Arena::CreateMaybeMessage<::valhalla::TripLeg>(Arena*);
 template<> ::valhalla::TripLeg_Admin* Arena::CreateMaybeMessage<::valhalla::TripLeg_Admin>(Arena*);
 template<> ::valhalla::TripLeg_Closure* Arena::CreateMaybeMessage<::valhalla::TripLeg_Closure>(Arena*);
+template<> ::valhalla::TripLeg_ConditionalSpeedLimit* Arena::CreateMaybeMessage<::valhalla::TripLeg_ConditionalSpeedLimit>(Arena*);
 template<> ::valhalla::TripLeg_Cost* Arena::CreateMaybeMessage<::valhalla::TripLeg_Cost>(Arena*);
 template<> ::valhalla::TripLeg_Edge* Arena::CreateMaybeMessage<::valhalla::TripLeg_Edge>(Arena*);
 template<> ::valhalla::TripLeg_Incident* Arena::CreateMaybeMessage<::valhalla::TripLeg_Incident>(Arena*);
@@ -106,11 +113,33 @@ template<> ::valhalla::TripLeg_Node* Arena::CreateMaybeMessage<::valhalla::TripL
 template<> ::valhalla::TripLeg_PathCost* Arena::CreateMaybeMessage<::valhalla::TripLeg_PathCost>(Arena*);
 template<> ::valhalla::TripLeg_Restriction* Arena::CreateMaybeMessage<::valhalla::TripLeg_Restriction>(Arena*);
 template<> ::valhalla::TripLeg_ShapeAttributes* Arena::CreateMaybeMessage<::valhalla::TripLeg_ShapeAttributes>(Arena*);
+template<> ::valhalla::TripLeg_TimeDomain* Arena::CreateMaybeMessage<::valhalla::TripLeg_TimeDomain>(Arena*);
 template<> ::valhalla::TripLeg_TrafficSegment* Arena::CreateMaybeMessage<::valhalla::TripLeg_TrafficSegment>(Arena*);
 template<> ::valhalla::TripRoute* Arena::CreateMaybeMessage<::valhalla::TripRoute>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace valhalla {
 
+enum TripLeg_TimeDomain_DayDowType : int {
+  TripLeg_TimeDomain_DayDowType_kDayOfMonth = 0,
+  TripLeg_TimeDomain_DayDowType_kNthDayOfWeek = 1,
+  TripLeg_TimeDomain_DayDowType_TripLeg_TimeDomain_DayDowType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  TripLeg_TimeDomain_DayDowType_TripLeg_TimeDomain_DayDowType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool TripLeg_TimeDomain_DayDowType_IsValid(int value);
+constexpr TripLeg_TimeDomain_DayDowType TripLeg_TimeDomain_DayDowType_DayDowType_MIN = TripLeg_TimeDomain_DayDowType_kDayOfMonth;
+constexpr TripLeg_TimeDomain_DayDowType TripLeg_TimeDomain_DayDowType_DayDowType_MAX = TripLeg_TimeDomain_DayDowType_kNthDayOfWeek;
+constexpr int TripLeg_TimeDomain_DayDowType_DayDowType_ARRAYSIZE = TripLeg_TimeDomain_DayDowType_DayDowType_MAX + 1;
+
+const std::string& TripLeg_TimeDomain_DayDowType_Name(TripLeg_TimeDomain_DayDowType value);
+template<typename T>
+inline const std::string& TripLeg_TimeDomain_DayDowType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TripLeg_TimeDomain_DayDowType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function TripLeg_TimeDomain_DayDowType_Name.");
+  return TripLeg_TimeDomain_DayDowType_Name(static_cast<TripLeg_TimeDomain_DayDowType>(enum_t_value));
+}
+bool TripLeg_TimeDomain_DayDowType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TripLeg_TimeDomain_DayDowType* value);
 enum TripLeg_Node_Type : int {
   TripLeg_Node_Type_kStreetIntersection = 0,
   TripLeg_Node_Type_kGate = 1,
@@ -779,6 +808,427 @@ class TripLeg_Restriction final :
 };
 // -------------------------------------------------------------------
 
+class TripLeg_TimeDomain final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.TimeDomain) */ {
+ public:
+  inline TripLeg_TimeDomain() : TripLeg_TimeDomain(nullptr) {}
+  ~TripLeg_TimeDomain() override;
+  explicit PROTOBUF_CONSTEXPR TripLeg_TimeDomain(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TripLeg_TimeDomain(const TripLeg_TimeDomain& from);
+  TripLeg_TimeDomain(TripLeg_TimeDomain&& from) noexcept
+    : TripLeg_TimeDomain() {
+    *this = ::std::move(from);
+  }
+
+  inline TripLeg_TimeDomain& operator=(const TripLeg_TimeDomain& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TripLeg_TimeDomain& operator=(TripLeg_TimeDomain&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const TripLeg_TimeDomain& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TripLeg_TimeDomain* internal_default_instance() {
+    return reinterpret_cast<const TripLeg_TimeDomain*>(
+               &_TripLeg_TimeDomain_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(TripLeg_TimeDomain& a, TripLeg_TimeDomain& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TripLeg_TimeDomain* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TripLeg_TimeDomain* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TripLeg_TimeDomain* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TripLeg_TimeDomain>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TripLeg_TimeDomain& from);
+  void MergeFrom(const TripLeg_TimeDomain& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TripLeg_TimeDomain* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.TripLeg.TimeDomain";
+  }
+  protected:
+  explicit TripLeg_TimeDomain(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef TripLeg_TimeDomain_DayDowType DayDowType;
+  static constexpr DayDowType kDayOfMonth =
+    TripLeg_TimeDomain_DayDowType_kDayOfMonth;
+  static constexpr DayDowType kNthDayOfWeek =
+    TripLeg_TimeDomain_DayDowType_kNthDayOfWeek;
+  static inline bool DayDowType_IsValid(int value) {
+    return TripLeg_TimeDomain_DayDowType_IsValid(value);
+  }
+  static constexpr DayDowType DayDowType_MIN =
+    TripLeg_TimeDomain_DayDowType_DayDowType_MIN;
+  static constexpr DayDowType DayDowType_MAX =
+    TripLeg_TimeDomain_DayDowType_DayDowType_MAX;
+  static constexpr int DayDowType_ARRAYSIZE =
+    TripLeg_TimeDomain_DayDowType_DayDowType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& DayDowType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, DayDowType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function DayDowType_Name.");
+    return TripLeg_TimeDomain_DayDowType_Name(enum_t_value);
+  }
+  static inline bool DayDowType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      DayDowType* value) {
+    return TripLeg_TimeDomain_DayDowType_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDayDowTypeFieldNumber = 1,
+    kDowMaskFieldNumber = 2,
+    kBeginHrsFieldNumber = 3,
+    kBeginMinsFieldNumber = 4,
+    kBeginMonthFieldNumber = 5,
+    kBeginDayDowFieldNumber = 6,
+    kBeginWeekFieldNumber = 7,
+    kEndHrsFieldNumber = 8,
+    kEndMinsFieldNumber = 9,
+    kEndMonthFieldNumber = 10,
+    kEndDayDowFieldNumber = 11,
+    kEndWeekFieldNumber = 12,
+  };
+  // .valhalla.TripLeg.TimeDomain.DayDowType day_dow_type = 1;
+  void clear_day_dow_type();
+  ::valhalla::TripLeg_TimeDomain_DayDowType day_dow_type() const;
+  void set_day_dow_type(::valhalla::TripLeg_TimeDomain_DayDowType value);
+  private:
+  ::valhalla::TripLeg_TimeDomain_DayDowType _internal_day_dow_type() const;
+  void _internal_set_day_dow_type(::valhalla::TripLeg_TimeDomain_DayDowType value);
+  public:
+
+  // uint32 dow_mask = 2;
+  void clear_dow_mask();
+  uint32_t dow_mask() const;
+  void set_dow_mask(uint32_t value);
+  private:
+  uint32_t _internal_dow_mask() const;
+  void _internal_set_dow_mask(uint32_t value);
+  public:
+
+  // uint32 begin_hrs = 3;
+  void clear_begin_hrs();
+  uint32_t begin_hrs() const;
+  void set_begin_hrs(uint32_t value);
+  private:
+  uint32_t _internal_begin_hrs() const;
+  void _internal_set_begin_hrs(uint32_t value);
+  public:
+
+  // uint32 begin_mins = 4;
+  void clear_begin_mins();
+  uint32_t begin_mins() const;
+  void set_begin_mins(uint32_t value);
+  private:
+  uint32_t _internal_begin_mins() const;
+  void _internal_set_begin_mins(uint32_t value);
+  public:
+
+  // uint32 begin_month = 5;
+  void clear_begin_month();
+  uint32_t begin_month() const;
+  void set_begin_month(uint32_t value);
+  private:
+  uint32_t _internal_begin_month() const;
+  void _internal_set_begin_month(uint32_t value);
+  public:
+
+  // uint32 begin_day_dow = 6;
+  void clear_begin_day_dow();
+  uint32_t begin_day_dow() const;
+  void set_begin_day_dow(uint32_t value);
+  private:
+  uint32_t _internal_begin_day_dow() const;
+  void _internal_set_begin_day_dow(uint32_t value);
+  public:
+
+  // uint32 begin_week = 7;
+  void clear_begin_week();
+  uint32_t begin_week() const;
+  void set_begin_week(uint32_t value);
+  private:
+  uint32_t _internal_begin_week() const;
+  void _internal_set_begin_week(uint32_t value);
+  public:
+
+  // uint32 end_hrs = 8;
+  void clear_end_hrs();
+  uint32_t end_hrs() const;
+  void set_end_hrs(uint32_t value);
+  private:
+  uint32_t _internal_end_hrs() const;
+  void _internal_set_end_hrs(uint32_t value);
+  public:
+
+  // uint32 end_mins = 9;
+  void clear_end_mins();
+  uint32_t end_mins() const;
+  void set_end_mins(uint32_t value);
+  private:
+  uint32_t _internal_end_mins() const;
+  void _internal_set_end_mins(uint32_t value);
+  public:
+
+  // uint32 end_month = 10;
+  void clear_end_month();
+  uint32_t end_month() const;
+  void set_end_month(uint32_t value);
+  private:
+  uint32_t _internal_end_month() const;
+  void _internal_set_end_month(uint32_t value);
+  public:
+
+  // uint32 end_day_dow = 11;
+  void clear_end_day_dow();
+  uint32_t end_day_dow() const;
+  void set_end_day_dow(uint32_t value);
+  private:
+  uint32_t _internal_end_day_dow() const;
+  void _internal_set_end_day_dow(uint32_t value);
+  public:
+
+  // uint32 end_week = 12;
+  void clear_end_week();
+  uint32_t end_week() const;
+  void set_end_week(uint32_t value);
+  private:
+  uint32_t _internal_end_week() const;
+  void _internal_set_end_week(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.TripLeg.TimeDomain)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int day_dow_type_;
+  uint32_t dow_mask_;
+  uint32_t begin_hrs_;
+  uint32_t begin_mins_;
+  uint32_t begin_month_;
+  uint32_t begin_day_dow_;
+  uint32_t begin_week_;
+  uint32_t end_hrs_;
+  uint32_t end_mins_;
+  uint32_t end_month_;
+  uint32_t end_day_dow_;
+  uint32_t end_week_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_trip_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TripLeg_ConditionalSpeedLimit final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.ConditionalSpeedLimit) */ {
+ public:
+  inline TripLeg_ConditionalSpeedLimit() : TripLeg_ConditionalSpeedLimit(nullptr) {}
+  ~TripLeg_ConditionalSpeedLimit() override;
+  explicit PROTOBUF_CONSTEXPR TripLeg_ConditionalSpeedLimit(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TripLeg_ConditionalSpeedLimit(const TripLeg_ConditionalSpeedLimit& from);
+  TripLeg_ConditionalSpeedLimit(TripLeg_ConditionalSpeedLimit&& from) noexcept
+    : TripLeg_ConditionalSpeedLimit() {
+    *this = ::std::move(from);
+  }
+
+  inline TripLeg_ConditionalSpeedLimit& operator=(const TripLeg_ConditionalSpeedLimit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TripLeg_ConditionalSpeedLimit& operator=(TripLeg_ConditionalSpeedLimit&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const TripLeg_ConditionalSpeedLimit& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TripLeg_ConditionalSpeedLimit* internal_default_instance() {
+    return reinterpret_cast<const TripLeg_ConditionalSpeedLimit*>(
+               &_TripLeg_ConditionalSpeedLimit_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(TripLeg_ConditionalSpeedLimit& a, TripLeg_ConditionalSpeedLimit& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TripLeg_ConditionalSpeedLimit* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TripLeg_ConditionalSpeedLimit* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TripLeg_ConditionalSpeedLimit* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TripLeg_ConditionalSpeedLimit>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TripLeg_ConditionalSpeedLimit& from);
+  void MergeFrom(const TripLeg_ConditionalSpeedLimit& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TripLeg_ConditionalSpeedLimit* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.TripLeg.ConditionalSpeedLimit";
+  }
+  protected:
+  explicit TripLeg_ConditionalSpeedLimit(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kConditionFieldNumber = 2,
+    kSpeedLimitFieldNumber = 1,
+  };
+  // .valhalla.TripLeg.TimeDomain condition = 2;
+  bool has_condition() const;
+  private:
+  bool _internal_has_condition() const;
+  public:
+  void clear_condition();
+  const ::valhalla::TripLeg_TimeDomain& condition() const;
+  PROTOBUF_NODISCARD ::valhalla::TripLeg_TimeDomain* release_condition();
+  ::valhalla::TripLeg_TimeDomain* mutable_condition();
+  void set_allocated_condition(::valhalla::TripLeg_TimeDomain* condition);
+  private:
+  const ::valhalla::TripLeg_TimeDomain& _internal_condition() const;
+  ::valhalla::TripLeg_TimeDomain* _internal_mutable_condition();
+  public:
+  void unsafe_arena_set_allocated_condition(
+      ::valhalla::TripLeg_TimeDomain* condition);
+  ::valhalla::TripLeg_TimeDomain* unsafe_arena_release_condition();
+
+  // uint32 speed_limit = 1;
+  void clear_speed_limit();
+  uint32_t speed_limit() const;
+  void set_speed_limit(uint32_t value);
+  private:
+  uint32_t _internal_speed_limit() const;
+  void _internal_set_speed_limit(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.TripLeg.ConditionalSpeedLimit)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::valhalla::TripLeg_TimeDomain* condition_;
+  uint32_t speed_limit_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_trip_2eproto;
+};
+// -------------------------------------------------------------------
+
 class TripLeg_Edge final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.Edge) */ {
  public:
@@ -818,7 +1268,7 @@ class TripLeg_Edge final :
                &_TripLeg_Edge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(TripLeg_Edge& a, TripLeg_Edge& b) {
     a.Swap(&b);
@@ -887,6 +1337,10 @@ class TripLeg_Edge final :
     kTrafficSegmentFieldNumber = 41,
     kTurnLanesFieldNumber = 42,
     kTaggedValueFieldNumber = 48,
+    kLandmarksFieldNumber = 54,
+    kTunnelNameFieldNumber = 55,
+    kElevationFieldNumber = 57,
+    kConditionalSpeedLimitsFieldNumber = 60,
     kSignFieldNumber = 19,
     kTransitRouteInfoFieldNumber = 25,
     kRestrictionFieldNumber = 45,
@@ -935,6 +1389,9 @@ class TripLeg_Edge final :
     kSacScaleFieldNumber = 51,
     kShoulderFieldNumber = 52,
     kIndoorFieldNumber = 53,
+    kCountryCrossingFieldNumber = 58,
+    kForwardFieldNumber = 59,
+    kElevationSamplingIntervalFieldNumber = 56,
   };
   // repeated .valhalla.StreetName name = 1;
   int name_size() const;
@@ -1025,6 +1482,82 @@ class TripLeg_Edge final :
   ::valhalla::TaggedValue* add_tagged_value();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TaggedValue >&
       tagged_value() const;
+
+  // repeated .valhalla.RouteLandmark landmarks = 54;
+  int landmarks_size() const;
+  private:
+  int _internal_landmarks_size() const;
+  public:
+  void clear_landmarks();
+  ::valhalla::RouteLandmark* mutable_landmarks(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >*
+      mutable_landmarks();
+  private:
+  const ::valhalla::RouteLandmark& _internal_landmarks(int index) const;
+  ::valhalla::RouteLandmark* _internal_add_landmarks();
+  public:
+  const ::valhalla::RouteLandmark& landmarks(int index) const;
+  ::valhalla::RouteLandmark* add_landmarks();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >&
+      landmarks() const;
+
+  // repeated .valhalla.StreetName tunnel_name = 55;
+  int tunnel_name_size() const;
+  private:
+  int _internal_tunnel_name_size() const;
+  public:
+  void clear_tunnel_name();
+  ::valhalla::StreetName* mutable_tunnel_name(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >*
+      mutable_tunnel_name();
+  private:
+  const ::valhalla::StreetName& _internal_tunnel_name(int index) const;
+  ::valhalla::StreetName* _internal_add_tunnel_name();
+  public:
+  const ::valhalla::StreetName& tunnel_name(int index) const;
+  ::valhalla::StreetName* add_tunnel_name();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >&
+      tunnel_name() const;
+
+  // repeated float elevation = 57;
+  int elevation_size() const;
+  private:
+  int _internal_elevation_size() const;
+  public:
+  void clear_elevation();
+  private:
+  float _internal_elevation(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      _internal_elevation() const;
+  void _internal_add_elevation(float value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      _internal_mutable_elevation();
+  public:
+  float elevation(int index) const;
+  void set_elevation(int index, float value);
+  void add_elevation(float value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      elevation() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      mutable_elevation();
+
+  // repeated .valhalla.TripLeg.ConditionalSpeedLimit conditional_speed_limits = 60;
+  int conditional_speed_limits_size() const;
+  private:
+  int _internal_conditional_speed_limits_size() const;
+  public:
+  void clear_conditional_speed_limits();
+  ::valhalla::TripLeg_ConditionalSpeedLimit* mutable_conditional_speed_limits(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit >*
+      mutable_conditional_speed_limits();
+  private:
+  const ::valhalla::TripLeg_ConditionalSpeedLimit& _internal_conditional_speed_limits(int index) const;
+  ::valhalla::TripLeg_ConditionalSpeedLimit* _internal_add_conditional_speed_limits();
+  public:
+  const ::valhalla::TripLeg_ConditionalSpeedLimit& conditional_speed_limits(int index) const;
+  ::valhalla::TripLeg_ConditionalSpeedLimit* add_conditional_speed_limits();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit >&
+      conditional_speed_limits() const;
 
   // .valhalla.TripSign sign = 19;
   bool has_sign() const;
@@ -1485,6 +2018,33 @@ class TripLeg_Edge final :
   void _internal_set_indoor(bool value);
   public:
 
+  // bool country_crossing = 58;
+  void clear_country_crossing();
+  bool country_crossing() const;
+  void set_country_crossing(bool value);
+  private:
+  bool _internal_country_crossing() const;
+  void _internal_set_country_crossing(bool value);
+  public:
+
+  // bool forward = 59;
+  void clear_forward();
+  bool forward() const;
+  void set_forward(bool value);
+  private:
+  bool _internal_forward() const;
+  void _internal_set_forward(bool value);
+  public:
+
+  // float elevation_sampling_interval = 56;
+  void clear_elevation_sampling_interval();
+  float elevation_sampling_interval() const;
+  void set_elevation_sampling_interval(float value);
+  private:
+  float _internal_elevation_sampling_interval() const;
+  void _internal_set_elevation_sampling_interval(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:valhalla.TripLeg.Edge)
  private:
   class _Internal;
@@ -1497,6 +2057,10 @@ class TripLeg_Edge final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_TrafficSegment > traffic_segment_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TurnLane > turn_lanes_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TaggedValue > tagged_value_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark > landmarks_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName > tunnel_name_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > elevation_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit > conditional_speed_limits_;
   ::valhalla::TripSign* sign_;
   ::valhalla::TransitRouteInfo* transit_route_info_;
   ::valhalla::TripLeg_Restriction* restriction_;
@@ -1545,6 +2109,9 @@ class TripLeg_Edge final :
   int sac_scale_;
   bool shoulder_;
   bool indoor_;
+  bool country_crossing_;
+  bool forward_;
+  float elevation_sampling_interval_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_trip_2eproto;
 };
@@ -1589,7 +2156,7 @@ class TripLeg_IntersectingEdge final :
                &_TripLeg_IntersectingEdge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(TripLeg_IntersectingEdge& a, TripLeg_IntersectingEdge& b) {
     a.Swap(&b);
@@ -1653,6 +2220,7 @@ class TripLeg_IntersectingEdge final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kNameFieldNumber = 21,
     kSignFieldNumber = 10,
     kBeginHeadingFieldNumber = 1,
     kPrevNameConsistencyFieldNumber = 2,
@@ -1664,6 +2232,24 @@ class TripLeg_IntersectingEdge final :
     kRoadClassFieldNumber = 8,
     kLaneCountFieldNumber = 9,
   };
+  // repeated .valhalla.StreetName name = 21;
+  int name_size() const;
+  private:
+  int _internal_name_size() const;
+  public:
+  void clear_name();
+  ::valhalla::StreetName* mutable_name(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >*
+      mutable_name();
+  private:
+  const ::valhalla::StreetName& _internal_name(int index) const;
+  ::valhalla::StreetName* _internal_add_name();
+  public:
+  const ::valhalla::StreetName& name(int index) const;
+  ::valhalla::StreetName* add_name();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >&
+      name() const;
+
   // .valhalla.TripSign sign = 10;
   bool has_sign() const;
   private:
@@ -1770,6 +2356,7 @@ class TripLeg_IntersectingEdge final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName > name_;
   ::valhalla::TripSign* sign_;
   uint32_t begin_heading_;
   bool prev_name_consistency_;
@@ -1824,7 +2411,7 @@ class TripLeg_Cost final :
                &_TripLeg_Cost_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(TripLeg_Cost& a, TripLeg_Cost& b) {
     a.Swap(&b);
@@ -1962,7 +2549,7 @@ class TripLeg_PathCost final :
                &_TripLeg_PathCost_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(TripLeg_PathCost& a, TripLeg_PathCost& b) {
     a.Swap(&b);
@@ -2118,7 +2705,7 @@ class TripLeg_Node final :
                &_TripLeg_Node_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(TripLeg_Node& a, TripLeg_Node& b) {
     a.Swap(&b);
@@ -2246,6 +2833,7 @@ class TripLeg_Node final :
     kAdminIndexFieldNumber = 3,
     kTypeFieldNumber = 4,
     kForkFieldNumber = 5,
+    kTrafficSignalFieldNumber = 21,
   };
   // repeated .valhalla.TripLeg.IntersectingEdge intersecting_edge = 2;
   int intersecting_edge_size() const;
@@ -2432,6 +3020,15 @@ class TripLeg_Node final :
   void _internal_set_fork(bool value);
   public:
 
+  // bool traffic_signal = 21;
+  void clear_traffic_signal();
+  bool traffic_signal() const;
+  void set_traffic_signal(bool value);
+  private:
+  bool _internal_traffic_signal() const;
+  void _internal_set_traffic_signal(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:valhalla.TripLeg.Node)
  private:
   class _Internal;
@@ -2451,6 +3048,7 @@ class TripLeg_Node final :
   uint32_t admin_index_;
   int type_;
   bool fork_;
+  bool traffic_signal_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_trip_2eproto;
 };
@@ -2495,7 +3093,7 @@ class TripLeg_Admin final :
                &_TripLeg_Admin_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(TripLeg_Admin& a, TripLeg_Admin& b) {
     a.Swap(&b);
@@ -2675,7 +3273,7 @@ class TripLeg_ShapeAttributes final :
                &_TripLeg_ShapeAttributes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(TripLeg_ShapeAttributes& a, TripLeg_ShapeAttributes& b) {
     a.Swap(&b);
@@ -2891,7 +3489,7 @@ class TripLeg_Incident final :
                &_TripLeg_Incident_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(TripLeg_Incident& a, TripLeg_Incident& b) {
     a.Swap(&b);
@@ -3059,7 +3657,7 @@ class TripLeg_Closure final :
                &_TripLeg_Closure_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(TripLeg_Closure& a, TripLeg_Closure& b) {
     a.Swap(&b);
@@ -3227,7 +3825,7 @@ class TripLeg final :
                &_TripLeg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(TripLeg& a, TripLeg& b) {
     a.Swap(&b);
@@ -3291,6 +3889,8 @@ class TripLeg final :
   typedef TripLeg_LaneConnectivity LaneConnectivity;
   typedef TripLeg_TrafficSegment TrafficSegment;
   typedef TripLeg_Restriction Restriction;
+  typedef TripLeg_TimeDomain TimeDomain;
+  typedef TripLeg_ConditionalSpeedLimit ConditionalSpeedLimit;
   typedef TripLeg_Edge Edge;
   typedef TripLeg_IntersectingEdge IntersectingEdge;
   typedef TripLeg_Cost Cost;
@@ -3567,6 +4167,7 @@ class TripLeg final :
     kShapeFieldNumber = 8,
     kBboxFieldNumber = 9,
     kShapeAttributesFieldNumber = 10,
+    kSummaryFieldNumber = 14,
     kOsmChangesetFieldNumber = 1,
     kTripIdFieldNumber = 2,
     kLegIdFieldNumber = 3,
@@ -3736,6 +4337,24 @@ class TripLeg final :
       ::valhalla::TripLeg_ShapeAttributes* shape_attributes);
   ::valhalla::TripLeg_ShapeAttributes* unsafe_arena_release_shape_attributes();
 
+  // .valhalla.Summary summary = 14;
+  bool has_summary() const;
+  private:
+  bool _internal_has_summary() const;
+  public:
+  void clear_summary();
+  const ::valhalla::Summary& summary() const;
+  PROTOBUF_NODISCARD ::valhalla::Summary* release_summary();
+  ::valhalla::Summary* mutable_summary();
+  void set_allocated_summary(::valhalla::Summary* summary);
+  private:
+  const ::valhalla::Summary& _internal_summary() const;
+  ::valhalla::Summary* _internal_mutable_summary();
+  public:
+  void unsafe_arena_set_allocated_summary(
+      ::valhalla::Summary* summary);
+  ::valhalla::Summary* unsafe_arena_release_summary();
+
   // uint64 osm_changeset = 1;
   void clear_osm_changeset();
   uint64_t osm_changeset() const;
@@ -3788,6 +4407,7 @@ class TripLeg final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shape_;
   ::valhalla::BoundingBox* bbox_;
   ::valhalla::TripLeg_ShapeAttributes* shape_attributes_;
+  ::valhalla::Summary* summary_;
   uint64_t osm_changeset_;
   uint64_t trip_id_;
   uint32_t leg_id_;
@@ -3836,7 +4456,7 @@ class TripRoute final :
                &_TripRoute_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(TripRoute& a, TripRoute& b) {
     a.Swap(&b);
@@ -3972,7 +4592,7 @@ class Trip final :
                &_Trip_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(Trip& a, Trip& b) {
     a.Swap(&b);
@@ -4324,6 +4944,364 @@ inline void TripLeg_Restriction::_internal_set_type(uint32_t value) {
 inline void TripLeg_Restriction::set_type(uint32_t value) {
   _internal_set_type(value);
   // @@protoc_insertion_point(field_set:valhalla.TripLeg.Restriction.type)
+}
+
+// -------------------------------------------------------------------
+
+// TripLeg_TimeDomain
+
+// .valhalla.TripLeg.TimeDomain.DayDowType day_dow_type = 1;
+inline void TripLeg_TimeDomain::clear_day_dow_type() {
+  day_dow_type_ = 0;
+}
+inline ::valhalla::TripLeg_TimeDomain_DayDowType TripLeg_TimeDomain::_internal_day_dow_type() const {
+  return static_cast< ::valhalla::TripLeg_TimeDomain_DayDowType >(day_dow_type_);
+}
+inline ::valhalla::TripLeg_TimeDomain_DayDowType TripLeg_TimeDomain::day_dow_type() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.day_dow_type)
+  return _internal_day_dow_type();
+}
+inline void TripLeg_TimeDomain::_internal_set_day_dow_type(::valhalla::TripLeg_TimeDomain_DayDowType value) {
+  
+  day_dow_type_ = value;
+}
+inline void TripLeg_TimeDomain::set_day_dow_type(::valhalla::TripLeg_TimeDomain_DayDowType value) {
+  _internal_set_day_dow_type(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.day_dow_type)
+}
+
+// uint32 dow_mask = 2;
+inline void TripLeg_TimeDomain::clear_dow_mask() {
+  dow_mask_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_dow_mask() const {
+  return dow_mask_;
+}
+inline uint32_t TripLeg_TimeDomain::dow_mask() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.dow_mask)
+  return _internal_dow_mask();
+}
+inline void TripLeg_TimeDomain::_internal_set_dow_mask(uint32_t value) {
+  
+  dow_mask_ = value;
+}
+inline void TripLeg_TimeDomain::set_dow_mask(uint32_t value) {
+  _internal_set_dow_mask(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.dow_mask)
+}
+
+// uint32 begin_hrs = 3;
+inline void TripLeg_TimeDomain::clear_begin_hrs() {
+  begin_hrs_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_begin_hrs() const {
+  return begin_hrs_;
+}
+inline uint32_t TripLeg_TimeDomain::begin_hrs() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.begin_hrs)
+  return _internal_begin_hrs();
+}
+inline void TripLeg_TimeDomain::_internal_set_begin_hrs(uint32_t value) {
+  
+  begin_hrs_ = value;
+}
+inline void TripLeg_TimeDomain::set_begin_hrs(uint32_t value) {
+  _internal_set_begin_hrs(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.begin_hrs)
+}
+
+// uint32 begin_mins = 4;
+inline void TripLeg_TimeDomain::clear_begin_mins() {
+  begin_mins_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_begin_mins() const {
+  return begin_mins_;
+}
+inline uint32_t TripLeg_TimeDomain::begin_mins() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.begin_mins)
+  return _internal_begin_mins();
+}
+inline void TripLeg_TimeDomain::_internal_set_begin_mins(uint32_t value) {
+  
+  begin_mins_ = value;
+}
+inline void TripLeg_TimeDomain::set_begin_mins(uint32_t value) {
+  _internal_set_begin_mins(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.begin_mins)
+}
+
+// uint32 begin_month = 5;
+inline void TripLeg_TimeDomain::clear_begin_month() {
+  begin_month_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_begin_month() const {
+  return begin_month_;
+}
+inline uint32_t TripLeg_TimeDomain::begin_month() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.begin_month)
+  return _internal_begin_month();
+}
+inline void TripLeg_TimeDomain::_internal_set_begin_month(uint32_t value) {
+  
+  begin_month_ = value;
+}
+inline void TripLeg_TimeDomain::set_begin_month(uint32_t value) {
+  _internal_set_begin_month(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.begin_month)
+}
+
+// uint32 begin_day_dow = 6;
+inline void TripLeg_TimeDomain::clear_begin_day_dow() {
+  begin_day_dow_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_begin_day_dow() const {
+  return begin_day_dow_;
+}
+inline uint32_t TripLeg_TimeDomain::begin_day_dow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.begin_day_dow)
+  return _internal_begin_day_dow();
+}
+inline void TripLeg_TimeDomain::_internal_set_begin_day_dow(uint32_t value) {
+  
+  begin_day_dow_ = value;
+}
+inline void TripLeg_TimeDomain::set_begin_day_dow(uint32_t value) {
+  _internal_set_begin_day_dow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.begin_day_dow)
+}
+
+// uint32 begin_week = 7;
+inline void TripLeg_TimeDomain::clear_begin_week() {
+  begin_week_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_begin_week() const {
+  return begin_week_;
+}
+inline uint32_t TripLeg_TimeDomain::begin_week() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.begin_week)
+  return _internal_begin_week();
+}
+inline void TripLeg_TimeDomain::_internal_set_begin_week(uint32_t value) {
+  
+  begin_week_ = value;
+}
+inline void TripLeg_TimeDomain::set_begin_week(uint32_t value) {
+  _internal_set_begin_week(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.begin_week)
+}
+
+// uint32 end_hrs = 8;
+inline void TripLeg_TimeDomain::clear_end_hrs() {
+  end_hrs_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_end_hrs() const {
+  return end_hrs_;
+}
+inline uint32_t TripLeg_TimeDomain::end_hrs() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.end_hrs)
+  return _internal_end_hrs();
+}
+inline void TripLeg_TimeDomain::_internal_set_end_hrs(uint32_t value) {
+  
+  end_hrs_ = value;
+}
+inline void TripLeg_TimeDomain::set_end_hrs(uint32_t value) {
+  _internal_set_end_hrs(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.end_hrs)
+}
+
+// uint32 end_mins = 9;
+inline void TripLeg_TimeDomain::clear_end_mins() {
+  end_mins_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_end_mins() const {
+  return end_mins_;
+}
+inline uint32_t TripLeg_TimeDomain::end_mins() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.end_mins)
+  return _internal_end_mins();
+}
+inline void TripLeg_TimeDomain::_internal_set_end_mins(uint32_t value) {
+  
+  end_mins_ = value;
+}
+inline void TripLeg_TimeDomain::set_end_mins(uint32_t value) {
+  _internal_set_end_mins(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.end_mins)
+}
+
+// uint32 end_month = 10;
+inline void TripLeg_TimeDomain::clear_end_month() {
+  end_month_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_end_month() const {
+  return end_month_;
+}
+inline uint32_t TripLeg_TimeDomain::end_month() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.end_month)
+  return _internal_end_month();
+}
+inline void TripLeg_TimeDomain::_internal_set_end_month(uint32_t value) {
+  
+  end_month_ = value;
+}
+inline void TripLeg_TimeDomain::set_end_month(uint32_t value) {
+  _internal_set_end_month(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.end_month)
+}
+
+// uint32 end_day_dow = 11;
+inline void TripLeg_TimeDomain::clear_end_day_dow() {
+  end_day_dow_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_end_day_dow() const {
+  return end_day_dow_;
+}
+inline uint32_t TripLeg_TimeDomain::end_day_dow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.end_day_dow)
+  return _internal_end_day_dow();
+}
+inline void TripLeg_TimeDomain::_internal_set_end_day_dow(uint32_t value) {
+  
+  end_day_dow_ = value;
+}
+inline void TripLeg_TimeDomain::set_end_day_dow(uint32_t value) {
+  _internal_set_end_day_dow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.end_day_dow)
+}
+
+// uint32 end_week = 12;
+inline void TripLeg_TimeDomain::clear_end_week() {
+  end_week_ = 0u;
+}
+inline uint32_t TripLeg_TimeDomain::_internal_end_week() const {
+  return end_week_;
+}
+inline uint32_t TripLeg_TimeDomain::end_week() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.TimeDomain.end_week)
+  return _internal_end_week();
+}
+inline void TripLeg_TimeDomain::_internal_set_end_week(uint32_t value) {
+  
+  end_week_ = value;
+}
+inline void TripLeg_TimeDomain::set_end_week(uint32_t value) {
+  _internal_set_end_week(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.TimeDomain.end_week)
+}
+
+// -------------------------------------------------------------------
+
+// TripLeg_ConditionalSpeedLimit
+
+// uint32 speed_limit = 1;
+inline void TripLeg_ConditionalSpeedLimit::clear_speed_limit() {
+  speed_limit_ = 0u;
+}
+inline uint32_t TripLeg_ConditionalSpeedLimit::_internal_speed_limit() const {
+  return speed_limit_;
+}
+inline uint32_t TripLeg_ConditionalSpeedLimit::speed_limit() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.ConditionalSpeedLimit.speed_limit)
+  return _internal_speed_limit();
+}
+inline void TripLeg_ConditionalSpeedLimit::_internal_set_speed_limit(uint32_t value) {
+  
+  speed_limit_ = value;
+}
+inline void TripLeg_ConditionalSpeedLimit::set_speed_limit(uint32_t value) {
+  _internal_set_speed_limit(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.ConditionalSpeedLimit.speed_limit)
+}
+
+// .valhalla.TripLeg.TimeDomain condition = 2;
+inline bool TripLeg_ConditionalSpeedLimit::_internal_has_condition() const {
+  return this != internal_default_instance() && condition_ != nullptr;
+}
+inline bool TripLeg_ConditionalSpeedLimit::has_condition() const {
+  return _internal_has_condition();
+}
+inline void TripLeg_ConditionalSpeedLimit::clear_condition() {
+  if (GetArenaForAllocation() == nullptr && condition_ != nullptr) {
+    delete condition_;
+  }
+  condition_ = nullptr;
+}
+inline const ::valhalla::TripLeg_TimeDomain& TripLeg_ConditionalSpeedLimit::_internal_condition() const {
+  const ::valhalla::TripLeg_TimeDomain* p = condition_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::TripLeg_TimeDomain&>(
+      ::valhalla::_TripLeg_TimeDomain_default_instance_);
+}
+inline const ::valhalla::TripLeg_TimeDomain& TripLeg_ConditionalSpeedLimit::condition() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.ConditionalSpeedLimit.condition)
+  return _internal_condition();
+}
+inline void TripLeg_ConditionalSpeedLimit::unsafe_arena_set_allocated_condition(
+    ::valhalla::TripLeg_TimeDomain* condition) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(condition_);
+  }
+  condition_ = condition;
+  if (condition) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.TripLeg.ConditionalSpeedLimit.condition)
+}
+inline ::valhalla::TripLeg_TimeDomain* TripLeg_ConditionalSpeedLimit::release_condition() {
+  
+  ::valhalla::TripLeg_TimeDomain* temp = condition_;
+  condition_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::TripLeg_TimeDomain* TripLeg_ConditionalSpeedLimit::unsafe_arena_release_condition() {
+  // @@protoc_insertion_point(field_release:valhalla.TripLeg.ConditionalSpeedLimit.condition)
+  
+  ::valhalla::TripLeg_TimeDomain* temp = condition_;
+  condition_ = nullptr;
+  return temp;
+}
+inline ::valhalla::TripLeg_TimeDomain* TripLeg_ConditionalSpeedLimit::_internal_mutable_condition() {
+  
+  if (condition_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::TripLeg_TimeDomain>(GetArenaForAllocation());
+    condition_ = p;
+  }
+  return condition_;
+}
+inline ::valhalla::TripLeg_TimeDomain* TripLeg_ConditionalSpeedLimit::mutable_condition() {
+  ::valhalla::TripLeg_TimeDomain* _msg = _internal_mutable_condition();
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.ConditionalSpeedLimit.condition)
+  return _msg;
+}
+inline void TripLeg_ConditionalSpeedLimit::set_allocated_condition(::valhalla::TripLeg_TimeDomain* condition) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete condition_;
+  }
+  if (condition) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(condition);
+    if (message_arena != submessage_arena) {
+      condition = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, condition, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  condition_ = condition;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.TripLeg.ConditionalSpeedLimit.condition)
 }
 
 // -------------------------------------------------------------------
@@ -5681,6 +6659,227 @@ inline void TripLeg_Edge::set_indoor(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.indoor)
 }
 
+// repeated .valhalla.RouteLandmark landmarks = 54;
+inline int TripLeg_Edge::_internal_landmarks_size() const {
+  return landmarks_.size();
+}
+inline int TripLeg_Edge::landmarks_size() const {
+  return _internal_landmarks_size();
+}
+inline ::valhalla::RouteLandmark* TripLeg_Edge::mutable_landmarks(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.Edge.landmarks)
+  return landmarks_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >*
+TripLeg_Edge::mutable_landmarks() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.Edge.landmarks)
+  return &landmarks_;
+}
+inline const ::valhalla::RouteLandmark& TripLeg_Edge::_internal_landmarks(int index) const {
+  return landmarks_.Get(index);
+}
+inline const ::valhalla::RouteLandmark& TripLeg_Edge::landmarks(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.landmarks)
+  return _internal_landmarks(index);
+}
+inline ::valhalla::RouteLandmark* TripLeg_Edge::_internal_add_landmarks() {
+  return landmarks_.Add();
+}
+inline ::valhalla::RouteLandmark* TripLeg_Edge::add_landmarks() {
+  ::valhalla::RouteLandmark* _add = _internal_add_landmarks();
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.Edge.landmarks)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >&
+TripLeg_Edge::landmarks() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.Edge.landmarks)
+  return landmarks_;
+}
+
+// repeated .valhalla.StreetName tunnel_name = 55;
+inline int TripLeg_Edge::_internal_tunnel_name_size() const {
+  return tunnel_name_.size();
+}
+inline int TripLeg_Edge::tunnel_name_size() const {
+  return _internal_tunnel_name_size();
+}
+inline ::valhalla::StreetName* TripLeg_Edge::mutable_tunnel_name(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.Edge.tunnel_name)
+  return tunnel_name_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >*
+TripLeg_Edge::mutable_tunnel_name() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.Edge.tunnel_name)
+  return &tunnel_name_;
+}
+inline const ::valhalla::StreetName& TripLeg_Edge::_internal_tunnel_name(int index) const {
+  return tunnel_name_.Get(index);
+}
+inline const ::valhalla::StreetName& TripLeg_Edge::tunnel_name(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.tunnel_name)
+  return _internal_tunnel_name(index);
+}
+inline ::valhalla::StreetName* TripLeg_Edge::_internal_add_tunnel_name() {
+  return tunnel_name_.Add();
+}
+inline ::valhalla::StreetName* TripLeg_Edge::add_tunnel_name() {
+  ::valhalla::StreetName* _add = _internal_add_tunnel_name();
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.Edge.tunnel_name)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >&
+TripLeg_Edge::tunnel_name() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.Edge.tunnel_name)
+  return tunnel_name_;
+}
+
+// float elevation_sampling_interval = 56;
+inline void TripLeg_Edge::clear_elevation_sampling_interval() {
+  elevation_sampling_interval_ = 0;
+}
+inline float TripLeg_Edge::_internal_elevation_sampling_interval() const {
+  return elevation_sampling_interval_;
+}
+inline float TripLeg_Edge::elevation_sampling_interval() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.elevation_sampling_interval)
+  return _internal_elevation_sampling_interval();
+}
+inline void TripLeg_Edge::_internal_set_elevation_sampling_interval(float value) {
+  
+  elevation_sampling_interval_ = value;
+}
+inline void TripLeg_Edge::set_elevation_sampling_interval(float value) {
+  _internal_set_elevation_sampling_interval(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.elevation_sampling_interval)
+}
+
+// repeated float elevation = 57;
+inline int TripLeg_Edge::_internal_elevation_size() const {
+  return elevation_.size();
+}
+inline int TripLeg_Edge::elevation_size() const {
+  return _internal_elevation_size();
+}
+inline void TripLeg_Edge::clear_elevation() {
+  elevation_.Clear();
+}
+inline float TripLeg_Edge::_internal_elevation(int index) const {
+  return elevation_.Get(index);
+}
+inline float TripLeg_Edge::elevation(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.elevation)
+  return _internal_elevation(index);
+}
+inline void TripLeg_Edge::set_elevation(int index, float value) {
+  elevation_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.elevation)
+}
+inline void TripLeg_Edge::_internal_add_elevation(float value) {
+  elevation_.Add(value);
+}
+inline void TripLeg_Edge::add_elevation(float value) {
+  _internal_add_elevation(value);
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.Edge.elevation)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+TripLeg_Edge::_internal_elevation() const {
+  return elevation_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+TripLeg_Edge::elevation() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.Edge.elevation)
+  return _internal_elevation();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+TripLeg_Edge::_internal_mutable_elevation() {
+  return &elevation_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+TripLeg_Edge::mutable_elevation() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.Edge.elevation)
+  return _internal_mutable_elevation();
+}
+
+// bool country_crossing = 58;
+inline void TripLeg_Edge::clear_country_crossing() {
+  country_crossing_ = false;
+}
+inline bool TripLeg_Edge::_internal_country_crossing() const {
+  return country_crossing_;
+}
+inline bool TripLeg_Edge::country_crossing() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.country_crossing)
+  return _internal_country_crossing();
+}
+inline void TripLeg_Edge::_internal_set_country_crossing(bool value) {
+  
+  country_crossing_ = value;
+}
+inline void TripLeg_Edge::set_country_crossing(bool value) {
+  _internal_set_country_crossing(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.country_crossing)
+}
+
+// bool forward = 59;
+inline void TripLeg_Edge::clear_forward() {
+  forward_ = false;
+}
+inline bool TripLeg_Edge::_internal_forward() const {
+  return forward_;
+}
+inline bool TripLeg_Edge::forward() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.forward)
+  return _internal_forward();
+}
+inline void TripLeg_Edge::_internal_set_forward(bool value) {
+  
+  forward_ = value;
+}
+inline void TripLeg_Edge::set_forward(bool value) {
+  _internal_set_forward(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.forward)
+}
+
+// repeated .valhalla.TripLeg.ConditionalSpeedLimit conditional_speed_limits = 60;
+inline int TripLeg_Edge::_internal_conditional_speed_limits_size() const {
+  return conditional_speed_limits_.size();
+}
+inline int TripLeg_Edge::conditional_speed_limits_size() const {
+  return _internal_conditional_speed_limits_size();
+}
+inline void TripLeg_Edge::clear_conditional_speed_limits() {
+  conditional_speed_limits_.Clear();
+}
+inline ::valhalla::TripLeg_ConditionalSpeedLimit* TripLeg_Edge::mutable_conditional_speed_limits(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.Edge.conditional_speed_limits)
+  return conditional_speed_limits_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit >*
+TripLeg_Edge::mutable_conditional_speed_limits() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.Edge.conditional_speed_limits)
+  return &conditional_speed_limits_;
+}
+inline const ::valhalla::TripLeg_ConditionalSpeedLimit& TripLeg_Edge::_internal_conditional_speed_limits(int index) const {
+  return conditional_speed_limits_.Get(index);
+}
+inline const ::valhalla::TripLeg_ConditionalSpeedLimit& TripLeg_Edge::conditional_speed_limits(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.conditional_speed_limits)
+  return _internal_conditional_speed_limits(index);
+}
+inline ::valhalla::TripLeg_ConditionalSpeedLimit* TripLeg_Edge::_internal_add_conditional_speed_limits() {
+  return conditional_speed_limits_.Add();
+}
+inline ::valhalla::TripLeg_ConditionalSpeedLimit* TripLeg_Edge::add_conditional_speed_limits() {
+  ::valhalla::TripLeg_ConditionalSpeedLimit* _add = _internal_add_conditional_speed_limits();
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.Edge.conditional_speed_limits)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit >&
+TripLeg_Edge::conditional_speed_limits() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.Edge.conditional_speed_limits)
+  return conditional_speed_limits_;
+}
+
 // -------------------------------------------------------------------
 
 // TripLeg_IntersectingEdge
@@ -5948,6 +7147,43 @@ inline void TripLeg_IntersectingEdge::set_allocated_sign(::valhalla::TripSign* s
   }
   sign_ = sign;
   // @@protoc_insertion_point(field_set_allocated:valhalla.TripLeg.IntersectingEdge.sign)
+}
+
+// repeated .valhalla.StreetName name = 21;
+inline int TripLeg_IntersectingEdge::_internal_name_size() const {
+  return name_.size();
+}
+inline int TripLeg_IntersectingEdge::name_size() const {
+  return _internal_name_size();
+}
+inline ::valhalla::StreetName* TripLeg_IntersectingEdge::mutable_name(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.IntersectingEdge.name)
+  return name_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >*
+TripLeg_IntersectingEdge::mutable_name() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.IntersectingEdge.name)
+  return &name_;
+}
+inline const ::valhalla::StreetName& TripLeg_IntersectingEdge::_internal_name(int index) const {
+  return name_.Get(index);
+}
+inline const ::valhalla::StreetName& TripLeg_IntersectingEdge::name(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.IntersectingEdge.name)
+  return _internal_name(index);
+}
+inline ::valhalla::StreetName* TripLeg_IntersectingEdge::_internal_add_name() {
+  return name_.Add();
+}
+inline ::valhalla::StreetName* TripLeg_IntersectingEdge::add_name() {
+  ::valhalla::StreetName* _add = _internal_add_name();
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.IntersectingEdge.name)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName >&
+TripLeg_IntersectingEdge::name() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.IntersectingEdge.name)
+  return name_;
 }
 
 // -------------------------------------------------------------------
@@ -6890,6 +8126,26 @@ inline void TripLeg_Node::set_allocated_bss_info(::valhalla::BikeShareStationInf
   }
   bss_info_ = bss_info;
   // @@protoc_insertion_point(field_set_allocated:valhalla.TripLeg.Node.bss_info)
+}
+
+// bool traffic_signal = 21;
+inline void TripLeg_Node::clear_traffic_signal() {
+  traffic_signal_ = false;
+}
+inline bool TripLeg_Node::_internal_traffic_signal() const {
+  return traffic_signal_;
+}
+inline bool TripLeg_Node::traffic_signal() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Node.traffic_signal)
+  return _internal_traffic_signal();
+}
+inline void TripLeg_Node::_internal_set_traffic_signal(bool value) {
+  
+  traffic_signal_ = value;
+}
+inline void TripLeg_Node::set_traffic_signal(bool value) {
+  _internal_set_traffic_signal(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Node.traffic_signal)
 }
 
 // -------------------------------------------------------------------
@@ -8096,6 +9352,91 @@ TripLeg::closures() const {
   return closures_;
 }
 
+// .valhalla.Summary summary = 14;
+inline bool TripLeg::_internal_has_summary() const {
+  return this != internal_default_instance() && summary_ != nullptr;
+}
+inline bool TripLeg::has_summary() const {
+  return _internal_has_summary();
+}
+inline const ::valhalla::Summary& TripLeg::_internal_summary() const {
+  const ::valhalla::Summary* p = summary_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::Summary&>(
+      ::valhalla::_Summary_default_instance_);
+}
+inline const ::valhalla::Summary& TripLeg::summary() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.summary)
+  return _internal_summary();
+}
+inline void TripLeg::unsafe_arena_set_allocated_summary(
+    ::valhalla::Summary* summary) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(summary_);
+  }
+  summary_ = summary;
+  if (summary) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.TripLeg.summary)
+}
+inline ::valhalla::Summary* TripLeg::release_summary() {
+  
+  ::valhalla::Summary* temp = summary_;
+  summary_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::Summary* TripLeg::unsafe_arena_release_summary() {
+  // @@protoc_insertion_point(field_release:valhalla.TripLeg.summary)
+  
+  ::valhalla::Summary* temp = summary_;
+  summary_ = nullptr;
+  return temp;
+}
+inline ::valhalla::Summary* TripLeg::_internal_mutable_summary() {
+  
+  if (summary_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::Summary>(GetArenaForAllocation());
+    summary_ = p;
+  }
+  return summary_;
+}
+inline ::valhalla::Summary* TripLeg::mutable_summary() {
+  ::valhalla::Summary* _msg = _internal_mutable_summary();
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.summary)
+  return _msg;
+}
+inline void TripLeg::set_allocated_summary(::valhalla::Summary* summary) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(summary_);
+  }
+  if (summary) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(summary));
+    if (message_arena != submessage_arena) {
+      summary = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, summary, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  summary_ = summary;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.TripLeg.summary)
+}
+
 // -------------------------------------------------------------------
 
 // TripRoute
@@ -8215,6 +9556,10 @@ Trip::routes() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -8222,6 +9567,7 @@ Trip::routes() const {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::valhalla::TripLeg_TimeDomain_DayDowType> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::TripLeg_Node_Type> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::TripLeg_Traversability> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::TripLeg_Use> : ::std::true_type {};

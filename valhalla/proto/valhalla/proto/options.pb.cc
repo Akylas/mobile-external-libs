@@ -47,7 +47,10 @@ PROTOBUF_CONSTEXPR PbfFieldSelector::PbfFieldSelector(
   : options_(false)
   , trip_(false)
   , directions_(false)
-  , status_(false){}
+  , status_(false)
+  , matrix_(false)
+  , isochrone_(false)
+  , expansion_(false){}
 struct PbfFieldSelectorDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PbfFieldSelectorDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -85,6 +88,8 @@ PROTOBUF_CONSTEXPR Costing_Options::Costing_Options(
   , axle_count_(0u)
   , use_lit_(0)
   , disable_hierarchy_pruning_(false)
+  , ignore_non_vehicular_restrictions_(false)
+  , use_truck_route_(0)
   , _oneof_case_{}{}
 struct Costing_OptionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR Costing_OptionsDefaultTypeInternal()
@@ -152,9 +157,11 @@ PROTOBUF_CONSTEXPR Options::Options(
 
   , filter_action_(0)
 
-  , shape_format_(0)
-
   , reverse_(false)
+  , banner_instructions_(false)
+  , voice_instructions_(false)
+  , dedupe_(false)
+  , elevation_interval_(0)
   , _oneof_case_{}{}
 struct OptionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OptionsDefaultTypeInternal()
@@ -339,32 +346,36 @@ bool Options_Format_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_Format_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_Format_strings[5] = {};
 
 static const char Options_Format_names[] =
+  "geotiff"
   "gpx"
   "json"
   "osrm"
   "pbf";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_Format_entries[] = {
-  { {Options_Format_names + 0, 3}, 1 },
-  { {Options_Format_names + 3, 4}, 0 },
-  { {Options_Format_names + 7, 4}, 2 },
-  { {Options_Format_names + 11, 3}, 3 },
+  { {Options_Format_names + 0, 7}, 4 },
+  { {Options_Format_names + 7, 3}, 1 },
+  { {Options_Format_names + 10, 4}, 0 },
+  { {Options_Format_names + 14, 4}, 2 },
+  { {Options_Format_names + 18, 3}, 3 },
 };
 
 static const int Options_Format_entries_by_number[] = {
-  1, // 0 -> json
-  0, // 1 -> gpx
-  2, // 2 -> osrm
-  3, // 3 -> pbf
+  2, // 0 -> json
+  1, // 1 -> gpx
+  3, // 2 -> osrm
+  4, // 3 -> pbf
+  0, // 4 -> geotiff
 };
 
 const std::string& Options_Format_Name(
@@ -373,12 +384,12 @@ const std::string& Options_Format_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Options_Format_entries,
           Options_Format_entries_by_number,
-          4, Options_Format_strings);
+          5, Options_Format_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Options_Format_entries,
       Options_Format_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Options_Format_strings[idx].get();
 }
@@ -386,7 +397,7 @@ bool Options_Format_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_Format* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Options_Format_entries, 4, name, &int_value);
+      Options_Format_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<Options_Format>(int_value);
   }
@@ -397,6 +408,7 @@ constexpr Options_Format Options::json;
 constexpr Options_Format Options::gpx;
 constexpr Options_Format Options::osrm;
 constexpr Options_Format Options::pbf;
+constexpr Options_Format Options::geotiff;
 constexpr Options_Format Options::Format_MIN;
 constexpr Options_Format Options::Format_MAX;
 constexpr int Options::Format_ARRAYSIZE;
@@ -594,35 +606,43 @@ bool Options_ExpansionProperties_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_ExpansionProperties_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_ExpansionProperties_strings[7] = {};
 
 static const char Options_ExpansionProperties_names[] =
-  "costs"
-  "distances"
-  "durations"
-  "edge_ids"
-  "statuses";
+  "cost"
+  "distance"
+  "duration"
+  "edge_id"
+  "edge_status"
+  "expansion_type"
+  "pred_edge_id";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_ExpansionProperties_entries[] = {
-  { {Options_ExpansionProperties_names + 0, 5}, 0 },
-  { {Options_ExpansionProperties_names + 5, 9}, 2 },
-  { {Options_ExpansionProperties_names + 14, 9}, 1 },
-  { {Options_ExpansionProperties_names + 23, 8}, 4 },
-  { {Options_ExpansionProperties_names + 31, 8}, 3 },
+  { {Options_ExpansionProperties_names + 0, 4}, 0 },
+  { {Options_ExpansionProperties_names + 4, 8}, 2 },
+  { {Options_ExpansionProperties_names + 12, 8}, 1 },
+  { {Options_ExpansionProperties_names + 20, 7}, 4 },
+  { {Options_ExpansionProperties_names + 27, 11}, 3 },
+  { {Options_ExpansionProperties_names + 38, 14}, 6 },
+  { {Options_ExpansionProperties_names + 52, 12}, 5 },
 };
 
 static const int Options_ExpansionProperties_entries_by_number[] = {
-  0, // 0 -> costs
-  2, // 1 -> durations
-  1, // 2 -> distances
-  4, // 3 -> statuses
-  3, // 4 -> edge_ids
+  0, // 0 -> cost
+  2, // 1 -> duration
+  1, // 2 -> distance
+  4, // 3 -> edge_status
+  3, // 4 -> edge_id
+  6, // 5 -> pred_edge_id
+  5, // 6 -> expansion_type
 };
 
 const std::string& Options_ExpansionProperties_Name(
@@ -631,12 +651,12 @@ const std::string& Options_ExpansionProperties_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Options_ExpansionProperties_entries,
           Options_ExpansionProperties_entries_by_number,
-          5, Options_ExpansionProperties_strings);
+          7, Options_ExpansionProperties_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Options_ExpansionProperties_entries,
       Options_ExpansionProperties_entries_by_number,
-      5, value);
+      7, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Options_ExpansionProperties_strings[idx].get();
 }
@@ -644,18 +664,20 @@ bool Options_ExpansionProperties_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_ExpansionProperties* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Options_ExpansionProperties_entries, 5, name, &int_value);
+      Options_ExpansionProperties_entries, 7, name, &int_value);
   if (success) {
     *value = static_cast<Options_ExpansionProperties>(int_value);
   }
   return success;
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr Options_ExpansionProperties Options::costs;
-constexpr Options_ExpansionProperties Options::durations;
-constexpr Options_ExpansionProperties Options::distances;
-constexpr Options_ExpansionProperties Options::statuses;
-constexpr Options_ExpansionProperties Options::edge_ids;
+constexpr Options_ExpansionProperties Options::cost;
+constexpr Options_ExpansionProperties Options::duration;
+constexpr Options_ExpansionProperties Options::distance;
+constexpr Options_ExpansionProperties Options::edge_status;
+constexpr Options_ExpansionProperties Options::edge_id;
+constexpr Options_ExpansionProperties Options::pred_edge_id;
+constexpr Options_ExpansionProperties Options::expansion_type;
 constexpr Options_ExpansionProperties Options::ExpansionProperties_MIN;
 constexpr Options_ExpansionProperties Options::ExpansionProperties_MAX;
 constexpr int Options::ExpansionProperties_ARRAYSIZE;
@@ -830,29 +852,33 @@ bool ShapeFormat_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ShapeFormat_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ShapeFormat_strings[4] = {};
 
 static const char ShapeFormat_names[] =
   "geojson"
+  "no_shape"
   "polyline5"
   "polyline6";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ShapeFormat_entries[] = {
   { {ShapeFormat_names + 0, 7}, 2 },
-  { {ShapeFormat_names + 7, 9}, 1 },
-  { {ShapeFormat_names + 16, 9}, 0 },
+  { {ShapeFormat_names + 7, 8}, 3 },
+  { {ShapeFormat_names + 15, 9}, 1 },
+  { {ShapeFormat_names + 24, 9}, 0 },
 };
 
 static const int ShapeFormat_entries_by_number[] = {
-  2, // 0 -> polyline6
-  1, // 1 -> polyline5
+  3, // 0 -> polyline6
+  2, // 1 -> polyline5
   0, // 2 -> geojson
+  1, // 3 -> no_shape
 };
 
 const std::string& ShapeFormat_Name(
@@ -861,12 +887,12 @@ const std::string& ShapeFormat_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ShapeFormat_entries,
           ShapeFormat_entries_by_number,
-          3, ShapeFormat_strings);
+          4, ShapeFormat_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ShapeFormat_entries,
       ShapeFormat_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ShapeFormat_strings[idx].get();
 }
@@ -874,7 +900,7 @@ bool ShapeFormat_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ShapeFormat* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ShapeFormat_entries, 3, name, &int_value);
+      ShapeFormat_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<ShapeFormat>(int_value);
   }
@@ -1418,16 +1444,16 @@ PbfFieldSelector::PbfFieldSelector(const PbfFieldSelector& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&options_, &from.options_,
-    static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&options_)) + sizeof(status_));
+    static_cast<size_t>(reinterpret_cast<char*>(&expansion_) -
+    reinterpret_cast<char*>(&options_)) + sizeof(expansion_));
   // @@protoc_insertion_point(copy_constructor:valhalla.PbfFieldSelector)
 }
 
 inline void PbfFieldSelector::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&options_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&options_)) + sizeof(status_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&expansion_) -
+    reinterpret_cast<char*>(&options_)) + sizeof(expansion_));
 }
 
 PbfFieldSelector::~PbfFieldSelector() {
@@ -1454,8 +1480,8 @@ void PbfFieldSelector::Clear() {
   (void) cached_has_bits;
 
   ::memset(&options_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&status_) -
-      reinterpret_cast<char*>(&options_)) + sizeof(status_));
+      reinterpret_cast<char*>(&expansion_) -
+      reinterpret_cast<char*>(&options_)) + sizeof(expansion_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1493,6 +1519,30 @@ const char* PbfFieldSelector::_InternalParse(const char* ptr, ::_pbi::ParseConte
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool matrix = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          matrix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool isochrone = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          isochrone_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool expansion = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          expansion_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1550,6 +1600,24 @@ uint8_t* PbfFieldSelector::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_status(), target);
   }
 
+  // bool matrix = 5;
+  if (this->_internal_matrix() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_matrix(), target);
+  }
+
+  // bool isochrone = 6;
+  if (this->_internal_isochrone() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_isochrone(), target);
+  }
+
+  // bool expansion = 9;
+  if (this->_internal_expansion() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_expansion(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1586,6 +1654,21 @@ size_t PbfFieldSelector::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool matrix = 5;
+  if (this->_internal_matrix() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool isochrone = 6;
+  if (this->_internal_isochrone() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool expansion = 9;
+  if (this->_internal_expansion() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1618,6 +1701,15 @@ void PbfFieldSelector::MergeFrom(const PbfFieldSelector& from) {
   if (from._internal_status() != 0) {
     _internal_set_status(from._internal_status());
   }
+  if (from._internal_matrix() != 0) {
+    _internal_set_matrix(from._internal_matrix());
+  }
+  if (from._internal_isochrone() != 0) {
+    _internal_set_isochrone(from._internal_isochrone());
+  }
+  if (from._internal_expansion() != 0) {
+    _internal_set_expansion(from._internal_expansion());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1636,8 +1728,8 @@ void PbfFieldSelector::InternalSwap(PbfFieldSelector* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PbfFieldSelector, status_)
-      + sizeof(PbfFieldSelector::status_)
+      PROTOBUF_FIELD_OFFSET(PbfFieldSelector, expansion_)
+      + sizeof(PbfFieldSelector::expansion_)
       - PROTOBUF_FIELD_OFFSET(PbfFieldSelector, options_)>(
           reinterpret_cast<char*>(&options_),
           reinterpret_cast<char*>(&other->options_));
@@ -1943,8 +2035,8 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       exclude_edges_(from.exclude_edges_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&filter_stop_action_, &from.filter_stop_action_,
-    static_cast<size_t>(reinterpret_cast<char*>(&disable_hierarchy_pruning_) -
-    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(disable_hierarchy_pruning_));
+    static_cast<size_t>(reinterpret_cast<char*>(&use_truck_route_) -
+    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(use_truck_route_));
   clear_has_has_maneuver_penalty();
   switch (from.has_maneuver_penalty_case()) {
     case kManeuverPenalty: {
@@ -2665,6 +2757,16 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
   }
+  clear_has_has_hgv_no_access_penalty();
+  switch (from.has_hgv_no_access_penalty_case()) {
+    case kHgvNoAccessPenalty: {
+      _internal_set_hgv_no_access_penalty(from._internal_hgv_no_access_penalty());
+      break;
+    }
+    case HAS_HGV_NO_ACCESS_PENALTY_NOT_SET: {
+      break;
+    }
+  }
   clear_has_has_non_network_penalty();
   switch (from.has_non_network_penalty_case()) {
     case kNonNetworkPenalty: {
@@ -2681,8 +2783,8 @@ Costing_Options::Costing_Options(const Costing_Options& from)
 inline void Costing_Options::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&filter_stop_action_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&disable_hierarchy_pruning_) -
-    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(disable_hierarchy_pruning_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&use_truck_route_) -
+    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(use_truck_route_));
 clear_has_has_maneuver_penalty();
 clear_has_has_destination_only_penalty();
 clear_has_has_gate_cost();
@@ -2755,6 +2857,7 @@ clear_has_has_include_hov3();
 clear_has_has_exclude_cash_only_tolls();
 clear_has_has_restriction_probability();
 clear_has_has_elevator_penalty();
+clear_has_has_hgv_no_access_penalty();
 clear_has_has_non_network_penalty();
 }
 
@@ -2984,6 +3087,9 @@ inline void Costing_Options::SharedDtor() {
   }
   if (has_has_elevator_penalty()) {
     clear_has_elevator_penalty();
+  }
+  if (has_has_hgv_no_access_penalty()) {
+    clear_has_hgv_no_access_penalty();
   }
   if (has_has_non_network_penalty()) {
     clear_has_non_network_penalty();
@@ -4002,6 +4108,20 @@ void Costing_Options::clear_has_elevator_penalty() {
   _oneof_case_[71] = HAS_ELEVATOR_PENALTY_NOT_SET;
 }
 
+void Costing_Options::clear_has_hgv_no_access_penalty() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
+  switch (has_hgv_no_access_penalty_case()) {
+    case kHgvNoAccessPenalty: {
+      // No need to clear
+      break;
+    }
+    case HAS_HGV_NO_ACCESS_PENALTY_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[72] = HAS_HGV_NO_ACCESS_PENALTY_NOT_SET;
+}
+
 void Costing_Options::clear_has_non_network_penalty() {
 // @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
   switch (has_non_network_penalty_case()) {
@@ -4013,7 +4133,7 @@ void Costing_Options::clear_has_non_network_penalty() {
       break;
     }
   }
-  _oneof_case_[72] = HAS_NON_NETWORK_PENALTY_NOT_SET;
+  _oneof_case_[73] = HAS_NON_NETWORK_PENALTY_NOT_SET;
 }
 
 
@@ -4028,8 +4148,8 @@ void Costing_Options::Clear() {
   filter_route_ids_.Clear();
   exclude_edges_.Clear();
   ::memset(&filter_stop_action_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&disable_hierarchy_pruning_) -
-      reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(disable_hierarchy_pruning_));
+      reinterpret_cast<char*>(&use_truck_route_) -
+      reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(use_truck_route_));
   clear_has_maneuver_penalty();
   clear_has_destination_only_penalty();
   clear_has_gate_cost();
@@ -4102,6 +4222,7 @@ void Costing_Options::Clear() {
   clear_has_exclude_cash_only_tolls();
   clear_has_restriction_probability();
   clear_has_elevator_penalty();
+  clear_has_hgv_no_access_penalty();
   clear_has_non_network_penalty();
   _internal_metadata_.Clear<std::string>();
 }
@@ -4807,9 +4928,33 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // float non_network_penalty = 84;
+      // bool ignore_non_vehicular_restrictions = 84;
       case 84:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 165)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+          ignore_non_vehicular_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float hgv_no_access_penalty = 85;
+      case 85:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 173)) {
+          _internal_set_hgv_no_access_penalty(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float use_truck_route = 86;
+      case 86:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 181)) {
+          use_truck_route_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float non_network_penalty = 92;
+      case 92:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 229)) {
           _internal_set_non_network_penalty(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
         } else
@@ -5367,10 +5512,32 @@ uint8_t* Costing_Options::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(83, this->_internal_disable_hierarchy_pruning(), target);
   }
 
-  // float non_network_penalty = 84;
+  // bool ignore_non_vehicular_restrictions = 84;
+  if (this->_internal_ignore_non_vehicular_restrictions() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(84, this->_internal_ignore_non_vehicular_restrictions(), target);
+  }
+
+  // float hgv_no_access_penalty = 85;
+  if (_internal_has_hgv_no_access_penalty()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(85, this->_internal_hgv_no_access_penalty(), target);
+  }
+
+  // float use_truck_route = 86;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_use_truck_route = this->_internal_use_truck_route();
+  uint32_t raw_use_truck_route;
+  memcpy(&raw_use_truck_route, &tmp_use_truck_route, sizeof(tmp_use_truck_route));
+  if (raw_use_truck_route != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(86, this->_internal_use_truck_route(), target);
+  }
+
+  // float non_network_penalty = 92;
   if (_internal_has_non_network_penalty()) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(84, this->_internal_non_network_penalty(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(92, this->_internal_non_network_penalty(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5464,6 +5631,20 @@ size_t Costing_Options::ByteSizeLong() const {
   // bool disable_hierarchy_pruning = 83;
   if (this->_internal_disable_hierarchy_pruning() != 0) {
     total_size += 2 + 1;
+  }
+
+  // bool ignore_non_vehicular_restrictions = 84;
+  if (this->_internal_ignore_non_vehicular_restrictions() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // float use_truck_route = 86;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_use_truck_route = this->_internal_use_truck_route();
+  uint32_t raw_use_truck_route;
+  memcpy(&raw_use_truck_route, &tmp_use_truck_route, sizeof(tmp_use_truck_route));
+  if (raw_use_truck_route != 0) {
+    total_size += 2 + 4;
   }
 
   switch (has_maneuver_penalty_case()) {
@@ -6202,8 +6383,18 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
   }
+  switch (has_hgv_no_access_penalty_case()) {
+    // float hgv_no_access_penalty = 85;
+    case kHgvNoAccessPenalty: {
+      total_size += 2 + 4;
+      break;
+    }
+    case HAS_HGV_NO_ACCESS_PENALTY_NOT_SET: {
+      break;
+    }
+  }
   switch (has_non_network_penalty_case()) {
-    // float non_network_penalty = 84;
+    // float non_network_penalty = 92;
     case kNonNetworkPenalty: {
       total_size += 2 + 4;
       break;
@@ -6260,6 +6451,16 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
   }
   if (from._internal_disable_hierarchy_pruning() != 0) {
     _internal_set_disable_hierarchy_pruning(from._internal_disable_hierarchy_pruning());
+  }
+  if (from._internal_ignore_non_vehicular_restrictions() != 0) {
+    _internal_set_ignore_non_vehicular_restrictions(from._internal_ignore_non_vehicular_restrictions());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_use_truck_route = from._internal_use_truck_route();
+  uint32_t raw_use_truck_route;
+  memcpy(&raw_use_truck_route, &tmp_use_truck_route, sizeof(tmp_use_truck_route));
+  if (raw_use_truck_route != 0) {
+    _internal_set_use_truck_route(from._internal_use_truck_route());
   }
   switch (from.has_maneuver_penalty_case()) {
     case kManeuverPenalty: {
@@ -6909,6 +7110,15 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
   }
+  switch (from.has_hgv_no_access_penalty_case()) {
+    case kHgvNoAccessPenalty: {
+      _internal_set_hgv_no_access_penalty(from._internal_hgv_no_access_penalty());
+      break;
+    }
+    case HAS_HGV_NO_ACCESS_PENALTY_NOT_SET: {
+      break;
+    }
+  }
   switch (from.has_non_network_penalty_case()) {
     case kNonNetworkPenalty: {
       _internal_set_non_network_penalty(from._internal_non_network_penalty());
@@ -6940,8 +7150,8 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   filter_route_ids_.InternalSwap(&other->filter_route_ids_);
   exclude_edges_.InternalSwap(&other->exclude_edges_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Costing_Options, disable_hierarchy_pruning_)
-      + sizeof(Costing_Options::disable_hierarchy_pruning_)
+      PROTOBUF_FIELD_OFFSET(Costing_Options, use_truck_route_)
+      + sizeof(Costing_Options::use_truck_route_)
       - PROTOBUF_FIELD_OFFSET(Costing_Options, filter_stop_action_)>(
           reinterpret_cast<char*>(&filter_stop_action_),
           reinterpret_cast<char*>(&other->filter_stop_action_));
@@ -7017,6 +7227,7 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(has_exclude_cash_only_tolls_, other->has_exclude_cash_only_tolls_);
   swap(has_restriction_probability_, other->has_restriction_probability_);
   swap(has_elevator_penalty_, other->has_elevator_penalty_);
+  swap(has_hgv_no_access_penalty_, other->has_hgv_no_access_penalty_);
   swap(has_non_network_penalty_, other->has_non_network_penalty_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   swap(_oneof_case_[1], other->_oneof_case_[1]);
@@ -7091,6 +7302,7 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(_oneof_case_[70], other->_oneof_case_[70]);
   swap(_oneof_case_[71], other->_oneof_case_[71]);
   swap(_oneof_case_[72], other->_oneof_case_[72]);
+  swap(_oneof_case_[73], other->_oneof_case_[73]);
 }
 
 std::string Costing_Options::GetTypeName() const {
@@ -7572,8 +7784,8 @@ Options::Options(const Options& from)
     pbf_field_selector_ = nullptr;
   }
   ::memcpy(&units_, &from.units_,
-    static_cast<size_t>(reinterpret_cast<char*>(&reverse_) -
-    reinterpret_cast<char*>(&units_)) + sizeof(reverse_));
+    static_cast<size_t>(reinterpret_cast<char*>(&elevation_interval_) -
+    reinterpret_cast<char*>(&units_)) + sizeof(elevation_interval_));
   clear_has_has_language();
   switch (from.has_language_case()) {
     case kLanguage: {
@@ -7744,6 +7956,16 @@ Options::Options(const Options& from)
       break;
     }
   }
+  clear_has_has_shape_format();
+  switch (from.has_shape_format_case()) {
+    case kShapeFormat: {
+      _internal_set_shape_format(from._internal_shape_format());
+      break;
+    }
+    case HAS_SHAPE_FORMAT_NOT_SET: {
+      break;
+    }
+  }
   clear_has_has_alternates();
   switch (from.has_alternates_case()) {
     case kAlternates: {
@@ -7850,8 +8072,8 @@ Options::Options(const Options& from)
 inline void Options::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&pbf_field_selector_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&reverse_) -
-    reinterpret_cast<char*>(&pbf_field_selector_)) + sizeof(reverse_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&elevation_interval_) -
+    reinterpret_cast<char*>(&pbf_field_selector_)) + sizeof(elevation_interval_));
 clear_has_has_language();
 clear_has_has_id();
 clear_has_has_jsonp();
@@ -7869,6 +8091,7 @@ clear_has_has_search_radius();
 clear_has_has_turn_penalty_factor();
 clear_has_has_breakage_distance();
 clear_has_has_use_timestamps();
+clear_has_has_shape_format();
 clear_has_has_alternates();
 clear_has_has_interpolation_distance();
 clear_has_has_guidance_views();
@@ -7944,6 +8167,9 @@ inline void Options::SharedDtor() {
   }
   if (has_has_use_timestamps()) {
     clear_has_use_timestamps();
+  }
+  if (has_has_shape_format()) {
+    clear_has_shape_format();
   }
   if (has_has_alternates()) {
     clear_has_alternates();
@@ -8219,6 +8445,20 @@ void Options::clear_has_use_timestamps() {
   _oneof_case_[16] = HAS_USE_TIMESTAMPS_NOT_SET;
 }
 
+void Options::clear_has_shape_format() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
+  switch (has_shape_format_case()) {
+    case kShapeFormat: {
+      // No need to clear
+      break;
+    }
+    case HAS_SHAPE_FORMAT_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[17] = HAS_SHAPE_FORMAT_NOT_SET;
+}
+
 void Options::clear_has_alternates() {
 // @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
   switch (has_alternates_case()) {
@@ -8230,7 +8470,7 @@ void Options::clear_has_alternates() {
       break;
     }
   }
-  _oneof_case_[17] = HAS_ALTERNATES_NOT_SET;
+  _oneof_case_[18] = HAS_ALTERNATES_NOT_SET;
 }
 
 void Options::clear_has_interpolation_distance() {
@@ -8244,7 +8484,7 @@ void Options::clear_has_interpolation_distance() {
       break;
     }
   }
-  _oneof_case_[18] = HAS_INTERPOLATION_DISTANCE_NOT_SET;
+  _oneof_case_[19] = HAS_INTERPOLATION_DISTANCE_NOT_SET;
 }
 
 void Options::clear_has_guidance_views() {
@@ -8258,7 +8498,7 @@ void Options::clear_has_guidance_views() {
       break;
     }
   }
-  _oneof_case_[19] = HAS_GUIDANCE_VIEWS_NOT_SET;
+  _oneof_case_[20] = HAS_GUIDANCE_VIEWS_NOT_SET;
 }
 
 void Options::clear_has_height_precision() {
@@ -8272,7 +8512,7 @@ void Options::clear_has_height_precision() {
       break;
     }
   }
-  _oneof_case_[20] = HAS_HEIGHT_PRECISION_NOT_SET;
+  _oneof_case_[21] = HAS_HEIGHT_PRECISION_NOT_SET;
 }
 
 void Options::clear_has_roundabout_exits() {
@@ -8286,7 +8526,7 @@ void Options::clear_has_roundabout_exits() {
       break;
     }
   }
-  _oneof_case_[21] = HAS_ROUNDABOUT_EXITS_NOT_SET;
+  _oneof_case_[22] = HAS_ROUNDABOUT_EXITS_NOT_SET;
 }
 
 void Options::clear_has_linear_references() {
@@ -8300,7 +8540,7 @@ void Options::clear_has_linear_references() {
       break;
     }
   }
-  _oneof_case_[22] = HAS_LINEAR_REFERENCES_NOT_SET;
+  _oneof_case_[23] = HAS_LINEAR_REFERENCES_NOT_SET;
 }
 
 void Options::clear_has_prioritize_bidirectional() {
@@ -8314,7 +8554,7 @@ void Options::clear_has_prioritize_bidirectional() {
       break;
     }
   }
-  _oneof_case_[23] = HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET;
+  _oneof_case_[24] = HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET;
 }
 
 void Options::clear_has_expansion_action() {
@@ -8328,7 +8568,7 @@ void Options::clear_has_expansion_action() {
       break;
     }
   }
-  _oneof_case_[24] = HAS_EXPANSION_ACTION_NOT_SET;
+  _oneof_case_[25] = HAS_EXPANSION_ACTION_NOT_SET;
 }
 
 void Options::clear_has_skip_opposites() {
@@ -8342,7 +8582,7 @@ void Options::clear_has_skip_opposites() {
       break;
     }
   }
-  _oneof_case_[25] = HAS_SKIP_OPPOSITES_NOT_SET;
+  _oneof_case_[26] = HAS_SKIP_OPPOSITES_NOT_SET;
 }
 
 void Options::clear_has_matrix_locations() {
@@ -8356,7 +8596,7 @@ void Options::clear_has_matrix_locations() {
       break;
     }
   }
-  _oneof_case_[26] = HAS_MATRIX_LOCATIONS_NOT_SET;
+  _oneof_case_[27] = HAS_MATRIX_LOCATIONS_NOT_SET;
 }
 
 
@@ -8383,8 +8623,8 @@ void Options::Clear() {
   }
   pbf_field_selector_ = nullptr;
   ::memset(&units_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&reverse_) -
-      reinterpret_cast<char*>(&units_)) + sizeof(reverse_));
+      reinterpret_cast<char*>(&elevation_interval_) -
+      reinterpret_cast<char*>(&units_)) + sizeof(elevation_interval_));
   clear_has_language();
   clear_has_id();
   clear_has_jsonp();
@@ -8402,6 +8642,7 @@ void Options::Clear() {
   clear_has_turn_penalty_factor();
   clear_has_breakage_distance();
   clear_has_use_timestamps();
+  clear_has_shape_format();
   clear_has_alternates();
   clear_has_interpolation_distance();
   clear_has_guidance_views();
@@ -8902,6 +9143,38 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
+      // bool banner_instructions = 55;
+      case 55:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+          banner_instructions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float elevation_interval = 56;
+      case 56:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 197)) {
+          elevation_interval_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool voice_instructions = 57;
+      case 57:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 200)) {
+          voice_instructions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool dedupe = 58;
+      case 58:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
+          dedupe_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -9193,7 +9466,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // .valhalla.ShapeFormat shape_format = 38;
-  if (this->_internal_shape_format() != 0) {
+  if (_internal_has_shape_format()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       38, this->_internal_shape_format(), target);
@@ -9296,6 +9569,34 @@ uint8_t* Options::_InternalSerialize(
   if (_internal_has_matrix_locations()) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(54, this->_internal_matrix_locations(), target);
+  }
+
+  // bool banner_instructions = 55;
+  if (this->_internal_banner_instructions() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(55, this->_internal_banner_instructions(), target);
+  }
+
+  // float elevation_interval = 56;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_elevation_interval = this->_internal_elevation_interval();
+  uint32_t raw_elevation_interval;
+  memcpy(&raw_elevation_interval, &tmp_elevation_interval, sizeof(tmp_elevation_interval));
+  if (raw_elevation_interval != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(56, this->_internal_elevation_interval(), target);
+  }
+
+  // bool voice_instructions = 57;
+  if (this->_internal_voice_instructions() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(57, this->_internal_voice_instructions(), target);
+  }
+
+  // bool dedupe = 58;
+  if (this->_internal_dedupe() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(58, this->_internal_dedupe(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9466,15 +9767,33 @@ size_t Options::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_filter_action());
   }
 
-  // .valhalla.ShapeFormat shape_format = 38;
-  if (this->_internal_shape_format() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_shape_format());
-  }
-
   // bool reverse = 53;
   if (this->_internal_reverse() != 0) {
     total_size += 2 + 1;
+  }
+
+  // bool banner_instructions = 55;
+  if (this->_internal_banner_instructions() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool voice_instructions = 57;
+  if (this->_internal_voice_instructions() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool dedupe = 58;
+  if (this->_internal_dedupe() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // float elevation_interval = 56;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_elevation_interval = this->_internal_elevation_interval();
+  uint32_t raw_elevation_interval;
+  memcpy(&raw_elevation_interval, &tmp_elevation_interval, sizeof(tmp_elevation_interval));
+  if (raw_elevation_interval != 0) {
+    total_size += 2 + 4;
   }
 
   switch (has_language_case()) {
@@ -9657,6 +9976,17 @@ size_t Options::ByteSizeLong() const {
       break;
     }
   }
+  switch (has_shape_format_case()) {
+    // .valhalla.ShapeFormat shape_format = 38;
+    case kShapeFormat: {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_shape_format());
+      break;
+    }
+    case HAS_SHAPE_FORMAT_NOT_SET: {
+      break;
+    }
+  }
   switch (has_alternates_case()) {
     // uint32 alternates = 39;
     case kAlternates: {
@@ -9823,11 +10153,24 @@ void Options::MergeFrom(const Options& from) {
   if (from._internal_filter_action() != 0) {
     _internal_set_filter_action(from._internal_filter_action());
   }
-  if (from._internal_shape_format() != 0) {
-    _internal_set_shape_format(from._internal_shape_format());
-  }
   if (from._internal_reverse() != 0) {
     _internal_set_reverse(from._internal_reverse());
+  }
+  if (from._internal_banner_instructions() != 0) {
+    _internal_set_banner_instructions(from._internal_banner_instructions());
+  }
+  if (from._internal_voice_instructions() != 0) {
+    _internal_set_voice_instructions(from._internal_voice_instructions());
+  }
+  if (from._internal_dedupe() != 0) {
+    _internal_set_dedupe(from._internal_dedupe());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_elevation_interval = from._internal_elevation_interval();
+  uint32_t raw_elevation_interval;
+  memcpy(&raw_elevation_interval, &tmp_elevation_interval, sizeof(tmp_elevation_interval));
+  if (raw_elevation_interval != 0) {
+    _internal_set_elevation_interval(from._internal_elevation_interval());
   }
   switch (from.has_language_case()) {
     case kLanguage: {
@@ -9982,6 +10325,15 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
+  switch (from.has_shape_format_case()) {
+    case kShapeFormat: {
+      _internal_set_shape_format(from._internal_shape_format());
+      break;
+    }
+    case HAS_SHAPE_FORMAT_NOT_SET: {
+      break;
+    }
+  }
   switch (from.has_alternates_case()) {
     case kAlternates: {
       _internal_set_alternates(from._internal_alternates());
@@ -10102,8 +10454,8 @@ void Options::InternalSwap(Options* other) {
   exclude_polygons_.InternalSwap(&other->exclude_polygons_);
   expansion_properties_.InternalSwap(&other->expansion_properties_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Options, reverse_)
-      + sizeof(Options::reverse_)
+      PROTOBUF_FIELD_OFFSET(Options, elevation_interval_)
+      + sizeof(Options::elevation_interval_)
       - PROTOBUF_FIELD_OFFSET(Options, pbf_field_selector_)>(
           reinterpret_cast<char*>(&pbf_field_selector_),
           reinterpret_cast<char*>(&other->pbf_field_selector_));
@@ -10124,6 +10476,7 @@ void Options::InternalSwap(Options* other) {
   swap(has_turn_penalty_factor_, other->has_turn_penalty_factor_);
   swap(has_breakage_distance_, other->has_breakage_distance_);
   swap(has_use_timestamps_, other->has_use_timestamps_);
+  swap(has_shape_format_, other->has_shape_format_);
   swap(has_alternates_, other->has_alternates_);
   swap(has_interpolation_distance_, other->has_interpolation_distance_);
   swap(has_guidance_views_, other->has_guidance_views_);
@@ -10161,6 +10514,7 @@ void Options::InternalSwap(Options* other) {
   swap(_oneof_case_[24], other->_oneof_case_[24]);
   swap(_oneof_case_[25], other->_oneof_case_[25]);
   swap(_oneof_case_[26], other->_oneof_case_[26]);
+  swap(_oneof_case_[27], other->_oneof_case_[27]);
 }
 
 std::string Options::GetTypeName() const {

@@ -24,6 +24,9 @@ PROTOBUF_CONSTEXPR Api::Api(
   , trip_(nullptr)
   , directions_(nullptr)
   , status_(nullptr)
+  , matrix_(nullptr)
+  , isochrone_(nullptr)
+  , expansion_(nullptr)
   , info_(nullptr){}
 struct ApiDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ApiDefaultTypeInternal()
@@ -45,6 +48,9 @@ class Api::_Internal {
   static const ::valhalla::Trip& trip(const Api* msg);
   static const ::valhalla::Directions& directions(const Api* msg);
   static const ::valhalla::Status& status(const Api* msg);
+  static const ::valhalla::Matrix& matrix(const Api* msg);
+  static const ::valhalla::Isochrone& isochrone(const Api* msg);
+  static const ::valhalla::Expansion& expansion(const Api* msg);
   static const ::valhalla::Info& info(const Api* msg);
 };
 
@@ -63,6 +69,18 @@ Api::_Internal::directions(const Api* msg) {
 const ::valhalla::Status&
 Api::_Internal::status(const Api* msg) {
   return *msg->status_;
+}
+const ::valhalla::Matrix&
+Api::_Internal::matrix(const Api* msg) {
+  return *msg->matrix_;
+}
+const ::valhalla::Isochrone&
+Api::_Internal::isochrone(const Api* msg) {
+  return *msg->isochrone_;
+}
+const ::valhalla::Expansion&
+Api::_Internal::expansion(const Api* msg) {
+  return *msg->expansion_;
 }
 const ::valhalla::Info&
 Api::_Internal::info(const Api* msg) {
@@ -91,6 +109,24 @@ void Api::clear_status() {
     delete status_;
   }
   status_ = nullptr;
+}
+void Api::clear_matrix() {
+  if (GetArenaForAllocation() == nullptr && matrix_ != nullptr) {
+    delete matrix_;
+  }
+  matrix_ = nullptr;
+}
+void Api::clear_isochrone() {
+  if (GetArenaForAllocation() == nullptr && isochrone_ != nullptr) {
+    delete isochrone_;
+  }
+  isochrone_ = nullptr;
+}
+void Api::clear_expansion() {
+  if (GetArenaForAllocation() == nullptr && expansion_ != nullptr) {
+    delete expansion_;
+  }
+  expansion_ = nullptr;
 }
 void Api::clear_info() {
   if (GetArenaForAllocation() == nullptr && info_ != nullptr) {
@@ -127,6 +163,21 @@ Api::Api(const Api& from)
   } else {
     status_ = nullptr;
   }
+  if (from._internal_has_matrix()) {
+    matrix_ = new ::valhalla::Matrix(*from.matrix_);
+  } else {
+    matrix_ = nullptr;
+  }
+  if (from._internal_has_isochrone()) {
+    isochrone_ = new ::valhalla::Isochrone(*from.isochrone_);
+  } else {
+    isochrone_ = nullptr;
+  }
+  if (from._internal_has_expansion()) {
+    expansion_ = new ::valhalla::Expansion(*from.expansion_);
+  } else {
+    expansion_ = nullptr;
+  }
   if (from._internal_has_info()) {
     info_ = new ::valhalla::Info(*from.info_);
   } else {
@@ -157,6 +208,9 @@ inline void Api::SharedDtor() {
   if (this != internal_default_instance()) delete trip_;
   if (this != internal_default_instance()) delete directions_;
   if (this != internal_default_instance()) delete status_;
+  if (this != internal_default_instance()) delete matrix_;
+  if (this != internal_default_instance()) delete isochrone_;
+  if (this != internal_default_instance()) delete expansion_;
   if (this != internal_default_instance()) delete info_;
 }
 
@@ -186,6 +240,18 @@ void Api::Clear() {
     delete status_;
   }
   status_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && matrix_ != nullptr) {
+    delete matrix_;
+  }
+  matrix_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && isochrone_ != nullptr) {
+    delete isochrone_;
+  }
+  isochrone_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && expansion_ != nullptr) {
+    delete expansion_;
+  }
+  expansion_ = nullptr;
   if (GetArenaForAllocation() == nullptr && info_ != nullptr) {
     delete info_;
   }
@@ -227,6 +293,30 @@ const char* Api::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.Matrix matrix = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_matrix(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.Isochrone isochrone = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_isochrone(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.Expansion expansion = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_expansion(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -296,6 +386,27 @@ uint8_t* Api::_InternalSerialize(
         _Internal::status(this).GetCachedSize(), target, stream);
   }
 
+  // .valhalla.Matrix matrix = 5;
+  if (this->_internal_has_matrix()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::matrix(this),
+        _Internal::matrix(this).GetCachedSize(), target, stream);
+  }
+
+  // .valhalla.Isochrone isochrone = 6;
+  if (this->_internal_has_isochrone()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::isochrone(this),
+        _Internal::isochrone(this).GetCachedSize(), target, stream);
+  }
+
+  // .valhalla.Expansion expansion = 7;
+  if (this->_internal_has_expansion()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::expansion(this),
+        _Internal::expansion(this).GetCachedSize(), target, stream);
+  }
+
   // .valhalla.Info info = 20;
   if (this->_internal_has_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -347,6 +458,27 @@ size_t Api::ByteSizeLong() const {
         *status_);
   }
 
+  // .valhalla.Matrix matrix = 5;
+  if (this->_internal_has_matrix()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *matrix_);
+  }
+
+  // .valhalla.Isochrone isochrone = 6;
+  if (this->_internal_has_isochrone()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *isochrone_);
+  }
+
+  // .valhalla.Expansion expansion = 7;
+  if (this->_internal_has_expansion()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *expansion_);
+  }
+
   // .valhalla.Info info = 20;
   if (this->_internal_has_info()) {
     total_size += 2 +
@@ -385,6 +517,15 @@ void Api::MergeFrom(const Api& from) {
   }
   if (from._internal_has_status()) {
     _internal_mutable_status()->::valhalla::Status::MergeFrom(from._internal_status());
+  }
+  if (from._internal_has_matrix()) {
+    _internal_mutable_matrix()->::valhalla::Matrix::MergeFrom(from._internal_matrix());
+  }
+  if (from._internal_has_isochrone()) {
+    _internal_mutable_isochrone()->::valhalla::Isochrone::MergeFrom(from._internal_isochrone());
+  }
+  if (from._internal_has_expansion()) {
+    _internal_mutable_expansion()->::valhalla::Expansion::MergeFrom(from._internal_expansion());
   }
   if (from._internal_has_info()) {
     _internal_mutable_info()->::valhalla::Info::MergeFrom(from._internal_info());

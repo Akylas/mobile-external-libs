@@ -33,6 +33,9 @@
 #include "directions.pb.h"
 #include "info.pb.h"
 #include "status.pb.h"
+#include "matrix.pb.h"
+#include "isochrone.pb.h"
+#include "expansion.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_api_2eproto
@@ -165,6 +168,9 @@ class Api final :
     kTripFieldNumber = 2,
     kDirectionsFieldNumber = 3,
     kStatusFieldNumber = 4,
+    kMatrixFieldNumber = 5,
+    kIsochroneFieldNumber = 6,
+    kExpansionFieldNumber = 7,
     kInfoFieldNumber = 20,
   };
   // .valhalla.Options options = 1;
@@ -239,6 +245,60 @@ class Api final :
       ::valhalla::Status* status);
   ::valhalla::Status* unsafe_arena_release_status();
 
+  // .valhalla.Matrix matrix = 5;
+  bool has_matrix() const;
+  private:
+  bool _internal_has_matrix() const;
+  public:
+  void clear_matrix();
+  const ::valhalla::Matrix& matrix() const;
+  PROTOBUF_NODISCARD ::valhalla::Matrix* release_matrix();
+  ::valhalla::Matrix* mutable_matrix();
+  void set_allocated_matrix(::valhalla::Matrix* matrix);
+  private:
+  const ::valhalla::Matrix& _internal_matrix() const;
+  ::valhalla::Matrix* _internal_mutable_matrix();
+  public:
+  void unsafe_arena_set_allocated_matrix(
+      ::valhalla::Matrix* matrix);
+  ::valhalla::Matrix* unsafe_arena_release_matrix();
+
+  // .valhalla.Isochrone isochrone = 6;
+  bool has_isochrone() const;
+  private:
+  bool _internal_has_isochrone() const;
+  public:
+  void clear_isochrone();
+  const ::valhalla::Isochrone& isochrone() const;
+  PROTOBUF_NODISCARD ::valhalla::Isochrone* release_isochrone();
+  ::valhalla::Isochrone* mutable_isochrone();
+  void set_allocated_isochrone(::valhalla::Isochrone* isochrone);
+  private:
+  const ::valhalla::Isochrone& _internal_isochrone() const;
+  ::valhalla::Isochrone* _internal_mutable_isochrone();
+  public:
+  void unsafe_arena_set_allocated_isochrone(
+      ::valhalla::Isochrone* isochrone);
+  ::valhalla::Isochrone* unsafe_arena_release_isochrone();
+
+  // .valhalla.Expansion expansion = 7;
+  bool has_expansion() const;
+  private:
+  bool _internal_has_expansion() const;
+  public:
+  void clear_expansion();
+  const ::valhalla::Expansion& expansion() const;
+  PROTOBUF_NODISCARD ::valhalla::Expansion* release_expansion();
+  ::valhalla::Expansion* mutable_expansion();
+  void set_allocated_expansion(::valhalla::Expansion* expansion);
+  private:
+  const ::valhalla::Expansion& _internal_expansion() const;
+  ::valhalla::Expansion* _internal_mutable_expansion();
+  public:
+  void unsafe_arena_set_allocated_expansion(
+      ::valhalla::Expansion* expansion);
+  ::valhalla::Expansion* unsafe_arena_release_expansion();
+
   // .valhalla.Info info = 20;
   bool has_info() const;
   private:
@@ -268,6 +328,9 @@ class Api final :
   ::valhalla::Trip* trip_;
   ::valhalla::Directions* directions_;
   ::valhalla::Status* status_;
+  ::valhalla::Matrix* matrix_;
+  ::valhalla::Isochrone* isochrone_;
+  ::valhalla::Expansion* expansion_;
   ::valhalla::Info* info_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_api_2eproto;
@@ -621,6 +684,261 @@ inline void Api::set_allocated_status(::valhalla::Status* status) {
   }
   status_ = status;
   // @@protoc_insertion_point(field_set_allocated:valhalla.Api.status)
+}
+
+// .valhalla.Matrix matrix = 5;
+inline bool Api::_internal_has_matrix() const {
+  return this != internal_default_instance() && matrix_ != nullptr;
+}
+inline bool Api::has_matrix() const {
+  return _internal_has_matrix();
+}
+inline const ::valhalla::Matrix& Api::_internal_matrix() const {
+  const ::valhalla::Matrix* p = matrix_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::Matrix&>(
+      ::valhalla::_Matrix_default_instance_);
+}
+inline const ::valhalla::Matrix& Api::matrix() const {
+  // @@protoc_insertion_point(field_get:valhalla.Api.matrix)
+  return _internal_matrix();
+}
+inline void Api::unsafe_arena_set_allocated_matrix(
+    ::valhalla::Matrix* matrix) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(matrix_);
+  }
+  matrix_ = matrix;
+  if (matrix) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.Api.matrix)
+}
+inline ::valhalla::Matrix* Api::release_matrix() {
+  
+  ::valhalla::Matrix* temp = matrix_;
+  matrix_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::Matrix* Api::unsafe_arena_release_matrix() {
+  // @@protoc_insertion_point(field_release:valhalla.Api.matrix)
+  
+  ::valhalla::Matrix* temp = matrix_;
+  matrix_ = nullptr;
+  return temp;
+}
+inline ::valhalla::Matrix* Api::_internal_mutable_matrix() {
+  
+  if (matrix_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::Matrix>(GetArenaForAllocation());
+    matrix_ = p;
+  }
+  return matrix_;
+}
+inline ::valhalla::Matrix* Api::mutable_matrix() {
+  ::valhalla::Matrix* _msg = _internal_mutable_matrix();
+  // @@protoc_insertion_point(field_mutable:valhalla.Api.matrix)
+  return _msg;
+}
+inline void Api::set_allocated_matrix(::valhalla::Matrix* matrix) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(matrix_);
+  }
+  if (matrix) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(matrix));
+    if (message_arena != submessage_arena) {
+      matrix = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, matrix, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  matrix_ = matrix;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.Api.matrix)
+}
+
+// .valhalla.Isochrone isochrone = 6;
+inline bool Api::_internal_has_isochrone() const {
+  return this != internal_default_instance() && isochrone_ != nullptr;
+}
+inline bool Api::has_isochrone() const {
+  return _internal_has_isochrone();
+}
+inline const ::valhalla::Isochrone& Api::_internal_isochrone() const {
+  const ::valhalla::Isochrone* p = isochrone_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::Isochrone&>(
+      ::valhalla::_Isochrone_default_instance_);
+}
+inline const ::valhalla::Isochrone& Api::isochrone() const {
+  // @@protoc_insertion_point(field_get:valhalla.Api.isochrone)
+  return _internal_isochrone();
+}
+inline void Api::unsafe_arena_set_allocated_isochrone(
+    ::valhalla::Isochrone* isochrone) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(isochrone_);
+  }
+  isochrone_ = isochrone;
+  if (isochrone) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.Api.isochrone)
+}
+inline ::valhalla::Isochrone* Api::release_isochrone() {
+  
+  ::valhalla::Isochrone* temp = isochrone_;
+  isochrone_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::Isochrone* Api::unsafe_arena_release_isochrone() {
+  // @@protoc_insertion_point(field_release:valhalla.Api.isochrone)
+  
+  ::valhalla::Isochrone* temp = isochrone_;
+  isochrone_ = nullptr;
+  return temp;
+}
+inline ::valhalla::Isochrone* Api::_internal_mutable_isochrone() {
+  
+  if (isochrone_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::Isochrone>(GetArenaForAllocation());
+    isochrone_ = p;
+  }
+  return isochrone_;
+}
+inline ::valhalla::Isochrone* Api::mutable_isochrone() {
+  ::valhalla::Isochrone* _msg = _internal_mutable_isochrone();
+  // @@protoc_insertion_point(field_mutable:valhalla.Api.isochrone)
+  return _msg;
+}
+inline void Api::set_allocated_isochrone(::valhalla::Isochrone* isochrone) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(isochrone_);
+  }
+  if (isochrone) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(isochrone));
+    if (message_arena != submessage_arena) {
+      isochrone = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, isochrone, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  isochrone_ = isochrone;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.Api.isochrone)
+}
+
+// .valhalla.Expansion expansion = 7;
+inline bool Api::_internal_has_expansion() const {
+  return this != internal_default_instance() && expansion_ != nullptr;
+}
+inline bool Api::has_expansion() const {
+  return _internal_has_expansion();
+}
+inline const ::valhalla::Expansion& Api::_internal_expansion() const {
+  const ::valhalla::Expansion* p = expansion_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::Expansion&>(
+      ::valhalla::_Expansion_default_instance_);
+}
+inline const ::valhalla::Expansion& Api::expansion() const {
+  // @@protoc_insertion_point(field_get:valhalla.Api.expansion)
+  return _internal_expansion();
+}
+inline void Api::unsafe_arena_set_allocated_expansion(
+    ::valhalla::Expansion* expansion) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(expansion_);
+  }
+  expansion_ = expansion;
+  if (expansion) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.Api.expansion)
+}
+inline ::valhalla::Expansion* Api::release_expansion() {
+  
+  ::valhalla::Expansion* temp = expansion_;
+  expansion_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::Expansion* Api::unsafe_arena_release_expansion() {
+  // @@protoc_insertion_point(field_release:valhalla.Api.expansion)
+  
+  ::valhalla::Expansion* temp = expansion_;
+  expansion_ = nullptr;
+  return temp;
+}
+inline ::valhalla::Expansion* Api::_internal_mutable_expansion() {
+  
+  if (expansion_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::Expansion>(GetArenaForAllocation());
+    expansion_ = p;
+  }
+  return expansion_;
+}
+inline ::valhalla::Expansion* Api::mutable_expansion() {
+  ::valhalla::Expansion* _msg = _internal_mutable_expansion();
+  // @@protoc_insertion_point(field_mutable:valhalla.Api.expansion)
+  return _msg;
+}
+inline void Api::set_allocated_expansion(::valhalla::Expansion* expansion) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(expansion_);
+  }
+  if (expansion) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(expansion));
+    if (message_arena != submessage_arena) {
+      expansion = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, expansion, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  expansion_ = expansion;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.Api.expansion)
 }
 
 // .valhalla.Info info = 20;

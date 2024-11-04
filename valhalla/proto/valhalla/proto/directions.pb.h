@@ -57,9 +57,6 @@ extern DirectionsLeg_GuidanceViewDefaultTypeInternal _DirectionsLeg_GuidanceView
 class DirectionsLeg_Maneuver;
 struct DirectionsLeg_ManeuverDefaultTypeInternal;
 extern DirectionsLeg_ManeuverDefaultTypeInternal _DirectionsLeg_Maneuver_default_instance_;
-class DirectionsLeg_Summary;
-struct DirectionsLeg_SummaryDefaultTypeInternal;
-extern DirectionsLeg_SummaryDefaultTypeInternal _DirectionsLeg_Summary_default_instance_;
 class DirectionsRoute;
 struct DirectionsRouteDefaultTypeInternal;
 extern DirectionsRouteDefaultTypeInternal _DirectionsRoute_default_instance_;
@@ -69,7 +66,6 @@ template<> ::valhalla::Directions* Arena::CreateMaybeMessage<::valhalla::Directi
 template<> ::valhalla::DirectionsLeg* Arena::CreateMaybeMessage<::valhalla::DirectionsLeg>(Arena*);
 template<> ::valhalla::DirectionsLeg_GuidanceView* Arena::CreateMaybeMessage<::valhalla::DirectionsLeg_GuidanceView>(Arena*);
 template<> ::valhalla::DirectionsLeg_Maneuver* Arena::CreateMaybeMessage<::valhalla::DirectionsLeg_Maneuver>(Arena*);
-template<> ::valhalla::DirectionsLeg_Summary* Arena::CreateMaybeMessage<::valhalla::DirectionsLeg_Summary>(Arena*);
 template<> ::valhalla::DirectionsRoute* Arena::CreateMaybeMessage<::valhalla::DirectionsRoute>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace valhalla {
@@ -216,208 +212,6 @@ bool DirectionsLeg_Maneuver_BssManeuverType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DirectionsLeg_Maneuver_BssManeuverType* value);
 // ===================================================================
 
-class DirectionsLeg_Summary final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.DirectionsLeg.Summary) */ {
- public:
-  inline DirectionsLeg_Summary() : DirectionsLeg_Summary(nullptr) {}
-  ~DirectionsLeg_Summary() override;
-  explicit PROTOBUF_CONSTEXPR DirectionsLeg_Summary(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  DirectionsLeg_Summary(const DirectionsLeg_Summary& from);
-  DirectionsLeg_Summary(DirectionsLeg_Summary&& from) noexcept
-    : DirectionsLeg_Summary() {
-    *this = ::std::move(from);
-  }
-
-  inline DirectionsLeg_Summary& operator=(const DirectionsLeg_Summary& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline DirectionsLeg_Summary& operator=(DirectionsLeg_Summary&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const DirectionsLeg_Summary& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const DirectionsLeg_Summary* internal_default_instance() {
-    return reinterpret_cast<const DirectionsLeg_Summary*>(
-               &_DirectionsLeg_Summary_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    0;
-
-  friend void swap(DirectionsLeg_Summary& a, DirectionsLeg_Summary& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(DirectionsLeg_Summary* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(DirectionsLeg_Summary* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  DirectionsLeg_Summary* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<DirectionsLeg_Summary>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const DirectionsLeg_Summary& from);
-  void MergeFrom(const DirectionsLeg_Summary& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(DirectionsLeg_Summary* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "valhalla.DirectionsLeg.Summary";
-  }
-  protected:
-  explicit DirectionsLeg_Summary(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kBboxFieldNumber = 3,
-    kTimeFieldNumber = 2,
-    kLengthFieldNumber = 1,
-    kHasTimeRestrictionsFieldNumber = 4,
-    kHasTollFieldNumber = 5,
-    kHasFerryFieldNumber = 6,
-    kHasHighwayFieldNumber = 7,
-  };
-  // .valhalla.BoundingBox bbox = 3;
-  bool has_bbox() const;
-  private:
-  bool _internal_has_bbox() const;
-  public:
-  void clear_bbox();
-  const ::valhalla::BoundingBox& bbox() const;
-  PROTOBUF_NODISCARD ::valhalla::BoundingBox* release_bbox();
-  ::valhalla::BoundingBox* mutable_bbox();
-  void set_allocated_bbox(::valhalla::BoundingBox* bbox);
-  private:
-  const ::valhalla::BoundingBox& _internal_bbox() const;
-  ::valhalla::BoundingBox* _internal_mutable_bbox();
-  public:
-  void unsafe_arena_set_allocated_bbox(
-      ::valhalla::BoundingBox* bbox);
-  ::valhalla::BoundingBox* unsafe_arena_release_bbox();
-
-  // double time = 2;
-  void clear_time();
-  double time() const;
-  void set_time(double value);
-  private:
-  double _internal_time() const;
-  void _internal_set_time(double value);
-  public:
-
-  // float length = 1;
-  void clear_length();
-  float length() const;
-  void set_length(float value);
-  private:
-  float _internal_length() const;
-  void _internal_set_length(float value);
-  public:
-
-  // bool has_time_restrictions = 4;
-  void clear_has_time_restrictions();
-  bool has_time_restrictions() const;
-  void set_has_time_restrictions(bool value);
-  private:
-  bool _internal_has_time_restrictions() const;
-  void _internal_set_has_time_restrictions(bool value);
-  public:
-
-  // bool has_toll = 5;
-  void clear_has_toll();
-  bool has_toll() const;
-  void set_has_toll(bool value);
-  private:
-  bool _internal_has_toll() const;
-  void _internal_set_has_toll(bool value);
-  public:
-
-  // bool has_ferry = 6;
-  void clear_has_ferry();
-  bool has_ferry() const;
-  void set_has_ferry(bool value);
-  private:
-  bool _internal_has_ferry() const;
-  void _internal_set_has_ferry(bool value);
-  public:
-
-  // bool has_highway = 7;
-  void clear_has_highway();
-  bool has_highway() const;
-  void set_has_highway(bool value);
-  private:
-  bool _internal_has_highway() const;
-  void _internal_set_has_highway(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:valhalla.DirectionsLeg.Summary)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::valhalla::BoundingBox* bbox_;
-  double time_;
-  float length_;
-  bool has_time_restrictions_;
-  bool has_toll_;
-  bool has_ferry_;
-  bool has_highway_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_directions_2eproto;
-};
-// -------------------------------------------------------------------
-
 class DirectionsLeg_GuidanceView final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.DirectionsLeg.GuidanceView) */ {
  public:
@@ -457,7 +251,7 @@ class DirectionsLeg_GuidanceView final :
                &_DirectionsLeg_GuidanceView_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    0;
 
   friend void swap(DirectionsLeg_GuidanceView& a, DirectionsLeg_GuidanceView& b) {
     a.Swap(&b);
@@ -682,7 +476,7 @@ class DirectionsLeg_Maneuver final :
                &_DirectionsLeg_Maneuver_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(DirectionsLeg_Maneuver& a, DirectionsLeg_Maneuver& b) {
     a.Swap(&b);
@@ -926,6 +720,7 @@ class DirectionsLeg_Maneuver final :
     kBeginStreetNameFieldNumber = 15,
     kRoundaboutExitStreetNamesFieldNumber = 32,
     kGuidanceViewsFieldNumber = 35,
+    kLandmarksFieldNumber = 41,
     kTextInstructionFieldNumber = 2,
     kVerbalTransitionAlertInstructionFieldNumber = 12,
     kVerbalPreTransitionInstructionFieldNumber = 13,
@@ -1034,6 +829,24 @@ class DirectionsLeg_Maneuver final :
   ::valhalla::DirectionsLeg_GuidanceView* add_guidance_views();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::DirectionsLeg_GuidanceView >&
       guidance_views() const;
+
+  // repeated .valhalla.RouteLandmark landmarks = 41;
+  int landmarks_size() const;
+  private:
+  int _internal_landmarks_size() const;
+  public:
+  void clear_landmarks();
+  ::valhalla::RouteLandmark* mutable_landmarks(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >*
+      mutable_landmarks();
+  private:
+  const ::valhalla::RouteLandmark& _internal_landmarks(int index) const;
+  ::valhalla::RouteLandmark* _internal_add_landmarks();
+  public:
+  const ::valhalla::RouteLandmark& landmarks(int index) const;
+  ::valhalla::RouteLandmark* add_landmarks();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >&
+      landmarks() const;
 
   // string text_instruction = 2;
   void clear_text_instruction();
@@ -1442,6 +1255,7 @@ class DirectionsLeg_Maneuver final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName > begin_street_name_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName > roundabout_exit_street_names_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::DirectionsLeg_GuidanceView > guidance_views_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark > landmarks_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_instruction_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr verbal_transition_alert_instruction_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr verbal_pre_transition_instruction_;
@@ -1522,7 +1336,7 @@ class DirectionsLeg final :
                &_DirectionsLeg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(DirectionsLeg& a, DirectionsLeg& b) {
     a.Swap(&b);
@@ -1583,7 +1397,6 @@ class DirectionsLeg final :
 
   // nested types ----------------------------------------------------
 
-  typedef DirectionsLeg_Summary Summary;
   typedef DirectionsLeg_GuidanceView GuidanceView;
   typedef DirectionsLeg_Maneuver Maneuver;
 
@@ -1648,23 +1461,23 @@ class DirectionsLeg final :
   std::string* _internal_mutable_shape();
   public:
 
-  // .valhalla.DirectionsLeg.Summary summary = 5;
+  // .valhalla.Summary summary = 5;
   bool has_summary() const;
   private:
   bool _internal_has_summary() const;
   public:
   void clear_summary();
-  const ::valhalla::DirectionsLeg_Summary& summary() const;
-  PROTOBUF_NODISCARD ::valhalla::DirectionsLeg_Summary* release_summary();
-  ::valhalla::DirectionsLeg_Summary* mutable_summary();
-  void set_allocated_summary(::valhalla::DirectionsLeg_Summary* summary);
+  const ::valhalla::Summary& summary() const;
+  PROTOBUF_NODISCARD ::valhalla::Summary* release_summary();
+  ::valhalla::Summary* mutable_summary();
+  void set_allocated_summary(::valhalla::Summary* summary);
   private:
-  const ::valhalla::DirectionsLeg_Summary& _internal_summary() const;
-  ::valhalla::DirectionsLeg_Summary* _internal_mutable_summary();
+  const ::valhalla::Summary& _internal_summary() const;
+  ::valhalla::Summary* _internal_mutable_summary();
   public:
   void unsafe_arena_set_allocated_summary(
-      ::valhalla::DirectionsLeg_Summary* summary);
-  ::valhalla::DirectionsLeg_Summary* unsafe_arena_release_summary();
+      ::valhalla::Summary* summary);
+  ::valhalla::Summary* unsafe_arena_release_summary();
 
   // uint64 trip_id = 1;
   void clear_trip_id();
@@ -1703,7 +1516,7 @@ class DirectionsLeg final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location > location_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::DirectionsLeg_Maneuver > maneuver_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shape_;
-  ::valhalla::DirectionsLeg_Summary* summary_;
+  ::valhalla::Summary* summary_;
   uint64_t trip_id_;
   uint32_t leg_id_;
   uint32_t leg_count_;
@@ -1751,7 +1564,7 @@ class DirectionsRoute final :
                &_DirectionsRoute_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(DirectionsRoute& a, DirectionsRoute& b) {
     a.Swap(&b);
@@ -1887,7 +1700,7 @@ class Directions final :
                &_Directions_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(Directions& a, Directions& b) {
     a.Swap(&b);
@@ -1991,215 +1804,6 @@ class Directions final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// DirectionsLeg_Summary
-
-// float length = 1;
-inline void DirectionsLeg_Summary::clear_length() {
-  length_ = 0;
-}
-inline float DirectionsLeg_Summary::_internal_length() const {
-  return length_;
-}
-inline float DirectionsLeg_Summary::length() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.length)
-  return _internal_length();
-}
-inline void DirectionsLeg_Summary::_internal_set_length(float value) {
-  
-  length_ = value;
-}
-inline void DirectionsLeg_Summary::set_length(float value) {
-  _internal_set_length(value);
-  // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Summary.length)
-}
-
-// double time = 2;
-inline void DirectionsLeg_Summary::clear_time() {
-  time_ = 0;
-}
-inline double DirectionsLeg_Summary::_internal_time() const {
-  return time_;
-}
-inline double DirectionsLeg_Summary::time() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.time)
-  return _internal_time();
-}
-inline void DirectionsLeg_Summary::_internal_set_time(double value) {
-  
-  time_ = value;
-}
-inline void DirectionsLeg_Summary::set_time(double value) {
-  _internal_set_time(value);
-  // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Summary.time)
-}
-
-// .valhalla.BoundingBox bbox = 3;
-inline bool DirectionsLeg_Summary::_internal_has_bbox() const {
-  return this != internal_default_instance() && bbox_ != nullptr;
-}
-inline bool DirectionsLeg_Summary::has_bbox() const {
-  return _internal_has_bbox();
-}
-inline const ::valhalla::BoundingBox& DirectionsLeg_Summary::_internal_bbox() const {
-  const ::valhalla::BoundingBox* p = bbox_;
-  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::BoundingBox&>(
-      ::valhalla::_BoundingBox_default_instance_);
-}
-inline const ::valhalla::BoundingBox& DirectionsLeg_Summary::bbox() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.bbox)
-  return _internal_bbox();
-}
-inline void DirectionsLeg_Summary::unsafe_arena_set_allocated_bbox(
-    ::valhalla::BoundingBox* bbox) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bbox_);
-  }
-  bbox_ = bbox;
-  if (bbox) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.DirectionsLeg.Summary.bbox)
-}
-inline ::valhalla::BoundingBox* DirectionsLeg_Summary::release_bbox() {
-  
-  ::valhalla::BoundingBox* temp = bbox_;
-  bbox_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::valhalla::BoundingBox* DirectionsLeg_Summary::unsafe_arena_release_bbox() {
-  // @@protoc_insertion_point(field_release:valhalla.DirectionsLeg.Summary.bbox)
-  
-  ::valhalla::BoundingBox* temp = bbox_;
-  bbox_ = nullptr;
-  return temp;
-}
-inline ::valhalla::BoundingBox* DirectionsLeg_Summary::_internal_mutable_bbox() {
-  
-  if (bbox_ == nullptr) {
-    auto* p = CreateMaybeMessage<::valhalla::BoundingBox>(GetArenaForAllocation());
-    bbox_ = p;
-  }
-  return bbox_;
-}
-inline ::valhalla::BoundingBox* DirectionsLeg_Summary::mutable_bbox() {
-  ::valhalla::BoundingBox* _msg = _internal_mutable_bbox();
-  // @@protoc_insertion_point(field_mutable:valhalla.DirectionsLeg.Summary.bbox)
-  return _msg;
-}
-inline void DirectionsLeg_Summary::set_allocated_bbox(::valhalla::BoundingBox* bbox) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(bbox_);
-  }
-  if (bbox) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bbox));
-    if (message_arena != submessage_arena) {
-      bbox = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, bbox, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  bbox_ = bbox;
-  // @@protoc_insertion_point(field_set_allocated:valhalla.DirectionsLeg.Summary.bbox)
-}
-
-// bool has_time_restrictions = 4;
-inline void DirectionsLeg_Summary::clear_has_time_restrictions() {
-  has_time_restrictions_ = false;
-}
-inline bool DirectionsLeg_Summary::_internal_has_time_restrictions() const {
-  return has_time_restrictions_;
-}
-inline bool DirectionsLeg_Summary::has_time_restrictions() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.has_time_restrictions)
-  return _internal_has_time_restrictions();
-}
-inline void DirectionsLeg_Summary::_internal_set_has_time_restrictions(bool value) {
-  
-  has_time_restrictions_ = value;
-}
-inline void DirectionsLeg_Summary::set_has_time_restrictions(bool value) {
-  _internal_set_has_time_restrictions(value);
-  // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Summary.has_time_restrictions)
-}
-
-// bool has_toll = 5;
-inline void DirectionsLeg_Summary::clear_has_toll() {
-  has_toll_ = false;
-}
-inline bool DirectionsLeg_Summary::_internal_has_toll() const {
-  return has_toll_;
-}
-inline bool DirectionsLeg_Summary::has_toll() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.has_toll)
-  return _internal_has_toll();
-}
-inline void DirectionsLeg_Summary::_internal_set_has_toll(bool value) {
-  
-  has_toll_ = value;
-}
-inline void DirectionsLeg_Summary::set_has_toll(bool value) {
-  _internal_set_has_toll(value);
-  // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Summary.has_toll)
-}
-
-// bool has_ferry = 6;
-inline void DirectionsLeg_Summary::clear_has_ferry() {
-  has_ferry_ = false;
-}
-inline bool DirectionsLeg_Summary::_internal_has_ferry() const {
-  return has_ferry_;
-}
-inline bool DirectionsLeg_Summary::has_ferry() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.has_ferry)
-  return _internal_has_ferry();
-}
-inline void DirectionsLeg_Summary::_internal_set_has_ferry(bool value) {
-  
-  has_ferry_ = value;
-}
-inline void DirectionsLeg_Summary::set_has_ferry(bool value) {
-  _internal_set_has_ferry(value);
-  // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Summary.has_ferry)
-}
-
-// bool has_highway = 7;
-inline void DirectionsLeg_Summary::clear_has_highway() {
-  has_highway_ = false;
-}
-inline bool DirectionsLeg_Summary::_internal_has_highway() const {
-  return has_highway_;
-}
-inline bool DirectionsLeg_Summary::has_highway() const {
-  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Summary.has_highway)
-  return _internal_has_highway();
-}
-inline void DirectionsLeg_Summary::_internal_set_has_highway(bool value) {
-  
-  has_highway_ = value;
-}
-inline void DirectionsLeg_Summary::set_has_highway(bool value) {
-  _internal_set_has_highway(value);
-  // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Summary.has_highway)
-}
-
-// -------------------------------------------------------------------
-
 // DirectionsLeg_GuidanceView
 
 // string data_id = 1;
@@ -3737,6 +3341,43 @@ inline void DirectionsLeg_Maneuver::set_portions_ferry(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.DirectionsLeg.Maneuver.portions_ferry)
 }
 
+// repeated .valhalla.RouteLandmark landmarks = 41;
+inline int DirectionsLeg_Maneuver::_internal_landmarks_size() const {
+  return landmarks_.size();
+}
+inline int DirectionsLeg_Maneuver::landmarks_size() const {
+  return _internal_landmarks_size();
+}
+inline ::valhalla::RouteLandmark* DirectionsLeg_Maneuver::mutable_landmarks(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.DirectionsLeg.Maneuver.landmarks)
+  return landmarks_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >*
+DirectionsLeg_Maneuver::mutable_landmarks() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.DirectionsLeg.Maneuver.landmarks)
+  return &landmarks_;
+}
+inline const ::valhalla::RouteLandmark& DirectionsLeg_Maneuver::_internal_landmarks(int index) const {
+  return landmarks_.Get(index);
+}
+inline const ::valhalla::RouteLandmark& DirectionsLeg_Maneuver::landmarks(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.Maneuver.landmarks)
+  return _internal_landmarks(index);
+}
+inline ::valhalla::RouteLandmark* DirectionsLeg_Maneuver::_internal_add_landmarks() {
+  return landmarks_.Add();
+}
+inline ::valhalla::RouteLandmark* DirectionsLeg_Maneuver::add_landmarks() {
+  ::valhalla::RouteLandmark* _add = _internal_add_landmarks();
+  // @@protoc_insertion_point(field_add:valhalla.DirectionsLeg.Maneuver.landmarks)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::RouteLandmark >&
+DirectionsLeg_Maneuver::landmarks() const {
+  // @@protoc_insertion_point(field_list:valhalla.DirectionsLeg.Maneuver.landmarks)
+  return landmarks_;
+}
+
 // -------------------------------------------------------------------
 
 // DirectionsLeg
@@ -3838,30 +3479,24 @@ DirectionsLeg::location() const {
   return location_;
 }
 
-// .valhalla.DirectionsLeg.Summary summary = 5;
+// .valhalla.Summary summary = 5;
 inline bool DirectionsLeg::_internal_has_summary() const {
   return this != internal_default_instance() && summary_ != nullptr;
 }
 inline bool DirectionsLeg::has_summary() const {
   return _internal_has_summary();
 }
-inline void DirectionsLeg::clear_summary() {
-  if (GetArenaForAllocation() == nullptr && summary_ != nullptr) {
-    delete summary_;
-  }
-  summary_ = nullptr;
+inline const ::valhalla::Summary& DirectionsLeg::_internal_summary() const {
+  const ::valhalla::Summary* p = summary_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::Summary&>(
+      ::valhalla::_Summary_default_instance_);
 }
-inline const ::valhalla::DirectionsLeg_Summary& DirectionsLeg::_internal_summary() const {
-  const ::valhalla::DirectionsLeg_Summary* p = summary_;
-  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::DirectionsLeg_Summary&>(
-      ::valhalla::_DirectionsLeg_Summary_default_instance_);
-}
-inline const ::valhalla::DirectionsLeg_Summary& DirectionsLeg::summary() const {
+inline const ::valhalla::Summary& DirectionsLeg::summary() const {
   // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.summary)
   return _internal_summary();
 }
 inline void DirectionsLeg::unsafe_arena_set_allocated_summary(
-    ::valhalla::DirectionsLeg_Summary* summary) {
+    ::valhalla::Summary* summary) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(summary_);
   }
@@ -3873,9 +3508,9 @@ inline void DirectionsLeg::unsafe_arena_set_allocated_summary(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.DirectionsLeg.summary)
 }
-inline ::valhalla::DirectionsLeg_Summary* DirectionsLeg::release_summary() {
+inline ::valhalla::Summary* DirectionsLeg::release_summary() {
   
-  ::valhalla::DirectionsLeg_Summary* temp = summary_;
+  ::valhalla::Summary* temp = summary_;
   summary_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -3888,34 +3523,35 @@ inline ::valhalla::DirectionsLeg_Summary* DirectionsLeg::release_summary() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::valhalla::DirectionsLeg_Summary* DirectionsLeg::unsafe_arena_release_summary() {
+inline ::valhalla::Summary* DirectionsLeg::unsafe_arena_release_summary() {
   // @@protoc_insertion_point(field_release:valhalla.DirectionsLeg.summary)
   
-  ::valhalla::DirectionsLeg_Summary* temp = summary_;
+  ::valhalla::Summary* temp = summary_;
   summary_ = nullptr;
   return temp;
 }
-inline ::valhalla::DirectionsLeg_Summary* DirectionsLeg::_internal_mutable_summary() {
+inline ::valhalla::Summary* DirectionsLeg::_internal_mutable_summary() {
   
   if (summary_ == nullptr) {
-    auto* p = CreateMaybeMessage<::valhalla::DirectionsLeg_Summary>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::valhalla::Summary>(GetArenaForAllocation());
     summary_ = p;
   }
   return summary_;
 }
-inline ::valhalla::DirectionsLeg_Summary* DirectionsLeg::mutable_summary() {
-  ::valhalla::DirectionsLeg_Summary* _msg = _internal_mutable_summary();
+inline ::valhalla::Summary* DirectionsLeg::mutable_summary() {
+  ::valhalla::Summary* _msg = _internal_mutable_summary();
   // @@protoc_insertion_point(field_mutable:valhalla.DirectionsLeg.summary)
   return _msg;
 }
-inline void DirectionsLeg::set_allocated_summary(::valhalla::DirectionsLeg_Summary* summary) {
+inline void DirectionsLeg::set_allocated_summary(::valhalla::Summary* summary) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete summary_;
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(summary_);
   }
   if (summary) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(summary);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(summary));
     if (message_arena != submessage_arena) {
       summary = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, summary, submessage_arena);
@@ -4109,8 +3745,6 @@ Directions::routes() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
