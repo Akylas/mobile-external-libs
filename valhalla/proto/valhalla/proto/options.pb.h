@@ -65,6 +65,9 @@ extern OptionsDefaultTypeInternal _Options_default_instance_;
 class Options_CostingsEntry_DoNotUse;
 struct Options_CostingsEntry_DoNotUseDefaultTypeInternal;
 extern Options_CostingsEntry_DoNotUseDefaultTypeInternal _Options_CostingsEntry_DoNotUse_default_instance_;
+class Options_CustomLocalesEntry_DoNotUse;
+struct Options_CustomLocalesEntry_DoNotUseDefaultTypeInternal;
+extern Options_CustomLocalesEntry_DoNotUseDefaultTypeInternal _Options_CustomLocalesEntry_DoNotUse_default_instance_;
 class PbfFieldSelector;
 struct PbfFieldSelectorDefaultTypeInternal;
 extern PbfFieldSelectorDefaultTypeInternal _PbfFieldSelector_default_instance_;
@@ -79,6 +82,7 @@ template<> ::valhalla::Costing* Arena::CreateMaybeMessage<::valhalla::Costing>(A
 template<> ::valhalla::Costing_Options* Arena::CreateMaybeMessage<::valhalla::Costing_Options>(Arena*);
 template<> ::valhalla::Options* Arena::CreateMaybeMessage<::valhalla::Options>(Arena*);
 template<> ::valhalla::Options_CostingsEntry_DoNotUse* Arena::CreateMaybeMessage<::valhalla::Options_CostingsEntry_DoNotUse>(Arena*);
+template<> ::valhalla::Options_CustomLocalesEntry_DoNotUse* Arena::CreateMaybeMessage<::valhalla::Options_CustomLocalesEntry_DoNotUse>(Arena*);
 template<> ::valhalla::PbfFieldSelector* Arena::CreateMaybeMessage<::valhalla::PbfFieldSelector>(Arena*);
 template<> ::valhalla::Ring* Arena::CreateMaybeMessage<::valhalla::Ring>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -3892,6 +3896,32 @@ public:
 
 // -------------------------------------------------------------------
 
+class Options_CustomLocalesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<Options_CustomLocalesEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<Options_CustomLocalesEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> SuperType;
+  Options_CustomLocalesEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR Options_CustomLocalesEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Options_CustomLocalesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Options_CustomLocalesEntry_DoNotUse& other);
+  static const Options_CustomLocalesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Options_CustomLocalesEntry_DoNotUse*>(&_Options_CustomLocalesEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "valhalla.Options.CustomLocalesEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "valhalla.Options.CustomLocalesEntry.value");
+ }
+  friend struct ::TableStruct_options_2eproto;
+};
+
+// -------------------------------------------------------------------
+
 class Options final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.Options) */ {
  public:
@@ -4071,7 +4101,7 @@ class Options final :
                &_Options_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(Options& a, Options& b) {
     a.Swap(&b);
@@ -4322,6 +4352,7 @@ class Options final :
     kRecostingsFieldNumber = 46,
     kExcludePolygonsFieldNumber = 47,
     kExpansionPropertiesFieldNumber = 51,
+    kCustomLocalesFieldNumber = 200,
     kPbfFieldSelectorFieldNumber = 52,
     kUnitsFieldNumber = 1,
     kDirectionsTypeFieldNumber = 3,
@@ -4584,6 +4615,23 @@ class Options final :
   void add_expansion_properties(::valhalla::Options_ExpansionProperties value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& expansion_properties() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_expansion_properties();
+
+  // map<string, string> customLocales = 200;
+  int customlocales_size() const;
+  private:
+  int _internal_customlocales_size() const;
+  public:
+  void clear_customlocales();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_customlocales() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_customlocales();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      customlocales() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_customlocales();
 
   // .valhalla.PbfFieldSelector pbf_field_selector = 52;
   bool has_pbf_field_selector() const;
@@ -5301,6 +5349,11 @@ class Options final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Ring > exclude_polygons_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> expansion_properties_;
   mutable std::atomic<int> _expansion_properties_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+      Options_CustomLocalesEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> customlocales_;
   ::valhalla::PbfFieldSelector* pbf_field_selector_;
   int units_;
   int directions_type_;
@@ -10144,6 +10197,8 @@ inline Costing::HasFilterClosuresCase Costing::has_filter_closures_case() const 
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 // Options
 
 // .valhalla.Options.Units units = 1;
@@ -12244,6 +12299,35 @@ inline void Options::set_dedupe(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.Options.dedupe)
 }
 
+// map<string, string> customLocales = 200;
+inline int Options::_internal_customlocales_size() const {
+  return customlocales_.size();
+}
+inline int Options::customlocales_size() const {
+  return _internal_customlocales_size();
+}
+inline void Options::clear_customlocales() {
+  customlocales_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Options::_internal_customlocales() const {
+  return customlocales_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Options::customlocales() const {
+  // @@protoc_insertion_point(field_map:valhalla.Options.customLocales)
+  return _internal_customlocales();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Options::_internal_mutable_customlocales() {
+  return customlocales_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Options::mutable_customlocales() {
+  // @@protoc_insertion_point(field_mutable_map:valhalla.Options.customLocales)
+  return _internal_mutable_customlocales();
+}
+
 inline bool Options::has_has_language() const {
   return has_language_case() != HAS_LANGUAGE_NOT_SET;
 }
@@ -12499,6 +12583,8 @@ inline Options::HasMatrixLocationsCase Options::has_matrix_locations_case() cons
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -52,3 +52,6 @@
 	path = valhalla/valhalla
 	url = https://github.com/Akylas/valhalla.git
 	branch = mbtiles-support
+[submodule "date/date"]
+	path = date/date
+	url = https://github.com/HowardHinnant/date.git

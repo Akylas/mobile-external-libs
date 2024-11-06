@@ -125,6 +125,17 @@ struct Options_CostingsEntry_DoNotUseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Options_CostingsEntry_DoNotUseDefaultTypeInternal _Options_CostingsEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR Options_CustomLocalesEntry_DoNotUse::Options_CustomLocalesEntry_DoNotUse(
+    ::_pbi::ConstantInitialized){}
+struct Options_CustomLocalesEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Options_CustomLocalesEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Options_CustomLocalesEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Options_CustomLocalesEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Options_CustomLocalesEntry_DoNotUseDefaultTypeInternal _Options_CustomLocalesEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Options::Options(
     ::_pbi::ConstantInitialized)
   : costings_()
@@ -140,6 +151,7 @@ PROTOBUF_CONSTEXPR Options::Options(
   , exclude_polygons_()
   , expansion_properties_()
   , _expansion_properties_cached_byte_size_(0)
+  , customlocales_()
   , pbf_field_selector_(nullptr)
   , units_(0)
 
@@ -7718,6 +7730,15 @@ void Options_CostingsEntry_DoNotUse::MergeFrom(const Options_CostingsEntry_DoNot
 
 // ===================================================================
 
+Options_CustomLocalesEntry_DoNotUse::Options_CustomLocalesEntry_DoNotUse() {}
+Options_CustomLocalesEntry_DoNotUse::Options_CustomLocalesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Options_CustomLocalesEntry_DoNotUse::MergeFrom(const Options_CustomLocalesEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+
+// ===================================================================
+
 class Options::_Internal {
  public:
   static const ::valhalla::PbfFieldSelector& pbf_field_selector(const Options* msg);
@@ -7759,7 +7780,8 @@ Options::Options(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   filter_attributes_(arena),
   recostings_(arena),
   exclude_polygons_(arena),
-  expansion_properties_(arena) {
+  expansion_properties_(arena),
+  customlocales_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.Options)
 }
@@ -7778,6 +7800,7 @@ Options::Options(const Options& from)
       expansion_properties_(from.expansion_properties_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   costings_.MergeFrom(from.costings_);
+  customlocales_.MergeFrom(from.customlocales_);
   if (from._internal_has_pbf_field_selector()) {
     pbf_field_selector_ = new ::valhalla::PbfFieldSelector(*from.pbf_field_selector_);
   } else {
@@ -8116,6 +8139,7 @@ Options::~Options() {
 inline void Options::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   costings_.Destruct();
+  customlocales_.Destruct();
   if (this != internal_default_instance()) delete pbf_field_selector_;
   if (has_has_language()) {
     clear_has_language();
@@ -8618,6 +8642,7 @@ void Options::Clear() {
   recostings_.Clear();
   exclude_polygons_.Clear();
   expansion_properties_.Clear();
+  customlocales_.Clear();
   if (GetArenaForAllocation() == nullptr && pbf_field_selector_ != nullptr) {
     delete pbf_field_selector_;
   }
@@ -9175,6 +9200,19 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
+      // map<string, string> customLocales = 200;
+      case 200:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(&customlocales_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<1602>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -9599,6 +9637,36 @@ uint8_t* Options::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(58, this->_internal_dedupe(), target);
   }
 
+  // map<string, string> customLocales = 200;
+  if (!this->_internal_customlocales().empty()) {
+    using MapType = ::_pb::Map<std::string, std::string>;
+    using WireHelper = Options_CustomLocalesEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_customlocales();
+    auto check_utf8 = [](const MapType::value_type& entry) {
+      (void)entry;
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.first.data(), static_cast<int>(entry.first.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "valhalla.Options.CustomLocalesEntry.key");
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.second.data(), static_cast<int>(entry.second.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "valhalla.Options.CustomLocalesEntry.value");
+    };
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(200, entry.first, entry.second, target, stream);
+        check_utf8(entry);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(200, entry.first, entry.second, target, stream);
+        check_utf8(entry);
+      }
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -9710,6 +9778,15 @@ size_t Options::ByteSizeLong() const {
     _expansion_properties_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
+  }
+
+  // map<string, string> customLocales = 200;
+  total_size += 2 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_customlocales_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+      it = this->_internal_customlocales().begin();
+      it != this->_internal_customlocales().end(); ++it) {
+    total_size += Options_CustomLocalesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   // .valhalla.PbfFieldSelector pbf_field_selector = 52;
@@ -10126,6 +10203,7 @@ void Options::MergeFrom(const Options& from) {
   recostings_.MergeFrom(from.recostings_);
   exclude_polygons_.MergeFrom(from.exclude_polygons_);
   expansion_properties_.MergeFrom(from.expansion_properties_);
+  customlocales_.MergeFrom(from.customlocales_);
   if (from._internal_has_pbf_field_selector()) {
     _internal_mutable_pbf_field_selector()->::valhalla::PbfFieldSelector::MergeFrom(from._internal_pbf_field_selector());
   }
@@ -10453,6 +10531,7 @@ void Options::InternalSwap(Options* other) {
   recostings_.InternalSwap(&other->recostings_);
   exclude_polygons_.InternalSwap(&other->exclude_polygons_);
   expansion_properties_.InternalSwap(&other->expansion_properties_);
+  customlocales_.InternalSwap(&other->customlocales_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Options, elevation_interval_)
       + sizeof(Options::elevation_interval_)
@@ -10552,6 +10631,10 @@ Arena::CreateMaybeMessage< ::valhalla::Costing >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::valhalla::Options_CostingsEntry_DoNotUse*
 Arena::CreateMaybeMessage< ::valhalla::Options_CostingsEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Options_CostingsEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::Options_CustomLocalesEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::valhalla::Options_CustomLocalesEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::Options_CustomLocalesEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::valhalla::Options*
 Arena::CreateMaybeMessage< ::valhalla::Options >(Arena* arena) {
