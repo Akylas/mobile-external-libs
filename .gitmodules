@@ -1,6 +1,6 @@
 [submodule "rapidjson"]
 	path = rapidjson
-	url = https://github.com/Tencent/rapidjson.git
+	url = https://github.com/nutiteq/rapidjson.git
 	branch = master
 [submodule "angle-uwp"]
 	path = angle-uwp
@@ -54,4 +54,4 @@
 	branch = mbtiles-support
 [submodule "date/date"]
 	path = date/date
-	url = https://github.com/Akylas/date.git
+	url = https://github.com/HowardHinnant/date.git
