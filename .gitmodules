@@ -20,7 +20,7 @@
 	branch = develop
 [submodule "pugixml/pugixml"]
 	path = pugixml/pugixml
-	url = https://github.com/nutiteq/pugixml.git
+	url = https://github.com/zeux/pugixml.git
 	branch = master
 [submodule "miniz/miniz"]
 	path = miniz/miniz
@@ -33,7 +33,7 @@
 	url = https://github.com/nutiteq/libjpeg-turbo.git
 [submodule "libpng/libpng"]
 	path = libpng/libpng
-	url = https://github.com/nutiteq/libpng.git
+	url = https://github.com/pnggroup/libpng.git
 [submodule "freetype/freetype"]
 	path = freetype/freetype
 	url = https://github.com/Akylas/freetype.git
