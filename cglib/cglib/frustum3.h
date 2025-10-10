@@ -161,7 +161,7 @@ namespace cglib
             frustum3<T, Traits> fru2;
             for (int p = 0; p < 6; p++)
             {
-                fru2.plane[p] = plane_type::convert(fru.plane[p]);
+                fru2.planes[p] = plane_type::convert(fru.planes[p]);
             }
             return fru2;
         }
