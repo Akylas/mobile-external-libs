@@ -14,22 +14,21 @@ file(GLOB ZSTD_DECOMPRESS "${ZSTD_ROOT}/decompress/*.c" "${ZSTD_ROOT}/decompress
 # file(GLOB ZSTD_DICTBUILDER "${ZSTD_ROOT}/dictBuilder/*.c" "${ZSTD_ROOT}/dictBuilder/*.S")
 file(GLOB ZSTD_LEGACY "${ZSTD_ROOT}/legacy/*.c" "${ZSTD_ROOT}/legacy/*.S")
 # file(GLOB ZSTD_DEPRECATED "${ZSTD_ROOT}/deprecated/*.c" "${ZSTD_ROOT}/deprecated/*.S")
-file(GLOB ZSTD_TOP "${PROJECT_SOURCE_DIR}/zstd/*.c" "${PROJECT_SOURCE_DIR}/zstd/*.S")
+file(GLOB ZSTD_TOP "${ZSTD_ROOT}/*.c" "${ZSTD_ROOT}/*.S")
 
 set(zstd_SRC_FILES
   ${ZSTD_COMMON}
-  ${ZSTD_DECOMPRESS}
-  ${ZSTD_LEGACY}
+#  ${ZSTD_DECOMPRESS}
+#  ${ZSTD_LEGACY}
   ${ZSTD_TOP}
 )
 
 set(zstd_INCLUDE_DIRS
-  "${PROJECT_SOURCE_DIR}/zstd/lib/common"
-  "${PROJECT_SOURCE_DIR}/zstd/lib/decompress"
-  "${PROJECT_SOURCE_DIR}/zstd"
+  "${ZSTD_ROOT}/common"
+  "${ZSTD_ROOT}/decompress"
+  "${ZSTD_ROOT}"
   PARENT_SCOPE)
 
-# sanity: if ASM support wasn't initialized for some toolchain, try to enable it explicitly
 if(NOT DEFINED CMAKE_ASM_COMPILE_OBJECT)
   enable_language(ASM)
 endif()
@@ -44,7 +43,7 @@ if(SINGLE_LIBRARY)
   set(zstd_SRC_FILES ${zstd_SRC_FILES} PARENT_SCOPE)
   add_library(zstd INTERFACE)
 else()
-  include_directories("${PROJECT_SOURCE_DIR}/zstd/lib/common" "${PROJECT_SOURCE_DIR}/zstd/lib/decompress" "${PROJECT_SOURCE_DIR}/zstd")
+  include_directories("${ZSTD_ROOT}/common" "${ZSTD_ROOT}/decompress" "${ZSTD_ROOT}")
 
   # create object library to be linked into your project
   add_library(zstd OBJECT ${zstd_SRC_FILES})
