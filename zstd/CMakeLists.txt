@@ -18,7 +18,7 @@ file(GLOB ZSTD_TOP "${ZSTD_ROOT}/*.c" "${ZSTD_ROOT}/*.S")
 
 set(zstd_SRC_FILES
   ${ZSTD_COMMON}
-#  ${ZSTD_DECOMPRESS}
+  ${ZSTD_DECOMPRESS}
 #  ${ZSTD_LEGACY}
   ${ZSTD_TOP}
 )
