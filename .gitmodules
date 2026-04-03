@@ -55,3 +55,6 @@
 [submodule "date/date"]
 	path = date/date
 	url = https://github.com/HowardHinnant/date.git
+[submodule "zstd/zstd"]
+	path = zstd/zstd
+	url = https://github.com/facebook/zstd.git
