@@ -154,6 +154,15 @@ namespace cglib
             });
             return *this;
         }
+
+        vec<T, N, Traits> & operator /= (T val)
+        {
+            for_each_unrolled<N>([&](size_t i)
+            {
+                _col[i] /= val;
+            });
+            return *this;
+        }
         
         void clear()
         {
@@ -467,7 +476,19 @@ namespace cglib
         vec<T, N, Traits> vm(v);
         return vm *= s;
     }
-    
+
+    /**
+  * @relates vec
+  */
+
+    template <typename T, size_t N, typename Traits> CGLIB_FORCEINLINE vec<T, N, Traits>
+    operator / (const vec<T, N, Traits> & v, T s)
+    {
+        vec<T, N, Traits> vm(v);
+        return vm /= s;
+    }
+
+
     /**
      * Reads vector from stream, assumes follwing format: (x1, ..., xN).
      * @relates vec
