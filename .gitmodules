@@ -58,3 +58,12 @@
 [submodule "zstd/zstd"]
 	path = zstd/zstd
 	url = https://github.com/facebook/zstd.git
+[submodule "geojsonvt/geojson-vt-cpp"]
+	path = geojsonvt/geojson-vt-cpp
+	url = https://github.com/mapbox/geojson-vt-cpp.git
+[submodule "geojsonvt/geometry.hpp"]
+	path = geojsonvt/geometry.hpp
+	url = https://github.com/mapbox/geometry.hpp.git
+[submodule "geojsonvt/variant"]
+	path = geojsonvt/variant
+	url = https://github.com/mapbox/variant.git
