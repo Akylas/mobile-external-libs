@@ -1,6 +1,6 @@
 [submodule "rapidjson"]
 	path = rapidjson
-	url = https://github.com/nutiteq/rapidjson.git
+	url = https://github.com/Tencent/rapidjson.git
 	branch = master
 [submodule "angle-uwp"]
 	path = angle-uwp
