@@ -67,3 +67,8 @@
 [submodule "geojsonvt/variant"]
 	path = geojsonvt/variant
 	url = https://github.com/mapbox/variant.git
+[submodule "mlt/mlt"]
+	path = mlt/mlt
+	url = https://github.com/maplibre/maplibre-tile-spec.git
+	branch = main
+	shallow = true
