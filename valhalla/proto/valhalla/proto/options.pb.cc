@@ -42,6 +42,18 @@ struct RingDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RingDefaultTypeInternal _Ring_default_instance_;
+PROTOBUF_CONSTEXPR Levels::Levels(
+    ::_pbi::ConstantInitialized)
+  : levels_(){}
+struct LevelsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LevelsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LevelsDefaultTypeInternal() {}
+  union {
+    Levels _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LevelsDefaultTypeInternal _Levels_default_instance_;
 PROTOBUF_CONSTEXPR PbfFieldSelector::PbfFieldSelector(
     ::_pbi::ConstantInitialized)
   : options_(false)
@@ -72,24 +84,109 @@ struct AvoidEdgeDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AvoidEdgeDefaultTypeInternal _AvoidEdge_default_instance_;
+PROTOBUF_CONSTEXPR CostFactorEdge::CostFactorEdge(
+    ::_pbi::ConstantInitialized)
+  : id_(uint64_t{0u})
+  , factor_(0)
+  , start_(0)
+  , end_(0)
+  , ignore_access_restrictions_(false){}
+struct CostFactorEdgeDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CostFactorEdgeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CostFactorEdgeDefaultTypeInternal() {}
+  union {
+    CostFactorEdge _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CostFactorEdgeDefaultTypeInternal _CostFactorEdge_default_instance_;
+PROTOBUF_CONSTEXPR HierarchyLimits::HierarchyLimits(
+    ::_pbi::ConstantInitialized)
+  : up_transition_count_(0u)
+  , max_up_transitions_(0u)
+  , expand_within_dist_(0){}
+struct HierarchyLimitsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HierarchyLimitsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HierarchyLimitsDefaultTypeInternal() {}
+  union {
+    HierarchyLimits _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HierarchyLimitsDefaultTypeInternal _HierarchyLimits_default_instance_;
+PROTOBUF_CONSTEXPR Tile::Tile(
+    ::_pbi::ConstantInitialized)
+  : _oneof_case_{}{}
+struct TileDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TileDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TileDefaultTypeInternal() {}
+  union {
+    Tile _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TileDefaultTypeInternal _Tile_default_instance_;
+PROTOBUF_CONSTEXPR TileOptions::TileOptions(
+    ::_pbi::ConstantInitialized)
+  : exclude_layers_(){}
+struct TileOptionsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TileOptionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TileOptionsDefaultTypeInternal() {}
+  union {
+    TileOptions _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TileOptionsDefaultTypeInternal _TileOptions_default_instance_;
+PROTOBUF_CONSTEXPR Costing_Options_HierarchyLimitsEntry_DoNotUse::Costing_Options_HierarchyLimitsEntry_DoNotUse(
+    ::_pbi::ConstantInitialized){}
+struct Costing_Options_HierarchyLimitsEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Costing_Options_HierarchyLimitsEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Costing_Options_HierarchyLimitsEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Costing_Options_HierarchyLimitsEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Costing_Options_HierarchyLimitsEntry_DoNotUseDefaultTypeInternal _Costing_Options_HierarchyLimitsEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Costing_Options::Costing_Options(
     ::_pbi::ConstantInitialized)
   : filter_stop_ids_()
   , filter_operator_ids_()
   , filter_route_ids_()
   , exclude_edges_()
+  , hierarchy_limits_()
+  , cost_factor_edges_()
+  , hazmat_(false)
+  , wheelchair_(false)
+  , bicycle_(false)
+  , ignore_restrictions_(false)
   , filter_stop_action_(0)
 
   , filter_operator_action_(0)
 
   , filter_route_action_(0)
 
+  , ignore_oneways_(false)
+  , ignore_access_(false)
+  , shortest_(false)
+  , exclude_unpaved_(false)
+  , include_hot_(false)
+  , include_hov2_(false)
+  , include_hov3_(false)
+  , exclude_cash_only_tolls_(false)
   , fixed_speed_(0u)
   , axle_count_(0u)
   , use_lit_(0)
   , disable_hierarchy_pruning_(false)
   , ignore_non_vehicular_restrictions_(false)
+  , exclude_bridges_(false)
+  , exclude_tunnels_(false)
   , use_truck_route_(0)
+  , exclude_tolls_(false)
+  , exclude_highways_(false)
+  , exclude_ferries_(false)
+  , ignore_construction_(false)
   , _oneof_case_{}{}
 struct Costing_OptionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR Costing_OptionsDefaultTypeInternal()
@@ -114,6 +211,21 @@ struct CostingDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CostingDefaultTypeInternal _Costing_default_instance_;
+PROTOBUF_CONSTEXPR LinearFeatureCost::LinearFeatureCost(
+    ::_pbi::ConstantInitialized)
+  : locations_()
+  , shape_()
+  , cost_factor_(0)
+  , ignore_access_restrictions_(false){}
+struct LinearFeatureCostDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LinearFeatureCostDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LinearFeatureCostDefaultTypeInternal() {}
+  union {
+    LinearFeatureCost _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LinearFeatureCostDefaultTypeInternal _LinearFeatureCost_default_instance_;
 PROTOBUF_CONSTEXPR Options_CostingsEntry_DoNotUse::Options_CostingsEntry_DoNotUse(
     ::_pbi::ConstantInitialized){}
 struct Options_CostingsEntry_DoNotUseDefaultTypeInternal {
@@ -151,8 +263,12 @@ PROTOBUF_CONSTEXPR Options::Options(
   , exclude_polygons_()
   , expansion_properties_()
   , _expansion_properties_cached_byte_size_(0)
+  , cost_factor_lines_()
+  , exclude_levels_()
   , customlocales_()
   , pbf_field_selector_(nullptr)
+  , tile_xyz_(nullptr)
+  , tile_options_(nullptr)
   , units_(0)
 
   , directions_type_(0)
@@ -165,15 +281,28 @@ PROTOBUF_CONSTEXPR Options::Options(
 
   , date_time_type_(0)
 
+  , range_(false)
+  , polygons_(false)
+  , show_locations_(false)
+  , use_timestamps_(false)
   , shape_match_(0)
 
   , filter_action_(0)
 
+  , guidance_views_(false)
+  , linear_references_(false)
+  , prioritize_bidirectional_(false)
+  , skip_opposites_(false)
   , reverse_(false)
   , banner_instructions_(false)
   , voice_instructions_(false)
   , dedupe_(false)
   , elevation_interval_(0)
+  , admin_crossings_(false)
+  , turn_lanes_(false)
+  , reverse_time_tracking_(0)
+
+  , expansion_max_distance_(0u)
   , _oneof_case_{}{}
 struct OptionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OptionsDefaultTypeInternal()
@@ -200,16 +329,18 @@ bool Costing_Type_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Costing_Type_strings[12] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Costing_Type_strings[13] = {};
 
 static const char Costing_Type_names[] =
   "auto_"
+  "auto_pedestrian"
   "bicycle"
   "bikeshare"
   "bus"
@@ -224,32 +355,34 @@ static const char Costing_Type_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Costing_Type_entries[] = {
   { {Costing_Type_names + 0, 5}, 10 },
-  { {Costing_Type_names + 5, 7}, 1 },
-  { {Costing_Type_names + 12, 9}, 11 },
-  { {Costing_Type_names + 21, 3}, 2 },
-  { {Costing_Type_names + 24, 13}, 3 },
-  { {Costing_Type_names + 37, 10}, 8 },
-  { {Costing_Type_names + 47, 10}, 4 },
-  { {Costing_Type_names + 57, 5}, 0 },
-  { {Costing_Type_names + 62, 10}, 5 },
-  { {Costing_Type_names + 72, 4}, 9 },
-  { {Costing_Type_names + 76, 7}, 6 },
-  { {Costing_Type_names + 83, 5}, 7 },
+  { {Costing_Type_names + 5, 15}, 12 },
+  { {Costing_Type_names + 20, 7}, 1 },
+  { {Costing_Type_names + 27, 9}, 11 },
+  { {Costing_Type_names + 36, 3}, 2 },
+  { {Costing_Type_names + 39, 13}, 3 },
+  { {Costing_Type_names + 52, 10}, 8 },
+  { {Costing_Type_names + 62, 10}, 4 },
+  { {Costing_Type_names + 72, 5}, 0 },
+  { {Costing_Type_names + 77, 10}, 5 },
+  { {Costing_Type_names + 87, 4}, 9 },
+  { {Costing_Type_names + 91, 7}, 6 },
+  { {Costing_Type_names + 98, 5}, 7 },
 };
 
 static const int Costing_Type_entries_by_number[] = {
-  7, // 0 -> none_
-  1, // 1 -> bicycle
-  3, // 2 -> bus
-  4, // 3 -> motor_scooter
-  6, // 4 -> multimodal
-  8, // 5 -> pedestrian
-  10, // 6 -> transit
-  11, // 7 -> truck
-  5, // 8 -> motorcycle
-  9, // 9 -> taxi
+  8, // 0 -> none_
+  2, // 1 -> bicycle
+  4, // 2 -> bus
+  5, // 3 -> motor_scooter
+  7, // 4 -> multimodal
+  9, // 5 -> pedestrian
+  11, // 6 -> transit
+  12, // 7 -> truck
+  6, // 8 -> motorcycle
+  10, // 9 -> taxi
   0, // 10 -> auto_
-  2, // 11 -> bikeshare
+  3, // 11 -> bikeshare
+  1, // 12 -> auto_pedestrian
 };
 
 const std::string& Costing_Type_Name(
@@ -258,12 +391,12 @@ const std::string& Costing_Type_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Costing_Type_entries,
           Costing_Type_entries_by_number,
-          12, Costing_Type_strings);
+          13, Costing_Type_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Costing_Type_entries,
       Costing_Type_entries_by_number,
-      12, value);
+      13, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Costing_Type_strings[idx].get();
 }
@@ -271,7 +404,7 @@ bool Costing_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Costing_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Costing_Type_entries, 12, name, &int_value);
+      Costing_Type_entries, 13, name, &int_value);
   if (success) {
     *value = static_cast<Costing_Type>(int_value);
   }
@@ -290,6 +423,7 @@ constexpr Costing_Type Costing::motorcycle;
 constexpr Costing_Type Costing::taxi;
 constexpr Costing_Type Costing::auto_;
 constexpr Costing_Type Costing::bikeshare;
+constexpr Costing_Type Costing::auto_pedestrian;
 constexpr Costing_Type Costing::Type_MIN;
 constexpr Costing_Type Costing::Type_MAX;
 constexpr int Costing::Type_ARRAYSIZE;
@@ -359,18 +493,20 @@ bool Options_Format_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_Format_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_Format_strings[6] = {};
 
 static const char Options_Format_names[] =
   "geotiff"
   "gpx"
   "json"
+  "mvt"
   "osrm"
   "pbf";
 
@@ -378,16 +514,18 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_Format_entries
   { {Options_Format_names + 0, 7}, 4 },
   { {Options_Format_names + 7, 3}, 1 },
   { {Options_Format_names + 10, 4}, 0 },
-  { {Options_Format_names + 14, 4}, 2 },
-  { {Options_Format_names + 18, 3}, 3 },
+  { {Options_Format_names + 14, 3}, 5 },
+  { {Options_Format_names + 17, 4}, 2 },
+  { {Options_Format_names + 21, 3}, 3 },
 };
 
 static const int Options_Format_entries_by_number[] = {
   2, // 0 -> json
   1, // 1 -> gpx
-  3, // 2 -> osrm
-  4, // 3 -> pbf
+  4, // 2 -> osrm
+  5, // 3 -> pbf
   0, // 4 -> geotiff
+  3, // 5 -> mvt
 };
 
 const std::string& Options_Format_Name(
@@ -396,12 +534,12 @@ const std::string& Options_Format_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Options_Format_entries,
           Options_Format_entries_by_number,
-          5, Options_Format_strings);
+          6, Options_Format_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Options_Format_entries,
       Options_Format_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Options_Format_strings[idx].get();
 }
@@ -409,7 +547,7 @@ bool Options_Format_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_Format* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Options_Format_entries, 5, name, &int_value);
+      Options_Format_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<Options_Format>(int_value);
   }
@@ -421,6 +559,7 @@ constexpr Options_Format Options::gpx;
 constexpr Options_Format Options::osrm;
 constexpr Options_Format Options::pbf;
 constexpr Options_Format Options::geotiff;
+constexpr Options_Format Options::mvt;
 constexpr Options_Format Options::Format_MIN;
 constexpr Options_Format Options::Format_MAX;
 constexpr int Options::Format_ARRAYSIZE;
@@ -440,13 +579,14 @@ bool Options_Action_IsValid(int value) {
     case 10:
     case 11:
     case 12:
+    case 13:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_Action_strings[13] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_Action_strings[14] = {};
 
 static const char Options_Action_names[] =
   "centroid"
@@ -459,6 +599,7 @@ static const char Options_Action_names[] =
   "route"
   "sources_to_targets"
   "status"
+  "tile"
   "trace_attributes"
   "trace_route"
   "transit_available";
@@ -474,9 +615,10 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_Action_entries
   { {Options_Action_names + 62, 5}, 1 },
   { {Options_Action_names + 67, 18}, 3 },
   { {Options_Action_names + 85, 6}, 12 },
-  { {Options_Action_names + 91, 16}, 7 },
-  { {Options_Action_names + 107, 11}, 6 },
-  { {Options_Action_names + 118, 17}, 9 },
+  { {Options_Action_names + 91, 4}, 13 },
+  { {Options_Action_names + 95, 16}, 7 },
+  { {Options_Action_names + 111, 11}, 6 },
+  { {Options_Action_names + 122, 17}, 9 },
 };
 
 static const int Options_Action_entries_by_number[] = {
@@ -486,13 +628,14 @@ static const int Options_Action_entries_by_number[] = {
   8, // 3 -> sources_to_targets
   6, // 4 -> optimized_route
   3, // 5 -> isochrone
-  11, // 6 -> trace_route
-  10, // 7 -> trace_attributes
+  12, // 6 -> trace_route
+  11, // 7 -> trace_attributes
   2, // 8 -> height
-  12, // 9 -> transit_available
+  13, // 9 -> transit_available
   1, // 10 -> expansion
   0, // 11 -> centroid
   9, // 12 -> status
+  10, // 13 -> tile
 };
 
 const std::string& Options_Action_Name(
@@ -501,12 +644,12 @@ const std::string& Options_Action_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Options_Action_entries,
           Options_Action_entries_by_number,
-          13, Options_Action_strings);
+          14, Options_Action_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Options_Action_entries,
       Options_Action_entries_by_number,
-      13, value);
+      14, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Options_Action_strings[idx].get();
 }
@@ -514,7 +657,7 @@ bool Options_Action_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_Action* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Options_Action_entries, 13, name, &int_value);
+      Options_Action_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<Options_Action>(int_value);
   }
@@ -534,6 +677,7 @@ constexpr Options_Action Options::transit_available;
 constexpr Options_Action Options::expansion;
 constexpr Options_Action Options::centroid;
 constexpr Options_Action Options::status;
+constexpr Options_Action Options::tile;
 constexpr Options_Action Options::Action_MIN;
 constexpr Options_Action Options::Action_MAX;
 constexpr int Options::Action_ARRAYSIZE;
@@ -620,13 +764,15 @@ bool Options_ExpansionProperties_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
+    case 8:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_ExpansionProperties_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_ExpansionProperties_strings[9] = {};
 
 static const char Options_ExpansionProperties_names[] =
   "cost"
@@ -635,7 +781,9 @@ static const char Options_ExpansionProperties_names[] =
   "edge_id"
   "edge_status"
   "expansion_type"
-  "pred_edge_id";
+  "flow_sources"
+  "pred_edge_id"
+  "travel_mode";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_ExpansionProperties_entries[] = {
   { {Options_ExpansionProperties_names + 0, 4}, 0 },
@@ -644,7 +792,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_ExpansionPrope
   { {Options_ExpansionProperties_names + 20, 7}, 4 },
   { {Options_ExpansionProperties_names + 27, 11}, 3 },
   { {Options_ExpansionProperties_names + 38, 14}, 6 },
-  { {Options_ExpansionProperties_names + 52, 12}, 5 },
+  { {Options_ExpansionProperties_names + 52, 12}, 7 },
+  { {Options_ExpansionProperties_names + 64, 12}, 5 },
+  { {Options_ExpansionProperties_names + 76, 11}, 8 },
 };
 
 static const int Options_ExpansionProperties_entries_by_number[] = {
@@ -653,8 +803,10 @@ static const int Options_ExpansionProperties_entries_by_number[] = {
   1, // 2 -> distance
   4, // 3 -> edge_status
   3, // 4 -> edge_id
-  6, // 5 -> pred_edge_id
+  7, // 5 -> pred_edge_id
   5, // 6 -> expansion_type
+  6, // 7 -> flow_sources
+  8, // 8 -> travel_mode
 };
 
 const std::string& Options_ExpansionProperties_Name(
@@ -663,12 +815,12 @@ const std::string& Options_ExpansionProperties_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Options_ExpansionProperties_entries,
           Options_ExpansionProperties_entries_by_number,
-          7, Options_ExpansionProperties_strings);
+          9, Options_ExpansionProperties_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Options_ExpansionProperties_entries,
       Options_ExpansionProperties_entries_by_number,
-      7, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Options_ExpansionProperties_strings[idx].get();
 }
@@ -676,7 +828,7 @@ bool Options_ExpansionProperties_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_ExpansionProperties* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Options_ExpansionProperties_entries, 7, name, &int_value);
+      Options_ExpansionProperties_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<Options_ExpansionProperties>(int_value);
   }
@@ -690,9 +842,69 @@ constexpr Options_ExpansionProperties Options::edge_status;
 constexpr Options_ExpansionProperties Options::edge_id;
 constexpr Options_ExpansionProperties Options::pred_edge_id;
 constexpr Options_ExpansionProperties Options::expansion_type;
+constexpr Options_ExpansionProperties Options::flow_sources;
+constexpr Options_ExpansionProperties Options::travel_mode;
 constexpr Options_ExpansionProperties Options::ExpansionProperties_MIN;
 constexpr Options_ExpansionProperties Options::ExpansionProperties_MAX;
 constexpr int Options::ExpansionProperties_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool Options_ReverseTimeTracking_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Options_ReverseTimeTracking_strings[2] = {};
+
+static const char Options_ReverseTimeTracking_names[] =
+  "rtt_disabled"
+  "rtt_heuristic";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Options_ReverseTimeTracking_entries[] = {
+  { {Options_ReverseTimeTracking_names + 0, 12}, 1 },
+  { {Options_ReverseTimeTracking_names + 12, 13}, 0 },
+};
+
+static const int Options_ReverseTimeTracking_entries_by_number[] = {
+  1, // 0 -> rtt_heuristic
+  0, // 1 -> rtt_disabled
+};
+
+const std::string& Options_ReverseTimeTracking_Name(
+    Options_ReverseTimeTracking value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          Options_ReverseTimeTracking_entries,
+          Options_ReverseTimeTracking_entries_by_number,
+          2, Options_ReverseTimeTracking_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      Options_ReverseTimeTracking_entries,
+      Options_ReverseTimeTracking_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     Options_ReverseTimeTracking_strings[idx].get();
+}
+bool Options_ReverseTimeTracking_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_ReverseTimeTracking* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      Options_ReverseTimeTracking_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<Options_ReverseTimeTracking>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr Options_ReverseTimeTracking Options::rtt_heuristic;
+constexpr Options_ReverseTimeTracking Options::rtt_disabled;
+constexpr Options_ReverseTimeTracking Options::ReverseTimeTracking_MIN;
+constexpr Options_ReverseTimeTracking Options::ReverseTimeTracking_MAX;
+constexpr int Options::ReverseTimeTracking_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool ShapeMatch_IsValid(int value) {
   switch (value) {
@@ -1442,6 +1654,180 @@ std::string Ring::GetTypeName() const {
 
 // ===================================================================
 
+class Levels::_Internal {
+ public:
+};
+
+Levels::Levels(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  levels_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.Levels)
+}
+Levels::Levels(const Levels& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      levels_(from.levels_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:valhalla.Levels)
+}
+
+inline void Levels::SharedCtor() {
+}
+
+Levels::~Levels() {
+  // @@protoc_insertion_point(destructor:valhalla.Levels)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Levels::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Levels::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Levels::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.Levels)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  levels_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Levels::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated float levels = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_levels(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 13) {
+          _internal_add_levels(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Levels::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.Levels)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated float levels = 1;
+  if (this->_internal_levels_size() > 0) {
+    target = stream->WriteFixedPacked(1, _internal_levels(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.Levels)
+  return target;
+}
+
+size_t Levels::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.Levels)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated float levels = 1;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_levels_size());
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Levels::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Levels*>(
+      &from));
+}
+
+void Levels::MergeFrom(const Levels& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.Levels)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  levels_.MergeFrom(from.levels_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Levels::CopyFrom(const Levels& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.Levels)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Levels::IsInitialized() const {
+  return true;
+}
+
+void Levels::InternalSwap(Levels* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  levels_.InternalSwap(&other->levels_);
+}
+
+std::string Levels::GetTypeName() const {
+  return "valhalla.Levels";
+}
+
+
+// ===================================================================
+
 class PbfFieldSelector::_Internal {
  public:
 };
@@ -2025,6 +2411,1070 @@ std::string AvoidEdge::GetTypeName() const {
 
 // ===================================================================
 
+class CostFactorEdge::_Internal {
+ public:
+};
+
+CostFactorEdge::CostFactorEdge(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.CostFactorEdge)
+}
+CostFactorEdge::CostFactorEdge(const CostFactorEdge& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&id_, &from.id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&ignore_access_restrictions_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(ignore_access_restrictions_));
+  // @@protoc_insertion_point(copy_constructor:valhalla.CostFactorEdge)
+}
+
+inline void CostFactorEdge::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ignore_access_restrictions_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(ignore_access_restrictions_));
+}
+
+CostFactorEdge::~CostFactorEdge() {
+  // @@protoc_insertion_point(destructor:valhalla.CostFactorEdge)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CostFactorEdge::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CostFactorEdge::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CostFactorEdge::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.CostFactorEdge)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&ignore_access_restrictions_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(ignore_access_restrictions_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CostFactorEdge::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint64 id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // double factor = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
+          factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double start = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+          start_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double end = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 33)) {
+          end_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool ignore_access_restrictions = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          ignore_access_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CostFactorEdge::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.CostFactorEdge)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 id = 1;
+  if (this->_internal_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
+  }
+
+  // double factor = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_factor = this->_internal_factor();
+  uint64_t raw_factor;
+  memcpy(&raw_factor, &tmp_factor, sizeof(tmp_factor));
+  if (raw_factor != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_factor(), target);
+  }
+
+  // double start = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = this->_internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_start(), target);
+  }
+
+  // double end = 4;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_end = this->_internal_end();
+  uint64_t raw_end;
+  memcpy(&raw_end, &tmp_end, sizeof(tmp_end));
+  if (raw_end != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(4, this->_internal_end(), target);
+  }
+
+  // bool ignore_access_restrictions = 5;
+  if (this->_internal_ignore_access_restrictions() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_ignore_access_restrictions(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.CostFactorEdge)
+  return target;
+}
+
+size_t CostFactorEdge::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.CostFactorEdge)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 id = 1;
+  if (this->_internal_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_id());
+  }
+
+  // double factor = 2;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_factor = this->_internal_factor();
+  uint64_t raw_factor;
+  memcpy(&raw_factor, &tmp_factor, sizeof(tmp_factor));
+  if (raw_factor != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double start = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = this->_internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double end = 4;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_end = this->_internal_end();
+  uint64_t raw_end;
+  memcpy(&raw_end, &tmp_end, sizeof(tmp_end));
+  if (raw_end != 0) {
+    total_size += 1 + 8;
+  }
+
+  // bool ignore_access_restrictions = 5;
+  if (this->_internal_ignore_access_restrictions() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CostFactorEdge::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CostFactorEdge*>(
+      &from));
+}
+
+void CostFactorEdge::MergeFrom(const CostFactorEdge& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.CostFactorEdge)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_id() != 0) {
+    _internal_set_id(from._internal_id());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_factor = from._internal_factor();
+  uint64_t raw_factor;
+  memcpy(&raw_factor, &tmp_factor, sizeof(tmp_factor));
+  if (raw_factor != 0) {
+    _internal_set_factor(from._internal_factor());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_start = from._internal_start();
+  uint64_t raw_start;
+  memcpy(&raw_start, &tmp_start, sizeof(tmp_start));
+  if (raw_start != 0) {
+    _internal_set_start(from._internal_start());
+  }
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_end = from._internal_end();
+  uint64_t raw_end;
+  memcpy(&raw_end, &tmp_end, sizeof(tmp_end));
+  if (raw_end != 0) {
+    _internal_set_end(from._internal_end());
+  }
+  if (from._internal_ignore_access_restrictions() != 0) {
+    _internal_set_ignore_access_restrictions(from._internal_ignore_access_restrictions());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CostFactorEdge::CopyFrom(const CostFactorEdge& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.CostFactorEdge)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CostFactorEdge::IsInitialized() const {
+  return true;
+}
+
+void CostFactorEdge::InternalSwap(CostFactorEdge* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CostFactorEdge, ignore_access_restrictions_)
+      + sizeof(CostFactorEdge::ignore_access_restrictions_)
+      - PROTOBUF_FIELD_OFFSET(CostFactorEdge, id_)>(
+          reinterpret_cast<char*>(&id_),
+          reinterpret_cast<char*>(&other->id_));
+}
+
+std::string CostFactorEdge::GetTypeName() const {
+  return "valhalla.CostFactorEdge";
+}
+
+
+// ===================================================================
+
+class HierarchyLimits::_Internal {
+ public:
+};
+
+HierarchyLimits::HierarchyLimits(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.HierarchyLimits)
+}
+HierarchyLimits::HierarchyLimits(const HierarchyLimits& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&up_transition_count_, &from.up_transition_count_,
+    static_cast<size_t>(reinterpret_cast<char*>(&expand_within_dist_) -
+    reinterpret_cast<char*>(&up_transition_count_)) + sizeof(expand_within_dist_));
+  // @@protoc_insertion_point(copy_constructor:valhalla.HierarchyLimits)
+}
+
+inline void HierarchyLimits::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&up_transition_count_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&expand_within_dist_) -
+    reinterpret_cast<char*>(&up_transition_count_)) + sizeof(expand_within_dist_));
+}
+
+HierarchyLimits::~HierarchyLimits() {
+  // @@protoc_insertion_point(destructor:valhalla.HierarchyLimits)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void HierarchyLimits::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void HierarchyLimits::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void HierarchyLimits::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.HierarchyLimits)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&up_transition_count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&expand_within_dist_) -
+      reinterpret_cast<char*>(&up_transition_count_)) + sizeof(expand_within_dist_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* HierarchyLimits::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 up_transition_count = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          up_transition_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 max_up_transitions = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          max_up_transitions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float expand_within_dist = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+          expand_within_dist_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* HierarchyLimits::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.HierarchyLimits)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 up_transition_count = 1;
+  if (this->_internal_up_transition_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_up_transition_count(), target);
+  }
+
+  // uint32 max_up_transitions = 2;
+  if (this->_internal_max_up_transitions() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_max_up_transitions(), target);
+  }
+
+  // float expand_within_dist = 3;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_expand_within_dist = this->_internal_expand_within_dist();
+  uint32_t raw_expand_within_dist;
+  memcpy(&raw_expand_within_dist, &tmp_expand_within_dist, sizeof(tmp_expand_within_dist));
+  if (raw_expand_within_dist != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_expand_within_dist(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.HierarchyLimits)
+  return target;
+}
+
+size_t HierarchyLimits::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.HierarchyLimits)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 up_transition_count = 1;
+  if (this->_internal_up_transition_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_up_transition_count());
+  }
+
+  // uint32 max_up_transitions = 2;
+  if (this->_internal_max_up_transitions() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_max_up_transitions());
+  }
+
+  // float expand_within_dist = 3;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_expand_within_dist = this->_internal_expand_within_dist();
+  uint32_t raw_expand_within_dist;
+  memcpy(&raw_expand_within_dist, &tmp_expand_within_dist, sizeof(tmp_expand_within_dist));
+  if (raw_expand_within_dist != 0) {
+    total_size += 1 + 4;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void HierarchyLimits::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const HierarchyLimits*>(
+      &from));
+}
+
+void HierarchyLimits::MergeFrom(const HierarchyLimits& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.HierarchyLimits)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_up_transition_count() != 0) {
+    _internal_set_up_transition_count(from._internal_up_transition_count());
+  }
+  if (from._internal_max_up_transitions() != 0) {
+    _internal_set_max_up_transitions(from._internal_max_up_transitions());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_expand_within_dist = from._internal_expand_within_dist();
+  uint32_t raw_expand_within_dist;
+  memcpy(&raw_expand_within_dist, &tmp_expand_within_dist, sizeof(tmp_expand_within_dist));
+  if (raw_expand_within_dist != 0) {
+    _internal_set_expand_within_dist(from._internal_expand_within_dist());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void HierarchyLimits::CopyFrom(const HierarchyLimits& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.HierarchyLimits)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool HierarchyLimits::IsInitialized() const {
+  return true;
+}
+
+void HierarchyLimits::InternalSwap(HierarchyLimits* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(HierarchyLimits, expand_within_dist_)
+      + sizeof(HierarchyLimits::expand_within_dist_)
+      - PROTOBUF_FIELD_OFFSET(HierarchyLimits, up_transition_count_)>(
+          reinterpret_cast<char*>(&up_transition_count_),
+          reinterpret_cast<char*>(&other->up_transition_count_));
+}
+
+std::string HierarchyLimits::GetTypeName() const {
+  return "valhalla.HierarchyLimits";
+}
+
+
+// ===================================================================
+
+class Tile::_Internal {
+ public:
+};
+
+Tile::Tile(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.Tile)
+}
+Tile::Tile(const Tile& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  clear_has_has_x();
+  switch (from.has_x_case()) {
+    case kX: {
+      _internal_set_x(from._internal_x());
+      break;
+    }
+    case HAS_X_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_y();
+  switch (from.has_y_case()) {
+    case kY: {
+      _internal_set_y(from._internal_y());
+      break;
+    }
+    case HAS_Y_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_z();
+  switch (from.has_z_case()) {
+    case kZ: {
+      _internal_set_z(from._internal_z());
+      break;
+    }
+    case HAS_Z_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:valhalla.Tile)
+}
+
+inline void Tile::SharedCtor() {
+clear_has_has_x();
+clear_has_has_y();
+clear_has_has_z();
+}
+
+Tile::~Tile() {
+  // @@protoc_insertion_point(destructor:valhalla.Tile)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Tile::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_has_x()) {
+    clear_has_x();
+  }
+  if (has_has_y()) {
+    clear_has_y();
+  }
+  if (has_has_z()) {
+    clear_has_z();
+  }
+}
+
+void Tile::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Tile::clear_has_x() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Tile)
+  switch (has_x_case()) {
+    case kX: {
+      // No need to clear
+      break;
+    }
+    case HAS_X_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = HAS_X_NOT_SET;
+}
+
+void Tile::clear_has_y() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Tile)
+  switch (has_y_case()) {
+    case kY: {
+      // No need to clear
+      break;
+    }
+    case HAS_Y_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[1] = HAS_Y_NOT_SET;
+}
+
+void Tile::clear_has_z() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Tile)
+  switch (has_z_case()) {
+    case kZ: {
+      // No need to clear
+      break;
+    }
+    case HAS_Z_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[2] = HAS_Z_NOT_SET;
+}
+
+
+void Tile::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.Tile)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clear_has_x();
+  clear_has_y();
+  clear_has_z();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Tile::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 x = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _internal_set_x(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 y = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _internal_set_y(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 z = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _internal_set_z(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Tile::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.Tile)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 x = 1;
+  if (_internal_has_x()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_x(), target);
+  }
+
+  // uint32 y = 2;
+  if (_internal_has_y()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_y(), target);
+  }
+
+  // uint32 z = 3;
+  if (_internal_has_z()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_z(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.Tile)
+  return target;
+}
+
+size_t Tile::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.Tile)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  switch (has_x_case()) {
+    // uint32 x = 1;
+    case kX: {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_x());
+      break;
+    }
+    case HAS_X_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_y_case()) {
+    // uint32 y = 2;
+    case kY: {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_y());
+      break;
+    }
+    case HAS_Y_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_z_case()) {
+    // uint32 z = 3;
+    case kZ: {
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_z());
+      break;
+    }
+    case HAS_Z_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Tile::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Tile*>(
+      &from));
+}
+
+void Tile::MergeFrom(const Tile& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.Tile)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (from.has_x_case()) {
+    case kX: {
+      _internal_set_x(from._internal_x());
+      break;
+    }
+    case HAS_X_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_y_case()) {
+    case kY: {
+      _internal_set_y(from._internal_y());
+      break;
+    }
+    case HAS_Y_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_z_case()) {
+    case kZ: {
+      _internal_set_z(from._internal_z());
+      break;
+    }
+    case HAS_Z_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Tile::CopyFrom(const Tile& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.Tile)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Tile::IsInitialized() const {
+  return true;
+}
+
+void Tile::InternalSwap(Tile* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(has_x_, other->has_x_);
+  swap(has_y_, other->has_y_);
+  swap(has_z_, other->has_z_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_oneof_case_[1], other->_oneof_case_[1]);
+  swap(_oneof_case_[2], other->_oneof_case_[2]);
+}
+
+std::string Tile::GetTypeName() const {
+  return "valhalla.Tile";
+}
+
+
+// ===================================================================
+
+class TileOptions::_Internal {
+ public:
+};
+
+TileOptions::TileOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  exclude_layers_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.TileOptions)
+}
+TileOptions::TileOptions(const TileOptions& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      exclude_layers_(from.exclude_layers_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:valhalla.TileOptions)
+}
+
+inline void TileOptions::SharedCtor() {
+}
+
+TileOptions::~TileOptions() {
+  // @@protoc_insertion_point(destructor:valhalla.TileOptions)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TileOptions::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void TileOptions::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TileOptions::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.TileOptions)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  exclude_layers_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TileOptions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated string exclude_layers = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_exclude_layers();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TileOptions::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.TileOptions)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated string exclude_layers = 2;
+  for (int i = 0, n = this->_internal_exclude_layers_size(); i < n; i++) {
+    const auto& s = this->_internal_exclude_layers(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "valhalla.TileOptions.exclude_layers");
+    target = stream->WriteString(2, s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.TileOptions)
+  return target;
+}
+
+size_t TileOptions::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.TileOptions)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string exclude_layers = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(exclude_layers_.size());
+  for (int i = 0, n = exclude_layers_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      exclude_layers_.Get(i));
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TileOptions::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TileOptions*>(
+      &from));
+}
+
+void TileOptions::MergeFrom(const TileOptions& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.TileOptions)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  exclude_layers_.MergeFrom(from.exclude_layers_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TileOptions::CopyFrom(const TileOptions& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.TileOptions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TileOptions::IsInitialized() const {
+  return true;
+}
+
+void TileOptions::InternalSwap(TileOptions* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  exclude_layers_.InternalSwap(&other->exclude_layers_);
+}
+
+std::string TileOptions::GetTypeName() const {
+  return "valhalla.TileOptions";
+}
+
+
+// ===================================================================
+
+Costing_Options_HierarchyLimitsEntry_DoNotUse::Costing_Options_HierarchyLimitsEntry_DoNotUse() {}
+Costing_Options_HierarchyLimitsEntry_DoNotUse::Costing_Options_HierarchyLimitsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Costing_Options_HierarchyLimitsEntry_DoNotUse::MergeFrom(const Costing_Options_HierarchyLimitsEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+
+// ===================================================================
+
 class Costing_Options::_Internal {
  public:
 };
@@ -2035,7 +3485,9 @@ Costing_Options::Costing_Options(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   filter_stop_ids_(arena),
   filter_operator_ids_(arena),
   filter_route_ids_(arena),
-  exclude_edges_(arena) {
+  exclude_edges_(arena),
+  hierarchy_limits_(arena),
+  cost_factor_edges_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.Costing.Options)
 }
@@ -2044,11 +3496,13 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       filter_stop_ids_(from.filter_stop_ids_),
       filter_operator_ids_(from.filter_operator_ids_),
       filter_route_ids_(from.filter_route_ids_),
-      exclude_edges_(from.exclude_edges_) {
+      exclude_edges_(from.exclude_edges_),
+      cost_factor_edges_(from.cost_factor_edges_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&filter_stop_action_, &from.filter_stop_action_,
-    static_cast<size_t>(reinterpret_cast<char*>(&use_truck_route_) -
-    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(use_truck_route_));
+  hierarchy_limits_.MergeFrom(from.hierarchy_limits_);
+  ::memcpy(&hazmat_, &from.hazmat_,
+    static_cast<size_t>(reinterpret_cast<char*>(&ignore_construction_) -
+    reinterpret_cast<char*>(&hazmat_)) + sizeof(ignore_construction_));
   clear_has_has_maneuver_penalty();
   switch (from.has_maneuver_penalty_case()) {
     case kManeuverPenalty: {
@@ -2389,16 +3843,6 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
   }
-  clear_has_has_hazmat();
-  switch (from.has_hazmat_case()) {
-    case kHazmat: {
-      _internal_set_hazmat(from._internal_hazmat());
-      break;
-    }
-    case HAS_HAZMAT_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_weight();
   switch (from.has_weight_case()) {
     case kWeight: {
@@ -2456,26 +3900,6 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
     case HAS_CYCLING_SPEED_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_wheelchair();
-  switch (from.has_wheelchair_case()) {
-    case kWheelchair: {
-      _internal_set_wheelchair(from._internal_wheelchair());
-      break;
-    }
-    case HAS_WHEELCHAIR_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_bicycle();
-  switch (from.has_bicycle_case()) {
-    case kBicycle: {
-      _internal_set_bicycle(from._internal_bicycle());
-      break;
-    }
-    case HAS_BICYCLE_NOT_SET: {
       break;
     }
   }
@@ -2579,36 +4003,6 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
   }
-  clear_has_has_ignore_restrictions();
-  switch (from.has_ignore_restrictions_case()) {
-    case kIgnoreRestrictions: {
-      _internal_set_ignore_restrictions(from._internal_ignore_restrictions());
-      break;
-    }
-    case HAS_IGNORE_RESTRICTIONS_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_ignore_oneways();
-  switch (from.has_ignore_oneways_case()) {
-    case kIgnoreOneways: {
-      _internal_set_ignore_oneways(from._internal_ignore_oneways());
-      break;
-    }
-    case HAS_IGNORE_ONEWAYS_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_ignore_access();
-  switch (from.has_ignore_access_case()) {
-    case kIgnoreAccess: {
-      _internal_set_ignore_access(from._internal_ignore_access());
-      break;
-    }
-    case HAS_IGNORE_ACCESS_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_ignore_closures();
   switch (from.has_ignore_closures_case()) {
     case kIgnoreClosures: {
@@ -2616,16 +4010,6 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
     case HAS_IGNORE_CLOSURES_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_shortest();
-  switch (from.has_shortest_case()) {
-    case kShortest: {
-      _internal_set_shortest(from._internal_shortest());
-      break;
-    }
-    case HAS_SHORTEST_NOT_SET: {
       break;
     }
   }
@@ -2699,56 +4083,6 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
   }
-  clear_has_has_exclude_unpaved();
-  switch (from.has_exclude_unpaved_case()) {
-    case kExcludeUnpaved: {
-      _internal_set_exclude_unpaved(from._internal_exclude_unpaved());
-      break;
-    }
-    case HAS_EXCLUDE_UNPAVED_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_include_hot();
-  switch (from.has_include_hot_case()) {
-    case kIncludeHot: {
-      _internal_set_include_hot(from._internal_include_hot());
-      break;
-    }
-    case HAS_INCLUDE_HOT_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_include_hov2();
-  switch (from.has_include_hov2_case()) {
-    case kIncludeHov2: {
-      _internal_set_include_hov2(from._internal_include_hov2());
-      break;
-    }
-    case HAS_INCLUDE_HOV2_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_include_hov3();
-  switch (from.has_include_hov3_case()) {
-    case kIncludeHov3: {
-      _internal_set_include_hov3(from._internal_include_hov3());
-      break;
-    }
-    case HAS_INCLUDE_HOV3_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_exclude_cash_only_tolls();
-  switch (from.has_exclude_cash_only_tolls_case()) {
-    case kExcludeCashOnlyTolls: {
-      _internal_set_exclude_cash_only_tolls(from._internal_exclude_cash_only_tolls());
-      break;
-    }
-    case HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_restriction_probability();
   switch (from.has_restriction_probability_case()) {
     case kRestrictionProbability: {
@@ -2779,6 +4113,36 @@ Costing_Options::Costing_Options(const Costing_Options& from)
       break;
     }
   }
+  clear_has_has_speed_penalty_factor();
+  switch (from.has_speed_penalty_factor_case()) {
+    case kSpeedPenaltyFactor: {
+      _internal_set_speed_penalty_factor(from._internal_speed_penalty_factor());
+      break;
+    }
+    case HAS_SPEED_PENALTY_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_multimodal_start_end_max_distance();
+  switch (from.has_multimodal_start_end_max_distance_case()) {
+    case kMultimodalStartEndMaxDistance: {
+      _internal_set_multimodal_start_end_max_distance(from._internal_multimodal_start_end_max_distance());
+      break;
+    }
+    case HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_low_class_factor();
+  switch (from.has_low_class_factor_case()) {
+    case kLowClassFactor: {
+      _internal_set_low_class_factor(from._internal_low_class_factor());
+      break;
+    }
+    case HAS_LOW_CLASS_FACTOR_NOT_SET: {
+      break;
+    }
+  }
   clear_has_has_non_network_penalty();
   switch (from.has_non_network_penalty_case()) {
     case kNonNetworkPenalty: {
@@ -2794,9 +4158,9 @@ Costing_Options::Costing_Options(const Costing_Options& from)
 
 inline void Costing_Options::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&filter_stop_action_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&use_truck_route_) -
-    reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(use_truck_route_));
+    reinterpret_cast<char*>(&hazmat_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ignore_construction_) -
+    reinterpret_cast<char*>(&hazmat_)) + sizeof(ignore_construction_));
 clear_has_has_maneuver_penalty();
 clear_has_has_destination_only_penalty();
 clear_has_has_gate_cost();
@@ -2831,15 +4195,12 @@ clear_has_has_use_hills();
 clear_has_has_use_primary();
 clear_has_has_use_trails();
 clear_has_has_low_class_penalty();
-clear_has_has_hazmat();
 clear_has_has_weight();
 clear_has_has_axle_load();
 clear_has_has_height();
 clear_has_has_width();
 clear_has_has_length();
 clear_has_has_cycling_speed();
-clear_has_has_wheelchair();
-clear_has_has_bicycle();
 clear_has_has_use_bus();
 clear_has_has_use_rail();
 clear_has_has_use_transfers();
@@ -2850,11 +4211,7 @@ clear_has_has_bike_share_cost();
 clear_has_has_bike_share_penalty();
 clear_has_has_rail_ferry_cost();
 clear_has_has_use_rail_ferry();
-clear_has_has_ignore_restrictions();
-clear_has_has_ignore_oneways();
-clear_has_has_ignore_access();
 clear_has_has_ignore_closures();
-clear_has_has_shortest();
 clear_has_has_service_penalty();
 clear_has_has_use_tracks();
 clear_has_has_use_distance();
@@ -2862,14 +4219,12 @@ clear_has_has_use_living_streets();
 clear_has_has_service_factor();
 clear_has_has_closure_factor();
 clear_has_has_private_access_penalty();
-clear_has_has_exclude_unpaved();
-clear_has_has_include_hot();
-clear_has_has_include_hov2();
-clear_has_has_include_hov3();
-clear_has_has_exclude_cash_only_tolls();
 clear_has_has_restriction_probability();
 clear_has_has_elevator_penalty();
 clear_has_has_hgv_no_access_penalty();
+clear_has_has_speed_penalty_factor();
+clear_has_has_multimodal_start_end_max_distance();
+clear_has_has_low_class_factor();
 clear_has_has_non_network_penalty();
 }
 
@@ -2884,6 +4239,7 @@ Costing_Options::~Costing_Options() {
 
 inline void Costing_Options::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  hierarchy_limits_.Destruct();
   if (has_has_maneuver_penalty()) {
     clear_has_maneuver_penalty();
   }
@@ -2986,9 +4342,6 @@ inline void Costing_Options::SharedDtor() {
   if (has_has_low_class_penalty()) {
     clear_has_low_class_penalty();
   }
-  if (has_has_hazmat()) {
-    clear_has_hazmat();
-  }
   if (has_has_weight()) {
     clear_has_weight();
   }
@@ -3006,12 +4359,6 @@ inline void Costing_Options::SharedDtor() {
   }
   if (has_has_cycling_speed()) {
     clear_has_cycling_speed();
-  }
-  if (has_has_wheelchair()) {
-    clear_has_wheelchair();
-  }
-  if (has_has_bicycle()) {
-    clear_has_bicycle();
   }
   if (has_has_use_bus()) {
     clear_has_use_bus();
@@ -3043,20 +4390,8 @@ inline void Costing_Options::SharedDtor() {
   if (has_has_use_rail_ferry()) {
     clear_has_use_rail_ferry();
   }
-  if (has_has_ignore_restrictions()) {
-    clear_has_ignore_restrictions();
-  }
-  if (has_has_ignore_oneways()) {
-    clear_has_ignore_oneways();
-  }
-  if (has_has_ignore_access()) {
-    clear_has_ignore_access();
-  }
   if (has_has_ignore_closures()) {
     clear_has_ignore_closures();
-  }
-  if (has_has_shortest()) {
-    clear_has_shortest();
   }
   if (has_has_service_penalty()) {
     clear_has_service_penalty();
@@ -3079,21 +4414,6 @@ inline void Costing_Options::SharedDtor() {
   if (has_has_private_access_penalty()) {
     clear_has_private_access_penalty();
   }
-  if (has_has_exclude_unpaved()) {
-    clear_has_exclude_unpaved();
-  }
-  if (has_has_include_hot()) {
-    clear_has_include_hot();
-  }
-  if (has_has_include_hov2()) {
-    clear_has_include_hov2();
-  }
-  if (has_has_include_hov3()) {
-    clear_has_include_hov3();
-  }
-  if (has_has_exclude_cash_only_tolls()) {
-    clear_has_exclude_cash_only_tolls();
-  }
   if (has_has_restriction_probability()) {
     clear_has_restriction_probability();
   }
@@ -3102,6 +4422,15 @@ inline void Costing_Options::SharedDtor() {
   }
   if (has_has_hgv_no_access_penalty()) {
     clear_has_hgv_no_access_penalty();
+  }
+  if (has_has_speed_penalty_factor()) {
+    clear_has_speed_penalty_factor();
+  }
+  if (has_has_multimodal_start_end_max_distance()) {
+    clear_has_multimodal_start_end_max_distance();
+  }
+  if (has_has_low_class_factor()) {
+    clear_has_low_class_factor();
   }
   if (has_has_non_network_penalty()) {
     clear_has_non_network_penalty();
@@ -3588,20 +4917,6 @@ void Costing_Options::clear_has_low_class_penalty() {
   _oneof_case_[33] = HAS_LOW_CLASS_PENALTY_NOT_SET;
 }
 
-void Costing_Options::clear_has_hazmat() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_hazmat_case()) {
-    case kHazmat: {
-      // No need to clear
-      break;
-    }
-    case HAS_HAZMAT_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[34] = HAS_HAZMAT_NOT_SET;
-}
-
 void Costing_Options::clear_has_weight() {
 // @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
   switch (has_weight_case()) {
@@ -3613,7 +4928,7 @@ void Costing_Options::clear_has_weight() {
       break;
     }
   }
-  _oneof_case_[35] = HAS_WEIGHT_NOT_SET;
+  _oneof_case_[34] = HAS_WEIGHT_NOT_SET;
 }
 
 void Costing_Options::clear_has_axle_load() {
@@ -3627,7 +4942,7 @@ void Costing_Options::clear_has_axle_load() {
       break;
     }
   }
-  _oneof_case_[36] = HAS_AXLE_LOAD_NOT_SET;
+  _oneof_case_[35] = HAS_AXLE_LOAD_NOT_SET;
 }
 
 void Costing_Options::clear_has_height() {
@@ -3641,7 +4956,7 @@ void Costing_Options::clear_has_height() {
       break;
     }
   }
-  _oneof_case_[37] = HAS_HEIGHT_NOT_SET;
+  _oneof_case_[36] = HAS_HEIGHT_NOT_SET;
 }
 
 void Costing_Options::clear_has_width() {
@@ -3655,7 +4970,7 @@ void Costing_Options::clear_has_width() {
       break;
     }
   }
-  _oneof_case_[38] = HAS_WIDTH_NOT_SET;
+  _oneof_case_[37] = HAS_WIDTH_NOT_SET;
 }
 
 void Costing_Options::clear_has_length() {
@@ -3669,7 +4984,7 @@ void Costing_Options::clear_has_length() {
       break;
     }
   }
-  _oneof_case_[39] = HAS_LENGTH_NOT_SET;
+  _oneof_case_[38] = HAS_LENGTH_NOT_SET;
 }
 
 void Costing_Options::clear_has_cycling_speed() {
@@ -3683,35 +4998,7 @@ void Costing_Options::clear_has_cycling_speed() {
       break;
     }
   }
-  _oneof_case_[40] = HAS_CYCLING_SPEED_NOT_SET;
-}
-
-void Costing_Options::clear_has_wheelchair() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_wheelchair_case()) {
-    case kWheelchair: {
-      // No need to clear
-      break;
-    }
-    case HAS_WHEELCHAIR_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[41] = HAS_WHEELCHAIR_NOT_SET;
-}
-
-void Costing_Options::clear_has_bicycle() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_bicycle_case()) {
-    case kBicycle: {
-      // No need to clear
-      break;
-    }
-    case HAS_BICYCLE_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[42] = HAS_BICYCLE_NOT_SET;
+  _oneof_case_[39] = HAS_CYCLING_SPEED_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_bus() {
@@ -3725,7 +5012,7 @@ void Costing_Options::clear_has_use_bus() {
       break;
     }
   }
-  _oneof_case_[43] = HAS_USE_BUS_NOT_SET;
+  _oneof_case_[40] = HAS_USE_BUS_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_rail() {
@@ -3739,7 +5026,7 @@ void Costing_Options::clear_has_use_rail() {
       break;
     }
   }
-  _oneof_case_[44] = HAS_USE_RAIL_NOT_SET;
+  _oneof_case_[41] = HAS_USE_RAIL_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_transfers() {
@@ -3753,7 +5040,7 @@ void Costing_Options::clear_has_use_transfers() {
       break;
     }
   }
-  _oneof_case_[45] = HAS_USE_TRANSFERS_NOT_SET;
+  _oneof_case_[42] = HAS_USE_TRANSFERS_NOT_SET;
 }
 
 void Costing_Options::clear_has_transfer_cost() {
@@ -3767,7 +5054,7 @@ void Costing_Options::clear_has_transfer_cost() {
       break;
     }
   }
-  _oneof_case_[46] = HAS_TRANSFER_COST_NOT_SET;
+  _oneof_case_[43] = HAS_TRANSFER_COST_NOT_SET;
 }
 
 void Costing_Options::clear_has_transfer_penalty() {
@@ -3781,7 +5068,7 @@ void Costing_Options::clear_has_transfer_penalty() {
       break;
     }
   }
-  _oneof_case_[47] = HAS_TRANSFER_PENALTY_NOT_SET;
+  _oneof_case_[44] = HAS_TRANSFER_PENALTY_NOT_SET;
 }
 
 void Costing_Options::clear_has_flow_mask() {
@@ -3795,7 +5082,7 @@ void Costing_Options::clear_has_flow_mask() {
       break;
     }
   }
-  _oneof_case_[48] = HAS_FLOW_MASK_NOT_SET;
+  _oneof_case_[45] = HAS_FLOW_MASK_NOT_SET;
 }
 
 void Costing_Options::clear_has_bike_share_cost() {
@@ -3809,7 +5096,7 @@ void Costing_Options::clear_has_bike_share_cost() {
       break;
     }
   }
-  _oneof_case_[49] = HAS_BIKE_SHARE_COST_NOT_SET;
+  _oneof_case_[46] = HAS_BIKE_SHARE_COST_NOT_SET;
 }
 
 void Costing_Options::clear_has_bike_share_penalty() {
@@ -3823,7 +5110,7 @@ void Costing_Options::clear_has_bike_share_penalty() {
       break;
     }
   }
-  _oneof_case_[50] = HAS_BIKE_SHARE_PENALTY_NOT_SET;
+  _oneof_case_[47] = HAS_BIKE_SHARE_PENALTY_NOT_SET;
 }
 
 void Costing_Options::clear_has_rail_ferry_cost() {
@@ -3837,7 +5124,7 @@ void Costing_Options::clear_has_rail_ferry_cost() {
       break;
     }
   }
-  _oneof_case_[51] = HAS_RAIL_FERRY_COST_NOT_SET;
+  _oneof_case_[48] = HAS_RAIL_FERRY_COST_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_rail_ferry() {
@@ -3851,49 +5138,7 @@ void Costing_Options::clear_has_use_rail_ferry() {
       break;
     }
   }
-  _oneof_case_[52] = HAS_USE_RAIL_FERRY_NOT_SET;
-}
-
-void Costing_Options::clear_has_ignore_restrictions() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_ignore_restrictions_case()) {
-    case kIgnoreRestrictions: {
-      // No need to clear
-      break;
-    }
-    case HAS_IGNORE_RESTRICTIONS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[53] = HAS_IGNORE_RESTRICTIONS_NOT_SET;
-}
-
-void Costing_Options::clear_has_ignore_oneways() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_ignore_oneways_case()) {
-    case kIgnoreOneways: {
-      // No need to clear
-      break;
-    }
-    case HAS_IGNORE_ONEWAYS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[54] = HAS_IGNORE_ONEWAYS_NOT_SET;
-}
-
-void Costing_Options::clear_has_ignore_access() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_ignore_access_case()) {
-    case kIgnoreAccess: {
-      // No need to clear
-      break;
-    }
-    case HAS_IGNORE_ACCESS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[55] = HAS_IGNORE_ACCESS_NOT_SET;
+  _oneof_case_[49] = HAS_USE_RAIL_FERRY_NOT_SET;
 }
 
 void Costing_Options::clear_has_ignore_closures() {
@@ -3907,21 +5152,7 @@ void Costing_Options::clear_has_ignore_closures() {
       break;
     }
   }
-  _oneof_case_[56] = HAS_IGNORE_CLOSURES_NOT_SET;
-}
-
-void Costing_Options::clear_has_shortest() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_shortest_case()) {
-    case kShortest: {
-      // No need to clear
-      break;
-    }
-    case HAS_SHORTEST_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[57] = HAS_SHORTEST_NOT_SET;
+  _oneof_case_[50] = HAS_IGNORE_CLOSURES_NOT_SET;
 }
 
 void Costing_Options::clear_has_service_penalty() {
@@ -3935,7 +5166,7 @@ void Costing_Options::clear_has_service_penalty() {
       break;
     }
   }
-  _oneof_case_[58] = HAS_SERVICE_PENALTY_NOT_SET;
+  _oneof_case_[51] = HAS_SERVICE_PENALTY_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_tracks() {
@@ -3949,7 +5180,7 @@ void Costing_Options::clear_has_use_tracks() {
       break;
     }
   }
-  _oneof_case_[59] = HAS_USE_TRACKS_NOT_SET;
+  _oneof_case_[52] = HAS_USE_TRACKS_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_distance() {
@@ -3963,7 +5194,7 @@ void Costing_Options::clear_has_use_distance() {
       break;
     }
   }
-  _oneof_case_[60] = HAS_USE_DISTANCE_NOT_SET;
+  _oneof_case_[53] = HAS_USE_DISTANCE_NOT_SET;
 }
 
 void Costing_Options::clear_has_use_living_streets() {
@@ -3977,7 +5208,7 @@ void Costing_Options::clear_has_use_living_streets() {
       break;
     }
   }
-  _oneof_case_[61] = HAS_USE_LIVING_STREETS_NOT_SET;
+  _oneof_case_[54] = HAS_USE_LIVING_STREETS_NOT_SET;
 }
 
 void Costing_Options::clear_has_service_factor() {
@@ -3991,7 +5222,7 @@ void Costing_Options::clear_has_service_factor() {
       break;
     }
   }
-  _oneof_case_[62] = HAS_SERVICE_FACTOR_NOT_SET;
+  _oneof_case_[55] = HAS_SERVICE_FACTOR_NOT_SET;
 }
 
 void Costing_Options::clear_has_closure_factor() {
@@ -4005,7 +5236,7 @@ void Costing_Options::clear_has_closure_factor() {
       break;
     }
   }
-  _oneof_case_[63] = HAS_CLOSURE_FACTOR_NOT_SET;
+  _oneof_case_[56] = HAS_CLOSURE_FACTOR_NOT_SET;
 }
 
 void Costing_Options::clear_has_private_access_penalty() {
@@ -4019,77 +5250,7 @@ void Costing_Options::clear_has_private_access_penalty() {
       break;
     }
   }
-  _oneof_case_[64] = HAS_PRIVATE_ACCESS_PENALTY_NOT_SET;
-}
-
-void Costing_Options::clear_has_exclude_unpaved() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_exclude_unpaved_case()) {
-    case kExcludeUnpaved: {
-      // No need to clear
-      break;
-    }
-    case HAS_EXCLUDE_UNPAVED_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[65] = HAS_EXCLUDE_UNPAVED_NOT_SET;
-}
-
-void Costing_Options::clear_has_include_hot() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_include_hot_case()) {
-    case kIncludeHot: {
-      // No need to clear
-      break;
-    }
-    case HAS_INCLUDE_HOT_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[66] = HAS_INCLUDE_HOT_NOT_SET;
-}
-
-void Costing_Options::clear_has_include_hov2() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_include_hov2_case()) {
-    case kIncludeHov2: {
-      // No need to clear
-      break;
-    }
-    case HAS_INCLUDE_HOV2_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[67] = HAS_INCLUDE_HOV2_NOT_SET;
-}
-
-void Costing_Options::clear_has_include_hov3() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_include_hov3_case()) {
-    case kIncludeHov3: {
-      // No need to clear
-      break;
-    }
-    case HAS_INCLUDE_HOV3_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[68] = HAS_INCLUDE_HOV3_NOT_SET;
-}
-
-void Costing_Options::clear_has_exclude_cash_only_tolls() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
-  switch (has_exclude_cash_only_tolls_case()) {
-    case kExcludeCashOnlyTolls: {
-      // No need to clear
-      break;
-    }
-    case HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[69] = HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET;
+  _oneof_case_[57] = HAS_PRIVATE_ACCESS_PENALTY_NOT_SET;
 }
 
 void Costing_Options::clear_has_restriction_probability() {
@@ -4103,7 +5264,7 @@ void Costing_Options::clear_has_restriction_probability() {
       break;
     }
   }
-  _oneof_case_[70] = HAS_RESTRICTION_PROBABILITY_NOT_SET;
+  _oneof_case_[58] = HAS_RESTRICTION_PROBABILITY_NOT_SET;
 }
 
 void Costing_Options::clear_has_elevator_penalty() {
@@ -4117,7 +5278,7 @@ void Costing_Options::clear_has_elevator_penalty() {
       break;
     }
   }
-  _oneof_case_[71] = HAS_ELEVATOR_PENALTY_NOT_SET;
+  _oneof_case_[59] = HAS_ELEVATOR_PENALTY_NOT_SET;
 }
 
 void Costing_Options::clear_has_hgv_no_access_penalty() {
@@ -4131,7 +5292,49 @@ void Costing_Options::clear_has_hgv_no_access_penalty() {
       break;
     }
   }
-  _oneof_case_[72] = HAS_HGV_NO_ACCESS_PENALTY_NOT_SET;
+  _oneof_case_[60] = HAS_HGV_NO_ACCESS_PENALTY_NOT_SET;
+}
+
+void Costing_Options::clear_has_speed_penalty_factor() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
+  switch (has_speed_penalty_factor_case()) {
+    case kSpeedPenaltyFactor: {
+      // No need to clear
+      break;
+    }
+    case HAS_SPEED_PENALTY_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[61] = HAS_SPEED_PENALTY_FACTOR_NOT_SET;
+}
+
+void Costing_Options::clear_has_multimodal_start_end_max_distance() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
+  switch (has_multimodal_start_end_max_distance_case()) {
+    case kMultimodalStartEndMaxDistance: {
+      // No need to clear
+      break;
+    }
+    case HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[62] = HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET;
+}
+
+void Costing_Options::clear_has_low_class_factor() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.Costing.Options)
+  switch (has_low_class_factor_case()) {
+    case kLowClassFactor: {
+      // No need to clear
+      break;
+    }
+    case HAS_LOW_CLASS_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[63] = HAS_LOW_CLASS_FACTOR_NOT_SET;
 }
 
 void Costing_Options::clear_has_non_network_penalty() {
@@ -4145,7 +5348,7 @@ void Costing_Options::clear_has_non_network_penalty() {
       break;
     }
   }
-  _oneof_case_[73] = HAS_NON_NETWORK_PENALTY_NOT_SET;
+  _oneof_case_[64] = HAS_NON_NETWORK_PENALTY_NOT_SET;
 }
 
 
@@ -4159,9 +5362,11 @@ void Costing_Options::Clear() {
   filter_operator_ids_.Clear();
   filter_route_ids_.Clear();
   exclude_edges_.Clear();
-  ::memset(&filter_stop_action_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&use_truck_route_) -
-      reinterpret_cast<char*>(&filter_stop_action_)) + sizeof(use_truck_route_));
+  hierarchy_limits_.Clear();
+  cost_factor_edges_.Clear();
+  ::memset(&hazmat_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&ignore_construction_) -
+      reinterpret_cast<char*>(&hazmat_)) + sizeof(ignore_construction_));
   clear_has_maneuver_penalty();
   clear_has_destination_only_penalty();
   clear_has_gate_cost();
@@ -4196,15 +5401,12 @@ void Costing_Options::Clear() {
   clear_has_use_primary();
   clear_has_use_trails();
   clear_has_low_class_penalty();
-  clear_has_hazmat();
   clear_has_weight();
   clear_has_axle_load();
   clear_has_height();
   clear_has_width();
   clear_has_length();
   clear_has_cycling_speed();
-  clear_has_wheelchair();
-  clear_has_bicycle();
   clear_has_use_bus();
   clear_has_use_rail();
   clear_has_use_transfers();
@@ -4215,11 +5417,7 @@ void Costing_Options::Clear() {
   clear_has_bike_share_penalty();
   clear_has_rail_ferry_cost();
   clear_has_use_rail_ferry();
-  clear_has_ignore_restrictions();
-  clear_has_ignore_oneways();
-  clear_has_ignore_access();
   clear_has_ignore_closures();
-  clear_has_shortest();
   clear_has_service_penalty();
   clear_has_use_tracks();
   clear_has_use_distance();
@@ -4227,14 +5425,12 @@ void Costing_Options::Clear() {
   clear_has_service_factor();
   clear_has_closure_factor();
   clear_has_private_access_penalty();
-  clear_has_exclude_unpaved();
-  clear_has_include_hot();
-  clear_has_include_hov2();
-  clear_has_include_hov3();
-  clear_has_exclude_cash_only_tolls();
   clear_has_restriction_probability();
   clear_has_elevator_penalty();
   clear_has_hgv_no_access_penalty();
+  clear_has_speed_penalty_factor();
+  clear_has_multimodal_start_end_max_distance();
+  clear_has_low_class_factor();
   clear_has_non_network_penalty();
   _internal_metadata_.Clear<std::string>();
 }
@@ -4522,7 +5718,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool hazmat = 35;
       case 35:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _internal_set_hazmat(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          hazmat_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4578,7 +5774,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool wheelchair = 42;
       case 42:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          _internal_set_wheelchair(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          wheelchair_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4586,7 +5782,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool bicycle = 43;
       case 43:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
-          _internal_set_bicycle(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          bicycle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4746,7 +5942,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool ignore_restrictions = 60;
       case 60:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
-          _internal_set_ignore_restrictions(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          ignore_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4754,7 +5950,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool ignore_oneways = 61;
       case 61:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
-          _internal_set_ignore_oneways(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          ignore_oneways_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4762,7 +5958,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool ignore_access = 62;
       case 62:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 240)) {
-          _internal_set_ignore_access(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          ignore_access_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4778,7 +5974,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool shortest = 64;
       case 64:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
-          _internal_set_shortest(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          shortest_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4842,7 +6038,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool exclude_unpaved = 72;
       case 72:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          _internal_set_exclude_unpaved(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          exclude_unpaved_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4850,7 +6046,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool include_hot = 73;
       case 73:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
-          _internal_set_include_hot(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          include_hot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4858,7 +6054,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool include_hov2 = 74;
       case 74:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          _internal_set_include_hov2(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          include_hov2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4866,7 +6062,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool include_hov3 = 75;
       case 75:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
-          _internal_set_include_hov3(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          include_hov3_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4874,7 +6070,7 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
       // bool exclude_cash_only_tolls = 76;
       case 76:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
-          _internal_set_exclude_cash_only_tolls(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          exclude_cash_only_tolls_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4964,9 +6160,107 @@ const char* Costing_Options::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // float non_network_penalty = 92;
+      // bool exclude_bridges = 87;
+      case 87:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+          exclude_bridges_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool exclude_tunnels = 88;
+      case 88:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
+          exclude_tunnels_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool exclude_tolls = 89;
+      case 89:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 200)) {
+          exclude_tolls_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool exclude_highways = 90;
+      case 90:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
+          exclude_highways_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool exclude_ferries = 91;
+      case 91:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 216)) {
+          exclude_ferries_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // map<uint32, .valhalla.HierarchyLimits> hierarchy_limits = 92;
       case 92:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 229)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(&hierarchy_limits_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<738>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool ignore_construction = 93;
+      case 93:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
+          ignore_construction_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .valhalla.CostFactorEdge cost_factor_edges = 94;
+      case 94:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 242)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_cost_factor_edges(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<754>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // float speed_penalty_factor = 95;
+      case 95:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 253)) {
+          _internal_set_speed_penalty_factor(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 multimodal_start_end_max_distance = 96;
+      case 96:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
+          _internal_set_multimodal_start_end_max_distance(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float low_class_factor = 97;
+      case 97:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
+          _internal_set_low_class_factor(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float non_network_penalty = 200;
+      case 200:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
           _internal_set_non_network_penalty(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
         } else
@@ -5210,7 +6504,7 @@ uint8_t* Costing_Options::_InternalSerialize(
   }
 
   // bool hazmat = 35;
-  if (_internal_has_hazmat()) {
+  if (this->_internal_hazmat() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(35, this->_internal_hazmat(), target);
   }
@@ -5252,13 +6546,13 @@ uint8_t* Costing_Options::_InternalSerialize(
   }
 
   // bool wheelchair = 42;
-  if (_internal_has_wheelchair()) {
+  if (this->_internal_wheelchair() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(42, this->_internal_wheelchair(), target);
   }
 
   // bool bicycle = 43;
-  if (_internal_has_bicycle()) {
+  if (this->_internal_bicycle() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(43, this->_internal_bicycle(), target);
   }
@@ -5375,19 +6669,19 @@ uint8_t* Costing_Options::_InternalSerialize(
   }
 
   // bool ignore_restrictions = 60;
-  if (_internal_has_ignore_restrictions()) {
+  if (this->_internal_ignore_restrictions() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(60, this->_internal_ignore_restrictions(), target);
   }
 
   // bool ignore_oneways = 61;
-  if (_internal_has_ignore_oneways()) {
+  if (this->_internal_ignore_oneways() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(61, this->_internal_ignore_oneways(), target);
   }
 
   // bool ignore_access = 62;
-  if (_internal_has_ignore_access()) {
+  if (this->_internal_ignore_access() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(62, this->_internal_ignore_access(), target);
   }
@@ -5399,7 +6693,7 @@ uint8_t* Costing_Options::_InternalSerialize(
   }
 
   // bool shortest = 64;
-  if (_internal_has_shortest()) {
+  if (this->_internal_shortest() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(64, this->_internal_shortest(), target);
   }
@@ -5447,31 +6741,31 @@ uint8_t* Costing_Options::_InternalSerialize(
   }
 
   // bool exclude_unpaved = 72;
-  if (_internal_has_exclude_unpaved()) {
+  if (this->_internal_exclude_unpaved() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(72, this->_internal_exclude_unpaved(), target);
   }
 
   // bool include_hot = 73;
-  if (_internal_has_include_hot()) {
+  if (this->_internal_include_hot() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(73, this->_internal_include_hot(), target);
   }
 
   // bool include_hov2 = 74;
-  if (_internal_has_include_hov2()) {
+  if (this->_internal_include_hov2() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(74, this->_internal_include_hov2(), target);
   }
 
   // bool include_hov3 = 75;
-  if (_internal_has_include_hov3()) {
+  if (this->_internal_include_hov3() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(75, this->_internal_include_hov3(), target);
   }
 
   // bool exclude_cash_only_tolls = 76;
-  if (_internal_has_exclude_cash_only_tolls()) {
+  if (this->_internal_exclude_cash_only_tolls() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(76, this->_internal_exclude_cash_only_tolls(), target);
   }
@@ -5546,10 +6840,89 @@ uint8_t* Costing_Options::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(86, this->_internal_use_truck_route(), target);
   }
 
-  // float non_network_penalty = 92;
+  // bool exclude_bridges = 87;
+  if (this->_internal_exclude_bridges() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(87, this->_internal_exclude_bridges(), target);
+  }
+
+  // bool exclude_tunnels = 88;
+  if (this->_internal_exclude_tunnels() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(88, this->_internal_exclude_tunnels(), target);
+  }
+
+  // bool exclude_tolls = 89;
+  if (this->_internal_exclude_tolls() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(89, this->_internal_exclude_tolls(), target);
+  }
+
+  // bool exclude_highways = 90;
+  if (this->_internal_exclude_highways() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(90, this->_internal_exclude_highways(), target);
+  }
+
+  // bool exclude_ferries = 91;
+  if (this->_internal_exclude_ferries() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(91, this->_internal_exclude_ferries(), target);
+  }
+
+  // map<uint32, .valhalla.HierarchyLimits> hierarchy_limits = 92;
+  if (!this->_internal_hierarchy_limits().empty()) {
+    using MapType = ::_pb::Map<uint32_t, ::valhalla::HierarchyLimits>;
+    using WireHelper = Costing_Options_HierarchyLimitsEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_hierarchy_limits();
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(92, entry.first, entry.second, target, stream);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(92, entry.first, entry.second, target, stream);
+      }
+    }
+  }
+
+  // bool ignore_construction = 93;
+  if (this->_internal_ignore_construction() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(93, this->_internal_ignore_construction(), target);
+  }
+
+  // repeated .valhalla.CostFactorEdge cost_factor_edges = 94;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_cost_factor_edges_size()); i < n; i++) {
+    const auto& repfield = this->_internal_cost_factor_edges(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(94, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // float speed_penalty_factor = 95;
+  if (_internal_has_speed_penalty_factor()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(95, this->_internal_speed_penalty_factor(), target);
+  }
+
+  // uint32 multimodal_start_end_max_distance = 96;
+  if (_internal_has_multimodal_start_end_max_distance()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(96, this->_internal_multimodal_start_end_max_distance(), target);
+  }
+
+  // float low_class_factor = 97;
+  if (_internal_has_low_class_factor()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(97, this->_internal_low_class_factor(), target);
+  }
+
+  // float non_network_penalty = 200;
   if (_internal_has_non_network_penalty()) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(92, this->_internal_non_network_penalty(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(200, this->_internal_non_network_penalty(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5599,6 +6972,42 @@ size_t Costing_Options::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // map<uint32, .valhalla.HierarchyLimits> hierarchy_limits = 92;
+  total_size += 2 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_hierarchy_limits_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >::const_iterator
+      it = this->_internal_hierarchy_limits().begin();
+      it != this->_internal_hierarchy_limits().end(); ++it) {
+    total_size += Costing_Options_HierarchyLimitsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  // repeated .valhalla.CostFactorEdge cost_factor_edges = 94;
+  total_size += 2UL * this->_internal_cost_factor_edges_size();
+  for (const auto& msg : this->cost_factor_edges_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // bool hazmat = 35;
+  if (this->_internal_hazmat() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool wheelchair = 42;
+  if (this->_internal_wheelchair() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool bicycle = 43;
+  if (this->_internal_bicycle() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool ignore_restrictions = 60;
+  if (this->_internal_ignore_restrictions() != 0) {
+    total_size += 2 + 1;
+  }
+
   // .valhalla.FilterAction filter_stop_action = 49;
   if (this->_internal_filter_stop_action() != 0) {
     total_size += 2 +
@@ -5615,6 +7024,46 @@ size_t Costing_Options::ByteSizeLong() const {
   if (this->_internal_filter_route_action() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_filter_route_action());
+  }
+
+  // bool ignore_oneways = 61;
+  if (this->_internal_ignore_oneways() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool ignore_access = 62;
+  if (this->_internal_ignore_access() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool shortest = 64;
+  if (this->_internal_shortest() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool exclude_unpaved = 72;
+  if (this->_internal_exclude_unpaved() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool include_hot = 73;
+  if (this->_internal_include_hot() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool include_hov2 = 74;
+  if (this->_internal_include_hov2() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool include_hov3 = 75;
+  if (this->_internal_include_hov3() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool exclude_cash_only_tolls = 76;
+  if (this->_internal_exclude_cash_only_tolls() != 0) {
+    total_size += 2 + 1;
   }
 
   // uint32 fixed_speed = 80;
@@ -5650,6 +7099,16 @@ size_t Costing_Options::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
+  // bool exclude_bridges = 87;
+  if (this->_internal_exclude_bridges() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool exclude_tunnels = 88;
+  if (this->_internal_exclude_tunnels() != 0) {
+    total_size += 2 + 1;
+  }
+
   // float use_truck_route = 86;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_use_truck_route = this->_internal_use_truck_route();
@@ -5657,6 +7116,26 @@ size_t Costing_Options::ByteSizeLong() const {
   memcpy(&raw_use_truck_route, &tmp_use_truck_route, sizeof(tmp_use_truck_route));
   if (raw_use_truck_route != 0) {
     total_size += 2 + 4;
+  }
+
+  // bool exclude_tolls = 89;
+  if (this->_internal_exclude_tolls() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool exclude_highways = 90;
+  if (this->_internal_exclude_highways() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool exclude_ferries = 91;
+  if (this->_internal_exclude_ferries() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool ignore_construction = 93;
+  if (this->_internal_ignore_construction() != 0) {
+    total_size += 2 + 1;
   }
 
   switch (has_maneuver_penalty_case()) {
@@ -6011,16 +7490,6 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_hazmat_case()) {
-    // bool hazmat = 35;
-    case kHazmat: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_HAZMAT_NOT_SET: {
-      break;
-    }
-  }
   switch (has_weight_case()) {
     // float weight = 36;
     case kWeight: {
@@ -6078,26 +7547,6 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
     case HAS_CYCLING_SPEED_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_wheelchair_case()) {
-    // bool wheelchair = 42;
-    case kWheelchair: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_WHEELCHAIR_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_bicycle_case()) {
-    // bool bicycle = 43;
-    case kBicycle: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_BICYCLE_NOT_SET: {
       break;
     }
   }
@@ -6203,36 +7652,6 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_ignore_restrictions_case()) {
-    // bool ignore_restrictions = 60;
-    case kIgnoreRestrictions: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_IGNORE_RESTRICTIONS_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_ignore_oneways_case()) {
-    // bool ignore_oneways = 61;
-    case kIgnoreOneways: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_IGNORE_ONEWAYS_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_ignore_access_case()) {
-    // bool ignore_access = 62;
-    case kIgnoreAccess: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_IGNORE_ACCESS_NOT_SET: {
-      break;
-    }
-  }
   switch (has_ignore_closures_case()) {
     // bool ignore_closures = 63;
     case kIgnoreClosures: {
@@ -6240,16 +7659,6 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
     case HAS_IGNORE_CLOSURES_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_shortest_case()) {
-    // bool shortest = 64;
-    case kShortest: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_SHORTEST_NOT_SET: {
       break;
     }
   }
@@ -6323,56 +7732,6 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_exclude_unpaved_case()) {
-    // bool exclude_unpaved = 72;
-    case kExcludeUnpaved: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_EXCLUDE_UNPAVED_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_include_hot_case()) {
-    // bool include_hot = 73;
-    case kIncludeHot: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_INCLUDE_HOT_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_include_hov2_case()) {
-    // bool include_hov2 = 74;
-    case kIncludeHov2: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_INCLUDE_HOV2_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_include_hov3_case()) {
-    // bool include_hov3 = 75;
-    case kIncludeHov3: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_INCLUDE_HOV3_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_exclude_cash_only_tolls_case()) {
-    // bool exclude_cash_only_tolls = 76;
-    case kExcludeCashOnlyTolls: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET: {
-      break;
-    }
-  }
   switch (has_restriction_probability_case()) {
     // uint32 restriction_probability = 77;
     case kRestrictionProbability: {
@@ -6405,8 +7764,40 @@ size_t Costing_Options::ByteSizeLong() const {
       break;
     }
   }
+  switch (has_speed_penalty_factor_case()) {
+    // float speed_penalty_factor = 95;
+    case kSpeedPenaltyFactor: {
+      total_size += 2 + 4;
+      break;
+    }
+    case HAS_SPEED_PENALTY_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_multimodal_start_end_max_distance_case()) {
+    // uint32 multimodal_start_end_max_distance = 96;
+    case kMultimodalStartEndMaxDistance: {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::UInt32Size(
+          this->_internal_multimodal_start_end_max_distance());
+      break;
+    }
+    case HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_low_class_factor_case()) {
+    // float low_class_factor = 97;
+    case kLowClassFactor: {
+      total_size += 2 + 4;
+      break;
+    }
+    case HAS_LOW_CLASS_FACTOR_NOT_SET: {
+      break;
+    }
+  }
   switch (has_non_network_penalty_case()) {
-    // float non_network_penalty = 92;
+    // float non_network_penalty = 200;
     case kNonNetworkPenalty: {
       total_size += 2 + 4;
       break;
@@ -6439,6 +7830,20 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
   filter_operator_ids_.MergeFrom(from.filter_operator_ids_);
   filter_route_ids_.MergeFrom(from.filter_route_ids_);
   exclude_edges_.MergeFrom(from.exclude_edges_);
+  hierarchy_limits_.MergeFrom(from.hierarchy_limits_);
+  cost_factor_edges_.MergeFrom(from.cost_factor_edges_);
+  if (from._internal_hazmat() != 0) {
+    _internal_set_hazmat(from._internal_hazmat());
+  }
+  if (from._internal_wheelchair() != 0) {
+    _internal_set_wheelchair(from._internal_wheelchair());
+  }
+  if (from._internal_bicycle() != 0) {
+    _internal_set_bicycle(from._internal_bicycle());
+  }
+  if (from._internal_ignore_restrictions() != 0) {
+    _internal_set_ignore_restrictions(from._internal_ignore_restrictions());
+  }
   if (from._internal_filter_stop_action() != 0) {
     _internal_set_filter_stop_action(from._internal_filter_stop_action());
   }
@@ -6447,6 +7852,30 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
   }
   if (from._internal_filter_route_action() != 0) {
     _internal_set_filter_route_action(from._internal_filter_route_action());
+  }
+  if (from._internal_ignore_oneways() != 0) {
+    _internal_set_ignore_oneways(from._internal_ignore_oneways());
+  }
+  if (from._internal_ignore_access() != 0) {
+    _internal_set_ignore_access(from._internal_ignore_access());
+  }
+  if (from._internal_shortest() != 0) {
+    _internal_set_shortest(from._internal_shortest());
+  }
+  if (from._internal_exclude_unpaved() != 0) {
+    _internal_set_exclude_unpaved(from._internal_exclude_unpaved());
+  }
+  if (from._internal_include_hot() != 0) {
+    _internal_set_include_hot(from._internal_include_hot());
+  }
+  if (from._internal_include_hov2() != 0) {
+    _internal_set_include_hov2(from._internal_include_hov2());
+  }
+  if (from._internal_include_hov3() != 0) {
+    _internal_set_include_hov3(from._internal_include_hov3());
+  }
+  if (from._internal_exclude_cash_only_tolls() != 0) {
+    _internal_set_exclude_cash_only_tolls(from._internal_exclude_cash_only_tolls());
   }
   if (from._internal_fixed_speed() != 0) {
     _internal_set_fixed_speed(from._internal_fixed_speed());
@@ -6467,12 +7896,30 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
   if (from._internal_ignore_non_vehicular_restrictions() != 0) {
     _internal_set_ignore_non_vehicular_restrictions(from._internal_ignore_non_vehicular_restrictions());
   }
+  if (from._internal_exclude_bridges() != 0) {
+    _internal_set_exclude_bridges(from._internal_exclude_bridges());
+  }
+  if (from._internal_exclude_tunnels() != 0) {
+    _internal_set_exclude_tunnels(from._internal_exclude_tunnels());
+  }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_use_truck_route = from._internal_use_truck_route();
   uint32_t raw_use_truck_route;
   memcpy(&raw_use_truck_route, &tmp_use_truck_route, sizeof(tmp_use_truck_route));
   if (raw_use_truck_route != 0) {
     _internal_set_use_truck_route(from._internal_use_truck_route());
+  }
+  if (from._internal_exclude_tolls() != 0) {
+    _internal_set_exclude_tolls(from._internal_exclude_tolls());
+  }
+  if (from._internal_exclude_highways() != 0) {
+    _internal_set_exclude_highways(from._internal_exclude_highways());
+  }
+  if (from._internal_exclude_ferries() != 0) {
+    _internal_set_exclude_ferries(from._internal_exclude_ferries());
+  }
+  if (from._internal_ignore_construction() != 0) {
+    _internal_set_ignore_construction(from._internal_ignore_construction());
   }
   switch (from.has_maneuver_penalty_case()) {
     case kManeuverPenalty: {
@@ -6780,15 +8227,6 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
   }
-  switch (from.has_hazmat_case()) {
-    case kHazmat: {
-      _internal_set_hazmat(from._internal_hazmat());
-      break;
-    }
-    case HAS_HAZMAT_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_weight_case()) {
     case kWeight: {
       _internal_set_weight(from._internal_weight());
@@ -6840,24 +8278,6 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
     case HAS_CYCLING_SPEED_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_wheelchair_case()) {
-    case kWheelchair: {
-      _internal_set_wheelchair(from._internal_wheelchair());
-      break;
-    }
-    case HAS_WHEELCHAIR_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_bicycle_case()) {
-    case kBicycle: {
-      _internal_set_bicycle(from._internal_bicycle());
-      break;
-    }
-    case HAS_BICYCLE_NOT_SET: {
       break;
     }
   }
@@ -6951,48 +8371,12 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
   }
-  switch (from.has_ignore_restrictions_case()) {
-    case kIgnoreRestrictions: {
-      _internal_set_ignore_restrictions(from._internal_ignore_restrictions());
-      break;
-    }
-    case HAS_IGNORE_RESTRICTIONS_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_ignore_oneways_case()) {
-    case kIgnoreOneways: {
-      _internal_set_ignore_oneways(from._internal_ignore_oneways());
-      break;
-    }
-    case HAS_IGNORE_ONEWAYS_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_ignore_access_case()) {
-    case kIgnoreAccess: {
-      _internal_set_ignore_access(from._internal_ignore_access());
-      break;
-    }
-    case HAS_IGNORE_ACCESS_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_ignore_closures_case()) {
     case kIgnoreClosures: {
       _internal_set_ignore_closures(from._internal_ignore_closures());
       break;
     }
     case HAS_IGNORE_CLOSURES_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_shortest_case()) {
-    case kShortest: {
-      _internal_set_shortest(from._internal_shortest());
-      break;
-    }
-    case HAS_SHORTEST_NOT_SET: {
       break;
     }
   }
@@ -7059,51 +8443,6 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
   }
-  switch (from.has_exclude_unpaved_case()) {
-    case kExcludeUnpaved: {
-      _internal_set_exclude_unpaved(from._internal_exclude_unpaved());
-      break;
-    }
-    case HAS_EXCLUDE_UNPAVED_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_include_hot_case()) {
-    case kIncludeHot: {
-      _internal_set_include_hot(from._internal_include_hot());
-      break;
-    }
-    case HAS_INCLUDE_HOT_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_include_hov2_case()) {
-    case kIncludeHov2: {
-      _internal_set_include_hov2(from._internal_include_hov2());
-      break;
-    }
-    case HAS_INCLUDE_HOV2_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_include_hov3_case()) {
-    case kIncludeHov3: {
-      _internal_set_include_hov3(from._internal_include_hov3());
-      break;
-    }
-    case HAS_INCLUDE_HOV3_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_exclude_cash_only_tolls_case()) {
-    case kExcludeCashOnlyTolls: {
-      _internal_set_exclude_cash_only_tolls(from._internal_exclude_cash_only_tolls());
-      break;
-    }
-    case HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_restriction_probability_case()) {
     case kRestrictionProbability: {
       _internal_set_restriction_probability(from._internal_restriction_probability());
@@ -7128,6 +8467,33 @@ void Costing_Options::MergeFrom(const Costing_Options& from) {
       break;
     }
     case HAS_HGV_NO_ACCESS_PENALTY_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_speed_penalty_factor_case()) {
+    case kSpeedPenaltyFactor: {
+      _internal_set_speed_penalty_factor(from._internal_speed_penalty_factor());
+      break;
+    }
+    case HAS_SPEED_PENALTY_FACTOR_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_multimodal_start_end_max_distance_case()) {
+    case kMultimodalStartEndMaxDistance: {
+      _internal_set_multimodal_start_end_max_distance(from._internal_multimodal_start_end_max_distance());
+      break;
+    }
+    case HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_low_class_factor_case()) {
+    case kLowClassFactor: {
+      _internal_set_low_class_factor(from._internal_low_class_factor());
+      break;
+    }
+    case HAS_LOW_CLASS_FACTOR_NOT_SET: {
       break;
     }
   }
@@ -7161,12 +8527,14 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   filter_operator_ids_.InternalSwap(&other->filter_operator_ids_);
   filter_route_ids_.InternalSwap(&other->filter_route_ids_);
   exclude_edges_.InternalSwap(&other->exclude_edges_);
+  hierarchy_limits_.InternalSwap(&other->hierarchy_limits_);
+  cost_factor_edges_.InternalSwap(&other->cost_factor_edges_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Costing_Options, use_truck_route_)
-      + sizeof(Costing_Options::use_truck_route_)
-      - PROTOBUF_FIELD_OFFSET(Costing_Options, filter_stop_action_)>(
-          reinterpret_cast<char*>(&filter_stop_action_),
-          reinterpret_cast<char*>(&other->filter_stop_action_));
+      PROTOBUF_FIELD_OFFSET(Costing_Options, ignore_construction_)
+      + sizeof(Costing_Options::ignore_construction_)
+      - PROTOBUF_FIELD_OFFSET(Costing_Options, hazmat_)>(
+          reinterpret_cast<char*>(&hazmat_),
+          reinterpret_cast<char*>(&other->hazmat_));
   swap(has_maneuver_penalty_, other->has_maneuver_penalty_);
   swap(has_destination_only_penalty_, other->has_destination_only_penalty_);
   swap(has_gate_cost_, other->has_gate_cost_);
@@ -7201,15 +8569,12 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(has_use_primary_, other->has_use_primary_);
   swap(has_use_trails_, other->has_use_trails_);
   swap(has_low_class_penalty_, other->has_low_class_penalty_);
-  swap(has_hazmat_, other->has_hazmat_);
   swap(has_weight_, other->has_weight_);
   swap(has_axle_load_, other->has_axle_load_);
   swap(has_height_, other->has_height_);
   swap(has_width_, other->has_width_);
   swap(has_length_, other->has_length_);
   swap(has_cycling_speed_, other->has_cycling_speed_);
-  swap(has_wheelchair_, other->has_wheelchair_);
-  swap(has_bicycle_, other->has_bicycle_);
   swap(has_use_bus_, other->has_use_bus_);
   swap(has_use_rail_, other->has_use_rail_);
   swap(has_use_transfers_, other->has_use_transfers_);
@@ -7220,11 +8585,7 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(has_bike_share_penalty_, other->has_bike_share_penalty_);
   swap(has_rail_ferry_cost_, other->has_rail_ferry_cost_);
   swap(has_use_rail_ferry_, other->has_use_rail_ferry_);
-  swap(has_ignore_restrictions_, other->has_ignore_restrictions_);
-  swap(has_ignore_oneways_, other->has_ignore_oneways_);
-  swap(has_ignore_access_, other->has_ignore_access_);
   swap(has_ignore_closures_, other->has_ignore_closures_);
-  swap(has_shortest_, other->has_shortest_);
   swap(has_service_penalty_, other->has_service_penalty_);
   swap(has_use_tracks_, other->has_use_tracks_);
   swap(has_use_distance_, other->has_use_distance_);
@@ -7232,14 +8593,12 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(has_service_factor_, other->has_service_factor_);
   swap(has_closure_factor_, other->has_closure_factor_);
   swap(has_private_access_penalty_, other->has_private_access_penalty_);
-  swap(has_exclude_unpaved_, other->has_exclude_unpaved_);
-  swap(has_include_hot_, other->has_include_hot_);
-  swap(has_include_hov2_, other->has_include_hov2_);
-  swap(has_include_hov3_, other->has_include_hov3_);
-  swap(has_exclude_cash_only_tolls_, other->has_exclude_cash_only_tolls_);
   swap(has_restriction_probability_, other->has_restriction_probability_);
   swap(has_elevator_penalty_, other->has_elevator_penalty_);
   swap(has_hgv_no_access_penalty_, other->has_hgv_no_access_penalty_);
+  swap(has_speed_penalty_factor_, other->has_speed_penalty_factor_);
+  swap(has_multimodal_start_end_max_distance_, other->has_multimodal_start_end_max_distance_);
+  swap(has_low_class_factor_, other->has_low_class_factor_);
   swap(has_non_network_penalty_, other->has_non_network_penalty_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   swap(_oneof_case_[1], other->_oneof_case_[1]);
@@ -7306,15 +8665,6 @@ void Costing_Options::InternalSwap(Costing_Options* other) {
   swap(_oneof_case_[62], other->_oneof_case_[62]);
   swap(_oneof_case_[63], other->_oneof_case_[63]);
   swap(_oneof_case_[64], other->_oneof_case_[64]);
-  swap(_oneof_case_[65], other->_oneof_case_[65]);
-  swap(_oneof_case_[66], other->_oneof_case_[66]);
-  swap(_oneof_case_[67], other->_oneof_case_[67]);
-  swap(_oneof_case_[68], other->_oneof_case_[68]);
-  swap(_oneof_case_[69], other->_oneof_case_[69]);
-  swap(_oneof_case_[70], other->_oneof_case_[70]);
-  swap(_oneof_case_[71], other->_oneof_case_[71]);
-  swap(_oneof_case_[72], other->_oneof_case_[72]);
-  swap(_oneof_case_[73], other->_oneof_case_[73]);
 }
 
 std::string Costing_Options::GetTypeName() const {
@@ -7721,6 +9071,292 @@ std::string Costing::GetTypeName() const {
 
 // ===================================================================
 
+class LinearFeatureCost::_Internal {
+ public:
+};
+
+void LinearFeatureCost::clear_locations() {
+  locations_.Clear();
+}
+void LinearFeatureCost::clear_shape() {
+  shape_.Clear();
+}
+LinearFeatureCost::LinearFeatureCost(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  locations_(arena),
+  shape_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.LinearFeatureCost)
+}
+LinearFeatureCost::LinearFeatureCost(const LinearFeatureCost& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      locations_(from.locations_),
+      shape_(from.shape_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&cost_factor_, &from.cost_factor_,
+    static_cast<size_t>(reinterpret_cast<char*>(&ignore_access_restrictions_) -
+    reinterpret_cast<char*>(&cost_factor_)) + sizeof(ignore_access_restrictions_));
+  // @@protoc_insertion_point(copy_constructor:valhalla.LinearFeatureCost)
+}
+
+inline void LinearFeatureCost::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&cost_factor_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ignore_access_restrictions_) -
+    reinterpret_cast<char*>(&cost_factor_)) + sizeof(ignore_access_restrictions_));
+}
+
+LinearFeatureCost::~LinearFeatureCost() {
+  // @@protoc_insertion_point(destructor:valhalla.LinearFeatureCost)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void LinearFeatureCost::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void LinearFeatureCost::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void LinearFeatureCost::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.LinearFeatureCost)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  locations_.Clear();
+  shape_.Clear();
+  ::memset(&cost_factor_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&ignore_access_restrictions_) -
+      reinterpret_cast<char*>(&cost_factor_)) + sizeof(ignore_access_restrictions_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* LinearFeatureCost::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .valhalla.Location locations = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_locations(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .valhalla.Location shape = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_shape(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // double cost_factor = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
+          cost_factor_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool ignore_access_restrictions = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          ignore_access_restrictions_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* LinearFeatureCost::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.LinearFeatureCost)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .valhalla.Location locations = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_locations_size()); i < n; i++) {
+    const auto& repfield = this->_internal_locations(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .valhalla.Location shape = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_shape_size()); i < n; i++) {
+    const auto& repfield = this->_internal_shape(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // double cost_factor = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_cost_factor = this->_internal_cost_factor();
+  uint64_t raw_cost_factor;
+  memcpy(&raw_cost_factor, &tmp_cost_factor, sizeof(tmp_cost_factor));
+  if (raw_cost_factor != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_cost_factor(), target);
+  }
+
+  // bool ignore_access_restrictions = 4;
+  if (this->_internal_ignore_access_restrictions() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_ignore_access_restrictions(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.LinearFeatureCost)
+  return target;
+}
+
+size_t LinearFeatureCost::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.LinearFeatureCost)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .valhalla.Location locations = 1;
+  total_size += 1UL * this->_internal_locations_size();
+  for (const auto& msg : this->locations_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .valhalla.Location shape = 2;
+  total_size += 1UL * this->_internal_shape_size();
+  for (const auto& msg : this->shape_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // double cost_factor = 3;
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_cost_factor = this->_internal_cost_factor();
+  uint64_t raw_cost_factor;
+  memcpy(&raw_cost_factor, &tmp_cost_factor, sizeof(tmp_cost_factor));
+  if (raw_cost_factor != 0) {
+    total_size += 1 + 8;
+  }
+
+  // bool ignore_access_restrictions = 4;
+  if (this->_internal_ignore_access_restrictions() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LinearFeatureCost::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const LinearFeatureCost*>(
+      &from));
+}
+
+void LinearFeatureCost::MergeFrom(const LinearFeatureCost& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.LinearFeatureCost)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  locations_.MergeFrom(from.locations_);
+  shape_.MergeFrom(from.shape_);
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_cost_factor = from._internal_cost_factor();
+  uint64_t raw_cost_factor;
+  memcpy(&raw_cost_factor, &tmp_cost_factor, sizeof(tmp_cost_factor));
+  if (raw_cost_factor != 0) {
+    _internal_set_cost_factor(from._internal_cost_factor());
+  }
+  if (from._internal_ignore_access_restrictions() != 0) {
+    _internal_set_ignore_access_restrictions(from._internal_ignore_access_restrictions());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void LinearFeatureCost::CopyFrom(const LinearFeatureCost& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.LinearFeatureCost)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LinearFeatureCost::IsInitialized() const {
+  return true;
+}
+
+void LinearFeatureCost::InternalSwap(LinearFeatureCost* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  locations_.InternalSwap(&other->locations_);
+  shape_.InternalSwap(&other->shape_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(LinearFeatureCost, ignore_access_restrictions_)
+      + sizeof(LinearFeatureCost::ignore_access_restrictions_)
+      - PROTOBUF_FIELD_OFFSET(LinearFeatureCost, cost_factor_)>(
+          reinterpret_cast<char*>(&cost_factor_),
+          reinterpret_cast<char*>(&other->cost_factor_));
+}
+
+std::string LinearFeatureCost::GetTypeName() const {
+  return "valhalla.LinearFeatureCost";
+}
+
+
+// ===================================================================
+
 Options_CostingsEntry_DoNotUse::Options_CostingsEntry_DoNotUse() {}
 Options_CostingsEntry_DoNotUse::Options_CostingsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
     : SuperType(arena) {}
@@ -7742,11 +9378,21 @@ void Options_CustomLocalesEntry_DoNotUse::MergeFrom(const Options_CustomLocalesE
 class Options::_Internal {
  public:
   static const ::valhalla::PbfFieldSelector& pbf_field_selector(const Options* msg);
+  static const ::valhalla::Tile& tile_xyz(const Options* msg);
+  static const ::valhalla::TileOptions& tile_options(const Options* msg);
 };
 
 const ::valhalla::PbfFieldSelector&
 Options::_Internal::pbf_field_selector(const Options* msg) {
   return *msg->pbf_field_selector_;
+}
+const ::valhalla::Tile&
+Options::_Internal::tile_xyz(const Options* msg) {
+  return *msg->tile_xyz_;
+}
+const ::valhalla::TileOptions&
+Options::_Internal::tile_options(const Options* msg) {
+  return *msg->tile_options_;
 }
 void Options::clear_locations() {
   locations_.Clear();
@@ -7781,6 +9427,8 @@ Options::Options(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   recostings_(arena),
   exclude_polygons_(arena),
   expansion_properties_(arena),
+  cost_factor_lines_(arena),
+  exclude_levels_(arena),
   customlocales_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.Options)
@@ -7797,7 +9445,9 @@ Options::Options(const Options& from)
       filter_attributes_(from.filter_attributes_),
       recostings_(from.recostings_),
       exclude_polygons_(from.exclude_polygons_),
-      expansion_properties_(from.expansion_properties_) {
+      expansion_properties_(from.expansion_properties_),
+      cost_factor_lines_(from.cost_factor_lines_),
+      exclude_levels_(from.exclude_levels_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   costings_.MergeFrom(from.costings_);
   customlocales_.MergeFrom(from.customlocales_);
@@ -7806,9 +9456,19 @@ Options::Options(const Options& from)
   } else {
     pbf_field_selector_ = nullptr;
   }
+  if (from._internal_has_tile_xyz()) {
+    tile_xyz_ = new ::valhalla::Tile(*from.tile_xyz_);
+  } else {
+    tile_xyz_ = nullptr;
+  }
+  if (from._internal_has_tile_options()) {
+    tile_options_ = new ::valhalla::TileOptions(*from.tile_options_);
+  } else {
+    tile_options_ = nullptr;
+  }
   ::memcpy(&units_, &from.units_,
-    static_cast<size_t>(reinterpret_cast<char*>(&elevation_interval_) -
-    reinterpret_cast<char*>(&units_)) + sizeof(elevation_interval_));
+    static_cast<size_t>(reinterpret_cast<char*>(&expansion_max_distance_) -
+    reinterpret_cast<char*>(&units_)) + sizeof(expansion_max_distance_));
   clear_has_has_language();
   switch (from.has_language_case()) {
     case kLanguage: {
@@ -7849,16 +9509,6 @@ Options::Options(const Options& from)
       break;
     }
   }
-  clear_has_has_range();
-  switch (from.has_range_case()) {
-    case kRange: {
-      _internal_set_range(from._internal_range());
-      break;
-    }
-    case HAS_RANGE_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_verbose();
   switch (from.has_verbose_case()) {
     case kVerbose: {
@@ -7889,16 +9539,6 @@ Options::Options(const Options& from)
       break;
     }
   }
-  clear_has_has_polygons();
-  switch (from.has_polygons_case()) {
-    case kPolygons: {
-      _internal_set_polygons(from._internal_polygons());
-      break;
-    }
-    case HAS_POLYGONS_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_denoise();
   switch (from.has_denoise_case()) {
     case kDenoise: {
@@ -7916,16 +9556,6 @@ Options::Options(const Options& from)
       break;
     }
     case HAS_GENERALIZE_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_show_locations();
-  switch (from.has_show_locations_case()) {
-    case kShowLocations: {
-      _internal_set_show_locations(from._internal_show_locations());
-      break;
-    }
-    case HAS_SHOW_LOCATIONS_NOT_SET: {
       break;
     }
   }
@@ -7969,16 +9599,6 @@ Options::Options(const Options& from)
       break;
     }
   }
-  clear_has_has_use_timestamps();
-  switch (from.has_use_timestamps_case()) {
-    case kUseTimestamps: {
-      _internal_set_use_timestamps(from._internal_use_timestamps());
-      break;
-    }
-    case HAS_USE_TIMESTAMPS_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_shape_format();
   switch (from.has_shape_format_case()) {
     case kShapeFormat: {
@@ -8009,16 +9629,6 @@ Options::Options(const Options& from)
       break;
     }
   }
-  clear_has_has_guidance_views();
-  switch (from.has_guidance_views_case()) {
-    case kGuidanceViews: {
-      _internal_set_guidance_views(from._internal_guidance_views());
-      break;
-    }
-    case HAS_GUIDANCE_VIEWS_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_height_precision();
   switch (from.has_height_precision_case()) {
     case kHeightPrecision: {
@@ -8039,26 +9649,6 @@ Options::Options(const Options& from)
       break;
     }
   }
-  clear_has_has_linear_references();
-  switch (from.has_linear_references_case()) {
-    case kLinearReferences: {
-      _internal_set_linear_references(from._internal_linear_references());
-      break;
-    }
-    case HAS_LINEAR_REFERENCES_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_prioritize_bidirectional();
-  switch (from.has_prioritize_bidirectional_case()) {
-    case kPrioritizeBidirectional: {
-      _internal_set_prioritize_bidirectional(from._internal_prioritize_bidirectional());
-      break;
-    }
-    case HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET: {
-      break;
-    }
-  }
   clear_has_has_expansion_action();
   switch (from.has_expansion_action_case()) {
     case kExpansionAction: {
@@ -8066,16 +9656,6 @@ Options::Options(const Options& from)
       break;
     }
     case HAS_EXPANSION_ACTION_NOT_SET: {
-      break;
-    }
-  }
-  clear_has_has_skip_opposites();
-  switch (from.has_skip_opposites_case()) {
-    case kSkipOpposites: {
-      _internal_set_skip_opposites(from._internal_skip_opposites());
-      break;
-    }
-    case HAS_SKIP_OPPOSITES_NOT_SET: {
       break;
     }
   }
@@ -8095,35 +9675,27 @@ Options::Options(const Options& from)
 inline void Options::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&pbf_field_selector_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&elevation_interval_) -
-    reinterpret_cast<char*>(&pbf_field_selector_)) + sizeof(elevation_interval_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&expansion_max_distance_) -
+    reinterpret_cast<char*>(&pbf_field_selector_)) + sizeof(expansion_max_distance_));
 clear_has_has_language();
 clear_has_has_id();
 clear_has_has_jsonp();
 clear_has_has_encoded_polyline();
-clear_has_has_range();
 clear_has_has_verbose();
 clear_has_has_date_time();
 clear_has_has_resample_distance();
-clear_has_has_polygons();
 clear_has_has_denoise();
 clear_has_has_generalize();
-clear_has_has_show_locations();
 clear_has_has_gps_accuracy();
 clear_has_has_search_radius();
 clear_has_has_turn_penalty_factor();
 clear_has_has_breakage_distance();
-clear_has_has_use_timestamps();
 clear_has_has_shape_format();
 clear_has_has_alternates();
 clear_has_has_interpolation_distance();
-clear_has_has_guidance_views();
 clear_has_has_height_precision();
 clear_has_has_roundabout_exits();
-clear_has_has_linear_references();
-clear_has_has_prioritize_bidirectional();
 clear_has_has_expansion_action();
-clear_has_has_skip_opposites();
 clear_has_has_matrix_locations();
 }
 
@@ -8141,6 +9713,8 @@ inline void Options::SharedDtor() {
   costings_.Destruct();
   customlocales_.Destruct();
   if (this != internal_default_instance()) delete pbf_field_selector_;
+  if (this != internal_default_instance()) delete tile_xyz_;
+  if (this != internal_default_instance()) delete tile_options_;
   if (has_has_language()) {
     clear_has_language();
   }
@@ -8153,9 +9727,6 @@ inline void Options::SharedDtor() {
   if (has_has_encoded_polyline()) {
     clear_has_encoded_polyline();
   }
-  if (has_has_range()) {
-    clear_has_range();
-  }
   if (has_has_verbose()) {
     clear_has_verbose();
   }
@@ -8165,17 +9736,11 @@ inline void Options::SharedDtor() {
   if (has_has_resample_distance()) {
     clear_has_resample_distance();
   }
-  if (has_has_polygons()) {
-    clear_has_polygons();
-  }
   if (has_has_denoise()) {
     clear_has_denoise();
   }
   if (has_has_generalize()) {
     clear_has_generalize();
-  }
-  if (has_has_show_locations()) {
-    clear_has_show_locations();
   }
   if (has_has_gps_accuracy()) {
     clear_has_gps_accuracy();
@@ -8189,9 +9754,6 @@ inline void Options::SharedDtor() {
   if (has_has_breakage_distance()) {
     clear_has_breakage_distance();
   }
-  if (has_has_use_timestamps()) {
-    clear_has_use_timestamps();
-  }
   if (has_has_shape_format()) {
     clear_has_shape_format();
   }
@@ -8201,26 +9763,14 @@ inline void Options::SharedDtor() {
   if (has_has_interpolation_distance()) {
     clear_has_interpolation_distance();
   }
-  if (has_has_guidance_views()) {
-    clear_has_guidance_views();
-  }
   if (has_has_height_precision()) {
     clear_has_height_precision();
   }
   if (has_has_roundabout_exits()) {
     clear_has_roundabout_exits();
   }
-  if (has_has_linear_references()) {
-    clear_has_linear_references();
-  }
-  if (has_has_prioritize_bidirectional()) {
-    clear_has_prioritize_bidirectional();
-  }
   if (has_has_expansion_action()) {
     clear_has_expansion_action();
-  }
-  if (has_has_skip_opposites()) {
-    clear_has_skip_opposites();
   }
   if (has_has_matrix_locations()) {
     clear_has_matrix_locations();
@@ -8287,20 +9837,6 @@ void Options::clear_has_encoded_polyline() {
   _oneof_case_[3] = HAS_ENCODED_POLYLINE_NOT_SET;
 }
 
-void Options::clear_has_range() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_range_case()) {
-    case kRange: {
-      // No need to clear
-      break;
-    }
-    case HAS_RANGE_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[4] = HAS_RANGE_NOT_SET;
-}
-
 void Options::clear_has_verbose() {
 // @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
   switch (has_verbose_case()) {
@@ -8312,7 +9848,7 @@ void Options::clear_has_verbose() {
       break;
     }
   }
-  _oneof_case_[5] = HAS_VERBOSE_NOT_SET;
+  _oneof_case_[4] = HAS_VERBOSE_NOT_SET;
 }
 
 void Options::clear_has_date_time() {
@@ -8326,7 +9862,7 @@ void Options::clear_has_date_time() {
       break;
     }
   }
-  _oneof_case_[6] = HAS_DATE_TIME_NOT_SET;
+  _oneof_case_[5] = HAS_DATE_TIME_NOT_SET;
 }
 
 void Options::clear_has_resample_distance() {
@@ -8340,21 +9876,7 @@ void Options::clear_has_resample_distance() {
       break;
     }
   }
-  _oneof_case_[7] = HAS_RESAMPLE_DISTANCE_NOT_SET;
-}
-
-void Options::clear_has_polygons() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_polygons_case()) {
-    case kPolygons: {
-      // No need to clear
-      break;
-    }
-    case HAS_POLYGONS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[8] = HAS_POLYGONS_NOT_SET;
+  _oneof_case_[6] = HAS_RESAMPLE_DISTANCE_NOT_SET;
 }
 
 void Options::clear_has_denoise() {
@@ -8368,7 +9890,7 @@ void Options::clear_has_denoise() {
       break;
     }
   }
-  _oneof_case_[9] = HAS_DENOISE_NOT_SET;
+  _oneof_case_[7] = HAS_DENOISE_NOT_SET;
 }
 
 void Options::clear_has_generalize() {
@@ -8382,21 +9904,7 @@ void Options::clear_has_generalize() {
       break;
     }
   }
-  _oneof_case_[10] = HAS_GENERALIZE_NOT_SET;
-}
-
-void Options::clear_has_show_locations() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_show_locations_case()) {
-    case kShowLocations: {
-      // No need to clear
-      break;
-    }
-    case HAS_SHOW_LOCATIONS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[11] = HAS_SHOW_LOCATIONS_NOT_SET;
+  _oneof_case_[8] = HAS_GENERALIZE_NOT_SET;
 }
 
 void Options::clear_has_gps_accuracy() {
@@ -8410,7 +9918,7 @@ void Options::clear_has_gps_accuracy() {
       break;
     }
   }
-  _oneof_case_[12] = HAS_GPS_ACCURACY_NOT_SET;
+  _oneof_case_[9] = HAS_GPS_ACCURACY_NOT_SET;
 }
 
 void Options::clear_has_search_radius() {
@@ -8424,7 +9932,7 @@ void Options::clear_has_search_radius() {
       break;
     }
   }
-  _oneof_case_[13] = HAS_SEARCH_RADIUS_NOT_SET;
+  _oneof_case_[10] = HAS_SEARCH_RADIUS_NOT_SET;
 }
 
 void Options::clear_has_turn_penalty_factor() {
@@ -8438,7 +9946,7 @@ void Options::clear_has_turn_penalty_factor() {
       break;
     }
   }
-  _oneof_case_[14] = HAS_TURN_PENALTY_FACTOR_NOT_SET;
+  _oneof_case_[11] = HAS_TURN_PENALTY_FACTOR_NOT_SET;
 }
 
 void Options::clear_has_breakage_distance() {
@@ -8452,21 +9960,7 @@ void Options::clear_has_breakage_distance() {
       break;
     }
   }
-  _oneof_case_[15] = HAS_BREAKAGE_DISTANCE_NOT_SET;
-}
-
-void Options::clear_has_use_timestamps() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_use_timestamps_case()) {
-    case kUseTimestamps: {
-      // No need to clear
-      break;
-    }
-    case HAS_USE_TIMESTAMPS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[16] = HAS_USE_TIMESTAMPS_NOT_SET;
+  _oneof_case_[12] = HAS_BREAKAGE_DISTANCE_NOT_SET;
 }
 
 void Options::clear_has_shape_format() {
@@ -8480,7 +9974,7 @@ void Options::clear_has_shape_format() {
       break;
     }
   }
-  _oneof_case_[17] = HAS_SHAPE_FORMAT_NOT_SET;
+  _oneof_case_[13] = HAS_SHAPE_FORMAT_NOT_SET;
 }
 
 void Options::clear_has_alternates() {
@@ -8494,7 +9988,7 @@ void Options::clear_has_alternates() {
       break;
     }
   }
-  _oneof_case_[18] = HAS_ALTERNATES_NOT_SET;
+  _oneof_case_[14] = HAS_ALTERNATES_NOT_SET;
 }
 
 void Options::clear_has_interpolation_distance() {
@@ -8508,21 +10002,7 @@ void Options::clear_has_interpolation_distance() {
       break;
     }
   }
-  _oneof_case_[19] = HAS_INTERPOLATION_DISTANCE_NOT_SET;
-}
-
-void Options::clear_has_guidance_views() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_guidance_views_case()) {
-    case kGuidanceViews: {
-      // No need to clear
-      break;
-    }
-    case HAS_GUIDANCE_VIEWS_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[20] = HAS_GUIDANCE_VIEWS_NOT_SET;
+  _oneof_case_[15] = HAS_INTERPOLATION_DISTANCE_NOT_SET;
 }
 
 void Options::clear_has_height_precision() {
@@ -8536,7 +10016,7 @@ void Options::clear_has_height_precision() {
       break;
     }
   }
-  _oneof_case_[21] = HAS_HEIGHT_PRECISION_NOT_SET;
+  _oneof_case_[16] = HAS_HEIGHT_PRECISION_NOT_SET;
 }
 
 void Options::clear_has_roundabout_exits() {
@@ -8550,35 +10030,7 @@ void Options::clear_has_roundabout_exits() {
       break;
     }
   }
-  _oneof_case_[22] = HAS_ROUNDABOUT_EXITS_NOT_SET;
-}
-
-void Options::clear_has_linear_references() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_linear_references_case()) {
-    case kLinearReferences: {
-      // No need to clear
-      break;
-    }
-    case HAS_LINEAR_REFERENCES_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[23] = HAS_LINEAR_REFERENCES_NOT_SET;
-}
-
-void Options::clear_has_prioritize_bidirectional() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_prioritize_bidirectional_case()) {
-    case kPrioritizeBidirectional: {
-      // No need to clear
-      break;
-    }
-    case HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[24] = HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET;
+  _oneof_case_[17] = HAS_ROUNDABOUT_EXITS_NOT_SET;
 }
 
 void Options::clear_has_expansion_action() {
@@ -8592,21 +10044,7 @@ void Options::clear_has_expansion_action() {
       break;
     }
   }
-  _oneof_case_[25] = HAS_EXPANSION_ACTION_NOT_SET;
-}
-
-void Options::clear_has_skip_opposites() {
-// @@protoc_insertion_point(one_of_clear_start:valhalla.Options)
-  switch (has_skip_opposites_case()) {
-    case kSkipOpposites: {
-      // No need to clear
-      break;
-    }
-    case HAS_SKIP_OPPOSITES_NOT_SET: {
-      break;
-    }
-  }
-  _oneof_case_[26] = HAS_SKIP_OPPOSITES_NOT_SET;
+  _oneof_case_[18] = HAS_EXPANSION_ACTION_NOT_SET;
 }
 
 void Options::clear_has_matrix_locations() {
@@ -8620,7 +10058,7 @@ void Options::clear_has_matrix_locations() {
       break;
     }
   }
-  _oneof_case_[27] = HAS_MATRIX_LOCATIONS_NOT_SET;
+  _oneof_case_[19] = HAS_MATRIX_LOCATIONS_NOT_SET;
 }
 
 
@@ -8642,41 +10080,43 @@ void Options::Clear() {
   recostings_.Clear();
   exclude_polygons_.Clear();
   expansion_properties_.Clear();
+  cost_factor_lines_.Clear();
+  exclude_levels_.Clear();
   customlocales_.Clear();
   if (GetArenaForAllocation() == nullptr && pbf_field_selector_ != nullptr) {
     delete pbf_field_selector_;
   }
   pbf_field_selector_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && tile_xyz_ != nullptr) {
+    delete tile_xyz_;
+  }
+  tile_xyz_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && tile_options_ != nullptr) {
+    delete tile_options_;
+  }
+  tile_options_ = nullptr;
   ::memset(&units_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&elevation_interval_) -
-      reinterpret_cast<char*>(&units_)) + sizeof(elevation_interval_));
+      reinterpret_cast<char*>(&expansion_max_distance_) -
+      reinterpret_cast<char*>(&units_)) + sizeof(expansion_max_distance_));
   clear_has_language();
   clear_has_id();
   clear_has_jsonp();
   clear_has_encoded_polyline();
-  clear_has_range();
   clear_has_verbose();
   clear_has_date_time();
   clear_has_resample_distance();
-  clear_has_polygons();
   clear_has_denoise();
   clear_has_generalize();
-  clear_has_show_locations();
   clear_has_gps_accuracy();
   clear_has_search_radius();
   clear_has_turn_penalty_factor();
   clear_has_breakage_distance();
-  clear_has_use_timestamps();
   clear_has_shape_format();
   clear_has_alternates();
   clear_has_interpolation_distance();
-  clear_has_guidance_views();
   clear_has_height_precision();
   clear_has_roundabout_exits();
-  clear_has_linear_references();
-  clear_has_prioritize_bidirectional();
   clear_has_expansion_action();
-  clear_has_skip_opposites();
   clear_has_matrix_locations();
   _internal_metadata_.Clear<std::string>();
 }
@@ -8734,7 +10174,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
-      // string jsonp = 6;
+      // string jsonp = 6 [deprecated = true];
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_jsonp();
@@ -8766,7 +10206,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool range = 10;
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          _internal_set_range(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          range_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8909,7 +10349,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool polygons = 23;
       case 23:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
-          _internal_set_polygons(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          polygons_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8933,7 +10373,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool show_locations = 26;
       case 26:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
-          _internal_set_show_locations(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          show_locations_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9019,7 +10459,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool use_timestamps = 37;
       case 37:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _internal_set_use_timestamps(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          use_timestamps_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9052,7 +10492,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool guidance_views = 41;
       case 41:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
-          _internal_set_guidance_views(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          guidance_views_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9076,7 +10516,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool linear_references = 45;
       case 45:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
-          _internal_set_linear_references(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          linear_references_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9110,7 +10550,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool prioritize_bidirectional = 48;
       case 48:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
-          _internal_set_prioritize_bidirectional(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          prioritize_bidirectional_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9127,7 +10567,7 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       // bool skip_opposites = 50;
       case 50:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
-          _internal_set_skip_opposites(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          skip_opposites_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9196,6 +10636,81 @@ const char* Options::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       case 58:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
           dedupe_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool admin_crossings = 59;
+      case 59:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 216)) {
+          admin_crossings_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool turn_lanes = 60;
+      case 60:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+          turn_lanes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .valhalla.LinearFeatureCost cost_factor_lines = 61;
+      case 61:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 234)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_cost_factor_lines(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<490>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.Options.ReverseTimeTracking reverse_time_tracking = 62;
+      case 62:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 240)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_reverse_time_tracking(static_cast<::valhalla::Options_ReverseTimeTracking>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.Tile tile_xyz = 63;
+      case 63:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 250)) {
+          ptr = ctx->ParseMessage(_internal_mutable_tile_xyz(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.TileOptions tile_options = 64;
+      case 64:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 2)) {
+          ptr = ctx->ParseMessage(_internal_mutable_tile_options(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .valhalla.Levels exclude_levels = 65;
+      case 65:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_exclude_levels(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<522>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 expansion_max_distance = 66;
+      case 66:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          expansion_max_distance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9283,7 +10798,7 @@ uint8_t* Options::_InternalSerialize(
         5, this->_internal_id(), target);
   }
 
-  // string jsonp = 6;
+  // string jsonp = 6 [deprecated = true];
   if (_internal_has_jsonp()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_jsonp().data(), static_cast<int>(this->_internal_jsonp().length()),
@@ -9311,7 +10826,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool range = 10;
-  if (_internal_has_range()) {
+  if (this->_internal_range() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_range(), target);
   }
@@ -9418,7 +10933,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool polygons = 23;
-  if (_internal_has_polygons()) {
+  if (this->_internal_polygons() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(23, this->_internal_polygons(), target);
   }
@@ -9436,7 +10951,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool show_locations = 26;
-  if (_internal_has_show_locations()) {
+  if (this->_internal_show_locations() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(26, this->_internal_show_locations(), target);
   }
@@ -9498,7 +11013,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool use_timestamps = 37;
-  if (_internal_has_use_timestamps()) {
+  if (this->_internal_use_timestamps() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(37, this->_internal_use_timestamps(), target);
   }
@@ -9523,7 +11038,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool guidance_views = 41;
-  if (_internal_has_guidance_views()) {
+  if (this->_internal_guidance_views() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(41, this->_internal_guidance_views(), target);
   }
@@ -9541,7 +11056,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool linear_references = 45;
-  if (_internal_has_linear_references()) {
+  if (this->_internal_linear_references() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(45, this->_internal_linear_references(), target);
   }
@@ -9563,7 +11078,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool prioritize_bidirectional = 48;
-  if (_internal_has_prioritize_bidirectional()) {
+  if (this->_internal_prioritize_bidirectional() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(48, this->_internal_prioritize_bidirectional(), target);
   }
@@ -9576,7 +11091,7 @@ uint8_t* Options::_InternalSerialize(
   }
 
   // bool skip_opposites = 50;
-  if (_internal_has_skip_opposites()) {
+  if (this->_internal_skip_opposites() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(50, this->_internal_skip_opposites(), target);
   }
@@ -9635,6 +11150,61 @@ uint8_t* Options::_InternalSerialize(
   if (this->_internal_dedupe() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(58, this->_internal_dedupe(), target);
+  }
+
+  // bool admin_crossings = 59;
+  if (this->_internal_admin_crossings() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(59, this->_internal_admin_crossings(), target);
+  }
+
+  // bool turn_lanes = 60;
+  if (this->_internal_turn_lanes() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(60, this->_internal_turn_lanes(), target);
+  }
+
+  // repeated .valhalla.LinearFeatureCost cost_factor_lines = 61;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_cost_factor_lines_size()); i < n; i++) {
+    const auto& repfield = this->_internal_cost_factor_lines(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(61, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // .valhalla.Options.ReverseTimeTracking reverse_time_tracking = 62;
+  if (this->_internal_reverse_time_tracking() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      62, this->_internal_reverse_time_tracking(), target);
+  }
+
+  // .valhalla.Tile tile_xyz = 63;
+  if (this->_internal_has_tile_xyz()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(63, _Internal::tile_xyz(this),
+        _Internal::tile_xyz(this).GetCachedSize(), target, stream);
+  }
+
+  // .valhalla.TileOptions tile_options = 64;
+  if (this->_internal_has_tile_options()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(64, _Internal::tile_options(this),
+        _Internal::tile_options(this).GetCachedSize(), target, stream);
+  }
+
+  // repeated .valhalla.Levels exclude_levels = 65;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_exclude_levels_size()); i < n; i++) {
+    const auto& repfield = this->_internal_exclude_levels(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(65, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // uint32 expansion_max_distance = 66;
+  if (this->_internal_expansion_max_distance() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(66, this->_internal_expansion_max_distance(), target);
   }
 
   // map<string, string> customLocales = 200;
@@ -9780,6 +11350,20 @@ size_t Options::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated .valhalla.LinearFeatureCost cost_factor_lines = 61;
+  total_size += 2UL * this->_internal_cost_factor_lines_size();
+  for (const auto& msg : this->cost_factor_lines_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .valhalla.Levels exclude_levels = 65;
+  total_size += 2UL * this->_internal_exclude_levels_size();
+  for (const auto& msg : this->exclude_levels_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // map<string, string> customLocales = 200;
   total_size += 2 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_customlocales_size());
@@ -9794,6 +11378,20 @@ size_t Options::ByteSizeLong() const {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *pbf_field_selector_);
+  }
+
+  // .valhalla.Tile tile_xyz = 63;
+  if (this->_internal_has_tile_xyz()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *tile_xyz_);
+  }
+
+  // .valhalla.TileOptions tile_options = 64;
+  if (this->_internal_has_tile_options()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *tile_options_);
   }
 
   // .valhalla.Options.Units units = 1;
@@ -9832,6 +11430,26 @@ size_t Options::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_date_time_type());
   }
 
+  // bool range = 10;
+  if (this->_internal_range() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool polygons = 23;
+  if (this->_internal_polygons() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool show_locations = 26;
+  if (this->_internal_show_locations() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool use_timestamps = 37;
+  if (this->_internal_use_timestamps() != 0) {
+    total_size += 2 + 1;
+  }
+
   // .valhalla.ShapeMatch shape_match = 28;
   if (this->_internal_shape_match() != 0) {
     total_size += 2 +
@@ -9842,6 +11460,26 @@ size_t Options::ByteSizeLong() const {
   if (this->_internal_filter_action() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_filter_action());
+  }
+
+  // bool guidance_views = 41;
+  if (this->_internal_guidance_views() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool linear_references = 45;
+  if (this->_internal_linear_references() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool prioritize_bidirectional = 48;
+  if (this->_internal_prioritize_bidirectional() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool skip_opposites = 50;
+  if (this->_internal_skip_opposites() != 0) {
+    total_size += 2 + 1;
   }
 
   // bool reverse = 53;
@@ -9873,6 +11511,29 @@ size_t Options::ByteSizeLong() const {
     total_size += 2 + 4;
   }
 
+  // bool admin_crossings = 59;
+  if (this->_internal_admin_crossings() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool turn_lanes = 60;
+  if (this->_internal_turn_lanes() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // .valhalla.Options.ReverseTimeTracking reverse_time_tracking = 62;
+  if (this->_internal_reverse_time_tracking() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_reverse_time_tracking());
+  }
+
+  // uint32 expansion_max_distance = 66;
+  if (this->_internal_expansion_max_distance() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::UInt32Size(
+        this->_internal_expansion_max_distance());
+  }
+
   switch (has_language_case()) {
     // string language = 2;
     case kLanguage: {
@@ -9898,7 +11559,7 @@ size_t Options::ByteSizeLong() const {
     }
   }
   switch (has_jsonp_case()) {
-    // string jsonp = 6;
+    // string jsonp = 6 [deprecated = true];
     case kJsonp: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -9918,16 +11579,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
     case HAS_ENCODED_POLYLINE_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_range_case()) {
-    // bool range = 10;
-    case kRange: {
-      total_size += 1 + 1;
-      break;
-    }
-    case HAS_RANGE_NOT_SET: {
       break;
     }
   }
@@ -9963,16 +11614,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_polygons_case()) {
-    // bool polygons = 23;
-    case kPolygons: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_POLYGONS_NOT_SET: {
-      break;
-    }
-  }
   switch (has_denoise_case()) {
     // float denoise = 24;
     case kDenoise: {
@@ -9990,16 +11631,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
     case HAS_GENERALIZE_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_show_locations_case()) {
-    // bool show_locations = 26;
-    case kShowLocations: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_SHOW_LOCATIONS_NOT_SET: {
       break;
     }
   }
@@ -10043,16 +11674,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_use_timestamps_case()) {
-    // bool use_timestamps = 37;
-    case kUseTimestamps: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_USE_TIMESTAMPS_NOT_SET: {
-      break;
-    }
-  }
   switch (has_shape_format_case()) {
     // .valhalla.ShapeFormat shape_format = 38;
     case kShapeFormat: {
@@ -10086,16 +11707,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_guidance_views_case()) {
-    // bool guidance_views = 41;
-    case kGuidanceViews: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_GUIDANCE_VIEWS_NOT_SET: {
-      break;
-    }
-  }
   switch (has_height_precision_case()) {
     // uint32 height_precision = 43;
     case kHeightPrecision: {
@@ -10118,26 +11729,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
   }
-  switch (has_linear_references_case()) {
-    // bool linear_references = 45;
-    case kLinearReferences: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_LINEAR_REFERENCES_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_prioritize_bidirectional_case()) {
-    // bool prioritize_bidirectional = 48;
-    case kPrioritizeBidirectional: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET: {
-      break;
-    }
-  }
   switch (has_expansion_action_case()) {
     // .valhalla.Options.Action expansion_action = 49;
     case kExpansionAction: {
@@ -10146,16 +11737,6 @@ size_t Options::ByteSizeLong() const {
       break;
     }
     case HAS_EXPANSION_ACTION_NOT_SET: {
-      break;
-    }
-  }
-  switch (has_skip_opposites_case()) {
-    // bool skip_opposites = 50;
-    case kSkipOpposites: {
-      total_size += 2 + 1;
-      break;
-    }
-    case HAS_SKIP_OPPOSITES_NOT_SET: {
       break;
     }
   }
@@ -10203,9 +11784,17 @@ void Options::MergeFrom(const Options& from) {
   recostings_.MergeFrom(from.recostings_);
   exclude_polygons_.MergeFrom(from.exclude_polygons_);
   expansion_properties_.MergeFrom(from.expansion_properties_);
+  cost_factor_lines_.MergeFrom(from.cost_factor_lines_);
+  exclude_levels_.MergeFrom(from.exclude_levels_);
   customlocales_.MergeFrom(from.customlocales_);
   if (from._internal_has_pbf_field_selector()) {
     _internal_mutable_pbf_field_selector()->::valhalla::PbfFieldSelector::MergeFrom(from._internal_pbf_field_selector());
+  }
+  if (from._internal_has_tile_xyz()) {
+    _internal_mutable_tile_xyz()->::valhalla::Tile::MergeFrom(from._internal_tile_xyz());
+  }
+  if (from._internal_has_tile_options()) {
+    _internal_mutable_tile_options()->::valhalla::TileOptions::MergeFrom(from._internal_tile_options());
   }
   if (from._internal_units() != 0) {
     _internal_set_units(from._internal_units());
@@ -10225,11 +11814,35 @@ void Options::MergeFrom(const Options& from) {
   if (from._internal_date_time_type() != 0) {
     _internal_set_date_time_type(from._internal_date_time_type());
   }
+  if (from._internal_range() != 0) {
+    _internal_set_range(from._internal_range());
+  }
+  if (from._internal_polygons() != 0) {
+    _internal_set_polygons(from._internal_polygons());
+  }
+  if (from._internal_show_locations() != 0) {
+    _internal_set_show_locations(from._internal_show_locations());
+  }
+  if (from._internal_use_timestamps() != 0) {
+    _internal_set_use_timestamps(from._internal_use_timestamps());
+  }
   if (from._internal_shape_match() != 0) {
     _internal_set_shape_match(from._internal_shape_match());
   }
   if (from._internal_filter_action() != 0) {
     _internal_set_filter_action(from._internal_filter_action());
+  }
+  if (from._internal_guidance_views() != 0) {
+    _internal_set_guidance_views(from._internal_guidance_views());
+  }
+  if (from._internal_linear_references() != 0) {
+    _internal_set_linear_references(from._internal_linear_references());
+  }
+  if (from._internal_prioritize_bidirectional() != 0) {
+    _internal_set_prioritize_bidirectional(from._internal_prioritize_bidirectional());
+  }
+  if (from._internal_skip_opposites() != 0) {
+    _internal_set_skip_opposites(from._internal_skip_opposites());
   }
   if (from._internal_reverse() != 0) {
     _internal_set_reverse(from._internal_reverse());
@@ -10249,6 +11862,18 @@ void Options::MergeFrom(const Options& from) {
   memcpy(&raw_elevation_interval, &tmp_elevation_interval, sizeof(tmp_elevation_interval));
   if (raw_elevation_interval != 0) {
     _internal_set_elevation_interval(from._internal_elevation_interval());
+  }
+  if (from._internal_admin_crossings() != 0) {
+    _internal_set_admin_crossings(from._internal_admin_crossings());
+  }
+  if (from._internal_turn_lanes() != 0) {
+    _internal_set_turn_lanes(from._internal_turn_lanes());
+  }
+  if (from._internal_reverse_time_tracking() != 0) {
+    _internal_set_reverse_time_tracking(from._internal_reverse_time_tracking());
+  }
+  if (from._internal_expansion_max_distance() != 0) {
+    _internal_set_expansion_max_distance(from._internal_expansion_max_distance());
   }
   switch (from.has_language_case()) {
     case kLanguage: {
@@ -10286,15 +11911,6 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
-  switch (from.has_range_case()) {
-    case kRange: {
-      _internal_set_range(from._internal_range());
-      break;
-    }
-    case HAS_RANGE_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_verbose_case()) {
     case kVerbose: {
       _internal_set_verbose(from._internal_verbose());
@@ -10322,15 +11938,6 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
-  switch (from.has_polygons_case()) {
-    case kPolygons: {
-      _internal_set_polygons(from._internal_polygons());
-      break;
-    }
-    case HAS_POLYGONS_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_denoise_case()) {
     case kDenoise: {
       _internal_set_denoise(from._internal_denoise());
@@ -10346,15 +11953,6 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
     case HAS_GENERALIZE_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_show_locations_case()) {
-    case kShowLocations: {
-      _internal_set_show_locations(from._internal_show_locations());
-      break;
-    }
-    case HAS_SHOW_LOCATIONS_NOT_SET: {
       break;
     }
   }
@@ -10394,15 +11992,6 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
-  switch (from.has_use_timestamps_case()) {
-    case kUseTimestamps: {
-      _internal_set_use_timestamps(from._internal_use_timestamps());
-      break;
-    }
-    case HAS_USE_TIMESTAMPS_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_shape_format_case()) {
     case kShapeFormat: {
       _internal_set_shape_format(from._internal_shape_format());
@@ -10430,15 +12019,6 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
-  switch (from.has_guidance_views_case()) {
-    case kGuidanceViews: {
-      _internal_set_guidance_views(from._internal_guidance_views());
-      break;
-    }
-    case HAS_GUIDANCE_VIEWS_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_height_precision_case()) {
     case kHeightPrecision: {
       _internal_set_height_precision(from._internal_height_precision());
@@ -10457,39 +12037,12 @@ void Options::MergeFrom(const Options& from) {
       break;
     }
   }
-  switch (from.has_linear_references_case()) {
-    case kLinearReferences: {
-      _internal_set_linear_references(from._internal_linear_references());
-      break;
-    }
-    case HAS_LINEAR_REFERENCES_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_prioritize_bidirectional_case()) {
-    case kPrioritizeBidirectional: {
-      _internal_set_prioritize_bidirectional(from._internal_prioritize_bidirectional());
-      break;
-    }
-    case HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET: {
-      break;
-    }
-  }
   switch (from.has_expansion_action_case()) {
     case kExpansionAction: {
       _internal_set_expansion_action(from._internal_expansion_action());
       break;
     }
     case HAS_EXPANSION_ACTION_NOT_SET: {
-      break;
-    }
-  }
-  switch (from.has_skip_opposites_case()) {
-    case kSkipOpposites: {
-      _internal_set_skip_opposites(from._internal_skip_opposites());
-      break;
-    }
-    case HAS_SKIP_OPPOSITES_NOT_SET: {
       break;
     }
   }
@@ -10531,10 +12084,12 @@ void Options::InternalSwap(Options* other) {
   recostings_.InternalSwap(&other->recostings_);
   exclude_polygons_.InternalSwap(&other->exclude_polygons_);
   expansion_properties_.InternalSwap(&other->expansion_properties_);
+  cost_factor_lines_.InternalSwap(&other->cost_factor_lines_);
+  exclude_levels_.InternalSwap(&other->exclude_levels_);
   customlocales_.InternalSwap(&other->customlocales_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Options, elevation_interval_)
-      + sizeof(Options::elevation_interval_)
+      PROTOBUF_FIELD_OFFSET(Options, expansion_max_distance_)
+      + sizeof(Options::expansion_max_distance_)
       - PROTOBUF_FIELD_OFFSET(Options, pbf_field_selector_)>(
           reinterpret_cast<char*>(&pbf_field_selector_),
           reinterpret_cast<char*>(&other->pbf_field_selector_));
@@ -10542,29 +12097,21 @@ void Options::InternalSwap(Options* other) {
   swap(has_id_, other->has_id_);
   swap(has_jsonp_, other->has_jsonp_);
   swap(has_encoded_polyline_, other->has_encoded_polyline_);
-  swap(has_range_, other->has_range_);
   swap(has_verbose_, other->has_verbose_);
   swap(has_date_time_, other->has_date_time_);
   swap(has_resample_distance_, other->has_resample_distance_);
-  swap(has_polygons_, other->has_polygons_);
   swap(has_denoise_, other->has_denoise_);
   swap(has_generalize_, other->has_generalize_);
-  swap(has_show_locations_, other->has_show_locations_);
   swap(has_gps_accuracy_, other->has_gps_accuracy_);
   swap(has_search_radius_, other->has_search_radius_);
   swap(has_turn_penalty_factor_, other->has_turn_penalty_factor_);
   swap(has_breakage_distance_, other->has_breakage_distance_);
-  swap(has_use_timestamps_, other->has_use_timestamps_);
   swap(has_shape_format_, other->has_shape_format_);
   swap(has_alternates_, other->has_alternates_);
   swap(has_interpolation_distance_, other->has_interpolation_distance_);
-  swap(has_guidance_views_, other->has_guidance_views_);
   swap(has_height_precision_, other->has_height_precision_);
   swap(has_roundabout_exits_, other->has_roundabout_exits_);
-  swap(has_linear_references_, other->has_linear_references_);
-  swap(has_prioritize_bidirectional_, other->has_prioritize_bidirectional_);
   swap(has_expansion_action_, other->has_expansion_action_);
-  swap(has_skip_opposites_, other->has_skip_opposites_);
   swap(has_matrix_locations_, other->has_matrix_locations_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   swap(_oneof_case_[1], other->_oneof_case_[1]);
@@ -10586,14 +12133,6 @@ void Options::InternalSwap(Options* other) {
   swap(_oneof_case_[17], other->_oneof_case_[17]);
   swap(_oneof_case_[18], other->_oneof_case_[18]);
   swap(_oneof_case_[19], other->_oneof_case_[19]);
-  swap(_oneof_case_[20], other->_oneof_case_[20]);
-  swap(_oneof_case_[21], other->_oneof_case_[21]);
-  swap(_oneof_case_[22], other->_oneof_case_[22]);
-  swap(_oneof_case_[23], other->_oneof_case_[23]);
-  swap(_oneof_case_[24], other->_oneof_case_[24]);
-  swap(_oneof_case_[25], other->_oneof_case_[25]);
-  swap(_oneof_case_[26], other->_oneof_case_[26]);
-  swap(_oneof_case_[27], other->_oneof_case_[27]);
 }
 
 std::string Options::GetTypeName() const {
@@ -10612,6 +12151,10 @@ template<> PROTOBUF_NOINLINE ::valhalla::Ring*
 Arena::CreateMaybeMessage< ::valhalla::Ring >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Ring >(arena);
 }
+template<> PROTOBUF_NOINLINE ::valhalla::Levels*
+Arena::CreateMaybeMessage< ::valhalla::Levels >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::Levels >(arena);
+}
 template<> PROTOBUF_NOINLINE ::valhalla::PbfFieldSelector*
 Arena::CreateMaybeMessage< ::valhalla::PbfFieldSelector >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::PbfFieldSelector >(arena);
@@ -10620,6 +12163,26 @@ template<> PROTOBUF_NOINLINE ::valhalla::AvoidEdge*
 Arena::CreateMaybeMessage< ::valhalla::AvoidEdge >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::AvoidEdge >(arena);
 }
+template<> PROTOBUF_NOINLINE ::valhalla::CostFactorEdge*
+Arena::CreateMaybeMessage< ::valhalla::CostFactorEdge >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::CostFactorEdge >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::HierarchyLimits*
+Arena::CreateMaybeMessage< ::valhalla::HierarchyLimits >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::HierarchyLimits >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::Tile*
+Arena::CreateMaybeMessage< ::valhalla::Tile >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::Tile >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::TileOptions*
+Arena::CreateMaybeMessage< ::valhalla::TileOptions >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::TileOptions >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::Costing_Options_HierarchyLimitsEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::valhalla::Costing_Options_HierarchyLimitsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::Costing_Options_HierarchyLimitsEntry_DoNotUse >(arena);
+}
 template<> PROTOBUF_NOINLINE ::valhalla::Costing_Options*
 Arena::CreateMaybeMessage< ::valhalla::Costing_Options >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Costing_Options >(arena);
@@ -10627,6 +12190,10 @@ Arena::CreateMaybeMessage< ::valhalla::Costing_Options >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::valhalla::Costing*
 Arena::CreateMaybeMessage< ::valhalla::Costing >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::Costing >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::LinearFeatureCost*
+Arena::CreateMaybeMessage< ::valhalla::LinearFeatureCost >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::LinearFeatureCost >(arena);
 }
 template<> PROTOBUF_NOINLINE ::valhalla::Options_CostingsEntry_DoNotUse*
 Arena::CreateMaybeMessage< ::valhalla::Options_CostingsEntry_DoNotUse >(Arena* arena) {

@@ -47,7 +47,11 @@ PROTOBUF_CONSTEXPR Expansion::Expansion(
   , _pred_edge_id_cached_byte_size_(0)
   , geometries_()
   , expansion_type_()
-  , _expansion_type_cached_byte_size_(0){}
+  , _expansion_type_cached_byte_size_(0)
+  , flow_sources_()
+  , _flow_sources_cached_byte_size_(0)
+  , travel_modes_()
+  , _travel_modes_cached_byte_size_(0){}
 struct ExpansionDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ExpansionDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -378,7 +382,9 @@ Expansion::Expansion(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   edge_id_(arena),
   pred_edge_id_(arena),
   geometries_(arena),
-  expansion_type_(arena) {
+  expansion_type_(arena),
+  flow_sources_(arena),
+  travel_modes_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.Expansion)
 }
@@ -391,7 +397,9 @@ Expansion::Expansion(const Expansion& from)
       edge_id_(from.edge_id_),
       pred_edge_id_(from.pred_edge_id_),
       geometries_(from.geometries_),
-      expansion_type_(from.expansion_type_) {
+      expansion_type_(from.expansion_type_),
+      flow_sources_(from.flow_sources_),
+      travel_modes_(from.travel_modes_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:valhalla.Expansion)
 }
@@ -430,6 +438,8 @@ void Expansion::Clear() {
   pred_edge_id_.Clear();
   geometries_.Clear();
   expansion_type_.Clear();
+  flow_sources_.Clear();
+  travel_modes_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -484,24 +494,24 @@ const char* Expansion::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
         } else
           goto handle_unusual;
         continue;
-      // repeated uint32 edge_id = 5 [packed = true];
+      // repeated uint64 edge_id = 5 [packed = true];
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_edge_id(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_edge_id(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<uint8_t>(tag) == 40) {
-          _internal_add_edge_id(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_edge_id(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // repeated uint32 pred_edge_id = 6 [packed = true];
+      // repeated uint64 pred_edge_id = 6 [packed = true];
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_pred_edge_id(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_pred_edge_id(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<uint8_t>(tag) == 48) {
-          _internal_add_pred_edge_id(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_pred_edge_id(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -528,6 +538,29 @@ const char* Expansion::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_add_expansion_type(static_cast<::valhalla::Expansion_ExpansionType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated uint32 flow_sources = 9 [packed = true];
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_flow_sources(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 72) {
+          _internal_add_flow_sources(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .valhalla.TravelMode travel_modes = 10 [packed = true];
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_travel_modes(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 80) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_travel_modes(static_cast<::valhalla::TravelMode>(val));
         } else
           goto handle_unusual;
         continue;
@@ -596,20 +629,20 @@ uint8_t* Expansion::_InternalSerialize(
     }
   }
 
-  // repeated uint32 edge_id = 5 [packed = true];
+  // repeated uint64 edge_id = 5 [packed = true];
   {
     int byte_size = _edge_id_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
+      target = stream->WriteUInt64Packed(
           5, _internal_edge_id(), byte_size, target);
     }
   }
 
-  // repeated uint32 pred_edge_id = 6 [packed = true];
+  // repeated uint64 pred_edge_id = 6 [packed = true];
   {
     int byte_size = _pred_edge_id_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
+      target = stream->WriteUInt64Packed(
           6, _internal_pred_edge_id(), byte_size, target);
     }
   }
@@ -628,6 +661,24 @@ uint8_t* Expansion::_InternalSerialize(
     if (byte_size > 0) {
       target = stream->WriteEnumPacked(
           8, expansion_type_, byte_size, target);
+    }
+  }
+
+  // repeated uint32 flow_sources = 9 [packed = true];
+  {
+    int byte_size = _flow_sources_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt32Packed(
+          9, _internal_flow_sources(), byte_size, target);
+    }
+  }
+
+  // repeated .valhalla.TravelMode travel_modes = 10 [packed = true];
+  {
+    int byte_size = _travel_modes_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          10, travel_modes_, byte_size, target);
     }
   }
 
@@ -706,10 +757,10 @@ size_t Expansion::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // repeated uint32 edge_id = 5 [packed = true];
+  // repeated uint64 edge_id = 5 [packed = true];
   {
     size_t data_size = ::_pbi::WireFormatLite::
-      UInt32Size(this->edge_id_);
+      UInt64Size(this->edge_id_);
     if (data_size > 0) {
       total_size += 1 +
         ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
@@ -720,10 +771,10 @@ size_t Expansion::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // repeated uint32 pred_edge_id = 6 [packed = true];
+  // repeated uint64 pred_edge_id = 6 [packed = true];
   {
     size_t data_size = ::_pbi::WireFormatLite::
-      UInt32Size(this->pred_edge_id_);
+      UInt64Size(this->pred_edge_id_);
     if (data_size > 0) {
       total_size += 1 +
         ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
@@ -758,6 +809,37 @@ size_t Expansion::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated uint32 flow_sources = 9 [packed = true];
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt32Size(this->flow_sources_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _flow_sources_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // repeated .valhalla.TravelMode travel_modes = 10 [packed = true];
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_travel_modes_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_travel_modes(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _travel_modes_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -786,6 +868,8 @@ void Expansion::MergeFrom(const Expansion& from) {
   pred_edge_id_.MergeFrom(from.pred_edge_id_);
   geometries_.MergeFrom(from.geometries_);
   expansion_type_.MergeFrom(from.expansion_type_);
+  flow_sources_.MergeFrom(from.flow_sources_);
+  travel_modes_.MergeFrom(from.travel_modes_);
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -811,6 +895,8 @@ void Expansion::InternalSwap(Expansion* other) {
   pred_edge_id_.InternalSwap(&other->pred_edge_id_);
   geometries_.InternalSwap(&other->geometries_);
   expansion_type_.InternalSwap(&other->expansion_type_);
+  flow_sources_.InternalSwap(&other->flow_sources_);
+  travel_modes_.InternalSwap(&other->travel_modes_);
 }
 
 std::string Expansion::GetTypeName() const {

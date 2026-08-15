@@ -55,12 +55,18 @@ extern CorrelationDefaultTypeInternal _Correlation_default_instance_;
 class LatLng;
 struct LatLngDefaultTypeInternal;
 extern LatLngDefaultTypeInternal _LatLng_default_instance_;
+class LevelChange;
+struct LevelChangeDefaultTypeInternal;
+extern LevelChangeDefaultTypeInternal _LevelChange_default_instance_;
 class Location;
 struct LocationDefaultTypeInternal;
 extern LocationDefaultTypeInternal _Location_default_instance_;
 class PathEdge;
 struct PathEdgeDefaultTypeInternal;
 extern PathEdgeDefaultTypeInternal _PathEdge_default_instance_;
+class PathEdge_BoundingCircle;
+struct PathEdge_BoundingCircleDefaultTypeInternal;
+extern PathEdge_BoundingCircleDefaultTypeInternal _PathEdge_BoundingCircle_default_instance_;
 class Pronunciation;
 struct PronunciationDefaultTypeInternal;
 extern PronunciationDefaultTypeInternal _Pronunciation_default_instance_;
@@ -100,8 +106,10 @@ template<> ::valhalla::BikeShareStationInfo* Arena::CreateMaybeMessage<::valhall
 template<> ::valhalla::BoundingBox* Arena::CreateMaybeMessage<::valhalla::BoundingBox>(Arena*);
 template<> ::valhalla::Correlation* Arena::CreateMaybeMessage<::valhalla::Correlation>(Arena*);
 template<> ::valhalla::LatLng* Arena::CreateMaybeMessage<::valhalla::LatLng>(Arena*);
+template<> ::valhalla::LevelChange* Arena::CreateMaybeMessage<::valhalla::LevelChange>(Arena*);
 template<> ::valhalla::Location* Arena::CreateMaybeMessage<::valhalla::Location>(Arena*);
 template<> ::valhalla::PathEdge* Arena::CreateMaybeMessage<::valhalla::PathEdge>(Arena*);
+template<> ::valhalla::PathEdge_BoundingCircle* Arena::CreateMaybeMessage<::valhalla::PathEdge_BoundingCircle>(Arena*);
 template<> ::valhalla::Pronunciation* Arena::CreateMaybeMessage<::valhalla::Pronunciation>(Arena*);
 template<> ::valhalla::RouteLandmark* Arena::CreateMaybeMessage<::valhalla::RouteLandmark>(Arena*);
 template<> ::valhalla::SearchFilter* Arena::CreateMaybeMessage<::valhalla::SearchFilter>(Arena*);
@@ -1186,6 +1194,11 @@ class SearchFilter final :
     HAS_EXCLUDE_CLOSURES_NOT_SET = 0,
   };
 
+  enum HasLevelCase {
+    kLevel = 9,
+    HAS_LEVEL_NOT_SET = 0,
+  };
+
   static inline const SearchFilter* internal_default_instance() {
     return reinterpret_cast<const SearchFilter*>(
                &_SearchFilter_default_instance_);
@@ -1258,9 +1271,12 @@ class SearchFilter final :
     kExcludeTunnelFieldNumber = 3,
     kExcludeBridgeFieldNumber = 4,
     kExcludeRampFieldNumber = 5,
+    kExcludeTollFieldNumber = 7,
+    kExcludeFerryFieldNumber = 8,
     kMinRoadClassFieldNumber = 1,
     kMaxRoadClassFieldNumber = 2,
     kExcludeClosuresFieldNumber = 6,
+    kLevelFieldNumber = 9,
   };
   // bool exclude_tunnel = 3;
   void clear_exclude_tunnel();
@@ -1287,6 +1303,24 @@ class SearchFilter final :
   private:
   bool _internal_exclude_ramp() const;
   void _internal_set_exclude_ramp(bool value);
+  public:
+
+  // bool exclude_toll = 7;
+  void clear_exclude_toll();
+  bool exclude_toll() const;
+  void set_exclude_toll(bool value);
+  private:
+  bool _internal_exclude_toll() const;
+  void _internal_set_exclude_toll(bool value);
+  public:
+
+  // bool exclude_ferry = 8;
+  void clear_exclude_ferry();
+  bool exclude_ferry() const;
+  void set_exclude_ferry(bool value);
+  private:
+  bool _internal_exclude_ferry() const;
+  void _internal_set_exclude_ferry(bool value);
   public:
 
   // .valhalla.RoadClass min_road_class = 1;
@@ -1328,18 +1362,34 @@ class SearchFilter final :
   void _internal_set_exclude_closures(bool value);
   public:
 
+  // float level = 9;
+  bool has_level() const;
+  private:
+  bool _internal_has_level() const;
+  public:
+  void clear_level();
+  float level() const;
+  void set_level(float value);
+  private:
+  float _internal_level() const;
+  void _internal_set_level(float value);
+  public:
+
   void clear_has_min_road_class();
   HasMinRoadClassCase has_min_road_class_case() const;
   void clear_has_max_road_class();
   HasMaxRoadClassCase has_max_road_class_case() const;
   void clear_has_exclude_closures();
   HasExcludeClosuresCase has_exclude_closures_case() const;
+  void clear_has_level();
+  HasLevelCase has_level_case() const;
   // @@protoc_insertion_point(class_scope:valhalla.SearchFilter)
  private:
   class _Internal;
   void set_has_min_road_class();
   void set_has_max_road_class();
   void set_has_exclude_closures();
+  void set_has_level();
 
   inline bool has_has_min_road_class() const;
   inline void clear_has_has_min_road_class();
@@ -1350,12 +1400,17 @@ class SearchFilter final :
   inline bool has_has_exclude_closures() const;
   inline void clear_has_has_exclude_closures();
 
+  inline bool has_has_level() const;
+  inline void clear_has_has_level();
+
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   bool exclude_tunnel_;
   bool exclude_bridge_;
   bool exclude_ramp_;
+  bool exclude_toll_;
+  bool exclude_ferry_;
   union HasMinRoadClassUnion {
     constexpr HasMinRoadClassUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -1371,9 +1426,161 @@ class SearchFilter final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     bool exclude_closures_;
   } has_exclude_closures_;
+  union HasLevelUnion {
+    constexpr HasLevelUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    float level_;
+  } has_level_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t _oneof_case_[3];
+  uint32_t _oneof_case_[4];
 
+  friend struct ::TableStruct_common_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PathEdge_BoundingCircle final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.PathEdge.BoundingCircle) */ {
+ public:
+  inline PathEdge_BoundingCircle() : PathEdge_BoundingCircle(nullptr) {}
+  ~PathEdge_BoundingCircle() override;
+  explicit PROTOBUF_CONSTEXPR PathEdge_BoundingCircle(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PathEdge_BoundingCircle(const PathEdge_BoundingCircle& from);
+  PathEdge_BoundingCircle(PathEdge_BoundingCircle&& from) noexcept
+    : PathEdge_BoundingCircle() {
+    *this = ::std::move(from);
+  }
+
+  inline PathEdge_BoundingCircle& operator=(const PathEdge_BoundingCircle& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PathEdge_BoundingCircle& operator=(PathEdge_BoundingCircle&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PathEdge_BoundingCircle& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PathEdge_BoundingCircle* internal_default_instance() {
+    return reinterpret_cast<const PathEdge_BoundingCircle*>(
+               &_PathEdge_BoundingCircle_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(PathEdge_BoundingCircle& a, PathEdge_BoundingCircle& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PathEdge_BoundingCircle* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PathEdge_BoundingCircle* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PathEdge_BoundingCircle* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PathEdge_BoundingCircle>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PathEdge_BoundingCircle& from);
+  void MergeFrom(const PathEdge_BoundingCircle& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PathEdge_BoundingCircle* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.PathEdge.BoundingCircle";
+  }
+  protected:
+  explicit PathEdge_BoundingCircle(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLatlngFieldNumber = 2,
+    kRadiusFieldNumber = 1,
+  };
+  // .valhalla.LatLng latlng = 2;
+  bool has_latlng() const;
+  private:
+  bool _internal_has_latlng() const;
+  public:
+  void clear_latlng();
+  const ::valhalla::LatLng& latlng() const;
+  PROTOBUF_NODISCARD ::valhalla::LatLng* release_latlng();
+  ::valhalla::LatLng* mutable_latlng();
+  void set_allocated_latlng(::valhalla::LatLng* latlng);
+  private:
+  const ::valhalla::LatLng& _internal_latlng() const;
+  ::valhalla::LatLng* _internal_mutable_latlng();
+  public:
+  void unsafe_arena_set_allocated_latlng(
+      ::valhalla::LatLng* latlng);
+  ::valhalla::LatLng* unsafe_arena_release_latlng();
+
+  // uint32 radius = 1;
+  void clear_radius();
+  uint32_t radius() const;
+  void set_radius(uint32_t value);
+  private:
+  uint32_t _internal_radius() const;
+  void _internal_set_radius(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.PathEdge.BoundingCircle)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::valhalla::LatLng* latlng_;
+  uint32_t radius_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_common_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1417,7 +1624,7 @@ class PathEdge final :
                &_PathEdge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(PathEdge& a, PathEdge& b) {
     a.Swap(&b);
@@ -1478,11 +1685,14 @@ class PathEdge final :
 
   // nested types ----------------------------------------------------
 
+  typedef PathEdge_BoundingCircle BoundingCircle;
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kNamesFieldNumber = 10,
     kLlFieldNumber = 3,
+    kBoundingCircleFieldNumber = 14,
     kGraphIdFieldNumber = 1,
     kPercentAlongFieldNumber = 2,
     kDistanceFieldNumber = 5,
@@ -1534,6 +1744,24 @@ class PathEdge final :
   void unsafe_arena_set_allocated_ll(
       ::valhalla::LatLng* ll);
   ::valhalla::LatLng* unsafe_arena_release_ll();
+
+  // .valhalla.PathEdge.BoundingCircle bounding_circle = 14;
+  bool has_bounding_circle() const;
+  private:
+  bool _internal_has_bounding_circle() const;
+  public:
+  void clear_bounding_circle();
+  const ::valhalla::PathEdge_BoundingCircle& bounding_circle() const;
+  PROTOBUF_NODISCARD ::valhalla::PathEdge_BoundingCircle* release_bounding_circle();
+  ::valhalla::PathEdge_BoundingCircle* mutable_bounding_circle();
+  void set_allocated_bounding_circle(::valhalla::PathEdge_BoundingCircle* bounding_circle);
+  private:
+  const ::valhalla::PathEdge_BoundingCircle& _internal_bounding_circle() const;
+  ::valhalla::PathEdge_BoundingCircle* _internal_mutable_bounding_circle();
+  public:
+  void unsafe_arena_set_allocated_bounding_circle(
+      ::valhalla::PathEdge_BoundingCircle* bounding_circle);
+  ::valhalla::PathEdge_BoundingCircle* unsafe_arena_release_bounding_circle();
 
   // uint64 graph_id = 1;
   void clear_graph_id();
@@ -1625,6 +1853,7 @@ class PathEdge final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> names_;
   ::valhalla::LatLng* ll_;
+  ::valhalla::PathEdge_BoundingCircle* bounding_circle_;
   uint64_t graph_id_;
   double percent_along_;
   double distance_;
@@ -1678,7 +1907,7 @@ class Correlation final :
                &_Correlation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(Correlation& a, Correlation& b) {
     a.Swap(&b);
@@ -1964,12 +2193,22 @@ class Location final :
     HAS_STREET_SIDE_CUTOFF_NOT_SET = 0,
   };
 
+  enum HasMinimumInboundReachabilityCase {
+    kMinimumInboundReachability = 31,
+    HAS_MINIMUM_INBOUND_REACHABILITY_NOT_SET = 0,
+  };
+
+  enum HasMinimumOutboundReachabilityCase {
+    kMinimumOutboundReachability = 32,
+    HAS_MINIMUM_OUTBOUND_REACHABILITY_NOT_SET = 0,
+  };
+
   static inline const Location* internal_default_instance() {
     return reinterpret_cast<const Location*>(
                &_Location_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(Location& a, Location& b) {
     a.Swap(&b);
@@ -2130,9 +2369,10 @@ class Location final :
     kCorrelationFieldNumber = 90,
     kTypeFieldNumber = 2,
     kSideOfStreetFieldNumber = 13,
-    kSkipRankingCandidatesFieldNumber = 21,
     kPreferredSideFieldNumber = 22,
     kWaitingSecsFieldNumber = 29,
+    kSkipRankingCandidatesFieldNumber = 21,
+    kTransitAvailableFieldNumber = 93,
     kHeadingFieldNumber = 3,
     kHeadingToleranceFieldNumber = 14,
     kNodeSnapToleranceFieldNumber = 15,
@@ -2145,6 +2385,8 @@ class Location final :
     kStreetSideMaxDistanceFieldNumber = 27,
     kPreferredLayerFieldNumber = 28,
     kStreetSideCutoffFieldNumber = 30,
+    kMinimumInboundReachabilityFieldNumber = 31,
+    kMinimumOutboundReachabilityFieldNumber = 32,
   };
   // string name = 4;
   void clear_name();
@@ -2306,15 +2548,6 @@ class Location final :
   void _internal_set_side_of_street(::valhalla::Location_SideOfStreet value);
   public:
 
-  // bool skip_ranking_candidates = 21;
-  void clear_skip_ranking_candidates();
-  bool skip_ranking_candidates() const;
-  void set_skip_ranking_candidates(bool value);
-  private:
-  bool _internal_skip_ranking_candidates() const;
-  void _internal_set_skip_ranking_candidates(bool value);
-  public:
-
   // .valhalla.Location.PreferredSide preferred_side = 22;
   void clear_preferred_side();
   ::valhalla::Location_PreferredSide preferred_side() const;
@@ -2331,6 +2564,24 @@ class Location final :
   private:
   float _internal_waiting_secs() const;
   void _internal_set_waiting_secs(float value);
+  public:
+
+  // bool skip_ranking_candidates = 21;
+  void clear_skip_ranking_candidates();
+  bool skip_ranking_candidates() const;
+  void set_skip_ranking_candidates(bool value);
+  private:
+  bool _internal_skip_ranking_candidates() const;
+  void _internal_set_skip_ranking_candidates(bool value);
+  public:
+
+  // bool transit_available = 93;
+  void clear_transit_available();
+  bool transit_available() const;
+  void set_transit_available(bool value);
+  private:
+  bool _internal_transit_available() const;
+  void _internal_set_transit_available(bool value);
   public:
 
   // uint32 heading = 3;
@@ -2489,6 +2740,32 @@ class Location final :
   void _internal_set_street_side_cutoff(::valhalla::RoadClass value);
   public:
 
+  // uint32 minimum_inbound_reachability = 31;
+  bool has_minimum_inbound_reachability() const;
+  private:
+  bool _internal_has_minimum_inbound_reachability() const;
+  public:
+  void clear_minimum_inbound_reachability();
+  uint32_t minimum_inbound_reachability() const;
+  void set_minimum_inbound_reachability(uint32_t value);
+  private:
+  uint32_t _internal_minimum_inbound_reachability() const;
+  void _internal_set_minimum_inbound_reachability(uint32_t value);
+  public:
+
+  // uint32 minimum_outbound_reachability = 32;
+  bool has_minimum_outbound_reachability() const;
+  private:
+  bool _internal_has_minimum_outbound_reachability() const;
+  public:
+  void clear_minimum_outbound_reachability();
+  uint32_t minimum_outbound_reachability() const;
+  void set_minimum_outbound_reachability(uint32_t value);
+  private:
+  uint32_t _internal_minimum_outbound_reachability() const;
+  void _internal_set_minimum_outbound_reachability(uint32_t value);
+  public:
+
   void clear_has_heading();
   HasHeadingCase has_heading_case() const;
   void clear_has_heading_tolerance();
@@ -2513,6 +2790,10 @@ class Location final :
   HasPreferredLayerCase has_preferred_layer_case() const;
   void clear_has_street_side_cutoff();
   HasStreetSideCutoffCase has_street_side_cutoff_case() const;
+  void clear_has_minimum_inbound_reachability();
+  HasMinimumInboundReachabilityCase has_minimum_inbound_reachability_case() const;
+  void clear_has_minimum_outbound_reachability();
+  HasMinimumOutboundReachabilityCase has_minimum_outbound_reachability_case() const;
   // @@protoc_insertion_point(class_scope:valhalla.Location)
  private:
   class _Internal;
@@ -2528,6 +2809,8 @@ class Location final :
   void set_has_street_side_max_distance();
   void set_has_preferred_layer();
   void set_has_street_side_cutoff();
+  void set_has_minimum_inbound_reachability();
+  void set_has_minimum_outbound_reachability();
 
   inline bool has_has_heading() const;
   inline void clear_has_has_heading();
@@ -2565,6 +2848,12 @@ class Location final :
   inline bool has_has_street_side_cutoff() const;
   inline void clear_has_has_street_side_cutoff();
 
+  inline bool has_has_minimum_inbound_reachability() const;
+  inline void clear_has_has_minimum_inbound_reachability();
+
+  inline bool has_has_minimum_outbound_reachability() const;
+  inline void clear_has_has_minimum_outbound_reachability();
+
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
@@ -2579,9 +2868,10 @@ class Location final :
   ::valhalla::Correlation* correlation_;
   int type_;
   int side_of_street_;
-  bool skip_ranking_candidates_;
   int preferred_side_;
   float waiting_secs_;
+  bool skip_ranking_candidates_;
+  bool transit_available_;
   union HasHeadingUnion {
     constexpr HasHeadingUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -2642,8 +2932,18 @@ class Location final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     int street_side_cutoff_;
   } has_street_side_cutoff_;
+  union HasMinimumInboundReachabilityUnion {
+    constexpr HasMinimumInboundReachabilityUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t minimum_inbound_reachability_;
+  } has_minimum_inbound_reachability_;
+  union HasMinimumOutboundReachabilityUnion {
+    constexpr HasMinimumOutboundReachabilityUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t minimum_outbound_reachability_;
+  } has_minimum_outbound_reachability_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t _oneof_case_[12];
+  uint32_t _oneof_case_[14];
 
   friend struct ::TableStruct_common_2eproto;
 };
@@ -2688,7 +2988,7 @@ class TransitEgressInfo final :
                &_TransitEgressInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(TransitEgressInfo& a, TransitEgressInfo& b) {
     a.Swap(&b);
@@ -2856,7 +3156,7 @@ class TransitStationInfo final :
                &_TransitStationInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(TransitStationInfo& a, TransitStationInfo& b) {
     a.Swap(&b);
@@ -3024,7 +3324,7 @@ class BikeShareStationInfo final :
                &_BikeShareStationInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(BikeShareStationInfo& a, BikeShareStationInfo& b) {
     a.Swap(&b);
@@ -3237,7 +3537,7 @@ class TransitPlatformInfo final :
                &_TransitPlatformInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(TransitPlatformInfo& a, TransitPlatformInfo& b) {
     a.Swap(&b);
@@ -3517,7 +3817,7 @@ class TransitRouteInfo final :
                &_TransitRouteInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(TransitRouteInfo& a, TransitRouteInfo& b) {
     a.Swap(&b);
@@ -3825,7 +4125,7 @@ class Pronunciation final :
                &_Pronunciation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(Pronunciation& a, Pronunciation& b) {
     a.Swap(&b);
@@ -4000,7 +4300,7 @@ class StreetName final :
                &_StreetName_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(StreetName& a, StreetName& b) {
     a.Swap(&b);
@@ -4174,7 +4474,7 @@ class TurnLane final :
                &_TurnLane_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(TurnLane& a, TurnLane& b) {
     a.Swap(&b);
@@ -4351,7 +4651,7 @@ class TaggedValue final :
                &_TaggedValue_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(TaggedValue& a, TaggedValue& b) {
     a.Swap(&b);
@@ -4538,7 +4838,7 @@ class Summary final :
                &_Summary_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(Summary& a, Summary& b) {
     a.Swap(&b);
@@ -4696,6 +4996,155 @@ class Summary final :
   bool has_toll_;
   bool has_ferry_;
   bool has_highway_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_common_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LevelChange final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.LevelChange) */ {
+ public:
+  inline LevelChange() : LevelChange(nullptr) {}
+  ~LevelChange() override;
+  explicit PROTOBUF_CONSTEXPR LevelChange(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LevelChange(const LevelChange& from);
+  LevelChange(LevelChange&& from) noexcept
+    : LevelChange() {
+    *this = ::std::move(from);
+  }
+
+  inline LevelChange& operator=(const LevelChange& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LevelChange& operator=(LevelChange&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const LevelChange& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LevelChange* internal_default_instance() {
+    return reinterpret_cast<const LevelChange*>(
+               &_LevelChange_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(LevelChange& a, LevelChange& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LevelChange* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LevelChange* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LevelChange* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LevelChange>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LevelChange& from);
+  void MergeFrom(const LevelChange& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LevelChange* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.LevelChange";
+  }
+  protected:
+  explicit LevelChange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kShapeIndexFieldNumber = 1,
+    kLevelFieldNumber = 2,
+    kPrecisionFieldNumber = 3,
+  };
+  // uint32 shape_index = 1;
+  void clear_shape_index();
+  uint32_t shape_index() const;
+  void set_shape_index(uint32_t value);
+  private:
+  uint32_t _internal_shape_index() const;
+  void _internal_set_shape_index(uint32_t value);
+  public:
+
+  // float level = 2;
+  void clear_level();
+  float level() const;
+  void set_level(float value);
+  private:
+  float _internal_level() const;
+  void _internal_set_level(float value);
+  public:
+
+  // uint32 precision = 3;
+  void clear_precision();
+  uint32_t precision() const;
+  void set_precision(uint32_t value);
+  private:
+  uint32_t _internal_precision() const;
+  void _internal_set_precision(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.LevelChange)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint32_t shape_index_;
+  float level_;
+  uint32_t precision_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_common_2eproto;
 };
@@ -5370,6 +5819,84 @@ inline void SearchFilter::set_exclude_closures(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.SearchFilter.exclude_closures)
 }
 
+// bool exclude_toll = 7;
+inline void SearchFilter::clear_exclude_toll() {
+  exclude_toll_ = false;
+}
+inline bool SearchFilter::_internal_exclude_toll() const {
+  return exclude_toll_;
+}
+inline bool SearchFilter::exclude_toll() const {
+  // @@protoc_insertion_point(field_get:valhalla.SearchFilter.exclude_toll)
+  return _internal_exclude_toll();
+}
+inline void SearchFilter::_internal_set_exclude_toll(bool value) {
+  
+  exclude_toll_ = value;
+}
+inline void SearchFilter::set_exclude_toll(bool value) {
+  _internal_set_exclude_toll(value);
+  // @@protoc_insertion_point(field_set:valhalla.SearchFilter.exclude_toll)
+}
+
+// bool exclude_ferry = 8;
+inline void SearchFilter::clear_exclude_ferry() {
+  exclude_ferry_ = false;
+}
+inline bool SearchFilter::_internal_exclude_ferry() const {
+  return exclude_ferry_;
+}
+inline bool SearchFilter::exclude_ferry() const {
+  // @@protoc_insertion_point(field_get:valhalla.SearchFilter.exclude_ferry)
+  return _internal_exclude_ferry();
+}
+inline void SearchFilter::_internal_set_exclude_ferry(bool value) {
+  
+  exclude_ferry_ = value;
+}
+inline void SearchFilter::set_exclude_ferry(bool value) {
+  _internal_set_exclude_ferry(value);
+  // @@protoc_insertion_point(field_set:valhalla.SearchFilter.exclude_ferry)
+}
+
+// float level = 9;
+inline bool SearchFilter::_internal_has_level() const {
+  return has_level_case() == kLevel;
+}
+inline bool SearchFilter::has_level() const {
+  return _internal_has_level();
+}
+inline void SearchFilter::set_has_level() {
+  _oneof_case_[3] = kLevel;
+}
+inline void SearchFilter::clear_level() {
+  if (_internal_has_level()) {
+    has_level_.level_ = 0;
+    clear_has_has_level();
+  }
+}
+inline float SearchFilter::_internal_level() const {
+  if (_internal_has_level()) {
+    return has_level_.level_;
+  }
+  return 0;
+}
+inline void SearchFilter::_internal_set_level(float value) {
+  if (!_internal_has_level()) {
+    clear_has_level();
+    set_has_level();
+  }
+  has_level_.level_ = value;
+}
+inline float SearchFilter::level() const {
+  // @@protoc_insertion_point(field_get:valhalla.SearchFilter.level)
+  return _internal_level();
+}
+inline void SearchFilter::set_level(float value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:valhalla.SearchFilter.level)
+}
+
 inline bool SearchFilter::has_has_min_road_class() const {
   return has_min_road_class_case() != HAS_MIN_ROAD_CLASS_NOT_SET;
 }
@@ -5388,6 +5915,12 @@ inline bool SearchFilter::has_has_exclude_closures() const {
 inline void SearchFilter::clear_has_has_exclude_closures() {
   _oneof_case_[2] = HAS_EXCLUDE_CLOSURES_NOT_SET;
 }
+inline bool SearchFilter::has_has_level() const {
+  return has_level_case() != HAS_LEVEL_NOT_SET;
+}
+inline void SearchFilter::clear_has_has_level() {
+  _oneof_case_[3] = HAS_LEVEL_NOT_SET;
+}
 inline SearchFilter::HasMinRoadClassCase SearchFilter::has_min_road_class_case() const {
   return SearchFilter::HasMinRoadClassCase(_oneof_case_[0]);
 }
@@ -5397,6 +5930,123 @@ inline SearchFilter::HasMaxRoadClassCase SearchFilter::has_max_road_class_case()
 inline SearchFilter::HasExcludeClosuresCase SearchFilter::has_exclude_closures_case() const {
   return SearchFilter::HasExcludeClosuresCase(_oneof_case_[2]);
 }
+inline SearchFilter::HasLevelCase SearchFilter::has_level_case() const {
+  return SearchFilter::HasLevelCase(_oneof_case_[3]);
+}
+// -------------------------------------------------------------------
+
+// PathEdge_BoundingCircle
+
+// uint32 radius = 1;
+inline void PathEdge_BoundingCircle::clear_radius() {
+  radius_ = 0u;
+}
+inline uint32_t PathEdge_BoundingCircle::_internal_radius() const {
+  return radius_;
+}
+inline uint32_t PathEdge_BoundingCircle::radius() const {
+  // @@protoc_insertion_point(field_get:valhalla.PathEdge.BoundingCircle.radius)
+  return _internal_radius();
+}
+inline void PathEdge_BoundingCircle::_internal_set_radius(uint32_t value) {
+  
+  radius_ = value;
+}
+inline void PathEdge_BoundingCircle::set_radius(uint32_t value) {
+  _internal_set_radius(value);
+  // @@protoc_insertion_point(field_set:valhalla.PathEdge.BoundingCircle.radius)
+}
+
+// .valhalla.LatLng latlng = 2;
+inline bool PathEdge_BoundingCircle::_internal_has_latlng() const {
+  return this != internal_default_instance() && latlng_ != nullptr;
+}
+inline bool PathEdge_BoundingCircle::has_latlng() const {
+  return _internal_has_latlng();
+}
+inline void PathEdge_BoundingCircle::clear_latlng() {
+  if (GetArenaForAllocation() == nullptr && latlng_ != nullptr) {
+    delete latlng_;
+  }
+  latlng_ = nullptr;
+}
+inline const ::valhalla::LatLng& PathEdge_BoundingCircle::_internal_latlng() const {
+  const ::valhalla::LatLng* p = latlng_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::LatLng&>(
+      ::valhalla::_LatLng_default_instance_);
+}
+inline const ::valhalla::LatLng& PathEdge_BoundingCircle::latlng() const {
+  // @@protoc_insertion_point(field_get:valhalla.PathEdge.BoundingCircle.latlng)
+  return _internal_latlng();
+}
+inline void PathEdge_BoundingCircle::unsafe_arena_set_allocated_latlng(
+    ::valhalla::LatLng* latlng) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(latlng_);
+  }
+  latlng_ = latlng;
+  if (latlng) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.PathEdge.BoundingCircle.latlng)
+}
+inline ::valhalla::LatLng* PathEdge_BoundingCircle::release_latlng() {
+  
+  ::valhalla::LatLng* temp = latlng_;
+  latlng_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::LatLng* PathEdge_BoundingCircle::unsafe_arena_release_latlng() {
+  // @@protoc_insertion_point(field_release:valhalla.PathEdge.BoundingCircle.latlng)
+  
+  ::valhalla::LatLng* temp = latlng_;
+  latlng_ = nullptr;
+  return temp;
+}
+inline ::valhalla::LatLng* PathEdge_BoundingCircle::_internal_mutable_latlng() {
+  
+  if (latlng_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::LatLng>(GetArenaForAllocation());
+    latlng_ = p;
+  }
+  return latlng_;
+}
+inline ::valhalla::LatLng* PathEdge_BoundingCircle::mutable_latlng() {
+  ::valhalla::LatLng* _msg = _internal_mutable_latlng();
+  // @@protoc_insertion_point(field_mutable:valhalla.PathEdge.BoundingCircle.latlng)
+  return _msg;
+}
+inline void PathEdge_BoundingCircle::set_allocated_latlng(::valhalla::LatLng* latlng) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete latlng_;
+  }
+  if (latlng) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(latlng);
+    if (message_arena != submessage_arena) {
+      latlng = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, latlng, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  latlng_ = latlng;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.PathEdge.BoundingCircle.latlng)
+}
+
 // -------------------------------------------------------------------
 
 // PathEdge
@@ -5744,6 +6394,96 @@ inline void PathEdge::_internal_set_heading(float value) {
 inline void PathEdge::set_heading(float value) {
   _internal_set_heading(value);
   // @@protoc_insertion_point(field_set:valhalla.PathEdge.heading)
+}
+
+// .valhalla.PathEdge.BoundingCircle bounding_circle = 14;
+inline bool PathEdge::_internal_has_bounding_circle() const {
+  return this != internal_default_instance() && bounding_circle_ != nullptr;
+}
+inline bool PathEdge::has_bounding_circle() const {
+  return _internal_has_bounding_circle();
+}
+inline void PathEdge::clear_bounding_circle() {
+  if (GetArenaForAllocation() == nullptr && bounding_circle_ != nullptr) {
+    delete bounding_circle_;
+  }
+  bounding_circle_ = nullptr;
+}
+inline const ::valhalla::PathEdge_BoundingCircle& PathEdge::_internal_bounding_circle() const {
+  const ::valhalla::PathEdge_BoundingCircle* p = bounding_circle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::PathEdge_BoundingCircle&>(
+      ::valhalla::_PathEdge_BoundingCircle_default_instance_);
+}
+inline const ::valhalla::PathEdge_BoundingCircle& PathEdge::bounding_circle() const {
+  // @@protoc_insertion_point(field_get:valhalla.PathEdge.bounding_circle)
+  return _internal_bounding_circle();
+}
+inline void PathEdge::unsafe_arena_set_allocated_bounding_circle(
+    ::valhalla::PathEdge_BoundingCircle* bounding_circle) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bounding_circle_);
+  }
+  bounding_circle_ = bounding_circle;
+  if (bounding_circle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.PathEdge.bounding_circle)
+}
+inline ::valhalla::PathEdge_BoundingCircle* PathEdge::release_bounding_circle() {
+  
+  ::valhalla::PathEdge_BoundingCircle* temp = bounding_circle_;
+  bounding_circle_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::PathEdge_BoundingCircle* PathEdge::unsafe_arena_release_bounding_circle() {
+  // @@protoc_insertion_point(field_release:valhalla.PathEdge.bounding_circle)
+  
+  ::valhalla::PathEdge_BoundingCircle* temp = bounding_circle_;
+  bounding_circle_ = nullptr;
+  return temp;
+}
+inline ::valhalla::PathEdge_BoundingCircle* PathEdge::_internal_mutable_bounding_circle() {
+  
+  if (bounding_circle_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::PathEdge_BoundingCircle>(GetArenaForAllocation());
+    bounding_circle_ = p;
+  }
+  return bounding_circle_;
+}
+inline ::valhalla::PathEdge_BoundingCircle* PathEdge::mutable_bounding_circle() {
+  ::valhalla::PathEdge_BoundingCircle* _msg = _internal_mutable_bounding_circle();
+  // @@protoc_insertion_point(field_mutable:valhalla.PathEdge.bounding_circle)
+  return _msg;
+}
+inline void PathEdge::set_allocated_bounding_circle(::valhalla::PathEdge_BoundingCircle* bounding_circle) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete bounding_circle_;
+  }
+  if (bounding_circle) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(bounding_circle);
+    if (message_arena != submessage_arena) {
+      bounding_circle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, bounding_circle, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  bounding_circle_ = bounding_circle;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.PathEdge.bounding_circle)
 }
 
 // -------------------------------------------------------------------
@@ -7000,6 +7740,82 @@ inline void Location::set_street_side_cutoff(::valhalla::RoadClass value) {
   // @@protoc_insertion_point(field_set:valhalla.Location.street_side_cutoff)
 }
 
+// uint32 minimum_inbound_reachability = 31;
+inline bool Location::_internal_has_minimum_inbound_reachability() const {
+  return has_minimum_inbound_reachability_case() == kMinimumInboundReachability;
+}
+inline bool Location::has_minimum_inbound_reachability() const {
+  return _internal_has_minimum_inbound_reachability();
+}
+inline void Location::set_has_minimum_inbound_reachability() {
+  _oneof_case_[12] = kMinimumInboundReachability;
+}
+inline void Location::clear_minimum_inbound_reachability() {
+  if (_internal_has_minimum_inbound_reachability()) {
+    has_minimum_inbound_reachability_.minimum_inbound_reachability_ = 0u;
+    clear_has_has_minimum_inbound_reachability();
+  }
+}
+inline uint32_t Location::_internal_minimum_inbound_reachability() const {
+  if (_internal_has_minimum_inbound_reachability()) {
+    return has_minimum_inbound_reachability_.minimum_inbound_reachability_;
+  }
+  return 0u;
+}
+inline void Location::_internal_set_minimum_inbound_reachability(uint32_t value) {
+  if (!_internal_has_minimum_inbound_reachability()) {
+    clear_has_minimum_inbound_reachability();
+    set_has_minimum_inbound_reachability();
+  }
+  has_minimum_inbound_reachability_.minimum_inbound_reachability_ = value;
+}
+inline uint32_t Location::minimum_inbound_reachability() const {
+  // @@protoc_insertion_point(field_get:valhalla.Location.minimum_inbound_reachability)
+  return _internal_minimum_inbound_reachability();
+}
+inline void Location::set_minimum_inbound_reachability(uint32_t value) {
+  _internal_set_minimum_inbound_reachability(value);
+  // @@protoc_insertion_point(field_set:valhalla.Location.minimum_inbound_reachability)
+}
+
+// uint32 minimum_outbound_reachability = 32;
+inline bool Location::_internal_has_minimum_outbound_reachability() const {
+  return has_minimum_outbound_reachability_case() == kMinimumOutboundReachability;
+}
+inline bool Location::has_minimum_outbound_reachability() const {
+  return _internal_has_minimum_outbound_reachability();
+}
+inline void Location::set_has_minimum_outbound_reachability() {
+  _oneof_case_[13] = kMinimumOutboundReachability;
+}
+inline void Location::clear_minimum_outbound_reachability() {
+  if (_internal_has_minimum_outbound_reachability()) {
+    has_minimum_outbound_reachability_.minimum_outbound_reachability_ = 0u;
+    clear_has_has_minimum_outbound_reachability();
+  }
+}
+inline uint32_t Location::_internal_minimum_outbound_reachability() const {
+  if (_internal_has_minimum_outbound_reachability()) {
+    return has_minimum_outbound_reachability_.minimum_outbound_reachability_;
+  }
+  return 0u;
+}
+inline void Location::_internal_set_minimum_outbound_reachability(uint32_t value) {
+  if (!_internal_has_minimum_outbound_reachability()) {
+    clear_has_minimum_outbound_reachability();
+    set_has_minimum_outbound_reachability();
+  }
+  has_minimum_outbound_reachability_.minimum_outbound_reachability_ = value;
+}
+inline uint32_t Location::minimum_outbound_reachability() const {
+  // @@protoc_insertion_point(field_get:valhalla.Location.minimum_outbound_reachability)
+  return _internal_minimum_outbound_reachability();
+}
+inline void Location::set_minimum_outbound_reachability(uint32_t value) {
+  _internal_set_minimum_outbound_reachability(value);
+  // @@protoc_insertion_point(field_set:valhalla.Location.minimum_outbound_reachability)
+}
+
 // .valhalla.Correlation correlation = 90;
 inline bool Location::_internal_has_correlation() const {
   return this != internal_default_instance() && correlation_ != nullptr;
@@ -7190,6 +8006,26 @@ inline void Location::set_allocated_time_zone_name(std::string* time_zone_name) 
   // @@protoc_insertion_point(field_set_allocated:valhalla.Location.time_zone_name)
 }
 
+// bool transit_available = 93;
+inline void Location::clear_transit_available() {
+  transit_available_ = false;
+}
+inline bool Location::_internal_transit_available() const {
+  return transit_available_;
+}
+inline bool Location::transit_available() const {
+  // @@protoc_insertion_point(field_get:valhalla.Location.transit_available)
+  return _internal_transit_available();
+}
+inline void Location::_internal_set_transit_available(bool value) {
+  
+  transit_available_ = value;
+}
+inline void Location::set_transit_available(bool value) {
+  _internal_set_transit_available(value);
+  // @@protoc_insertion_point(field_set:valhalla.Location.transit_available)
+}
+
 inline bool Location::has_has_heading() const {
   return has_heading_case() != HAS_HEADING_NOT_SET;
 }
@@ -7262,6 +8098,18 @@ inline bool Location::has_has_street_side_cutoff() const {
 inline void Location::clear_has_has_street_side_cutoff() {
   _oneof_case_[11] = HAS_STREET_SIDE_CUTOFF_NOT_SET;
 }
+inline bool Location::has_has_minimum_inbound_reachability() const {
+  return has_minimum_inbound_reachability_case() != HAS_MINIMUM_INBOUND_REACHABILITY_NOT_SET;
+}
+inline void Location::clear_has_has_minimum_inbound_reachability() {
+  _oneof_case_[12] = HAS_MINIMUM_INBOUND_REACHABILITY_NOT_SET;
+}
+inline bool Location::has_has_minimum_outbound_reachability() const {
+  return has_minimum_outbound_reachability_case() != HAS_MINIMUM_OUTBOUND_REACHABILITY_NOT_SET;
+}
+inline void Location::clear_has_has_minimum_outbound_reachability() {
+  _oneof_case_[13] = HAS_MINIMUM_OUTBOUND_REACHABILITY_NOT_SET;
+}
 inline Location::HasHeadingCase Location::has_heading_case() const {
   return Location::HasHeadingCase(_oneof_case_[0]);
 }
@@ -7297,6 +8145,12 @@ inline Location::HasPreferredLayerCase Location::has_preferred_layer_case() cons
 }
 inline Location::HasStreetSideCutoffCase Location::has_street_side_cutoff_case() const {
   return Location::HasStreetSideCutoffCase(_oneof_case_[11]);
+}
+inline Location::HasMinimumInboundReachabilityCase Location::has_minimum_inbound_reachability_case() const {
+  return Location::HasMinimumInboundReachabilityCase(_oneof_case_[12]);
+}
+inline Location::HasMinimumOutboundReachabilityCase Location::has_minimum_outbound_reachability_case() const {
+  return Location::HasMinimumOutboundReachabilityCase(_oneof_case_[13]);
 }
 // -------------------------------------------------------------------
 
@@ -9518,9 +10372,77 @@ inline void Summary::set_has_highway(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.Summary.has_highway)
 }
 
+// -------------------------------------------------------------------
+
+// LevelChange
+
+// uint32 shape_index = 1;
+inline void LevelChange::clear_shape_index() {
+  shape_index_ = 0u;
+}
+inline uint32_t LevelChange::_internal_shape_index() const {
+  return shape_index_;
+}
+inline uint32_t LevelChange::shape_index() const {
+  // @@protoc_insertion_point(field_get:valhalla.LevelChange.shape_index)
+  return _internal_shape_index();
+}
+inline void LevelChange::_internal_set_shape_index(uint32_t value) {
+  
+  shape_index_ = value;
+}
+inline void LevelChange::set_shape_index(uint32_t value) {
+  _internal_set_shape_index(value);
+  // @@protoc_insertion_point(field_set:valhalla.LevelChange.shape_index)
+}
+
+// float level = 2;
+inline void LevelChange::clear_level() {
+  level_ = 0;
+}
+inline float LevelChange::_internal_level() const {
+  return level_;
+}
+inline float LevelChange::level() const {
+  // @@protoc_insertion_point(field_get:valhalla.LevelChange.level)
+  return _internal_level();
+}
+inline void LevelChange::_internal_set_level(float value) {
+  
+  level_ = value;
+}
+inline void LevelChange::set_level(float value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:valhalla.LevelChange.level)
+}
+
+// uint32 precision = 3;
+inline void LevelChange::clear_precision() {
+  precision_ = 0u;
+}
+inline uint32_t LevelChange::_internal_precision() const {
+  return precision_;
+}
+inline uint32_t LevelChange::precision() const {
+  // @@protoc_insertion_point(field_get:valhalla.LevelChange.precision)
+  return _internal_precision();
+}
+inline void LevelChange::_internal_set_precision(uint32_t value) {
+  
+  precision_ = value;
+}
+inline void LevelChange::set_precision(uint32_t value) {
+  _internal_set_precision(value);
+  // @@protoc_insertion_point(field_set:valhalla.LevelChange.precision)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

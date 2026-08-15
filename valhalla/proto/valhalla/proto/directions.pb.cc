@@ -98,6 +98,7 @@ PROTOBUF_CONSTEXPR DirectionsLeg::DirectionsLeg(
     ::_pbi::ConstantInitialized)
   : location_()
   , maneuver_()
+  , level_changes_()
   , shape_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , summary_(nullptr)
   , trip_id_(uint64_t{0u})
@@ -365,13 +366,15 @@ bool DirectionsLeg_Maneuver_Type_IsValid(int value) {
     case 41:
     case 42:
     case 43:
+    case 44:
+    case 45:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DirectionsLeg_Maneuver_Type_strings[44] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DirectionsLeg_Maneuver_Type_strings[46] = {};
 
 static const char DirectionsLeg_Maneuver_Type_names[] =
   "kBecomes"
@@ -388,10 +391,12 @@ static const char DirectionsLeg_Maneuver_Type_names[] =
   "kFerryEnter"
   "kFerryExit"
   "kLeft"
+  "kLevelChange"
   "kMerge"
   "kMergeLeft"
   "kMergeRight"
   "kNone"
+  "kParkVehicle"
   "kPostTransitConnectionDestination"
   "kRampLeft"
   "kRampRight"
@@ -434,83 +439,87 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DirectionsLeg_Maneuver
   { {DirectionsLeg_Maneuver_Type_names + 137, 11}, 28 },
   { {DirectionsLeg_Maneuver_Type_names + 148, 10}, 29 },
   { {DirectionsLeg_Maneuver_Type_names + 158, 5}, 15 },
-  { {DirectionsLeg_Maneuver_Type_names + 163, 6}, 25 },
-  { {DirectionsLeg_Maneuver_Type_names + 169, 10}, 38 },
-  { {DirectionsLeg_Maneuver_Type_names + 179, 11}, 37 },
-  { {DirectionsLeg_Maneuver_Type_names + 190, 5}, 0 },
-  { {DirectionsLeg_Maneuver_Type_names + 195, 33}, 36 },
-  { {DirectionsLeg_Maneuver_Type_names + 228, 9}, 19 },
-  { {DirectionsLeg_Maneuver_Type_names + 237, 10}, 18 },
-  { {DirectionsLeg_Maneuver_Type_names + 247, 13}, 17 },
-  { {DirectionsLeg_Maneuver_Type_names + 260, 6}, 10 },
-  { {DirectionsLeg_Maneuver_Type_names + 266, 16}, 26 },
-  { {DirectionsLeg_Maneuver_Type_names + 282, 15}, 27 },
-  { {DirectionsLeg_Maneuver_Type_names + 297, 10}, 14 },
-  { {DirectionsLeg_Maneuver_Type_names + 307, 11}, 11 },
-  { {DirectionsLeg_Maneuver_Type_names + 318, 11}, 16 },
-  { {DirectionsLeg_Maneuver_Type_names + 329, 12}, 9 },
-  { {DirectionsLeg_Maneuver_Type_names + 341, 6}, 1 },
-  { {DirectionsLeg_Maneuver_Type_names + 347, 10}, 3 },
-  { {DirectionsLeg_Maneuver_Type_names + 357, 11}, 2 },
-  { {DirectionsLeg_Maneuver_Type_names + 368, 9}, 24 },
-  { {DirectionsLeg_Maneuver_Type_names + 377, 10}, 23 },
-  { {DirectionsLeg_Maneuver_Type_names + 387, 13}, 22 },
-  { {DirectionsLeg_Maneuver_Type_names + 400, 11}, 40 },
-  { {DirectionsLeg_Maneuver_Type_names + 411, 8}, 30 },
-  { {DirectionsLeg_Maneuver_Type_names + 419, 29}, 35 },
-  { {DirectionsLeg_Maneuver_Type_names + 448, 23}, 33 },
-  { {DirectionsLeg_Maneuver_Type_names + 471, 26}, 34 },
-  { {DirectionsLeg_Maneuver_Type_names + 497, 16}, 32 },
-  { {DirectionsLeg_Maneuver_Type_names + 513, 16}, 31 },
-  { {DirectionsLeg_Maneuver_Type_names + 529, 10}, 13 },
-  { {DirectionsLeg_Maneuver_Type_names + 539, 11}, 12 },
+  { {DirectionsLeg_Maneuver_Type_names + 163, 12}, 44 },
+  { {DirectionsLeg_Maneuver_Type_names + 175, 6}, 25 },
+  { {DirectionsLeg_Maneuver_Type_names + 181, 10}, 38 },
+  { {DirectionsLeg_Maneuver_Type_names + 191, 11}, 37 },
+  { {DirectionsLeg_Maneuver_Type_names + 202, 5}, 0 },
+  { {DirectionsLeg_Maneuver_Type_names + 207, 12}, 45 },
+  { {DirectionsLeg_Maneuver_Type_names + 219, 33}, 36 },
+  { {DirectionsLeg_Maneuver_Type_names + 252, 9}, 19 },
+  { {DirectionsLeg_Maneuver_Type_names + 261, 10}, 18 },
+  { {DirectionsLeg_Maneuver_Type_names + 271, 13}, 17 },
+  { {DirectionsLeg_Maneuver_Type_names + 284, 6}, 10 },
+  { {DirectionsLeg_Maneuver_Type_names + 290, 16}, 26 },
+  { {DirectionsLeg_Maneuver_Type_names + 306, 15}, 27 },
+  { {DirectionsLeg_Maneuver_Type_names + 321, 10}, 14 },
+  { {DirectionsLeg_Maneuver_Type_names + 331, 11}, 11 },
+  { {DirectionsLeg_Maneuver_Type_names + 342, 11}, 16 },
+  { {DirectionsLeg_Maneuver_Type_names + 353, 12}, 9 },
+  { {DirectionsLeg_Maneuver_Type_names + 365, 6}, 1 },
+  { {DirectionsLeg_Maneuver_Type_names + 371, 10}, 3 },
+  { {DirectionsLeg_Maneuver_Type_names + 381, 11}, 2 },
+  { {DirectionsLeg_Maneuver_Type_names + 392, 9}, 24 },
+  { {DirectionsLeg_Maneuver_Type_names + 401, 10}, 23 },
+  { {DirectionsLeg_Maneuver_Type_names + 411, 13}, 22 },
+  { {DirectionsLeg_Maneuver_Type_names + 424, 11}, 40 },
+  { {DirectionsLeg_Maneuver_Type_names + 435, 8}, 30 },
+  { {DirectionsLeg_Maneuver_Type_names + 443, 29}, 35 },
+  { {DirectionsLeg_Maneuver_Type_names + 472, 23}, 33 },
+  { {DirectionsLeg_Maneuver_Type_names + 495, 26}, 34 },
+  { {DirectionsLeg_Maneuver_Type_names + 521, 16}, 32 },
+  { {DirectionsLeg_Maneuver_Type_names + 537, 16}, 31 },
+  { {DirectionsLeg_Maneuver_Type_names + 553, 10}, 13 },
+  { {DirectionsLeg_Maneuver_Type_names + 563, 11}, 12 },
 };
 
 static const int DirectionsLeg_Maneuver_Type_entries_by_number[] = {
-  17, // 0 -> kNone
-  29, // 1 -> kStart
-  31, // 2 -> kStartRight
-  30, // 3 -> kStartLeft
+  18, // 0 -> kNone
+  31, // 1 -> kStart
+  33, // 2 -> kStartRight
+  32, // 3 -> kStartLeft
   4, // 4 -> kDestination
   6, // 5 -> kDestinationRight
   5, // 6 -> kDestinationLeft
   0, // 7 -> kBecomes
   3, // 8 -> kContinue
-  28, // 9 -> kSlightRight
-  22, // 10 -> kRight
-  26, // 11 -> kSharpRight
-  43, // 12 -> kUturnRight
-  42, // 13 -> kUturnLeft
-  25, // 14 -> kSharpLeft
+  30, // 9 -> kSlightRight
+  24, // 10 -> kRight
+  28, // 11 -> kSharpRight
+  45, // 12 -> kUturnRight
+  44, // 13 -> kUturnLeft
+  27, // 14 -> kSharpLeft
   13, // 15 -> kLeft
-  27, // 16 -> kSlightLeft
-  21, // 17 -> kRampStraight
-  20, // 18 -> kRampRight
-  19, // 19 -> kRampLeft
+  29, // 16 -> kSlightLeft
+  23, // 17 -> kRampStraight
+  22, // 18 -> kRampRight
+  21, // 19 -> kRampLeft
   10, // 20 -> kExitRight
   9, // 21 -> kExitLeft
-  34, // 22 -> kStayStraight
-  33, // 23 -> kStayRight
-  32, // 24 -> kStayLeft
-  14, // 25 -> kMerge
-  23, // 26 -> kRoundaboutEnter
-  24, // 27 -> kRoundaboutExit
+  36, // 22 -> kStayStraight
+  35, // 23 -> kStayRight
+  34, // 24 -> kStayLeft
+  15, // 25 -> kMerge
+  25, // 26 -> kRoundaboutEnter
+  26, // 27 -> kRoundaboutExit
   11, // 28 -> kFerryEnter
   12, // 29 -> kFerryExit
-  36, // 30 -> kTransit
-  41, // 31 -> kTransitTransfer
-  40, // 32 -> kTransitRemainOn
-  38, // 33 -> kTransitConnectionStart
-  39, // 34 -> kTransitConnectionTransfer
-  37, // 35 -> kTransitConnectionDestination
-  18, // 36 -> kPostTransitConnectionDestination
-  16, // 37 -> kMergeRight
-  15, // 38 -> kMergeLeft
+  38, // 30 -> kTransit
+  43, // 31 -> kTransitTransfer
+  42, // 32 -> kTransitRemainOn
+  40, // 33 -> kTransitConnectionStart
+  41, // 34 -> kTransitConnectionTransfer
+  39, // 35 -> kTransitConnectionDestination
+  20, // 36 -> kPostTransitConnectionDestination
+  17, // 37 -> kMergeRight
+  16, // 38 -> kMergeLeft
   7, // 39 -> kElevatorEnter
-  35, // 40 -> kStepsEnter
+  37, // 40 -> kStepsEnter
   8, // 41 -> kEscalatorEnter
   1, // 42 -> kBuildingEnter
   2, // 43 -> kBuildingExit
+  14, // 44 -> kLevelChange
+  19, // 45 -> kParkVehicle
 };
 
 const std::string& DirectionsLeg_Maneuver_Type_Name(
@@ -519,12 +528,12 @@ const std::string& DirectionsLeg_Maneuver_Type_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DirectionsLeg_Maneuver_Type_entries,
           DirectionsLeg_Maneuver_Type_entries_by_number,
-          44, DirectionsLeg_Maneuver_Type_strings);
+          46, DirectionsLeg_Maneuver_Type_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DirectionsLeg_Maneuver_Type_entries,
       DirectionsLeg_Maneuver_Type_entries_by_number,
-      44, value);
+      46, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DirectionsLeg_Maneuver_Type_strings[idx].get();
 }
@@ -532,7 +541,7 @@ bool DirectionsLeg_Maneuver_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DirectionsLeg_Maneuver_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DirectionsLeg_Maneuver_Type_entries, 44, name, &int_value);
+      DirectionsLeg_Maneuver_Type_entries, 46, name, &int_value);
   if (success) {
     *value = static_cast<DirectionsLeg_Maneuver_Type>(int_value);
   }
@@ -583,6 +592,8 @@ constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::kStepsEnter;
 constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::kEscalatorEnter;
 constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::kBuildingEnter;
 constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::kBuildingExit;
+constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::kLevelChange;
+constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::kParkVehicle;
 constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::Type_MIN;
 constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver::Type_MAX;
 constexpr int DirectionsLeg_Maneuver::Type_ARRAYSIZE;
@@ -2469,18 +2480,23 @@ void DirectionsLeg::clear_summary() {
   }
   summary_ = nullptr;
 }
+void DirectionsLeg::clear_level_changes() {
+  level_changes_.Clear();
+}
 DirectionsLeg::DirectionsLeg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   location_(arena),
-  maneuver_(arena) {
+  maneuver_(arena),
+  level_changes_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.DirectionsLeg)
 }
 DirectionsLeg::DirectionsLeg(const DirectionsLeg& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       location_(from.location_),
-      maneuver_(from.maneuver_) {
+      maneuver_(from.maneuver_),
+      level_changes_(from.level_changes_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   shape_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -2539,6 +2555,7 @@ void DirectionsLeg::Clear() {
 
   location_.Clear();
   maneuver_.Clear();
+  level_changes_.Clear();
   shape_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && summary_ != nullptr) {
     delete summary_;
@@ -2624,6 +2641,19 @@ const char* DirectionsLeg::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
+      // repeated .valhalla.LevelChange level_changes = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_level_changes(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2704,6 +2734,14 @@ uint8_t* DirectionsLeg::_InternalSerialize(
         7, this->_internal_shape(), target);
   }
 
+  // repeated .valhalla.LevelChange level_changes = 8;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_level_changes_size()); i < n; i++) {
+    const auto& repfield = this->_internal_level_changes(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2730,6 +2768,13 @@ size_t DirectionsLeg::ByteSizeLong() const {
   // repeated .valhalla.DirectionsLeg.Maneuver maneuver = 6;
   total_size += 1UL * this->_internal_maneuver_size();
   for (const auto& msg : this->maneuver_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .valhalla.LevelChange level_changes = 8;
+  total_size += 1UL * this->_internal_level_changes_size();
+  for (const auto& msg : this->level_changes_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2785,6 +2830,7 @@ void DirectionsLeg::MergeFrom(const DirectionsLeg& from) {
 
   location_.MergeFrom(from.location_);
   maneuver_.MergeFrom(from.maneuver_);
+  level_changes_.MergeFrom(from.level_changes_);
   if (!from._internal_shape().empty()) {
     _internal_set_shape(from._internal_shape());
   }
@@ -2821,6 +2867,7 @@ void DirectionsLeg::InternalSwap(DirectionsLeg* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   location_.InternalSwap(&other->location_);
   maneuver_.InternalSwap(&other->maneuver_);
+  level_changes_.InternalSwap(&other->level_changes_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &shape_, lhs_arena,
       &other->shape_, rhs_arena
