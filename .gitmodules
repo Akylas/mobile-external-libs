@@ -4,11 +4,11 @@
 	branch = master
 [submodule "angle-uwp"]
 	path = angle-uwp
-	url = https://github.com/nutiteq/angle-uwp.git
+	url = https://github.com/massif-maps/angle-uwp.git
 	branch = master
 [submodule "angle-metal"]
 	path = angle-metal
-	url = https://github.com/nutiteq/angle-metal.git
+	url = https://github.com/massif-maps/angle-metal.git
 	branch = master
 [submodule "brotli/brotli"]
 	path = brotli/brotli
@@ -16,7 +16,7 @@
 	branch = master
 [submodule "zlib/zlib"]
 	path = zlib/zlib
-	url = https://github.com/Akylas/zlib.git
+	url = https://github.com/massif-maps/zlib.git
 	branch = develop
 [submodule "pugixml/pugixml"]
 	path = pugixml/pugixml
@@ -24,33 +24,33 @@
 	branch = master
 [submodule "miniz/miniz"]
 	path = miniz/miniz
-	url = https://github.com/nutiteq/miniz.git
+	url = https://github.com/massif-maps/miniz.git
 [submodule "libwebp/libwebp"]
 	path = libwebp/libwebp
-	url = https://github.com/nutiteq/libwebp.git
+	url = https://github.com/massif-maps/libwebp.git
 [submodule "libjpeg/libjpeg"]
 	path = libjpeg/libjpeg
-	url = https://github.com/nutiteq/libjpeg-turbo.git
+	url = https://github.com/massif-maps/libjpeg-turbo.git
 [submodule "libpng/libpng"]
 	path = libpng/libpng
 	url = https://github.com/pnggroup/libpng.git
 [submodule "freetype/freetype"]
 	path = freetype/freetype
-	url = https://github.com/Akylas/freetype.git
+	url = https://github.com/massif-maps/freetype.git
 	branch = fast-sdf
 [submodule "cryptopp/cryptopp"]
 	path = cryptopp/cryptopp
-	url = https://github.com/nutiteq/cryptopp.git
+	url = https://github.com/massif-maps/cryptopp.git
 [submodule "harfbuzz/harfbuzz"]
 	path = harfbuzz/harfbuzz
-	url = https://github.com/Akylas/harfbuzz.git
+	url = https://github.com/massif-maps/harfbuzz.git
 [submodule "protobuf/protobuf"]
 	path = protobuf/protobuf
-	url = https://github.com/Akylas/protobuf.git
+	url = https://github.com/massif-maps/protobuf.git
 	branch = 3.20.x
 [submodule "valhalla/valhalla"]
 	path = valhalla/valhalla
-	url = https://github.com/Akylas/valhalla.git
+	url = https://github.com/massif-maps/valhalla.git
 	branch = mbtiles-support
 [submodule "date/date"]
 	path = date/date
