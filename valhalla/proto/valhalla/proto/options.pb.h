@@ -53,12 +53,27 @@ extern AvoidEdgeDefaultTypeInternal _AvoidEdge_default_instance_;
 class Contour;
 struct ContourDefaultTypeInternal;
 extern ContourDefaultTypeInternal _Contour_default_instance_;
+class CostFactorEdge;
+struct CostFactorEdgeDefaultTypeInternal;
+extern CostFactorEdgeDefaultTypeInternal _CostFactorEdge_default_instance_;
 class Costing;
 struct CostingDefaultTypeInternal;
 extern CostingDefaultTypeInternal _Costing_default_instance_;
 class Costing_Options;
 struct Costing_OptionsDefaultTypeInternal;
 extern Costing_OptionsDefaultTypeInternal _Costing_Options_default_instance_;
+class Costing_Options_HierarchyLimitsEntry_DoNotUse;
+struct Costing_Options_HierarchyLimitsEntry_DoNotUseDefaultTypeInternal;
+extern Costing_Options_HierarchyLimitsEntry_DoNotUseDefaultTypeInternal _Costing_Options_HierarchyLimitsEntry_DoNotUse_default_instance_;
+class HierarchyLimits;
+struct HierarchyLimitsDefaultTypeInternal;
+extern HierarchyLimitsDefaultTypeInternal _HierarchyLimits_default_instance_;
+class Levels;
+struct LevelsDefaultTypeInternal;
+extern LevelsDefaultTypeInternal _Levels_default_instance_;
+class LinearFeatureCost;
+struct LinearFeatureCostDefaultTypeInternal;
+extern LinearFeatureCostDefaultTypeInternal _LinearFeatureCost_default_instance_;
 class Options;
 struct OptionsDefaultTypeInternal;
 extern OptionsDefaultTypeInternal _Options_default_instance_;
@@ -74,17 +89,30 @@ extern PbfFieldSelectorDefaultTypeInternal _PbfFieldSelector_default_instance_;
 class Ring;
 struct RingDefaultTypeInternal;
 extern RingDefaultTypeInternal _Ring_default_instance_;
+class Tile;
+struct TileDefaultTypeInternal;
+extern TileDefaultTypeInternal _Tile_default_instance_;
+class TileOptions;
+struct TileOptionsDefaultTypeInternal;
+extern TileOptionsDefaultTypeInternal _TileOptions_default_instance_;
 }  // namespace valhalla
 PROTOBUF_NAMESPACE_OPEN
 template<> ::valhalla::AvoidEdge* Arena::CreateMaybeMessage<::valhalla::AvoidEdge>(Arena*);
 template<> ::valhalla::Contour* Arena::CreateMaybeMessage<::valhalla::Contour>(Arena*);
+template<> ::valhalla::CostFactorEdge* Arena::CreateMaybeMessage<::valhalla::CostFactorEdge>(Arena*);
 template<> ::valhalla::Costing* Arena::CreateMaybeMessage<::valhalla::Costing>(Arena*);
 template<> ::valhalla::Costing_Options* Arena::CreateMaybeMessage<::valhalla::Costing_Options>(Arena*);
+template<> ::valhalla::Costing_Options_HierarchyLimitsEntry_DoNotUse* Arena::CreateMaybeMessage<::valhalla::Costing_Options_HierarchyLimitsEntry_DoNotUse>(Arena*);
+template<> ::valhalla::HierarchyLimits* Arena::CreateMaybeMessage<::valhalla::HierarchyLimits>(Arena*);
+template<> ::valhalla::Levels* Arena::CreateMaybeMessage<::valhalla::Levels>(Arena*);
+template<> ::valhalla::LinearFeatureCost* Arena::CreateMaybeMessage<::valhalla::LinearFeatureCost>(Arena*);
 template<> ::valhalla::Options* Arena::CreateMaybeMessage<::valhalla::Options>(Arena*);
 template<> ::valhalla::Options_CostingsEntry_DoNotUse* Arena::CreateMaybeMessage<::valhalla::Options_CostingsEntry_DoNotUse>(Arena*);
 template<> ::valhalla::Options_CustomLocalesEntry_DoNotUse* Arena::CreateMaybeMessage<::valhalla::Options_CustomLocalesEntry_DoNotUse>(Arena*);
 template<> ::valhalla::PbfFieldSelector* Arena::CreateMaybeMessage<::valhalla::PbfFieldSelector>(Arena*);
 template<> ::valhalla::Ring* Arena::CreateMaybeMessage<::valhalla::Ring>(Arena*);
+template<> ::valhalla::Tile* Arena::CreateMaybeMessage<::valhalla::Tile>(Arena*);
+template<> ::valhalla::TileOptions* Arena::CreateMaybeMessage<::valhalla::TileOptions>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace valhalla {
 
@@ -101,12 +129,13 @@ enum Costing_Type : int {
   Costing_Type_taxi = 9,
   Costing_Type_auto_ = 10,
   Costing_Type_bikeshare = 11,
+  Costing_Type_auto_pedestrian = 12,
   Costing_Type_Costing_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   Costing_Type_Costing_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Costing_Type_IsValid(int value);
 constexpr Costing_Type Costing_Type_Type_MIN = Costing_Type_none_;
-constexpr Costing_Type Costing_Type_Type_MAX = Costing_Type_bikeshare;
+constexpr Costing_Type Costing_Type_Type_MAX = Costing_Type_auto_pedestrian;
 constexpr int Costing_Type_Type_ARRAYSIZE = Costing_Type_Type_MAX + 1;
 
 const std::string& Costing_Type_Name(Costing_Type value);
@@ -146,12 +175,13 @@ enum Options_Format : int {
   Options_Format_osrm = 2,
   Options_Format_pbf = 3,
   Options_Format_geotiff = 4,
+  Options_Format_mvt = 5,
   Options_Format_Options_Format_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   Options_Format_Options_Format_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Options_Format_IsValid(int value);
 constexpr Options_Format Options_Format_Format_MIN = Options_Format_json;
-constexpr Options_Format Options_Format_Format_MAX = Options_Format_geotiff;
+constexpr Options_Format Options_Format_Format_MAX = Options_Format_mvt;
 constexpr int Options_Format_Format_ARRAYSIZE = Options_Format_Format_MAX + 1;
 
 const std::string& Options_Format_Name(Options_Format value);
@@ -178,12 +208,13 @@ enum Options_Action : int {
   Options_Action_expansion = 10,
   Options_Action_centroid = 11,
   Options_Action_status = 12,
+  Options_Action_tile = 13,
   Options_Action_Options_Action_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   Options_Action_Options_Action_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Options_Action_IsValid(int value);
 constexpr Options_Action Options_Action_Action_MIN = Options_Action_no_action;
-constexpr Options_Action Options_Action_Action_MAX = Options_Action_status;
+constexpr Options_Action Options_Action_Action_MAX = Options_Action_tile;
 constexpr int Options_Action_Action_ARRAYSIZE = Options_Action_Action_MAX + 1;
 
 const std::string& Options_Action_Name(Options_Action value);
@@ -228,12 +259,14 @@ enum Options_ExpansionProperties : int {
   Options_ExpansionProperties_edge_id = 4,
   Options_ExpansionProperties_pred_edge_id = 5,
   Options_ExpansionProperties_expansion_type = 6,
+  Options_ExpansionProperties_flow_sources = 7,
+  Options_ExpansionProperties_travel_mode = 8,
   Options_ExpansionProperties_Options_ExpansionProperties_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   Options_ExpansionProperties_Options_ExpansionProperties_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Options_ExpansionProperties_IsValid(int value);
 constexpr Options_ExpansionProperties Options_ExpansionProperties_ExpansionProperties_MIN = Options_ExpansionProperties_cost;
-constexpr Options_ExpansionProperties Options_ExpansionProperties_ExpansionProperties_MAX = Options_ExpansionProperties_expansion_type;
+constexpr Options_ExpansionProperties Options_ExpansionProperties_ExpansionProperties_MAX = Options_ExpansionProperties_travel_mode;
 constexpr int Options_ExpansionProperties_ExpansionProperties_ARRAYSIZE = Options_ExpansionProperties_ExpansionProperties_MAX + 1;
 
 const std::string& Options_ExpansionProperties_Name(Options_ExpansionProperties value);
@@ -246,6 +279,27 @@ inline const std::string& Options_ExpansionProperties_Name(T enum_t_value) {
 }
 bool Options_ExpansionProperties_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_ExpansionProperties* value);
+enum Options_ReverseTimeTracking : int {
+  Options_ReverseTimeTracking_rtt_heuristic = 0,
+  Options_ReverseTimeTracking_rtt_disabled = 1,
+  Options_ReverseTimeTracking_Options_ReverseTimeTracking_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  Options_ReverseTimeTracking_Options_ReverseTimeTracking_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool Options_ReverseTimeTracking_IsValid(int value);
+constexpr Options_ReverseTimeTracking Options_ReverseTimeTracking_ReverseTimeTracking_MIN = Options_ReverseTimeTracking_rtt_heuristic;
+constexpr Options_ReverseTimeTracking Options_ReverseTimeTracking_ReverseTimeTracking_MAX = Options_ReverseTimeTracking_rtt_disabled;
+constexpr int Options_ReverseTimeTracking_ReverseTimeTracking_ARRAYSIZE = Options_ReverseTimeTracking_ReverseTimeTracking_MAX + 1;
+
+const std::string& Options_ReverseTimeTracking_Name(Options_ReverseTimeTracking value);
+template<typename T>
+inline const std::string& Options_ReverseTimeTracking_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Options_ReverseTimeTracking>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function Options_ReverseTimeTracking_Name.");
+  return Options_ReverseTimeTracking_Name(static_cast<Options_ReverseTimeTracking>(enum_t_value));
+}
+bool Options_ReverseTimeTracking_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Options_ReverseTimeTracking* value);
 enum ShapeMatch : int {
   walk_or_snap = 0,
   edge_walk = 1,
@@ -686,6 +740,146 @@ class Ring final :
 };
 // -------------------------------------------------------------------
 
+class Levels final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.Levels) */ {
+ public:
+  inline Levels() : Levels(nullptr) {}
+  ~Levels() override;
+  explicit PROTOBUF_CONSTEXPR Levels(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Levels(const Levels& from);
+  Levels(Levels&& from) noexcept
+    : Levels() {
+    *this = ::std::move(from);
+  }
+
+  inline Levels& operator=(const Levels& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Levels& operator=(Levels&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const Levels& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Levels* internal_default_instance() {
+    return reinterpret_cast<const Levels*>(
+               &_Levels_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(Levels& a, Levels& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Levels* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Levels* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Levels* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Levels>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Levels& from);
+  void MergeFrom(const Levels& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Levels* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.Levels";
+  }
+  protected:
+  explicit Levels(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLevelsFieldNumber = 1,
+  };
+  // repeated float levels = 1;
+  int levels_size() const;
+  private:
+  int _internal_levels_size() const;
+  public:
+  void clear_levels();
+  private:
+  float _internal_levels(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      _internal_levels() const;
+  void _internal_add_levels(float value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      _internal_mutable_levels();
+  public:
+  float levels(int index) const;
+  void set_levels(int index, float value);
+  void add_levels(float value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      levels() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      mutable_levels();
+
+  // @@protoc_insertion_point(class_scope:valhalla.Levels)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > levels_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_options_2eproto;
+};
+// -------------------------------------------------------------------
+
 class PbfFieldSelector final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.PbfFieldSelector) */ {
  public:
@@ -725,7 +919,7 @@ class PbfFieldSelector final :
                &_PbfFieldSelector_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(PbfFieldSelector& a, PbfFieldSelector& b) {
     a.Swap(&b);
@@ -928,7 +1122,7 @@ class AvoidEdge final :
                &_AvoidEdge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(AvoidEdge& a, AvoidEdge& b) {
     a.Swap(&b);
@@ -1055,6 +1249,698 @@ class AvoidEdge final :
 
   friend struct ::TableStruct_options_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CostFactorEdge final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.CostFactorEdge) */ {
+ public:
+  inline CostFactorEdge() : CostFactorEdge(nullptr) {}
+  ~CostFactorEdge() override;
+  explicit PROTOBUF_CONSTEXPR CostFactorEdge(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CostFactorEdge(const CostFactorEdge& from);
+  CostFactorEdge(CostFactorEdge&& from) noexcept
+    : CostFactorEdge() {
+    *this = ::std::move(from);
+  }
+
+  inline CostFactorEdge& operator=(const CostFactorEdge& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CostFactorEdge& operator=(CostFactorEdge&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const CostFactorEdge& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CostFactorEdge* internal_default_instance() {
+    return reinterpret_cast<const CostFactorEdge*>(
+               &_CostFactorEdge_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(CostFactorEdge& a, CostFactorEdge& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CostFactorEdge* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CostFactorEdge* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CostFactorEdge* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CostFactorEdge>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CostFactorEdge& from);
+  void MergeFrom(const CostFactorEdge& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CostFactorEdge* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.CostFactorEdge";
+  }
+  protected:
+  explicit CostFactorEdge(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kFactorFieldNumber = 2,
+    kStartFieldNumber = 3,
+    kEndFieldNumber = 4,
+    kIgnoreAccessRestrictionsFieldNumber = 5,
+  };
+  // uint64 id = 1;
+  void clear_id();
+  uint64_t id() const;
+  void set_id(uint64_t value);
+  private:
+  uint64_t _internal_id() const;
+  void _internal_set_id(uint64_t value);
+  public:
+
+  // double factor = 2;
+  void clear_factor();
+  double factor() const;
+  void set_factor(double value);
+  private:
+  double _internal_factor() const;
+  void _internal_set_factor(double value);
+  public:
+
+  // double start = 3;
+  void clear_start();
+  double start() const;
+  void set_start(double value);
+  private:
+  double _internal_start() const;
+  void _internal_set_start(double value);
+  public:
+
+  // double end = 4;
+  void clear_end();
+  double end() const;
+  void set_end(double value);
+  private:
+  double _internal_end() const;
+  void _internal_set_end(double value);
+  public:
+
+  // bool ignore_access_restrictions = 5;
+  void clear_ignore_access_restrictions();
+  bool ignore_access_restrictions() const;
+  void set_ignore_access_restrictions(bool value);
+  private:
+  bool _internal_ignore_access_restrictions() const;
+  void _internal_set_ignore_access_restrictions(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.CostFactorEdge)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint64_t id_;
+  double factor_;
+  double start_;
+  double end_;
+  bool ignore_access_restrictions_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_options_2eproto;
+};
+// -------------------------------------------------------------------
+
+class HierarchyLimits final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.HierarchyLimits) */ {
+ public:
+  inline HierarchyLimits() : HierarchyLimits(nullptr) {}
+  ~HierarchyLimits() override;
+  explicit PROTOBUF_CONSTEXPR HierarchyLimits(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  HierarchyLimits(const HierarchyLimits& from);
+  HierarchyLimits(HierarchyLimits&& from) noexcept
+    : HierarchyLimits() {
+    *this = ::std::move(from);
+  }
+
+  inline HierarchyLimits& operator=(const HierarchyLimits& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HierarchyLimits& operator=(HierarchyLimits&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const HierarchyLimits& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const HierarchyLimits* internal_default_instance() {
+    return reinterpret_cast<const HierarchyLimits*>(
+               &_HierarchyLimits_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(HierarchyLimits& a, HierarchyLimits& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HierarchyLimits* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(HierarchyLimits* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  HierarchyLimits* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<HierarchyLimits>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const HierarchyLimits& from);
+  void MergeFrom(const HierarchyLimits& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(HierarchyLimits* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.HierarchyLimits";
+  }
+  protected:
+  explicit HierarchyLimits(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUpTransitionCountFieldNumber = 1,
+    kMaxUpTransitionsFieldNumber = 2,
+    kExpandWithinDistFieldNumber = 3,
+  };
+  // uint32 up_transition_count = 1;
+  void clear_up_transition_count();
+  uint32_t up_transition_count() const;
+  void set_up_transition_count(uint32_t value);
+  private:
+  uint32_t _internal_up_transition_count() const;
+  void _internal_set_up_transition_count(uint32_t value);
+  public:
+
+  // uint32 max_up_transitions = 2;
+  void clear_max_up_transitions();
+  uint32_t max_up_transitions() const;
+  void set_max_up_transitions(uint32_t value);
+  private:
+  uint32_t _internal_max_up_transitions() const;
+  void _internal_set_max_up_transitions(uint32_t value);
+  public:
+
+  // float expand_within_dist = 3;
+  void clear_expand_within_dist();
+  float expand_within_dist() const;
+  void set_expand_within_dist(float value);
+  private:
+  float _internal_expand_within_dist() const;
+  void _internal_set_expand_within_dist(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.HierarchyLimits)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint32_t up_transition_count_;
+  uint32_t max_up_transitions_;
+  float expand_within_dist_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_options_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Tile final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.Tile) */ {
+ public:
+  inline Tile() : Tile(nullptr) {}
+  ~Tile() override;
+  explicit PROTOBUF_CONSTEXPR Tile(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Tile(const Tile& from);
+  Tile(Tile&& from) noexcept
+    : Tile() {
+    *this = ::std::move(from);
+  }
+
+  inline Tile& operator=(const Tile& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Tile& operator=(Tile&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const Tile& default_instance() {
+    return *internal_default_instance();
+  }
+  enum HasXCase {
+    kX = 1,
+    HAS_X_NOT_SET = 0,
+  };
+
+  enum HasYCase {
+    kY = 2,
+    HAS_Y_NOT_SET = 0,
+  };
+
+  enum HasZCase {
+    kZ = 3,
+    HAS_Z_NOT_SET = 0,
+  };
+
+  static inline const Tile* internal_default_instance() {
+    return reinterpret_cast<const Tile*>(
+               &_Tile_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(Tile& a, Tile& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Tile* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Tile* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Tile* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Tile>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Tile& from);
+  void MergeFrom(const Tile& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Tile* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.Tile";
+  }
+  protected:
+  explicit Tile(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kXFieldNumber = 1,
+    kYFieldNumber = 2,
+    kZFieldNumber = 3,
+  };
+  // uint32 x = 1;
+  bool has_x() const;
+  private:
+  bool _internal_has_x() const;
+  public:
+  void clear_x();
+  uint32_t x() const;
+  void set_x(uint32_t value);
+  private:
+  uint32_t _internal_x() const;
+  void _internal_set_x(uint32_t value);
+  public:
+
+  // uint32 y = 2;
+  bool has_y() const;
+  private:
+  bool _internal_has_y() const;
+  public:
+  void clear_y();
+  uint32_t y() const;
+  void set_y(uint32_t value);
+  private:
+  uint32_t _internal_y() const;
+  void _internal_set_y(uint32_t value);
+  public:
+
+  // uint32 z = 3;
+  bool has_z() const;
+  private:
+  bool _internal_has_z() const;
+  public:
+  void clear_z();
+  uint32_t z() const;
+  void set_z(uint32_t value);
+  private:
+  uint32_t _internal_z() const;
+  void _internal_set_z(uint32_t value);
+  public:
+
+  void clear_has_x();
+  HasXCase has_x_case() const;
+  void clear_has_y();
+  HasYCase has_y_case() const;
+  void clear_has_z();
+  HasZCase has_z_case() const;
+  // @@protoc_insertion_point(class_scope:valhalla.Tile)
+ private:
+  class _Internal;
+  void set_has_x();
+  void set_has_y();
+  void set_has_z();
+
+  inline bool has_has_x() const;
+  inline void clear_has_has_x();
+
+  inline bool has_has_y() const;
+  inline void clear_has_has_y();
+
+  inline bool has_has_z() const;
+  inline void clear_has_has_z();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  union HasXUnion {
+    constexpr HasXUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t x_;
+  } has_x_;
+  union HasYUnion {
+    constexpr HasYUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t y_;
+  } has_y_;
+  union HasZUnion {
+    constexpr HasZUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t z_;
+  } has_z_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[3];
+
+  friend struct ::TableStruct_options_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TileOptions final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TileOptions) */ {
+ public:
+  inline TileOptions() : TileOptions(nullptr) {}
+  ~TileOptions() override;
+  explicit PROTOBUF_CONSTEXPR TileOptions(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TileOptions(const TileOptions& from);
+  TileOptions(TileOptions&& from) noexcept
+    : TileOptions() {
+    *this = ::std::move(from);
+  }
+
+  inline TileOptions& operator=(const TileOptions& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TileOptions& operator=(TileOptions&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const TileOptions& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TileOptions* internal_default_instance() {
+    return reinterpret_cast<const TileOptions*>(
+               &_TileOptions_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(TileOptions& a, TileOptions& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TileOptions* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TileOptions* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TileOptions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TileOptions>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TileOptions& from);
+  void MergeFrom(const TileOptions& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TileOptions* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.TileOptions";
+  }
+  protected:
+  explicit TileOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kExcludeLayersFieldNumber = 2,
+  };
+  // repeated string exclude_layers = 2;
+  int exclude_layers_size() const;
+  private:
+  int _internal_exclude_layers_size() const;
+  public:
+  void clear_exclude_layers();
+  const std::string& exclude_layers(int index) const;
+  std::string* mutable_exclude_layers(int index);
+  void set_exclude_layers(int index, const std::string& value);
+  void set_exclude_layers(int index, std::string&& value);
+  void set_exclude_layers(int index, const char* value);
+  void set_exclude_layers(int index, const char* value, size_t size);
+  std::string* add_exclude_layers();
+  void add_exclude_layers(const std::string& value);
+  void add_exclude_layers(std::string&& value);
+  void add_exclude_layers(const char* value);
+  void add_exclude_layers(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& exclude_layers() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_exclude_layers();
+  private:
+  const std::string& _internal_exclude_layers(int index) const;
+  std::string* _internal_add_exclude_layers();
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.TileOptions)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> exclude_layers_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_options_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Costing_Options_HierarchyLimitsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<Costing_Options_HierarchyLimitsEntry_DoNotUse, 
+    uint32_t, ::valhalla::HierarchyLimits,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<Costing_Options_HierarchyLimitsEntry_DoNotUse, 
+    uint32_t, ::valhalla::HierarchyLimits,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
+  Costing_Options_HierarchyLimitsEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR Costing_Options_HierarchyLimitsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Costing_Options_HierarchyLimitsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Costing_Options_HierarchyLimitsEntry_DoNotUse& other);
+  static const Costing_Options_HierarchyLimitsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Costing_Options_HierarchyLimitsEntry_DoNotUse*>(&_Costing_Options_HierarchyLimitsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  friend struct ::TableStruct_options_2eproto;
+};
+
 // -------------------------------------------------------------------
 
 class Costing_Options final :
@@ -1261,11 +2147,6 @@ class Costing_Options final :
     HAS_LOW_CLASS_PENALTY_NOT_SET = 0,
   };
 
-  enum HasHazmatCase {
-    kHazmat = 35,
-    HAS_HAZMAT_NOT_SET = 0,
-  };
-
   enum HasWeightCase {
     kWeight = 36,
     HAS_WEIGHT_NOT_SET = 0,
@@ -1294,16 +2175,6 @@ class Costing_Options final :
   enum HasCyclingSpeedCase {
     kCyclingSpeed = 41,
     HAS_CYCLING_SPEED_NOT_SET = 0,
-  };
-
-  enum HasWheelchairCase {
-    kWheelchair = 42,
-    HAS_WHEELCHAIR_NOT_SET = 0,
-  };
-
-  enum HasBicycleCase {
-    kBicycle = 43,
-    HAS_BICYCLE_NOT_SET = 0,
   };
 
   enum HasUseBusCase {
@@ -1356,29 +2227,9 @@ class Costing_Options final :
     HAS_USE_RAIL_FERRY_NOT_SET = 0,
   };
 
-  enum HasIgnoreRestrictionsCase {
-    kIgnoreRestrictions = 60,
-    HAS_IGNORE_RESTRICTIONS_NOT_SET = 0,
-  };
-
-  enum HasIgnoreOnewaysCase {
-    kIgnoreOneways = 61,
-    HAS_IGNORE_ONEWAYS_NOT_SET = 0,
-  };
-
-  enum HasIgnoreAccessCase {
-    kIgnoreAccess = 62,
-    HAS_IGNORE_ACCESS_NOT_SET = 0,
-  };
-
   enum HasIgnoreClosuresCase {
     kIgnoreClosures = 63,
     HAS_IGNORE_CLOSURES_NOT_SET = 0,
-  };
-
-  enum HasShortestCase {
-    kShortest = 64,
-    HAS_SHORTEST_NOT_SET = 0,
   };
 
   enum HasServicePenaltyCase {
@@ -1416,31 +2267,6 @@ class Costing_Options final :
     HAS_PRIVATE_ACCESS_PENALTY_NOT_SET = 0,
   };
 
-  enum HasExcludeUnpavedCase {
-    kExcludeUnpaved = 72,
-    HAS_EXCLUDE_UNPAVED_NOT_SET = 0,
-  };
-
-  enum HasIncludeHotCase {
-    kIncludeHot = 73,
-    HAS_INCLUDE_HOT_NOT_SET = 0,
-  };
-
-  enum HasIncludeHov2Case {
-    kIncludeHov2 = 74,
-    HAS_INCLUDE_HOV2_NOT_SET = 0,
-  };
-
-  enum HasIncludeHov3Case {
-    kIncludeHov3 = 75,
-    HAS_INCLUDE_HOV3_NOT_SET = 0,
-  };
-
-  enum HasExcludeCashOnlyTollsCase {
-    kExcludeCashOnlyTolls = 76,
-    HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET = 0,
-  };
-
   enum HasRestrictionProbabilityCase {
     kRestrictionProbability = 77,
     HAS_RESTRICTION_PROBABILITY_NOT_SET = 0,
@@ -1456,8 +2282,23 @@ class Costing_Options final :
     HAS_HGV_NO_ACCESS_PENALTY_NOT_SET = 0,
   };
 
+  enum HasSpeedPenaltyFactorCase {
+    kSpeedPenaltyFactor = 95,
+    HAS_SPEED_PENALTY_FACTOR_NOT_SET = 0,
+  };
+
+  enum HasMultimodalStartEndMaxDistanceCase {
+    kMultimodalStartEndMaxDistance = 96,
+    HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET = 0,
+  };
+
+  enum HasLowClassFactorCase {
+    kLowClassFactor = 97,
+    HAS_LOW_CLASS_FACTOR_NOT_SET = 0,
+  };
+
   enum HasNonNetworkPenaltyCase {
-    kNonNetworkPenalty = 92,
+    kNonNetworkPenalty = 200,
     HAS_NON_NETWORK_PENALTY_NOT_SET = 0,
   };
 
@@ -1466,7 +2307,7 @@ class Costing_Options final :
                &_Costing_Options_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    10;
 
   friend void swap(Costing_Options& a, Costing_Options& b) {
     a.Swap(&b);
@@ -1527,6 +2368,7 @@ class Costing_Options final :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -1534,15 +2376,35 @@ class Costing_Options final :
     kFilterOperatorIdsFieldNumber = 52,
     kFilterRouteIdsFieldNumber = 54,
     kExcludeEdgesFieldNumber = 78,
+    kHierarchyLimitsFieldNumber = 92,
+    kCostFactorEdgesFieldNumber = 94,
+    kHazmatFieldNumber = 35,
+    kWheelchairFieldNumber = 42,
+    kBicycleFieldNumber = 43,
+    kIgnoreRestrictionsFieldNumber = 60,
     kFilterStopActionFieldNumber = 49,
     kFilterOperatorActionFieldNumber = 51,
     kFilterRouteActionFieldNumber = 53,
+    kIgnoreOnewaysFieldNumber = 61,
+    kIgnoreAccessFieldNumber = 62,
+    kShortestFieldNumber = 64,
+    kExcludeUnpavedFieldNumber = 72,
+    kIncludeHotFieldNumber = 73,
+    kIncludeHov2FieldNumber = 74,
+    kIncludeHov3FieldNumber = 75,
+    kExcludeCashOnlyTollsFieldNumber = 76,
     kFixedSpeedFieldNumber = 80,
     kAxleCountFieldNumber = 81,
     kUseLitFieldNumber = 82,
     kDisableHierarchyPruningFieldNumber = 83,
     kIgnoreNonVehicularRestrictionsFieldNumber = 84,
+    kExcludeBridgesFieldNumber = 87,
+    kExcludeTunnelsFieldNumber = 88,
     kUseTruckRouteFieldNumber = 86,
+    kExcludeTollsFieldNumber = 89,
+    kExcludeHighwaysFieldNumber = 90,
+    kExcludeFerriesFieldNumber = 91,
+    kIgnoreConstructionFieldNumber = 93,
     kManeuverPenaltyFieldNumber = 1,
     kDestinationOnlyPenaltyFieldNumber = 2,
     kGateCostFieldNumber = 3,
@@ -1577,15 +2439,12 @@ class Costing_Options final :
     kUsePrimaryFieldNumber = 32,
     kUseTrailsFieldNumber = 33,
     kLowClassPenaltyFieldNumber = 34,
-    kHazmatFieldNumber = 35,
     kWeightFieldNumber = 36,
     kAxleLoadFieldNumber = 37,
     kHeightFieldNumber = 38,
     kWidthFieldNumber = 39,
     kLengthFieldNumber = 40,
     kCyclingSpeedFieldNumber = 41,
-    kWheelchairFieldNumber = 42,
-    kBicycleFieldNumber = 43,
     kUseBusFieldNumber = 44,
     kUseRailFieldNumber = 45,
     kUseTransfersFieldNumber = 46,
@@ -1596,11 +2455,7 @@ class Costing_Options final :
     kBikeSharePenaltyFieldNumber = 57,
     kRailFerryCostFieldNumber = 58,
     kUseRailFerryFieldNumber = 59,
-    kIgnoreRestrictionsFieldNumber = 60,
-    kIgnoreOnewaysFieldNumber = 61,
-    kIgnoreAccessFieldNumber = 62,
     kIgnoreClosuresFieldNumber = 63,
-    kShortestFieldNumber = 64,
     kServicePenaltyFieldNumber = 65,
     kUseTracksFieldNumber = 66,
     kUseDistanceFieldNumber = 67,
@@ -1608,15 +2463,13 @@ class Costing_Options final :
     kServiceFactorFieldNumber = 69,
     kClosureFactorFieldNumber = 70,
     kPrivateAccessPenaltyFieldNumber = 71,
-    kExcludeUnpavedFieldNumber = 72,
-    kIncludeHotFieldNumber = 73,
-    kIncludeHov2FieldNumber = 74,
-    kIncludeHov3FieldNumber = 75,
-    kExcludeCashOnlyTollsFieldNumber = 76,
     kRestrictionProbabilityFieldNumber = 77,
     kElevatorPenaltyFieldNumber = 79,
     kHgvNoAccessPenaltyFieldNumber = 85,
-    kNonNetworkPenaltyFieldNumber = 92,
+    kSpeedPenaltyFactorFieldNumber = 95,
+    kMultimodalStartEndMaxDistanceFieldNumber = 96,
+    kLowClassFactorFieldNumber = 97,
+    kNonNetworkPenaltyFieldNumber = 200,
   };
   // repeated string filter_stop_ids = 50;
   int filter_stop_ids_size() const;
@@ -1708,6 +2561,77 @@ class Costing_Options final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::AvoidEdge >&
       exclude_edges() const;
 
+  // map<uint32, .valhalla.HierarchyLimits> hierarchy_limits = 92;
+  int hierarchy_limits_size() const;
+  private:
+  int _internal_hierarchy_limits_size() const;
+  public:
+  void clear_hierarchy_limits();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >&
+      _internal_hierarchy_limits() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >*
+      _internal_mutable_hierarchy_limits();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >&
+      hierarchy_limits() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >*
+      mutable_hierarchy_limits();
+
+  // repeated .valhalla.CostFactorEdge cost_factor_edges = 94;
+  int cost_factor_edges_size() const;
+  private:
+  int _internal_cost_factor_edges_size() const;
+  public:
+  void clear_cost_factor_edges();
+  ::valhalla::CostFactorEdge* mutable_cost_factor_edges(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::CostFactorEdge >*
+      mutable_cost_factor_edges();
+  private:
+  const ::valhalla::CostFactorEdge& _internal_cost_factor_edges(int index) const;
+  ::valhalla::CostFactorEdge* _internal_add_cost_factor_edges();
+  public:
+  const ::valhalla::CostFactorEdge& cost_factor_edges(int index) const;
+  ::valhalla::CostFactorEdge* add_cost_factor_edges();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::CostFactorEdge >&
+      cost_factor_edges() const;
+
+  // bool hazmat = 35;
+  void clear_hazmat();
+  bool hazmat() const;
+  void set_hazmat(bool value);
+  private:
+  bool _internal_hazmat() const;
+  void _internal_set_hazmat(bool value);
+  public:
+
+  // bool wheelchair = 42;
+  void clear_wheelchair();
+  bool wheelchair() const;
+  void set_wheelchair(bool value);
+  private:
+  bool _internal_wheelchair() const;
+  void _internal_set_wheelchair(bool value);
+  public:
+
+  // bool bicycle = 43;
+  void clear_bicycle();
+  bool bicycle() const;
+  void set_bicycle(bool value);
+  private:
+  bool _internal_bicycle() const;
+  void _internal_set_bicycle(bool value);
+  public:
+
+  // bool ignore_restrictions = 60;
+  void clear_ignore_restrictions();
+  bool ignore_restrictions() const;
+  void set_ignore_restrictions(bool value);
+  private:
+  bool _internal_ignore_restrictions() const;
+  void _internal_set_ignore_restrictions(bool value);
+  public:
+
   // .valhalla.FilterAction filter_stop_action = 49;
   void clear_filter_stop_action();
   ::valhalla::FilterAction filter_stop_action() const;
@@ -1733,6 +2657,78 @@ class Costing_Options final :
   private:
   ::valhalla::FilterAction _internal_filter_route_action() const;
   void _internal_set_filter_route_action(::valhalla::FilterAction value);
+  public:
+
+  // bool ignore_oneways = 61;
+  void clear_ignore_oneways();
+  bool ignore_oneways() const;
+  void set_ignore_oneways(bool value);
+  private:
+  bool _internal_ignore_oneways() const;
+  void _internal_set_ignore_oneways(bool value);
+  public:
+
+  // bool ignore_access = 62;
+  void clear_ignore_access();
+  bool ignore_access() const;
+  void set_ignore_access(bool value);
+  private:
+  bool _internal_ignore_access() const;
+  void _internal_set_ignore_access(bool value);
+  public:
+
+  // bool shortest = 64;
+  void clear_shortest();
+  bool shortest() const;
+  void set_shortest(bool value);
+  private:
+  bool _internal_shortest() const;
+  void _internal_set_shortest(bool value);
+  public:
+
+  // bool exclude_unpaved = 72;
+  void clear_exclude_unpaved();
+  bool exclude_unpaved() const;
+  void set_exclude_unpaved(bool value);
+  private:
+  bool _internal_exclude_unpaved() const;
+  void _internal_set_exclude_unpaved(bool value);
+  public:
+
+  // bool include_hot = 73;
+  void clear_include_hot();
+  bool include_hot() const;
+  void set_include_hot(bool value);
+  private:
+  bool _internal_include_hot() const;
+  void _internal_set_include_hot(bool value);
+  public:
+
+  // bool include_hov2 = 74;
+  void clear_include_hov2();
+  bool include_hov2() const;
+  void set_include_hov2(bool value);
+  private:
+  bool _internal_include_hov2() const;
+  void _internal_set_include_hov2(bool value);
+  public:
+
+  // bool include_hov3 = 75;
+  void clear_include_hov3();
+  bool include_hov3() const;
+  void set_include_hov3(bool value);
+  private:
+  bool _internal_include_hov3() const;
+  void _internal_set_include_hov3(bool value);
+  public:
+
+  // bool exclude_cash_only_tolls = 76;
+  void clear_exclude_cash_only_tolls();
+  bool exclude_cash_only_tolls() const;
+  void set_exclude_cash_only_tolls(bool value);
+  private:
+  bool _internal_exclude_cash_only_tolls() const;
+  void _internal_set_exclude_cash_only_tolls(bool value);
   public:
 
   // uint32 fixed_speed = 80;
@@ -1780,6 +2776,24 @@ class Costing_Options final :
   void _internal_set_ignore_non_vehicular_restrictions(bool value);
   public:
 
+  // bool exclude_bridges = 87;
+  void clear_exclude_bridges();
+  bool exclude_bridges() const;
+  void set_exclude_bridges(bool value);
+  private:
+  bool _internal_exclude_bridges() const;
+  void _internal_set_exclude_bridges(bool value);
+  public:
+
+  // bool exclude_tunnels = 88;
+  void clear_exclude_tunnels();
+  bool exclude_tunnels() const;
+  void set_exclude_tunnels(bool value);
+  private:
+  bool _internal_exclude_tunnels() const;
+  void _internal_set_exclude_tunnels(bool value);
+  public:
+
   // float use_truck_route = 86;
   void clear_use_truck_route();
   float use_truck_route() const;
@@ -1787,6 +2801,42 @@ class Costing_Options final :
   private:
   float _internal_use_truck_route() const;
   void _internal_set_use_truck_route(float value);
+  public:
+
+  // bool exclude_tolls = 89;
+  void clear_exclude_tolls();
+  bool exclude_tolls() const;
+  void set_exclude_tolls(bool value);
+  private:
+  bool _internal_exclude_tolls() const;
+  void _internal_set_exclude_tolls(bool value);
+  public:
+
+  // bool exclude_highways = 90;
+  void clear_exclude_highways();
+  bool exclude_highways() const;
+  void set_exclude_highways(bool value);
+  private:
+  bool _internal_exclude_highways() const;
+  void _internal_set_exclude_highways(bool value);
+  public:
+
+  // bool exclude_ferries = 91;
+  void clear_exclude_ferries();
+  bool exclude_ferries() const;
+  void set_exclude_ferries(bool value);
+  private:
+  bool _internal_exclude_ferries() const;
+  void _internal_set_exclude_ferries(bool value);
+  public:
+
+  // bool ignore_construction = 93;
+  void clear_ignore_construction();
+  bool ignore_construction() const;
+  void set_ignore_construction(bool value);
+  private:
+  bool _internal_ignore_construction() const;
+  void _internal_set_ignore_construction(bool value);
   public:
 
   // float maneuver_penalty = 1;
@@ -2236,19 +3286,6 @@ class Costing_Options final :
   void _internal_set_low_class_penalty(float value);
   public:
 
-  // bool hazmat = 35;
-  bool has_hazmat() const;
-  private:
-  bool _internal_has_hazmat() const;
-  public:
-  void clear_hazmat();
-  bool hazmat() const;
-  void set_hazmat(bool value);
-  private:
-  bool _internal_hazmat() const;
-  void _internal_set_hazmat(bool value);
-  public:
-
   // float weight = 36;
   bool has_weight() const;
   private:
@@ -2325,32 +3362,6 @@ class Costing_Options final :
   private:
   float _internal_cycling_speed() const;
   void _internal_set_cycling_speed(float value);
-  public:
-
-  // bool wheelchair = 42;
-  bool has_wheelchair() const;
-  private:
-  bool _internal_has_wheelchair() const;
-  public:
-  void clear_wheelchair();
-  bool wheelchair() const;
-  void set_wheelchair(bool value);
-  private:
-  bool _internal_wheelchair() const;
-  void _internal_set_wheelchair(bool value);
-  public:
-
-  // bool bicycle = 43;
-  bool has_bicycle() const;
-  private:
-  bool _internal_has_bicycle() const;
-  public:
-  void clear_bicycle();
-  bool bicycle() const;
-  void set_bicycle(bool value);
-  private:
-  bool _internal_bicycle() const;
-  void _internal_set_bicycle(bool value);
   public:
 
   // float use_bus = 44;
@@ -2483,45 +3494,6 @@ class Costing_Options final :
   void _internal_set_use_rail_ferry(float value);
   public:
 
-  // bool ignore_restrictions = 60;
-  bool has_ignore_restrictions() const;
-  private:
-  bool _internal_has_ignore_restrictions() const;
-  public:
-  void clear_ignore_restrictions();
-  bool ignore_restrictions() const;
-  void set_ignore_restrictions(bool value);
-  private:
-  bool _internal_ignore_restrictions() const;
-  void _internal_set_ignore_restrictions(bool value);
-  public:
-
-  // bool ignore_oneways = 61;
-  bool has_ignore_oneways() const;
-  private:
-  bool _internal_has_ignore_oneways() const;
-  public:
-  void clear_ignore_oneways();
-  bool ignore_oneways() const;
-  void set_ignore_oneways(bool value);
-  private:
-  bool _internal_ignore_oneways() const;
-  void _internal_set_ignore_oneways(bool value);
-  public:
-
-  // bool ignore_access = 62;
-  bool has_ignore_access() const;
-  private:
-  bool _internal_has_ignore_access() const;
-  public:
-  void clear_ignore_access();
-  bool ignore_access() const;
-  void set_ignore_access(bool value);
-  private:
-  bool _internal_ignore_access() const;
-  void _internal_set_ignore_access(bool value);
-  public:
-
   // bool ignore_closures = 63;
   bool has_ignore_closures() const;
   private:
@@ -2533,19 +3505,6 @@ class Costing_Options final :
   private:
   bool _internal_ignore_closures() const;
   void _internal_set_ignore_closures(bool value);
-  public:
-
-  // bool shortest = 64;
-  bool has_shortest() const;
-  private:
-  bool _internal_has_shortest() const;
-  public:
-  void clear_shortest();
-  bool shortest() const;
-  void set_shortest(bool value);
-  private:
-  bool _internal_shortest() const;
-  void _internal_set_shortest(bool value);
   public:
 
   // float service_penalty = 65;
@@ -2639,71 +3598,6 @@ class Costing_Options final :
   void _internal_set_private_access_penalty(float value);
   public:
 
-  // bool exclude_unpaved = 72;
-  bool has_exclude_unpaved() const;
-  private:
-  bool _internal_has_exclude_unpaved() const;
-  public:
-  void clear_exclude_unpaved();
-  bool exclude_unpaved() const;
-  void set_exclude_unpaved(bool value);
-  private:
-  bool _internal_exclude_unpaved() const;
-  void _internal_set_exclude_unpaved(bool value);
-  public:
-
-  // bool include_hot = 73;
-  bool has_include_hot() const;
-  private:
-  bool _internal_has_include_hot() const;
-  public:
-  void clear_include_hot();
-  bool include_hot() const;
-  void set_include_hot(bool value);
-  private:
-  bool _internal_include_hot() const;
-  void _internal_set_include_hot(bool value);
-  public:
-
-  // bool include_hov2 = 74;
-  bool has_include_hov2() const;
-  private:
-  bool _internal_has_include_hov2() const;
-  public:
-  void clear_include_hov2();
-  bool include_hov2() const;
-  void set_include_hov2(bool value);
-  private:
-  bool _internal_include_hov2() const;
-  void _internal_set_include_hov2(bool value);
-  public:
-
-  // bool include_hov3 = 75;
-  bool has_include_hov3() const;
-  private:
-  bool _internal_has_include_hov3() const;
-  public:
-  void clear_include_hov3();
-  bool include_hov3() const;
-  void set_include_hov3(bool value);
-  private:
-  bool _internal_include_hov3() const;
-  void _internal_set_include_hov3(bool value);
-  public:
-
-  // bool exclude_cash_only_tolls = 76;
-  bool has_exclude_cash_only_tolls() const;
-  private:
-  bool _internal_has_exclude_cash_only_tolls() const;
-  public:
-  void clear_exclude_cash_only_tolls();
-  bool exclude_cash_only_tolls() const;
-  void set_exclude_cash_only_tolls(bool value);
-  private:
-  bool _internal_exclude_cash_only_tolls() const;
-  void _internal_set_exclude_cash_only_tolls(bool value);
-  public:
-
   // uint32 restriction_probability = 77;
   bool has_restriction_probability() const;
   private:
@@ -2743,7 +3637,46 @@ class Costing_Options final :
   void _internal_set_hgv_no_access_penalty(float value);
   public:
 
-  // float non_network_penalty = 92;
+  // float speed_penalty_factor = 95;
+  bool has_speed_penalty_factor() const;
+  private:
+  bool _internal_has_speed_penalty_factor() const;
+  public:
+  void clear_speed_penalty_factor();
+  float speed_penalty_factor() const;
+  void set_speed_penalty_factor(float value);
+  private:
+  float _internal_speed_penalty_factor() const;
+  void _internal_set_speed_penalty_factor(float value);
+  public:
+
+  // uint32 multimodal_start_end_max_distance = 96;
+  bool has_multimodal_start_end_max_distance() const;
+  private:
+  bool _internal_has_multimodal_start_end_max_distance() const;
+  public:
+  void clear_multimodal_start_end_max_distance();
+  uint32_t multimodal_start_end_max_distance() const;
+  void set_multimodal_start_end_max_distance(uint32_t value);
+  private:
+  uint32_t _internal_multimodal_start_end_max_distance() const;
+  void _internal_set_multimodal_start_end_max_distance(uint32_t value);
+  public:
+
+  // float low_class_factor = 97;
+  bool has_low_class_factor() const;
+  private:
+  bool _internal_has_low_class_factor() const;
+  public:
+  void clear_low_class_factor();
+  float low_class_factor() const;
+  void set_low_class_factor(float value);
+  private:
+  float _internal_low_class_factor() const;
+  void _internal_set_low_class_factor(float value);
+  public:
+
+  // float non_network_penalty = 200;
   bool has_non_network_penalty() const;
   private:
   bool _internal_has_non_network_penalty() const;
@@ -2824,8 +3757,6 @@ class Costing_Options final :
   HasUseTrailsCase has_use_trails_case() const;
   void clear_has_low_class_penalty();
   HasLowClassPenaltyCase has_low_class_penalty_case() const;
-  void clear_has_hazmat();
-  HasHazmatCase has_hazmat_case() const;
   void clear_has_weight();
   HasWeightCase has_weight_case() const;
   void clear_has_axle_load();
@@ -2838,10 +3769,6 @@ class Costing_Options final :
   HasLengthCase has_length_case() const;
   void clear_has_cycling_speed();
   HasCyclingSpeedCase has_cycling_speed_case() const;
-  void clear_has_wheelchair();
-  HasWheelchairCase has_wheelchair_case() const;
-  void clear_has_bicycle();
-  HasBicycleCase has_bicycle_case() const;
   void clear_has_use_bus();
   HasUseBusCase has_use_bus_case() const;
   void clear_has_use_rail();
@@ -2862,16 +3789,8 @@ class Costing_Options final :
   HasRailFerryCostCase has_rail_ferry_cost_case() const;
   void clear_has_use_rail_ferry();
   HasUseRailFerryCase has_use_rail_ferry_case() const;
-  void clear_has_ignore_restrictions();
-  HasIgnoreRestrictionsCase has_ignore_restrictions_case() const;
-  void clear_has_ignore_oneways();
-  HasIgnoreOnewaysCase has_ignore_oneways_case() const;
-  void clear_has_ignore_access();
-  HasIgnoreAccessCase has_ignore_access_case() const;
   void clear_has_ignore_closures();
   HasIgnoreClosuresCase has_ignore_closures_case() const;
-  void clear_has_shortest();
-  HasShortestCase has_shortest_case() const;
   void clear_has_service_penalty();
   HasServicePenaltyCase has_service_penalty_case() const;
   void clear_has_use_tracks();
@@ -2886,22 +3805,18 @@ class Costing_Options final :
   HasClosureFactorCase has_closure_factor_case() const;
   void clear_has_private_access_penalty();
   HasPrivateAccessPenaltyCase has_private_access_penalty_case() const;
-  void clear_has_exclude_unpaved();
-  HasExcludeUnpavedCase has_exclude_unpaved_case() const;
-  void clear_has_include_hot();
-  HasIncludeHotCase has_include_hot_case() const;
-  void clear_has_include_hov2();
-  HasIncludeHov2Case has_include_hov2_case() const;
-  void clear_has_include_hov3();
-  HasIncludeHov3Case has_include_hov3_case() const;
-  void clear_has_exclude_cash_only_tolls();
-  HasExcludeCashOnlyTollsCase has_exclude_cash_only_tolls_case() const;
   void clear_has_restriction_probability();
   HasRestrictionProbabilityCase has_restriction_probability_case() const;
   void clear_has_elevator_penalty();
   HasElevatorPenaltyCase has_elevator_penalty_case() const;
   void clear_has_hgv_no_access_penalty();
   HasHgvNoAccessPenaltyCase has_hgv_no_access_penalty_case() const;
+  void clear_has_speed_penalty_factor();
+  HasSpeedPenaltyFactorCase has_speed_penalty_factor_case() const;
+  void clear_has_multimodal_start_end_max_distance();
+  HasMultimodalStartEndMaxDistanceCase has_multimodal_start_end_max_distance_case() const;
+  void clear_has_low_class_factor();
+  HasLowClassFactorCase has_low_class_factor_case() const;
   void clear_has_non_network_penalty();
   HasNonNetworkPenaltyCase has_non_network_penalty_case() const;
   // @@protoc_insertion_point(class_scope:valhalla.Costing.Options)
@@ -2941,15 +3856,12 @@ class Costing_Options final :
   void set_has_use_primary();
   void set_has_use_trails();
   void set_has_low_class_penalty();
-  void set_has_hazmat();
   void set_has_weight();
   void set_has_axle_load();
   void set_has_height();
   void set_has_width();
   void set_has_length();
   void set_has_cycling_speed();
-  void set_has_wheelchair();
-  void set_has_bicycle();
   void set_has_use_bus();
   void set_has_use_rail();
   void set_has_use_transfers();
@@ -2960,11 +3872,7 @@ class Costing_Options final :
   void set_has_bike_share_penalty();
   void set_has_rail_ferry_cost();
   void set_has_use_rail_ferry();
-  void set_has_ignore_restrictions();
-  void set_has_ignore_oneways();
-  void set_has_ignore_access();
   void set_has_ignore_closures();
-  void set_has_shortest();
   void set_has_service_penalty();
   void set_has_use_tracks();
   void set_has_use_distance();
@@ -2972,14 +3880,12 @@ class Costing_Options final :
   void set_has_service_factor();
   void set_has_closure_factor();
   void set_has_private_access_penalty();
-  void set_has_exclude_unpaved();
-  void set_has_include_hot();
-  void set_has_include_hov2();
-  void set_has_include_hov3();
-  void set_has_exclude_cash_only_tolls();
   void set_has_restriction_probability();
   void set_has_elevator_penalty();
   void set_has_hgv_no_access_penalty();
+  void set_has_speed_penalty_factor();
+  void set_has_multimodal_start_end_max_distance();
+  void set_has_low_class_factor();
   void set_has_non_network_penalty();
 
   inline bool has_has_maneuver_penalty() const;
@@ -3084,9 +3990,6 @@ class Costing_Options final :
   inline bool has_has_low_class_penalty() const;
   inline void clear_has_has_low_class_penalty();
 
-  inline bool has_has_hazmat() const;
-  inline void clear_has_has_hazmat();
-
   inline bool has_has_weight() const;
   inline void clear_has_has_weight();
 
@@ -3104,12 +4007,6 @@ class Costing_Options final :
 
   inline bool has_has_cycling_speed() const;
   inline void clear_has_has_cycling_speed();
-
-  inline bool has_has_wheelchair() const;
-  inline void clear_has_has_wheelchair();
-
-  inline bool has_has_bicycle() const;
-  inline void clear_has_has_bicycle();
 
   inline bool has_has_use_bus() const;
   inline void clear_has_has_use_bus();
@@ -3141,20 +4038,8 @@ class Costing_Options final :
   inline bool has_has_use_rail_ferry() const;
   inline void clear_has_has_use_rail_ferry();
 
-  inline bool has_has_ignore_restrictions() const;
-  inline void clear_has_has_ignore_restrictions();
-
-  inline bool has_has_ignore_oneways() const;
-  inline void clear_has_has_ignore_oneways();
-
-  inline bool has_has_ignore_access() const;
-  inline void clear_has_has_ignore_access();
-
   inline bool has_has_ignore_closures() const;
   inline void clear_has_has_ignore_closures();
-
-  inline bool has_has_shortest() const;
-  inline void clear_has_has_shortest();
 
   inline bool has_has_service_penalty() const;
   inline void clear_has_has_service_penalty();
@@ -3177,21 +4062,6 @@ class Costing_Options final :
   inline bool has_has_private_access_penalty() const;
   inline void clear_has_has_private_access_penalty();
 
-  inline bool has_has_exclude_unpaved() const;
-  inline void clear_has_has_exclude_unpaved();
-
-  inline bool has_has_include_hot() const;
-  inline void clear_has_has_include_hot();
-
-  inline bool has_has_include_hov2() const;
-  inline void clear_has_has_include_hov2();
-
-  inline bool has_has_include_hov3() const;
-  inline void clear_has_has_include_hov3();
-
-  inline bool has_has_exclude_cash_only_tolls() const;
-  inline void clear_has_has_exclude_cash_only_tolls();
-
   inline bool has_has_restriction_probability() const;
   inline void clear_has_has_restriction_probability();
 
@@ -3200,6 +4070,15 @@ class Costing_Options final :
 
   inline bool has_has_hgv_no_access_penalty() const;
   inline void clear_has_has_hgv_no_access_penalty();
+
+  inline bool has_has_speed_penalty_factor() const;
+  inline void clear_has_has_speed_penalty_factor();
+
+  inline bool has_has_multimodal_start_end_max_distance() const;
+  inline void clear_has_has_multimodal_start_end_max_distance();
+
+  inline bool has_has_low_class_factor() const;
+  inline void clear_has_has_low_class_factor();
 
   inline bool has_has_non_network_penalty() const;
   inline void clear_has_has_non_network_penalty();
@@ -3211,15 +4090,39 @@ class Costing_Options final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> filter_operator_ids_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> filter_route_ids_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::AvoidEdge > exclude_edges_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+      Costing_Options_HierarchyLimitsEntry_DoNotUse,
+      uint32_t, ::valhalla::HierarchyLimits,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> hierarchy_limits_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::CostFactorEdge > cost_factor_edges_;
+  bool hazmat_;
+  bool wheelchair_;
+  bool bicycle_;
+  bool ignore_restrictions_;
   int filter_stop_action_;
   int filter_operator_action_;
   int filter_route_action_;
+  bool ignore_oneways_;
+  bool ignore_access_;
+  bool shortest_;
+  bool exclude_unpaved_;
+  bool include_hot_;
+  bool include_hov2_;
+  bool include_hov3_;
+  bool exclude_cash_only_tolls_;
   uint32_t fixed_speed_;
   uint32_t axle_count_;
   float use_lit_;
   bool disable_hierarchy_pruning_;
   bool ignore_non_vehicular_restrictions_;
+  bool exclude_bridges_;
+  bool exclude_tunnels_;
   float use_truck_route_;
+  bool exclude_tolls_;
+  bool exclude_highways_;
+  bool exclude_ferries_;
+  bool ignore_construction_;
   union HasManeuverPenaltyUnion {
     constexpr HasManeuverPenaltyUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -3390,11 +4293,6 @@ class Costing_Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float low_class_penalty_;
   } has_low_class_penalty_;
-  union HasHazmatUnion {
-    constexpr HasHazmatUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool hazmat_;
-  } has_hazmat_;
   union HasWeightUnion {
     constexpr HasWeightUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -3425,16 +4323,6 @@ class Costing_Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float cycling_speed_;
   } has_cycling_speed_;
-  union HasWheelchairUnion {
-    constexpr HasWheelchairUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool wheelchair_;
-  } has_wheelchair_;
-  union HasBicycleUnion {
-    constexpr HasBicycleUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool bicycle_;
-  } has_bicycle_;
   union HasUseBusUnion {
     constexpr HasUseBusUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -3485,31 +4373,11 @@ class Costing_Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float use_rail_ferry_;
   } has_use_rail_ferry_;
-  union HasIgnoreRestrictionsUnion {
-    constexpr HasIgnoreRestrictionsUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool ignore_restrictions_;
-  } has_ignore_restrictions_;
-  union HasIgnoreOnewaysUnion {
-    constexpr HasIgnoreOnewaysUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool ignore_oneways_;
-  } has_ignore_oneways_;
-  union HasIgnoreAccessUnion {
-    constexpr HasIgnoreAccessUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool ignore_access_;
-  } has_ignore_access_;
   union HasIgnoreClosuresUnion {
     constexpr HasIgnoreClosuresUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     bool ignore_closures_;
   } has_ignore_closures_;
-  union HasShortestUnion {
-    constexpr HasShortestUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool shortest_;
-  } has_shortest_;
   union HasServicePenaltyUnion {
     constexpr HasServicePenaltyUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -3545,31 +4413,6 @@ class Costing_Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float private_access_penalty_;
   } has_private_access_penalty_;
-  union HasExcludeUnpavedUnion {
-    constexpr HasExcludeUnpavedUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool exclude_unpaved_;
-  } has_exclude_unpaved_;
-  union HasIncludeHotUnion {
-    constexpr HasIncludeHotUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool include_hot_;
-  } has_include_hot_;
-  union HasIncludeHov2Union {
-    constexpr HasIncludeHov2Union() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool include_hov2_;
-  } has_include_hov2_;
-  union HasIncludeHov3Union {
-    constexpr HasIncludeHov3Union() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool include_hov3_;
-  } has_include_hov3_;
-  union HasExcludeCashOnlyTollsUnion {
-    constexpr HasExcludeCashOnlyTollsUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool exclude_cash_only_tolls_;
-  } has_exclude_cash_only_tolls_;
   union HasRestrictionProbabilityUnion {
     constexpr HasRestrictionProbabilityUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -3585,13 +4428,28 @@ class Costing_Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float hgv_no_access_penalty_;
   } has_hgv_no_access_penalty_;
+  union HasSpeedPenaltyFactorUnion {
+    constexpr HasSpeedPenaltyFactorUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    float speed_penalty_factor_;
+  } has_speed_penalty_factor_;
+  union HasMultimodalStartEndMaxDistanceUnion {
+    constexpr HasMultimodalStartEndMaxDistanceUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t multimodal_start_end_max_distance_;
+  } has_multimodal_start_end_max_distance_;
+  union HasLowClassFactorUnion {
+    constexpr HasLowClassFactorUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    float low_class_factor_;
+  } has_low_class_factor_;
   union HasNonNetworkPenaltyUnion {
     constexpr HasNonNetworkPenaltyUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float non_network_penalty_;
   } has_non_network_penalty_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t _oneof_case_[74];
+  uint32_t _oneof_case_[65];
 
   friend struct ::TableStruct_options_2eproto;
 };
@@ -3651,7 +4509,7 @@ class Costing final :
                &_Costing_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    11;
 
   friend void swap(Costing& a, Costing& b) {
     a.Swap(&b);
@@ -3739,6 +4597,8 @@ class Costing final :
     Costing_Type_auto_;
   static constexpr Type bikeshare =
     Costing_Type_bikeshare;
+  static constexpr Type auto_pedestrian =
+    Costing_Type_auto_pedestrian;
   static inline bool Type_IsValid(int value) {
     return Costing_Type_IsValid(value);
   }
@@ -3874,6 +4734,184 @@ class Costing final :
 };
 // -------------------------------------------------------------------
 
+class LinearFeatureCost final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.LinearFeatureCost) */ {
+ public:
+  inline LinearFeatureCost() : LinearFeatureCost(nullptr) {}
+  ~LinearFeatureCost() override;
+  explicit PROTOBUF_CONSTEXPR LinearFeatureCost(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LinearFeatureCost(const LinearFeatureCost& from);
+  LinearFeatureCost(LinearFeatureCost&& from) noexcept
+    : LinearFeatureCost() {
+    *this = ::std::move(from);
+  }
+
+  inline LinearFeatureCost& operator=(const LinearFeatureCost& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LinearFeatureCost& operator=(LinearFeatureCost&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const LinearFeatureCost& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LinearFeatureCost* internal_default_instance() {
+    return reinterpret_cast<const LinearFeatureCost*>(
+               &_LinearFeatureCost_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(LinearFeatureCost& a, LinearFeatureCost& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LinearFeatureCost* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LinearFeatureCost* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LinearFeatureCost* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LinearFeatureCost>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LinearFeatureCost& from);
+  void MergeFrom(const LinearFeatureCost& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LinearFeatureCost* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.LinearFeatureCost";
+  }
+  protected:
+  explicit LinearFeatureCost(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLocationsFieldNumber = 1,
+    kShapeFieldNumber = 2,
+    kCostFactorFieldNumber = 3,
+    kIgnoreAccessRestrictionsFieldNumber = 4,
+  };
+  // repeated .valhalla.Location locations = 1;
+  int locations_size() const;
+  private:
+  int _internal_locations_size() const;
+  public:
+  void clear_locations();
+  ::valhalla::Location* mutable_locations(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >*
+      mutable_locations();
+  private:
+  const ::valhalla::Location& _internal_locations(int index) const;
+  ::valhalla::Location* _internal_add_locations();
+  public:
+  const ::valhalla::Location& locations(int index) const;
+  ::valhalla::Location* add_locations();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >&
+      locations() const;
+
+  // repeated .valhalla.Location shape = 2;
+  int shape_size() const;
+  private:
+  int _internal_shape_size() const;
+  public:
+  void clear_shape();
+  ::valhalla::Location* mutable_shape(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >*
+      mutable_shape();
+  private:
+  const ::valhalla::Location& _internal_shape(int index) const;
+  ::valhalla::Location* _internal_add_shape();
+  public:
+  const ::valhalla::Location& shape(int index) const;
+  ::valhalla::Location* add_shape();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >&
+      shape() const;
+
+  // double cost_factor = 3;
+  void clear_cost_factor();
+  double cost_factor() const;
+  void set_cost_factor(double value);
+  private:
+  double _internal_cost_factor() const;
+  void _internal_set_cost_factor(double value);
+  public:
+
+  // bool ignore_access_restrictions = 4;
+  void clear_ignore_access_restrictions();
+  bool ignore_access_restrictions() const;
+  void set_ignore_access_restrictions(bool value);
+  private:
+  bool _internal_ignore_access_restrictions() const;
+  void _internal_set_ignore_access_restrictions(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.LinearFeatureCost)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location > locations_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location > shape_;
+  double cost_factor_;
+  bool ignore_access_restrictions_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_options_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Options_CostingsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<Options_CostingsEntry_DoNotUse, 
     int32_t, ::valhalla::Costing,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
@@ -3976,11 +5014,6 @@ class Options final :
     HAS_ENCODED_POLYLINE_NOT_SET = 0,
   };
 
-  enum HasRangeCase {
-    kRange = 10,
-    HAS_RANGE_NOT_SET = 0,
-  };
-
   enum HasVerboseCase {
     kVerbose = 11,
     HAS_VERBOSE_NOT_SET = 0,
@@ -3996,11 +5029,6 @@ class Options final :
     HAS_RESAMPLE_DISTANCE_NOT_SET = 0,
   };
 
-  enum HasPolygonsCase {
-    kPolygons = 23,
-    HAS_POLYGONS_NOT_SET = 0,
-  };
-
   enum HasDenoiseCase {
     kDenoise = 24,
     HAS_DENOISE_NOT_SET = 0,
@@ -4009,11 +5037,6 @@ class Options final :
   enum HasGeneralizeCase {
     kGeneralize = 25,
     HAS_GENERALIZE_NOT_SET = 0,
-  };
-
-  enum HasShowLocationsCase {
-    kShowLocations = 26,
-    HAS_SHOW_LOCATIONS_NOT_SET = 0,
   };
 
   enum HasGpsAccuracyCase {
@@ -4036,11 +5059,6 @@ class Options final :
     HAS_BREAKAGE_DISTANCE_NOT_SET = 0,
   };
 
-  enum HasUseTimestampsCase {
-    kUseTimestamps = 37,
-    HAS_USE_TIMESTAMPS_NOT_SET = 0,
-  };
-
   enum HasShapeFormatCase {
     kShapeFormat = 38,
     HAS_SHAPE_FORMAT_NOT_SET = 0,
@@ -4056,11 +5074,6 @@ class Options final :
     HAS_INTERPOLATION_DISTANCE_NOT_SET = 0,
   };
 
-  enum HasGuidanceViewsCase {
-    kGuidanceViews = 41,
-    HAS_GUIDANCE_VIEWS_NOT_SET = 0,
-  };
-
   enum HasHeightPrecisionCase {
     kHeightPrecision = 43,
     HAS_HEIGHT_PRECISION_NOT_SET = 0,
@@ -4071,24 +5084,9 @@ class Options final :
     HAS_ROUNDABOUT_EXITS_NOT_SET = 0,
   };
 
-  enum HasLinearReferencesCase {
-    kLinearReferences = 45,
-    HAS_LINEAR_REFERENCES_NOT_SET = 0,
-  };
-
-  enum HasPrioritizeBidirectionalCase {
-    kPrioritizeBidirectional = 48,
-    HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET = 0,
-  };
-
   enum HasExpansionActionCase {
     kExpansionAction = 49,
     HAS_EXPANSION_ACTION_NOT_SET = 0,
-  };
-
-  enum HasSkipOppositesCase {
-    kSkipOpposites = 50,
-    HAS_SKIP_OPPOSITES_NOT_SET = 0,
   };
 
   enum HasMatrixLocationsCase {
@@ -4101,7 +5099,7 @@ class Options final :
                &_Options_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    15;
 
   friend void swap(Options& a, Options& b) {
     a.Swap(&b);
@@ -4200,6 +5198,8 @@ class Options final :
     Options_Format_pbf;
   static constexpr Format geotiff =
     Options_Format_geotiff;
+  static constexpr Format mvt =
+    Options_Format_mvt;
   static inline bool Format_IsValid(int value) {
     return Options_Format_IsValid(value);
   }
@@ -4248,6 +5248,8 @@ class Options final :
     Options_Action_centroid;
   static constexpr Action status =
     Options_Action_status;
+  static constexpr Action tile =
+    Options_Action_tile;
   static inline bool Action_IsValid(int value) {
     return Options_Action_IsValid(value);
   }
@@ -4316,6 +5318,10 @@ class Options final :
     Options_ExpansionProperties_pred_edge_id;
   static constexpr ExpansionProperties expansion_type =
     Options_ExpansionProperties_expansion_type;
+  static constexpr ExpansionProperties flow_sources =
+    Options_ExpansionProperties_flow_sources;
+  static constexpr ExpansionProperties travel_mode =
+    Options_ExpansionProperties_travel_mode;
   static inline bool ExpansionProperties_IsValid(int value) {
     return Options_ExpansionProperties_IsValid(value);
   }
@@ -4337,6 +5343,32 @@ class Options final :
     return Options_ExpansionProperties_Parse(name, value);
   }
 
+  typedef Options_ReverseTimeTracking ReverseTimeTracking;
+  static constexpr ReverseTimeTracking rtt_heuristic =
+    Options_ReverseTimeTracking_rtt_heuristic;
+  static constexpr ReverseTimeTracking rtt_disabled =
+    Options_ReverseTimeTracking_rtt_disabled;
+  static inline bool ReverseTimeTracking_IsValid(int value) {
+    return Options_ReverseTimeTracking_IsValid(value);
+  }
+  static constexpr ReverseTimeTracking ReverseTimeTracking_MIN =
+    Options_ReverseTimeTracking_ReverseTimeTracking_MIN;
+  static constexpr ReverseTimeTracking ReverseTimeTracking_MAX =
+    Options_ReverseTimeTracking_ReverseTimeTracking_MAX;
+  static constexpr int ReverseTimeTracking_ARRAYSIZE =
+    Options_ReverseTimeTracking_ReverseTimeTracking_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& ReverseTimeTracking_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, ReverseTimeTracking>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function ReverseTimeTracking_Name.");
+    return Options_ReverseTimeTracking_Name(enum_t_value);
+  }
+  static inline bool ReverseTimeTracking_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      ReverseTimeTracking* value) {
+    return Options_ReverseTimeTracking_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -4352,48 +5384,56 @@ class Options final :
     kRecostingsFieldNumber = 46,
     kExcludePolygonsFieldNumber = 47,
     kExpansionPropertiesFieldNumber = 51,
+    kCostFactorLinesFieldNumber = 61,
+    kExcludeLevelsFieldNumber = 65,
     kCustomLocalesFieldNumber = 200,
     kPbfFieldSelectorFieldNumber = 52,
+    kTileXyzFieldNumber = 63,
+    kTileOptionsFieldNumber = 64,
     kUnitsFieldNumber = 1,
     kDirectionsTypeFieldNumber = 3,
     kFormatFieldNumber = 4,
     kActionFieldNumber = 8,
     kCostingTypeFieldNumber = 12,
     kDateTimeTypeFieldNumber = 18,
+    kRangeFieldNumber = 10,
+    kPolygonsFieldNumber = 23,
+    kShowLocationsFieldNumber = 26,
+    kUseTimestampsFieldNumber = 37,
     kShapeMatchFieldNumber = 28,
     kFilterActionFieldNumber = 33,
+    kGuidanceViewsFieldNumber = 41,
+    kLinearReferencesFieldNumber = 45,
+    kPrioritizeBidirectionalFieldNumber = 48,
+    kSkipOppositesFieldNumber = 50,
     kReverseFieldNumber = 53,
     kBannerInstructionsFieldNumber = 55,
     kVoiceInstructionsFieldNumber = 57,
     kDedupeFieldNumber = 58,
     kElevationIntervalFieldNumber = 56,
+    kAdminCrossingsFieldNumber = 59,
+    kTurnLanesFieldNumber = 60,
+    kReverseTimeTrackingFieldNumber = 62,
+    kExpansionMaxDistanceFieldNumber = 66,
     kLanguageFieldNumber = 2,
     kIdFieldNumber = 5,
     kJsonpFieldNumber = 6,
     kEncodedPolylineFieldNumber = 7,
-    kRangeFieldNumber = 10,
     kVerboseFieldNumber = 11,
     kDateTimeFieldNumber = 19,
     kResampleDistanceFieldNumber = 21,
-    kPolygonsFieldNumber = 23,
     kDenoiseFieldNumber = 24,
     kGeneralizeFieldNumber = 25,
-    kShowLocationsFieldNumber = 26,
     kGpsAccuracyFieldNumber = 30,
     kSearchRadiusFieldNumber = 31,
     kTurnPenaltyFactorFieldNumber = 32,
     kBreakageDistanceFieldNumber = 36,
-    kUseTimestampsFieldNumber = 37,
     kShapeFormatFieldNumber = 38,
     kAlternatesFieldNumber = 39,
     kInterpolationDistanceFieldNumber = 40,
-    kGuidanceViewsFieldNumber = 41,
     kHeightPrecisionFieldNumber = 43,
     kRoundaboutExitsFieldNumber = 44,
-    kLinearReferencesFieldNumber = 45,
-    kPrioritizeBidirectionalFieldNumber = 48,
     kExpansionActionFieldNumber = 49,
-    kSkipOppositesFieldNumber = 50,
     kMatrixLocationsFieldNumber = 54,
   };
   // map<int32, .valhalla.Costing> costings = 13;
@@ -4616,6 +5656,42 @@ class Options final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& expansion_properties() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_expansion_properties();
 
+  // repeated .valhalla.LinearFeatureCost cost_factor_lines = 61;
+  int cost_factor_lines_size() const;
+  private:
+  int _internal_cost_factor_lines_size() const;
+  public:
+  void clear_cost_factor_lines();
+  ::valhalla::LinearFeatureCost* mutable_cost_factor_lines(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LinearFeatureCost >*
+      mutable_cost_factor_lines();
+  private:
+  const ::valhalla::LinearFeatureCost& _internal_cost_factor_lines(int index) const;
+  ::valhalla::LinearFeatureCost* _internal_add_cost_factor_lines();
+  public:
+  const ::valhalla::LinearFeatureCost& cost_factor_lines(int index) const;
+  ::valhalla::LinearFeatureCost* add_cost_factor_lines();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LinearFeatureCost >&
+      cost_factor_lines() const;
+
+  // repeated .valhalla.Levels exclude_levels = 65;
+  int exclude_levels_size() const;
+  private:
+  int _internal_exclude_levels_size() const;
+  public:
+  void clear_exclude_levels();
+  ::valhalla::Levels* mutable_exclude_levels(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Levels >*
+      mutable_exclude_levels();
+  private:
+  const ::valhalla::Levels& _internal_exclude_levels(int index) const;
+  ::valhalla::Levels* _internal_add_exclude_levels();
+  public:
+  const ::valhalla::Levels& exclude_levels(int index) const;
+  ::valhalla::Levels* add_exclude_levels();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Levels >&
+      exclude_levels() const;
+
   // map<string, string> customLocales = 200;
   int customlocales_size() const;
   private:
@@ -4650,6 +5726,42 @@ class Options final :
   void unsafe_arena_set_allocated_pbf_field_selector(
       ::valhalla::PbfFieldSelector* pbf_field_selector);
   ::valhalla::PbfFieldSelector* unsafe_arena_release_pbf_field_selector();
+
+  // .valhalla.Tile tile_xyz = 63;
+  bool has_tile_xyz() const;
+  private:
+  bool _internal_has_tile_xyz() const;
+  public:
+  void clear_tile_xyz();
+  const ::valhalla::Tile& tile_xyz() const;
+  PROTOBUF_NODISCARD ::valhalla::Tile* release_tile_xyz();
+  ::valhalla::Tile* mutable_tile_xyz();
+  void set_allocated_tile_xyz(::valhalla::Tile* tile_xyz);
+  private:
+  const ::valhalla::Tile& _internal_tile_xyz() const;
+  ::valhalla::Tile* _internal_mutable_tile_xyz();
+  public:
+  void unsafe_arena_set_allocated_tile_xyz(
+      ::valhalla::Tile* tile_xyz);
+  ::valhalla::Tile* unsafe_arena_release_tile_xyz();
+
+  // .valhalla.TileOptions tile_options = 64;
+  bool has_tile_options() const;
+  private:
+  bool _internal_has_tile_options() const;
+  public:
+  void clear_tile_options();
+  const ::valhalla::TileOptions& tile_options() const;
+  PROTOBUF_NODISCARD ::valhalla::TileOptions* release_tile_options();
+  ::valhalla::TileOptions* mutable_tile_options();
+  void set_allocated_tile_options(::valhalla::TileOptions* tile_options);
+  private:
+  const ::valhalla::TileOptions& _internal_tile_options() const;
+  ::valhalla::TileOptions* _internal_mutable_tile_options();
+  public:
+  void unsafe_arena_set_allocated_tile_options(
+      ::valhalla::TileOptions* tile_options);
+  ::valhalla::TileOptions* unsafe_arena_release_tile_options();
 
   // .valhalla.Options.Units units = 1;
   void clear_units();
@@ -4705,6 +5817,42 @@ class Options final :
   void _internal_set_date_time_type(::valhalla::Options_DateTimeType value);
   public:
 
+  // bool range = 10;
+  void clear_range();
+  bool range() const;
+  void set_range(bool value);
+  private:
+  bool _internal_range() const;
+  void _internal_set_range(bool value);
+  public:
+
+  // bool polygons = 23;
+  void clear_polygons();
+  bool polygons() const;
+  void set_polygons(bool value);
+  private:
+  bool _internal_polygons() const;
+  void _internal_set_polygons(bool value);
+  public:
+
+  // bool show_locations = 26;
+  void clear_show_locations();
+  bool show_locations() const;
+  void set_show_locations(bool value);
+  private:
+  bool _internal_show_locations() const;
+  void _internal_set_show_locations(bool value);
+  public:
+
+  // bool use_timestamps = 37;
+  void clear_use_timestamps();
+  bool use_timestamps() const;
+  void set_use_timestamps(bool value);
+  private:
+  bool _internal_use_timestamps() const;
+  void _internal_set_use_timestamps(bool value);
+  public:
+
   // .valhalla.ShapeMatch shape_match = 28;
   void clear_shape_match();
   ::valhalla::ShapeMatch shape_match() const;
@@ -4721,6 +5869,42 @@ class Options final :
   private:
   ::valhalla::FilterAction _internal_filter_action() const;
   void _internal_set_filter_action(::valhalla::FilterAction value);
+  public:
+
+  // bool guidance_views = 41;
+  void clear_guidance_views();
+  bool guidance_views() const;
+  void set_guidance_views(bool value);
+  private:
+  bool _internal_guidance_views() const;
+  void _internal_set_guidance_views(bool value);
+  public:
+
+  // bool linear_references = 45;
+  void clear_linear_references();
+  bool linear_references() const;
+  void set_linear_references(bool value);
+  private:
+  bool _internal_linear_references() const;
+  void _internal_set_linear_references(bool value);
+  public:
+
+  // bool prioritize_bidirectional = 48;
+  void clear_prioritize_bidirectional();
+  bool prioritize_bidirectional() const;
+  void set_prioritize_bidirectional(bool value);
+  private:
+  bool _internal_prioritize_bidirectional() const;
+  void _internal_set_prioritize_bidirectional(bool value);
+  public:
+
+  // bool skip_opposites = 50;
+  void clear_skip_opposites();
+  bool skip_opposites() const;
+  void set_skip_opposites(bool value);
+  private:
+  bool _internal_skip_opposites() const;
+  void _internal_set_skip_opposites(bool value);
   public:
 
   // bool reverse = 53;
@@ -4768,6 +5952,42 @@ class Options final :
   void _internal_set_elevation_interval(float value);
   public:
 
+  // bool admin_crossings = 59;
+  void clear_admin_crossings();
+  bool admin_crossings() const;
+  void set_admin_crossings(bool value);
+  private:
+  bool _internal_admin_crossings() const;
+  void _internal_set_admin_crossings(bool value);
+  public:
+
+  // bool turn_lanes = 60;
+  void clear_turn_lanes();
+  bool turn_lanes() const;
+  void set_turn_lanes(bool value);
+  private:
+  bool _internal_turn_lanes() const;
+  void _internal_set_turn_lanes(bool value);
+  public:
+
+  // .valhalla.Options.ReverseTimeTracking reverse_time_tracking = 62;
+  void clear_reverse_time_tracking();
+  ::valhalla::Options_ReverseTimeTracking reverse_time_tracking() const;
+  void set_reverse_time_tracking(::valhalla::Options_ReverseTimeTracking value);
+  private:
+  ::valhalla::Options_ReverseTimeTracking _internal_reverse_time_tracking() const;
+  void _internal_set_reverse_time_tracking(::valhalla::Options_ReverseTimeTracking value);
+  public:
+
+  // uint32 expansion_max_distance = 66;
+  void clear_expansion_max_distance();
+  uint32_t expansion_max_distance() const;
+  void set_expansion_max_distance(uint32_t value);
+  private:
+  uint32_t _internal_expansion_max_distance() const;
+  void _internal_set_expansion_max_distance(uint32_t value);
+  public:
+
   // string language = 2;
   bool has_language() const;
   private:
@@ -4804,18 +6024,18 @@ class Options final :
   std::string* _internal_mutable_id();
   public:
 
-  // string jsonp = 6;
-  bool has_jsonp() const;
+  // string jsonp = 6 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_jsonp() const;
   private:
   bool _internal_has_jsonp() const;
   public:
-  void clear_jsonp();
-  const std::string& jsonp() const;
+  PROTOBUF_DEPRECATED void clear_jsonp();
+  PROTOBUF_DEPRECATED const std::string& jsonp() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_jsonp(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_jsonp();
-  PROTOBUF_NODISCARD std::string* release_jsonp();
-  void set_allocated_jsonp(std::string* jsonp);
+  PROTOBUF_DEPRECATED void set_jsonp(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_jsonp();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_jsonp();
+  PROTOBUF_DEPRECATED void set_allocated_jsonp(std::string* jsonp);
   private:
   const std::string& _internal_jsonp() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_jsonp(const std::string& value);
@@ -4838,19 +6058,6 @@ class Options final :
   const std::string& _internal_encoded_polyline() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_encoded_polyline(const std::string& value);
   std::string* _internal_mutable_encoded_polyline();
-  public:
-
-  // bool range = 10;
-  bool has_range() const;
-  private:
-  bool _internal_has_range() const;
-  public:
-  void clear_range();
-  bool range() const;
-  void set_range(bool value);
-  private:
-  bool _internal_range() const;
-  void _internal_set_range(bool value);
   public:
 
   // bool verbose = 11;
@@ -4897,19 +6104,6 @@ class Options final :
   void _internal_set_resample_distance(double value);
   public:
 
-  // bool polygons = 23;
-  bool has_polygons() const;
-  private:
-  bool _internal_has_polygons() const;
-  public:
-  void clear_polygons();
-  bool polygons() const;
-  void set_polygons(bool value);
-  private:
-  bool _internal_polygons() const;
-  void _internal_set_polygons(bool value);
-  public:
-
   // float denoise = 24;
   bool has_denoise() const;
   private:
@@ -4934,19 +6128,6 @@ class Options final :
   private:
   float _internal_generalize() const;
   void _internal_set_generalize(float value);
-  public:
-
-  // bool show_locations = 26;
-  bool has_show_locations() const;
-  private:
-  bool _internal_has_show_locations() const;
-  public:
-  void clear_show_locations();
-  bool show_locations() const;
-  void set_show_locations(bool value);
-  private:
-  bool _internal_show_locations() const;
-  void _internal_set_show_locations(bool value);
   public:
 
   // float gps_accuracy = 30;
@@ -5001,19 +6182,6 @@ class Options final :
   void _internal_set_breakage_distance(float value);
   public:
 
-  // bool use_timestamps = 37;
-  bool has_use_timestamps() const;
-  private:
-  bool _internal_has_use_timestamps() const;
-  public:
-  void clear_use_timestamps();
-  bool use_timestamps() const;
-  void set_use_timestamps(bool value);
-  private:
-  bool _internal_use_timestamps() const;
-  void _internal_set_use_timestamps(bool value);
-  public:
-
   // .valhalla.ShapeFormat shape_format = 38;
   bool has_shape_format() const;
   private:
@@ -5053,19 +6221,6 @@ class Options final :
   void _internal_set_interpolation_distance(float value);
   public:
 
-  // bool guidance_views = 41;
-  bool has_guidance_views() const;
-  private:
-  bool _internal_has_guidance_views() const;
-  public:
-  void clear_guidance_views();
-  bool guidance_views() const;
-  void set_guidance_views(bool value);
-  private:
-  bool _internal_guidance_views() const;
-  void _internal_set_guidance_views(bool value);
-  public:
-
   // uint32 height_precision = 43;
   bool has_height_precision() const;
   private:
@@ -5092,32 +6247,6 @@ class Options final :
   void _internal_set_roundabout_exits(bool value);
   public:
 
-  // bool linear_references = 45;
-  bool has_linear_references() const;
-  private:
-  bool _internal_has_linear_references() const;
-  public:
-  void clear_linear_references();
-  bool linear_references() const;
-  void set_linear_references(bool value);
-  private:
-  bool _internal_linear_references() const;
-  void _internal_set_linear_references(bool value);
-  public:
-
-  // bool prioritize_bidirectional = 48;
-  bool has_prioritize_bidirectional() const;
-  private:
-  bool _internal_has_prioritize_bidirectional() const;
-  public:
-  void clear_prioritize_bidirectional();
-  bool prioritize_bidirectional() const;
-  void set_prioritize_bidirectional(bool value);
-  private:
-  bool _internal_prioritize_bidirectional() const;
-  void _internal_set_prioritize_bidirectional(bool value);
-  public:
-
   // .valhalla.Options.Action expansion_action = 49;
   bool has_expansion_action() const;
   private:
@@ -5129,19 +6258,6 @@ class Options final :
   private:
   ::valhalla::Options_Action _internal_expansion_action() const;
   void _internal_set_expansion_action(::valhalla::Options_Action value);
-  public:
-
-  // bool skip_opposites = 50;
-  bool has_skip_opposites() const;
-  private:
-  bool _internal_has_skip_opposites() const;
-  public:
-  void clear_skip_opposites();
-  bool skip_opposites() const;
-  void set_skip_opposites(bool value);
-  private:
-  bool _internal_skip_opposites() const;
-  void _internal_set_skip_opposites(bool value);
   public:
 
   // uint32 matrix_locations = 54;
@@ -5165,22 +6281,16 @@ class Options final :
   HasJsonpCase has_jsonp_case() const;
   void clear_has_encoded_polyline();
   HasEncodedPolylineCase has_encoded_polyline_case() const;
-  void clear_has_range();
-  HasRangeCase has_range_case() const;
   void clear_has_verbose();
   HasVerboseCase has_verbose_case() const;
   void clear_has_date_time();
   HasDateTimeCase has_date_time_case() const;
   void clear_has_resample_distance();
   HasResampleDistanceCase has_resample_distance_case() const;
-  void clear_has_polygons();
-  HasPolygonsCase has_polygons_case() const;
   void clear_has_denoise();
   HasDenoiseCase has_denoise_case() const;
   void clear_has_generalize();
   HasGeneralizeCase has_generalize_case() const;
-  void clear_has_show_locations();
-  HasShowLocationsCase has_show_locations_case() const;
   void clear_has_gps_accuracy();
   HasGpsAccuracyCase has_gps_accuracy_case() const;
   void clear_has_search_radius();
@@ -5189,28 +6299,18 @@ class Options final :
   HasTurnPenaltyFactorCase has_turn_penalty_factor_case() const;
   void clear_has_breakage_distance();
   HasBreakageDistanceCase has_breakage_distance_case() const;
-  void clear_has_use_timestamps();
-  HasUseTimestampsCase has_use_timestamps_case() const;
   void clear_has_shape_format();
   HasShapeFormatCase has_shape_format_case() const;
   void clear_has_alternates();
   HasAlternatesCase has_alternates_case() const;
   void clear_has_interpolation_distance();
   HasInterpolationDistanceCase has_interpolation_distance_case() const;
-  void clear_has_guidance_views();
-  HasGuidanceViewsCase has_guidance_views_case() const;
   void clear_has_height_precision();
   HasHeightPrecisionCase has_height_precision_case() const;
   void clear_has_roundabout_exits();
   HasRoundaboutExitsCase has_roundabout_exits_case() const;
-  void clear_has_linear_references();
-  HasLinearReferencesCase has_linear_references_case() const;
-  void clear_has_prioritize_bidirectional();
-  HasPrioritizeBidirectionalCase has_prioritize_bidirectional_case() const;
   void clear_has_expansion_action();
   HasExpansionActionCase has_expansion_action_case() const;
-  void clear_has_skip_opposites();
-  HasSkipOppositesCase has_skip_opposites_case() const;
   void clear_has_matrix_locations();
   HasMatrixLocationsCase has_matrix_locations_case() const;
   // @@protoc_insertion_point(class_scope:valhalla.Options)
@@ -5220,29 +6320,21 @@ class Options final :
   void set_has_id();
   void set_has_jsonp();
   void set_has_encoded_polyline();
-  void set_has_range();
   void set_has_verbose();
   void set_has_date_time();
   void set_has_resample_distance();
-  void set_has_polygons();
   void set_has_denoise();
   void set_has_generalize();
-  void set_has_show_locations();
   void set_has_gps_accuracy();
   void set_has_search_radius();
   void set_has_turn_penalty_factor();
   void set_has_breakage_distance();
-  void set_has_use_timestamps();
   void set_has_shape_format();
   void set_has_alternates();
   void set_has_interpolation_distance();
-  void set_has_guidance_views();
   void set_has_height_precision();
   void set_has_roundabout_exits();
-  void set_has_linear_references();
-  void set_has_prioritize_bidirectional();
   void set_has_expansion_action();
-  void set_has_skip_opposites();
   void set_has_matrix_locations();
 
   inline bool has_has_language() const;
@@ -5257,9 +6349,6 @@ class Options final :
   inline bool has_has_encoded_polyline() const;
   inline void clear_has_has_encoded_polyline();
 
-  inline bool has_has_range() const;
-  inline void clear_has_has_range();
-
   inline bool has_has_verbose() const;
   inline void clear_has_has_verbose();
 
@@ -5269,17 +6358,11 @@ class Options final :
   inline bool has_has_resample_distance() const;
   inline void clear_has_has_resample_distance();
 
-  inline bool has_has_polygons() const;
-  inline void clear_has_has_polygons();
-
   inline bool has_has_denoise() const;
   inline void clear_has_has_denoise();
 
   inline bool has_has_generalize() const;
   inline void clear_has_has_generalize();
-
-  inline bool has_has_show_locations() const;
-  inline void clear_has_has_show_locations();
 
   inline bool has_has_gps_accuracy() const;
   inline void clear_has_has_gps_accuracy();
@@ -5293,9 +6376,6 @@ class Options final :
   inline bool has_has_breakage_distance() const;
   inline void clear_has_has_breakage_distance();
 
-  inline bool has_has_use_timestamps() const;
-  inline void clear_has_has_use_timestamps();
-
   inline bool has_has_shape_format() const;
   inline void clear_has_has_shape_format();
 
@@ -5305,26 +6385,14 @@ class Options final :
   inline bool has_has_interpolation_distance() const;
   inline void clear_has_has_interpolation_distance();
 
-  inline bool has_has_guidance_views() const;
-  inline void clear_has_has_guidance_views();
-
   inline bool has_has_height_precision() const;
   inline void clear_has_has_height_precision();
 
   inline bool has_has_roundabout_exits() const;
   inline void clear_has_has_roundabout_exits();
 
-  inline bool has_has_linear_references() const;
-  inline void clear_has_has_linear_references();
-
-  inline bool has_has_prioritize_bidirectional() const;
-  inline void clear_has_has_prioritize_bidirectional();
-
   inline bool has_has_expansion_action() const;
   inline void clear_has_has_expansion_action();
-
-  inline bool has_has_skip_opposites() const;
-  inline void clear_has_has_skip_opposites();
 
   inline bool has_has_matrix_locations() const;
   inline void clear_has_has_matrix_locations();
@@ -5349,25 +6417,41 @@ class Options final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Ring > exclude_polygons_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> expansion_properties_;
   mutable std::atomic<int> _expansion_properties_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LinearFeatureCost > cost_factor_lines_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Levels > exclude_levels_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
       Options_CustomLocalesEntry_DoNotUse,
       std::string, std::string,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> customlocales_;
   ::valhalla::PbfFieldSelector* pbf_field_selector_;
+  ::valhalla::Tile* tile_xyz_;
+  ::valhalla::TileOptions* tile_options_;
   int units_;
   int directions_type_;
   int format_;
   int action_;
   int costing_type_;
   int date_time_type_;
+  bool range_;
+  bool polygons_;
+  bool show_locations_;
+  bool use_timestamps_;
   int shape_match_;
   int filter_action_;
+  bool guidance_views_;
+  bool linear_references_;
+  bool prioritize_bidirectional_;
+  bool skip_opposites_;
   bool reverse_;
   bool banner_instructions_;
   bool voice_instructions_;
   bool dedupe_;
   float elevation_interval_;
+  bool admin_crossings_;
+  bool turn_lanes_;
+  int reverse_time_tracking_;
+  uint32_t expansion_max_distance_;
   union HasLanguageUnion {
     constexpr HasLanguageUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -5388,11 +6472,6 @@ class Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encoded_polyline_;
   } has_encoded_polyline_;
-  union HasRangeUnion {
-    constexpr HasRangeUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool range_;
-  } has_range_;
   union HasVerboseUnion {
     constexpr HasVerboseUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -5408,11 +6487,6 @@ class Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     double resample_distance_;
   } has_resample_distance_;
-  union HasPolygonsUnion {
-    constexpr HasPolygonsUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool polygons_;
-  } has_polygons_;
   union HasDenoiseUnion {
     constexpr HasDenoiseUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -5423,11 +6497,6 @@ class Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float generalize_;
   } has_generalize_;
-  union HasShowLocationsUnion {
-    constexpr HasShowLocationsUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool show_locations_;
-  } has_show_locations_;
   union HasGpsAccuracyUnion {
     constexpr HasGpsAccuracyUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -5448,11 +6517,6 @@ class Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float breakage_distance_;
   } has_breakage_distance_;
-  union HasUseTimestampsUnion {
-    constexpr HasUseTimestampsUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool use_timestamps_;
-  } has_use_timestamps_;
   union HasShapeFormatUnion {
     constexpr HasShapeFormatUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -5468,11 +6532,6 @@ class Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     float interpolation_distance_;
   } has_interpolation_distance_;
-  union HasGuidanceViewsUnion {
-    constexpr HasGuidanceViewsUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool guidance_views_;
-  } has_guidance_views_;
   union HasHeightPrecisionUnion {
     constexpr HasHeightPrecisionUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -5483,33 +6542,18 @@ class Options final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     bool roundabout_exits_;
   } has_roundabout_exits_;
-  union HasLinearReferencesUnion {
-    constexpr HasLinearReferencesUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool linear_references_;
-  } has_linear_references_;
-  union HasPrioritizeBidirectionalUnion {
-    constexpr HasPrioritizeBidirectionalUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool prioritize_bidirectional_;
-  } has_prioritize_bidirectional_;
   union HasExpansionActionUnion {
     constexpr HasExpansionActionUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     int expansion_action_;
   } has_expansion_action_;
-  union HasSkipOppositesUnion {
-    constexpr HasSkipOppositesUnion() : _constinit_{} {}
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    bool skip_opposites_;
-  } has_skip_opposites_;
   union HasMatrixLocationsUnion {
     constexpr HasMatrixLocationsUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     uint32_t matrix_locations_;
   } has_matrix_locations_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  uint32_t _oneof_case_[28];
+  uint32_t _oneof_case_[20];
 
   friend struct ::TableStruct_options_2eproto;
 };
@@ -5743,6 +6787,57 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LatLng >&
 Ring::coords() const {
   // @@protoc_insertion_point(field_list:valhalla.Ring.coords)
   return coords_;
+}
+
+// -------------------------------------------------------------------
+
+// Levels
+
+// repeated float levels = 1;
+inline int Levels::_internal_levels_size() const {
+  return levels_.size();
+}
+inline int Levels::levels_size() const {
+  return _internal_levels_size();
+}
+inline void Levels::clear_levels() {
+  levels_.Clear();
+}
+inline float Levels::_internal_levels(int index) const {
+  return levels_.Get(index);
+}
+inline float Levels::levels(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Levels.levels)
+  return _internal_levels(index);
+}
+inline void Levels::set_levels(int index, float value) {
+  levels_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Levels.levels)
+}
+inline void Levels::_internal_add_levels(float value) {
+  levels_.Add(value);
+}
+inline void Levels::add_levels(float value) {
+  _internal_add_levels(value);
+  // @@protoc_insertion_point(field_add:valhalla.Levels.levels)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Levels::_internal_levels() const {
+  return levels_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Levels::levels() const {
+  // @@protoc_insertion_point(field_list:valhalla.Levels.levels)
+  return _internal_levels();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+Levels::_internal_mutable_levels() {
+  return &levels_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+Levels::mutable_levels() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Levels.levels)
+  return _internal_mutable_levels();
 }
 
 // -------------------------------------------------------------------
@@ -5987,6 +7082,400 @@ inline AvoidEdge::HasIdCase AvoidEdge::has_id_case() const {
 inline AvoidEdge::HasPercentAlongCase AvoidEdge::has_percent_along_case() const {
   return AvoidEdge::HasPercentAlongCase(_oneof_case_[1]);
 }
+// -------------------------------------------------------------------
+
+// CostFactorEdge
+
+// uint64 id = 1;
+inline void CostFactorEdge::clear_id() {
+  id_ = uint64_t{0u};
+}
+inline uint64_t CostFactorEdge::_internal_id() const {
+  return id_;
+}
+inline uint64_t CostFactorEdge::id() const {
+  // @@protoc_insertion_point(field_get:valhalla.CostFactorEdge.id)
+  return _internal_id();
+}
+inline void CostFactorEdge::_internal_set_id(uint64_t value) {
+  
+  id_ = value;
+}
+inline void CostFactorEdge::set_id(uint64_t value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:valhalla.CostFactorEdge.id)
+}
+
+// double factor = 2;
+inline void CostFactorEdge::clear_factor() {
+  factor_ = 0;
+}
+inline double CostFactorEdge::_internal_factor() const {
+  return factor_;
+}
+inline double CostFactorEdge::factor() const {
+  // @@protoc_insertion_point(field_get:valhalla.CostFactorEdge.factor)
+  return _internal_factor();
+}
+inline void CostFactorEdge::_internal_set_factor(double value) {
+  
+  factor_ = value;
+}
+inline void CostFactorEdge::set_factor(double value) {
+  _internal_set_factor(value);
+  // @@protoc_insertion_point(field_set:valhalla.CostFactorEdge.factor)
+}
+
+// double start = 3;
+inline void CostFactorEdge::clear_start() {
+  start_ = 0;
+}
+inline double CostFactorEdge::_internal_start() const {
+  return start_;
+}
+inline double CostFactorEdge::start() const {
+  // @@protoc_insertion_point(field_get:valhalla.CostFactorEdge.start)
+  return _internal_start();
+}
+inline void CostFactorEdge::_internal_set_start(double value) {
+  
+  start_ = value;
+}
+inline void CostFactorEdge::set_start(double value) {
+  _internal_set_start(value);
+  // @@protoc_insertion_point(field_set:valhalla.CostFactorEdge.start)
+}
+
+// double end = 4;
+inline void CostFactorEdge::clear_end() {
+  end_ = 0;
+}
+inline double CostFactorEdge::_internal_end() const {
+  return end_;
+}
+inline double CostFactorEdge::end() const {
+  // @@protoc_insertion_point(field_get:valhalla.CostFactorEdge.end)
+  return _internal_end();
+}
+inline void CostFactorEdge::_internal_set_end(double value) {
+  
+  end_ = value;
+}
+inline void CostFactorEdge::set_end(double value) {
+  _internal_set_end(value);
+  // @@protoc_insertion_point(field_set:valhalla.CostFactorEdge.end)
+}
+
+// bool ignore_access_restrictions = 5;
+inline void CostFactorEdge::clear_ignore_access_restrictions() {
+  ignore_access_restrictions_ = false;
+}
+inline bool CostFactorEdge::_internal_ignore_access_restrictions() const {
+  return ignore_access_restrictions_;
+}
+inline bool CostFactorEdge::ignore_access_restrictions() const {
+  // @@protoc_insertion_point(field_get:valhalla.CostFactorEdge.ignore_access_restrictions)
+  return _internal_ignore_access_restrictions();
+}
+inline void CostFactorEdge::_internal_set_ignore_access_restrictions(bool value) {
+  
+  ignore_access_restrictions_ = value;
+}
+inline void CostFactorEdge::set_ignore_access_restrictions(bool value) {
+  _internal_set_ignore_access_restrictions(value);
+  // @@protoc_insertion_point(field_set:valhalla.CostFactorEdge.ignore_access_restrictions)
+}
+
+// -------------------------------------------------------------------
+
+// HierarchyLimits
+
+// uint32 up_transition_count = 1;
+inline void HierarchyLimits::clear_up_transition_count() {
+  up_transition_count_ = 0u;
+}
+inline uint32_t HierarchyLimits::_internal_up_transition_count() const {
+  return up_transition_count_;
+}
+inline uint32_t HierarchyLimits::up_transition_count() const {
+  // @@protoc_insertion_point(field_get:valhalla.HierarchyLimits.up_transition_count)
+  return _internal_up_transition_count();
+}
+inline void HierarchyLimits::_internal_set_up_transition_count(uint32_t value) {
+  
+  up_transition_count_ = value;
+}
+inline void HierarchyLimits::set_up_transition_count(uint32_t value) {
+  _internal_set_up_transition_count(value);
+  // @@protoc_insertion_point(field_set:valhalla.HierarchyLimits.up_transition_count)
+}
+
+// uint32 max_up_transitions = 2;
+inline void HierarchyLimits::clear_max_up_transitions() {
+  max_up_transitions_ = 0u;
+}
+inline uint32_t HierarchyLimits::_internal_max_up_transitions() const {
+  return max_up_transitions_;
+}
+inline uint32_t HierarchyLimits::max_up_transitions() const {
+  // @@protoc_insertion_point(field_get:valhalla.HierarchyLimits.max_up_transitions)
+  return _internal_max_up_transitions();
+}
+inline void HierarchyLimits::_internal_set_max_up_transitions(uint32_t value) {
+  
+  max_up_transitions_ = value;
+}
+inline void HierarchyLimits::set_max_up_transitions(uint32_t value) {
+  _internal_set_max_up_transitions(value);
+  // @@protoc_insertion_point(field_set:valhalla.HierarchyLimits.max_up_transitions)
+}
+
+// float expand_within_dist = 3;
+inline void HierarchyLimits::clear_expand_within_dist() {
+  expand_within_dist_ = 0;
+}
+inline float HierarchyLimits::_internal_expand_within_dist() const {
+  return expand_within_dist_;
+}
+inline float HierarchyLimits::expand_within_dist() const {
+  // @@protoc_insertion_point(field_get:valhalla.HierarchyLimits.expand_within_dist)
+  return _internal_expand_within_dist();
+}
+inline void HierarchyLimits::_internal_set_expand_within_dist(float value) {
+  
+  expand_within_dist_ = value;
+}
+inline void HierarchyLimits::set_expand_within_dist(float value) {
+  _internal_set_expand_within_dist(value);
+  // @@protoc_insertion_point(field_set:valhalla.HierarchyLimits.expand_within_dist)
+}
+
+// -------------------------------------------------------------------
+
+// Tile
+
+// uint32 x = 1;
+inline bool Tile::_internal_has_x() const {
+  return has_x_case() == kX;
+}
+inline bool Tile::has_x() const {
+  return _internal_has_x();
+}
+inline void Tile::set_has_x() {
+  _oneof_case_[0] = kX;
+}
+inline void Tile::clear_x() {
+  if (_internal_has_x()) {
+    has_x_.x_ = 0u;
+    clear_has_has_x();
+  }
+}
+inline uint32_t Tile::_internal_x() const {
+  if (_internal_has_x()) {
+    return has_x_.x_;
+  }
+  return 0u;
+}
+inline void Tile::_internal_set_x(uint32_t value) {
+  if (!_internal_has_x()) {
+    clear_has_x();
+    set_has_x();
+  }
+  has_x_.x_ = value;
+}
+inline uint32_t Tile::x() const {
+  // @@protoc_insertion_point(field_get:valhalla.Tile.x)
+  return _internal_x();
+}
+inline void Tile::set_x(uint32_t value) {
+  _internal_set_x(value);
+  // @@protoc_insertion_point(field_set:valhalla.Tile.x)
+}
+
+// uint32 y = 2;
+inline bool Tile::_internal_has_y() const {
+  return has_y_case() == kY;
+}
+inline bool Tile::has_y() const {
+  return _internal_has_y();
+}
+inline void Tile::set_has_y() {
+  _oneof_case_[1] = kY;
+}
+inline void Tile::clear_y() {
+  if (_internal_has_y()) {
+    has_y_.y_ = 0u;
+    clear_has_has_y();
+  }
+}
+inline uint32_t Tile::_internal_y() const {
+  if (_internal_has_y()) {
+    return has_y_.y_;
+  }
+  return 0u;
+}
+inline void Tile::_internal_set_y(uint32_t value) {
+  if (!_internal_has_y()) {
+    clear_has_y();
+    set_has_y();
+  }
+  has_y_.y_ = value;
+}
+inline uint32_t Tile::y() const {
+  // @@protoc_insertion_point(field_get:valhalla.Tile.y)
+  return _internal_y();
+}
+inline void Tile::set_y(uint32_t value) {
+  _internal_set_y(value);
+  // @@protoc_insertion_point(field_set:valhalla.Tile.y)
+}
+
+// uint32 z = 3;
+inline bool Tile::_internal_has_z() const {
+  return has_z_case() == kZ;
+}
+inline bool Tile::has_z() const {
+  return _internal_has_z();
+}
+inline void Tile::set_has_z() {
+  _oneof_case_[2] = kZ;
+}
+inline void Tile::clear_z() {
+  if (_internal_has_z()) {
+    has_z_.z_ = 0u;
+    clear_has_has_z();
+  }
+}
+inline uint32_t Tile::_internal_z() const {
+  if (_internal_has_z()) {
+    return has_z_.z_;
+  }
+  return 0u;
+}
+inline void Tile::_internal_set_z(uint32_t value) {
+  if (!_internal_has_z()) {
+    clear_has_z();
+    set_has_z();
+  }
+  has_z_.z_ = value;
+}
+inline uint32_t Tile::z() const {
+  // @@protoc_insertion_point(field_get:valhalla.Tile.z)
+  return _internal_z();
+}
+inline void Tile::set_z(uint32_t value) {
+  _internal_set_z(value);
+  // @@protoc_insertion_point(field_set:valhalla.Tile.z)
+}
+
+inline bool Tile::has_has_x() const {
+  return has_x_case() != HAS_X_NOT_SET;
+}
+inline void Tile::clear_has_has_x() {
+  _oneof_case_[0] = HAS_X_NOT_SET;
+}
+inline bool Tile::has_has_y() const {
+  return has_y_case() != HAS_Y_NOT_SET;
+}
+inline void Tile::clear_has_has_y() {
+  _oneof_case_[1] = HAS_Y_NOT_SET;
+}
+inline bool Tile::has_has_z() const {
+  return has_z_case() != HAS_Z_NOT_SET;
+}
+inline void Tile::clear_has_has_z() {
+  _oneof_case_[2] = HAS_Z_NOT_SET;
+}
+inline Tile::HasXCase Tile::has_x_case() const {
+  return Tile::HasXCase(_oneof_case_[0]);
+}
+inline Tile::HasYCase Tile::has_y_case() const {
+  return Tile::HasYCase(_oneof_case_[1]);
+}
+inline Tile::HasZCase Tile::has_z_case() const {
+  return Tile::HasZCase(_oneof_case_[2]);
+}
+// -------------------------------------------------------------------
+
+// TileOptions
+
+// repeated string exclude_layers = 2;
+inline int TileOptions::_internal_exclude_layers_size() const {
+  return exclude_layers_.size();
+}
+inline int TileOptions::exclude_layers_size() const {
+  return _internal_exclude_layers_size();
+}
+inline void TileOptions::clear_exclude_layers() {
+  exclude_layers_.Clear();
+}
+inline std::string* TileOptions::add_exclude_layers() {
+  std::string* _s = _internal_add_exclude_layers();
+  // @@protoc_insertion_point(field_add_mutable:valhalla.TileOptions.exclude_layers)
+  return _s;
+}
+inline const std::string& TileOptions::_internal_exclude_layers(int index) const {
+  return exclude_layers_.Get(index);
+}
+inline const std::string& TileOptions::exclude_layers(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TileOptions.exclude_layers)
+  return _internal_exclude_layers(index);
+}
+inline std::string* TileOptions::mutable_exclude_layers(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TileOptions.exclude_layers)
+  return exclude_layers_.Mutable(index);
+}
+inline void TileOptions::set_exclude_layers(int index, const std::string& value) {
+  exclude_layers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:valhalla.TileOptions.exclude_layers)
+}
+inline void TileOptions::set_exclude_layers(int index, std::string&& value) {
+  exclude_layers_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:valhalla.TileOptions.exclude_layers)
+}
+inline void TileOptions::set_exclude_layers(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  exclude_layers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:valhalla.TileOptions.exclude_layers)
+}
+inline void TileOptions::set_exclude_layers(int index, const char* value, size_t size) {
+  exclude_layers_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:valhalla.TileOptions.exclude_layers)
+}
+inline std::string* TileOptions::_internal_add_exclude_layers() {
+  return exclude_layers_.Add();
+}
+inline void TileOptions::add_exclude_layers(const std::string& value) {
+  exclude_layers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:valhalla.TileOptions.exclude_layers)
+}
+inline void TileOptions::add_exclude_layers(std::string&& value) {
+  exclude_layers_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:valhalla.TileOptions.exclude_layers)
+}
+inline void TileOptions::add_exclude_layers(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  exclude_layers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:valhalla.TileOptions.exclude_layers)
+}
+inline void TileOptions::add_exclude_layers(const char* value, size_t size) {
+  exclude_layers_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:valhalla.TileOptions.exclude_layers)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+TileOptions::exclude_layers() const {
+  // @@protoc_insertion_point(field_list:valhalla.TileOptions.exclude_layers)
+  return exclude_layers_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+TileOptions::mutable_exclude_layers() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TileOptions.exclude_layers)
+  return &exclude_layers_;
+}
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // Costing_Options
@@ -7323,37 +8812,19 @@ inline void Costing_Options::set_low_class_penalty(float value) {
 }
 
 // bool hazmat = 35;
-inline bool Costing_Options::_internal_has_hazmat() const {
-  return has_hazmat_case() == kHazmat;
-}
-inline bool Costing_Options::has_hazmat() const {
-  return _internal_has_hazmat();
-}
-inline void Costing_Options::set_has_hazmat() {
-  _oneof_case_[34] = kHazmat;
-}
 inline void Costing_Options::clear_hazmat() {
-  if (_internal_has_hazmat()) {
-    has_hazmat_.hazmat_ = false;
-    clear_has_has_hazmat();
-  }
+  hazmat_ = false;
 }
 inline bool Costing_Options::_internal_hazmat() const {
-  if (_internal_has_hazmat()) {
-    return has_hazmat_.hazmat_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_hazmat(bool value) {
-  if (!_internal_has_hazmat()) {
-    clear_has_hazmat();
-    set_has_hazmat();
-  }
-  has_hazmat_.hazmat_ = value;
+  return hazmat_;
 }
 inline bool Costing_Options::hazmat() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.hazmat)
   return _internal_hazmat();
+}
+inline void Costing_Options::_internal_set_hazmat(bool value) {
+  
+  hazmat_ = value;
 }
 inline void Costing_Options::set_hazmat(bool value) {
   _internal_set_hazmat(value);
@@ -7368,7 +8839,7 @@ inline bool Costing_Options::has_weight() const {
   return _internal_has_weight();
 }
 inline void Costing_Options::set_has_weight() {
-  _oneof_case_[35] = kWeight;
+  _oneof_case_[34] = kWeight;
 }
 inline void Costing_Options::clear_weight() {
   if (_internal_has_weight()) {
@@ -7406,7 +8877,7 @@ inline bool Costing_Options::has_axle_load() const {
   return _internal_has_axle_load();
 }
 inline void Costing_Options::set_has_axle_load() {
-  _oneof_case_[36] = kAxleLoad;
+  _oneof_case_[35] = kAxleLoad;
 }
 inline void Costing_Options::clear_axle_load() {
   if (_internal_has_axle_load()) {
@@ -7444,7 +8915,7 @@ inline bool Costing_Options::has_height() const {
   return _internal_has_height();
 }
 inline void Costing_Options::set_has_height() {
-  _oneof_case_[37] = kHeight;
+  _oneof_case_[36] = kHeight;
 }
 inline void Costing_Options::clear_height() {
   if (_internal_has_height()) {
@@ -7482,7 +8953,7 @@ inline bool Costing_Options::has_width() const {
   return _internal_has_width();
 }
 inline void Costing_Options::set_has_width() {
-  _oneof_case_[38] = kWidth;
+  _oneof_case_[37] = kWidth;
 }
 inline void Costing_Options::clear_width() {
   if (_internal_has_width()) {
@@ -7520,7 +8991,7 @@ inline bool Costing_Options::has_length() const {
   return _internal_has_length();
 }
 inline void Costing_Options::set_has_length() {
-  _oneof_case_[39] = kLength;
+  _oneof_case_[38] = kLength;
 }
 inline void Costing_Options::clear_length() {
   if (_internal_has_length()) {
@@ -7558,7 +9029,7 @@ inline bool Costing_Options::has_cycling_speed() const {
   return _internal_has_cycling_speed();
 }
 inline void Costing_Options::set_has_cycling_speed() {
-  _oneof_case_[40] = kCyclingSpeed;
+  _oneof_case_[39] = kCyclingSpeed;
 }
 inline void Costing_Options::clear_cycling_speed() {
   if (_internal_has_cycling_speed()) {
@@ -7589,37 +9060,19 @@ inline void Costing_Options::set_cycling_speed(float value) {
 }
 
 // bool wheelchair = 42;
-inline bool Costing_Options::_internal_has_wheelchair() const {
-  return has_wheelchair_case() == kWheelchair;
-}
-inline bool Costing_Options::has_wheelchair() const {
-  return _internal_has_wheelchair();
-}
-inline void Costing_Options::set_has_wheelchair() {
-  _oneof_case_[41] = kWheelchair;
-}
 inline void Costing_Options::clear_wheelchair() {
-  if (_internal_has_wheelchair()) {
-    has_wheelchair_.wheelchair_ = false;
-    clear_has_has_wheelchair();
-  }
+  wheelchair_ = false;
 }
 inline bool Costing_Options::_internal_wheelchair() const {
-  if (_internal_has_wheelchair()) {
-    return has_wheelchair_.wheelchair_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_wheelchair(bool value) {
-  if (!_internal_has_wheelchair()) {
-    clear_has_wheelchair();
-    set_has_wheelchair();
-  }
-  has_wheelchair_.wheelchair_ = value;
+  return wheelchair_;
 }
 inline bool Costing_Options::wheelchair() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.wheelchair)
   return _internal_wheelchair();
+}
+inline void Costing_Options::_internal_set_wheelchair(bool value) {
+  
+  wheelchair_ = value;
 }
 inline void Costing_Options::set_wheelchair(bool value) {
   _internal_set_wheelchair(value);
@@ -7627,37 +9080,19 @@ inline void Costing_Options::set_wheelchair(bool value) {
 }
 
 // bool bicycle = 43;
-inline bool Costing_Options::_internal_has_bicycle() const {
-  return has_bicycle_case() == kBicycle;
-}
-inline bool Costing_Options::has_bicycle() const {
-  return _internal_has_bicycle();
-}
-inline void Costing_Options::set_has_bicycle() {
-  _oneof_case_[42] = kBicycle;
-}
 inline void Costing_Options::clear_bicycle() {
-  if (_internal_has_bicycle()) {
-    has_bicycle_.bicycle_ = false;
-    clear_has_has_bicycle();
-  }
+  bicycle_ = false;
 }
 inline bool Costing_Options::_internal_bicycle() const {
-  if (_internal_has_bicycle()) {
-    return has_bicycle_.bicycle_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_bicycle(bool value) {
-  if (!_internal_has_bicycle()) {
-    clear_has_bicycle();
-    set_has_bicycle();
-  }
-  has_bicycle_.bicycle_ = value;
+  return bicycle_;
 }
 inline bool Costing_Options::bicycle() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.bicycle)
   return _internal_bicycle();
+}
+inline void Costing_Options::_internal_set_bicycle(bool value) {
+  
+  bicycle_ = value;
 }
 inline void Costing_Options::set_bicycle(bool value) {
   _internal_set_bicycle(value);
@@ -7672,7 +9107,7 @@ inline bool Costing_Options::has_use_bus() const {
   return _internal_has_use_bus();
 }
 inline void Costing_Options::set_has_use_bus() {
-  _oneof_case_[43] = kUseBus;
+  _oneof_case_[40] = kUseBus;
 }
 inline void Costing_Options::clear_use_bus() {
   if (_internal_has_use_bus()) {
@@ -7710,7 +9145,7 @@ inline bool Costing_Options::has_use_rail() const {
   return _internal_has_use_rail();
 }
 inline void Costing_Options::set_has_use_rail() {
-  _oneof_case_[44] = kUseRail;
+  _oneof_case_[41] = kUseRail;
 }
 inline void Costing_Options::clear_use_rail() {
   if (_internal_has_use_rail()) {
@@ -7748,7 +9183,7 @@ inline bool Costing_Options::has_use_transfers() const {
   return _internal_has_use_transfers();
 }
 inline void Costing_Options::set_has_use_transfers() {
-  _oneof_case_[45] = kUseTransfers;
+  _oneof_case_[42] = kUseTransfers;
 }
 inline void Costing_Options::clear_use_transfers() {
   if (_internal_has_use_transfers()) {
@@ -7786,7 +9221,7 @@ inline bool Costing_Options::has_transfer_cost() const {
   return _internal_has_transfer_cost();
 }
 inline void Costing_Options::set_has_transfer_cost() {
-  _oneof_case_[46] = kTransferCost;
+  _oneof_case_[43] = kTransferCost;
 }
 inline void Costing_Options::clear_transfer_cost() {
   if (_internal_has_transfer_cost()) {
@@ -7824,7 +9259,7 @@ inline bool Costing_Options::has_transfer_penalty() const {
   return _internal_has_transfer_penalty();
 }
 inline void Costing_Options::set_has_transfer_penalty() {
-  _oneof_case_[47] = kTransferPenalty;
+  _oneof_case_[44] = kTransferPenalty;
 }
 inline void Costing_Options::clear_transfer_penalty() {
   if (_internal_has_transfer_penalty()) {
@@ -8147,7 +9582,7 @@ inline bool Costing_Options::has_flow_mask() const {
   return _internal_has_flow_mask();
 }
 inline void Costing_Options::set_has_flow_mask() {
-  _oneof_case_[48] = kFlowMask;
+  _oneof_case_[45] = kFlowMask;
 }
 inline void Costing_Options::clear_flow_mask() {
   if (_internal_has_flow_mask()) {
@@ -8185,7 +9620,7 @@ inline bool Costing_Options::has_bike_share_cost() const {
   return _internal_has_bike_share_cost();
 }
 inline void Costing_Options::set_has_bike_share_cost() {
-  _oneof_case_[49] = kBikeShareCost;
+  _oneof_case_[46] = kBikeShareCost;
 }
 inline void Costing_Options::clear_bike_share_cost() {
   if (_internal_has_bike_share_cost()) {
@@ -8223,7 +9658,7 @@ inline bool Costing_Options::has_bike_share_penalty() const {
   return _internal_has_bike_share_penalty();
 }
 inline void Costing_Options::set_has_bike_share_penalty() {
-  _oneof_case_[50] = kBikeSharePenalty;
+  _oneof_case_[47] = kBikeSharePenalty;
 }
 inline void Costing_Options::clear_bike_share_penalty() {
   if (_internal_has_bike_share_penalty()) {
@@ -8261,7 +9696,7 @@ inline bool Costing_Options::has_rail_ferry_cost() const {
   return _internal_has_rail_ferry_cost();
 }
 inline void Costing_Options::set_has_rail_ferry_cost() {
-  _oneof_case_[51] = kRailFerryCost;
+  _oneof_case_[48] = kRailFerryCost;
 }
 inline void Costing_Options::clear_rail_ferry_cost() {
   if (_internal_has_rail_ferry_cost()) {
@@ -8299,7 +9734,7 @@ inline bool Costing_Options::has_use_rail_ferry() const {
   return _internal_has_use_rail_ferry();
 }
 inline void Costing_Options::set_has_use_rail_ferry() {
-  _oneof_case_[52] = kUseRailFerry;
+  _oneof_case_[49] = kUseRailFerry;
 }
 inline void Costing_Options::clear_use_rail_ferry() {
   if (_internal_has_use_rail_ferry()) {
@@ -8330,37 +9765,19 @@ inline void Costing_Options::set_use_rail_ferry(float value) {
 }
 
 // bool ignore_restrictions = 60;
-inline bool Costing_Options::_internal_has_ignore_restrictions() const {
-  return has_ignore_restrictions_case() == kIgnoreRestrictions;
-}
-inline bool Costing_Options::has_ignore_restrictions() const {
-  return _internal_has_ignore_restrictions();
-}
-inline void Costing_Options::set_has_ignore_restrictions() {
-  _oneof_case_[53] = kIgnoreRestrictions;
-}
 inline void Costing_Options::clear_ignore_restrictions() {
-  if (_internal_has_ignore_restrictions()) {
-    has_ignore_restrictions_.ignore_restrictions_ = false;
-    clear_has_has_ignore_restrictions();
-  }
+  ignore_restrictions_ = false;
 }
 inline bool Costing_Options::_internal_ignore_restrictions() const {
-  if (_internal_has_ignore_restrictions()) {
-    return has_ignore_restrictions_.ignore_restrictions_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_ignore_restrictions(bool value) {
-  if (!_internal_has_ignore_restrictions()) {
-    clear_has_ignore_restrictions();
-    set_has_ignore_restrictions();
-  }
-  has_ignore_restrictions_.ignore_restrictions_ = value;
+  return ignore_restrictions_;
 }
 inline bool Costing_Options::ignore_restrictions() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.ignore_restrictions)
   return _internal_ignore_restrictions();
+}
+inline void Costing_Options::_internal_set_ignore_restrictions(bool value) {
+  
+  ignore_restrictions_ = value;
 }
 inline void Costing_Options::set_ignore_restrictions(bool value) {
   _internal_set_ignore_restrictions(value);
@@ -8368,37 +9785,19 @@ inline void Costing_Options::set_ignore_restrictions(bool value) {
 }
 
 // bool ignore_oneways = 61;
-inline bool Costing_Options::_internal_has_ignore_oneways() const {
-  return has_ignore_oneways_case() == kIgnoreOneways;
-}
-inline bool Costing_Options::has_ignore_oneways() const {
-  return _internal_has_ignore_oneways();
-}
-inline void Costing_Options::set_has_ignore_oneways() {
-  _oneof_case_[54] = kIgnoreOneways;
-}
 inline void Costing_Options::clear_ignore_oneways() {
-  if (_internal_has_ignore_oneways()) {
-    has_ignore_oneways_.ignore_oneways_ = false;
-    clear_has_has_ignore_oneways();
-  }
+  ignore_oneways_ = false;
 }
 inline bool Costing_Options::_internal_ignore_oneways() const {
-  if (_internal_has_ignore_oneways()) {
-    return has_ignore_oneways_.ignore_oneways_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_ignore_oneways(bool value) {
-  if (!_internal_has_ignore_oneways()) {
-    clear_has_ignore_oneways();
-    set_has_ignore_oneways();
-  }
-  has_ignore_oneways_.ignore_oneways_ = value;
+  return ignore_oneways_;
 }
 inline bool Costing_Options::ignore_oneways() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.ignore_oneways)
   return _internal_ignore_oneways();
+}
+inline void Costing_Options::_internal_set_ignore_oneways(bool value) {
+  
+  ignore_oneways_ = value;
 }
 inline void Costing_Options::set_ignore_oneways(bool value) {
   _internal_set_ignore_oneways(value);
@@ -8406,37 +9805,19 @@ inline void Costing_Options::set_ignore_oneways(bool value) {
 }
 
 // bool ignore_access = 62;
-inline bool Costing_Options::_internal_has_ignore_access() const {
-  return has_ignore_access_case() == kIgnoreAccess;
-}
-inline bool Costing_Options::has_ignore_access() const {
-  return _internal_has_ignore_access();
-}
-inline void Costing_Options::set_has_ignore_access() {
-  _oneof_case_[55] = kIgnoreAccess;
-}
 inline void Costing_Options::clear_ignore_access() {
-  if (_internal_has_ignore_access()) {
-    has_ignore_access_.ignore_access_ = false;
-    clear_has_has_ignore_access();
-  }
+  ignore_access_ = false;
 }
 inline bool Costing_Options::_internal_ignore_access() const {
-  if (_internal_has_ignore_access()) {
-    return has_ignore_access_.ignore_access_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_ignore_access(bool value) {
-  if (!_internal_has_ignore_access()) {
-    clear_has_ignore_access();
-    set_has_ignore_access();
-  }
-  has_ignore_access_.ignore_access_ = value;
+  return ignore_access_;
 }
 inline bool Costing_Options::ignore_access() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.ignore_access)
   return _internal_ignore_access();
+}
+inline void Costing_Options::_internal_set_ignore_access(bool value) {
+  
+  ignore_access_ = value;
 }
 inline void Costing_Options::set_ignore_access(bool value) {
   _internal_set_ignore_access(value);
@@ -8451,7 +9832,7 @@ inline bool Costing_Options::has_ignore_closures() const {
   return _internal_has_ignore_closures();
 }
 inline void Costing_Options::set_has_ignore_closures() {
-  _oneof_case_[56] = kIgnoreClosures;
+  _oneof_case_[50] = kIgnoreClosures;
 }
 inline void Costing_Options::clear_ignore_closures() {
   if (_internal_has_ignore_closures()) {
@@ -8482,37 +9863,19 @@ inline void Costing_Options::set_ignore_closures(bool value) {
 }
 
 // bool shortest = 64;
-inline bool Costing_Options::_internal_has_shortest() const {
-  return has_shortest_case() == kShortest;
-}
-inline bool Costing_Options::has_shortest() const {
-  return _internal_has_shortest();
-}
-inline void Costing_Options::set_has_shortest() {
-  _oneof_case_[57] = kShortest;
-}
 inline void Costing_Options::clear_shortest() {
-  if (_internal_has_shortest()) {
-    has_shortest_.shortest_ = false;
-    clear_has_has_shortest();
-  }
+  shortest_ = false;
 }
 inline bool Costing_Options::_internal_shortest() const {
-  if (_internal_has_shortest()) {
-    return has_shortest_.shortest_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_shortest(bool value) {
-  if (!_internal_has_shortest()) {
-    clear_has_shortest();
-    set_has_shortest();
-  }
-  has_shortest_.shortest_ = value;
+  return shortest_;
 }
 inline bool Costing_Options::shortest() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.shortest)
   return _internal_shortest();
+}
+inline void Costing_Options::_internal_set_shortest(bool value) {
+  
+  shortest_ = value;
 }
 inline void Costing_Options::set_shortest(bool value) {
   _internal_set_shortest(value);
@@ -8527,7 +9890,7 @@ inline bool Costing_Options::has_service_penalty() const {
   return _internal_has_service_penalty();
 }
 inline void Costing_Options::set_has_service_penalty() {
-  _oneof_case_[58] = kServicePenalty;
+  _oneof_case_[51] = kServicePenalty;
 }
 inline void Costing_Options::clear_service_penalty() {
   if (_internal_has_service_penalty()) {
@@ -8565,7 +9928,7 @@ inline bool Costing_Options::has_use_tracks() const {
   return _internal_has_use_tracks();
 }
 inline void Costing_Options::set_has_use_tracks() {
-  _oneof_case_[59] = kUseTracks;
+  _oneof_case_[52] = kUseTracks;
 }
 inline void Costing_Options::clear_use_tracks() {
   if (_internal_has_use_tracks()) {
@@ -8603,7 +9966,7 @@ inline bool Costing_Options::has_use_distance() const {
   return _internal_has_use_distance();
 }
 inline void Costing_Options::set_has_use_distance() {
-  _oneof_case_[60] = kUseDistance;
+  _oneof_case_[53] = kUseDistance;
 }
 inline void Costing_Options::clear_use_distance() {
   if (_internal_has_use_distance()) {
@@ -8641,7 +10004,7 @@ inline bool Costing_Options::has_use_living_streets() const {
   return _internal_has_use_living_streets();
 }
 inline void Costing_Options::set_has_use_living_streets() {
-  _oneof_case_[61] = kUseLivingStreets;
+  _oneof_case_[54] = kUseLivingStreets;
 }
 inline void Costing_Options::clear_use_living_streets() {
   if (_internal_has_use_living_streets()) {
@@ -8679,7 +10042,7 @@ inline bool Costing_Options::has_service_factor() const {
   return _internal_has_service_factor();
 }
 inline void Costing_Options::set_has_service_factor() {
-  _oneof_case_[62] = kServiceFactor;
+  _oneof_case_[55] = kServiceFactor;
 }
 inline void Costing_Options::clear_service_factor() {
   if (_internal_has_service_factor()) {
@@ -8717,7 +10080,7 @@ inline bool Costing_Options::has_closure_factor() const {
   return _internal_has_closure_factor();
 }
 inline void Costing_Options::set_has_closure_factor() {
-  _oneof_case_[63] = kClosureFactor;
+  _oneof_case_[56] = kClosureFactor;
 }
 inline void Costing_Options::clear_closure_factor() {
   if (_internal_has_closure_factor()) {
@@ -8755,7 +10118,7 @@ inline bool Costing_Options::has_private_access_penalty() const {
   return _internal_has_private_access_penalty();
 }
 inline void Costing_Options::set_has_private_access_penalty() {
-  _oneof_case_[64] = kPrivateAccessPenalty;
+  _oneof_case_[57] = kPrivateAccessPenalty;
 }
 inline void Costing_Options::clear_private_access_penalty() {
   if (_internal_has_private_access_penalty()) {
@@ -8786,37 +10149,19 @@ inline void Costing_Options::set_private_access_penalty(float value) {
 }
 
 // bool exclude_unpaved = 72;
-inline bool Costing_Options::_internal_has_exclude_unpaved() const {
-  return has_exclude_unpaved_case() == kExcludeUnpaved;
-}
-inline bool Costing_Options::has_exclude_unpaved() const {
-  return _internal_has_exclude_unpaved();
-}
-inline void Costing_Options::set_has_exclude_unpaved() {
-  _oneof_case_[65] = kExcludeUnpaved;
-}
 inline void Costing_Options::clear_exclude_unpaved() {
-  if (_internal_has_exclude_unpaved()) {
-    has_exclude_unpaved_.exclude_unpaved_ = false;
-    clear_has_has_exclude_unpaved();
-  }
+  exclude_unpaved_ = false;
 }
 inline bool Costing_Options::_internal_exclude_unpaved() const {
-  if (_internal_has_exclude_unpaved()) {
-    return has_exclude_unpaved_.exclude_unpaved_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_exclude_unpaved(bool value) {
-  if (!_internal_has_exclude_unpaved()) {
-    clear_has_exclude_unpaved();
-    set_has_exclude_unpaved();
-  }
-  has_exclude_unpaved_.exclude_unpaved_ = value;
+  return exclude_unpaved_;
 }
 inline bool Costing_Options::exclude_unpaved() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_unpaved)
   return _internal_exclude_unpaved();
+}
+inline void Costing_Options::_internal_set_exclude_unpaved(bool value) {
+  
+  exclude_unpaved_ = value;
 }
 inline void Costing_Options::set_exclude_unpaved(bool value) {
   _internal_set_exclude_unpaved(value);
@@ -8824,37 +10169,19 @@ inline void Costing_Options::set_exclude_unpaved(bool value) {
 }
 
 // bool include_hot = 73;
-inline bool Costing_Options::_internal_has_include_hot() const {
-  return has_include_hot_case() == kIncludeHot;
-}
-inline bool Costing_Options::has_include_hot() const {
-  return _internal_has_include_hot();
-}
-inline void Costing_Options::set_has_include_hot() {
-  _oneof_case_[66] = kIncludeHot;
-}
 inline void Costing_Options::clear_include_hot() {
-  if (_internal_has_include_hot()) {
-    has_include_hot_.include_hot_ = false;
-    clear_has_has_include_hot();
-  }
+  include_hot_ = false;
 }
 inline bool Costing_Options::_internal_include_hot() const {
-  if (_internal_has_include_hot()) {
-    return has_include_hot_.include_hot_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_include_hot(bool value) {
-  if (!_internal_has_include_hot()) {
-    clear_has_include_hot();
-    set_has_include_hot();
-  }
-  has_include_hot_.include_hot_ = value;
+  return include_hot_;
 }
 inline bool Costing_Options::include_hot() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.include_hot)
   return _internal_include_hot();
+}
+inline void Costing_Options::_internal_set_include_hot(bool value) {
+  
+  include_hot_ = value;
 }
 inline void Costing_Options::set_include_hot(bool value) {
   _internal_set_include_hot(value);
@@ -8862,37 +10189,19 @@ inline void Costing_Options::set_include_hot(bool value) {
 }
 
 // bool include_hov2 = 74;
-inline bool Costing_Options::_internal_has_include_hov2() const {
-  return has_include_hov2_case() == kIncludeHov2;
-}
-inline bool Costing_Options::has_include_hov2() const {
-  return _internal_has_include_hov2();
-}
-inline void Costing_Options::set_has_include_hov2() {
-  _oneof_case_[67] = kIncludeHov2;
-}
 inline void Costing_Options::clear_include_hov2() {
-  if (_internal_has_include_hov2()) {
-    has_include_hov2_.include_hov2_ = false;
-    clear_has_has_include_hov2();
-  }
+  include_hov2_ = false;
 }
 inline bool Costing_Options::_internal_include_hov2() const {
-  if (_internal_has_include_hov2()) {
-    return has_include_hov2_.include_hov2_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_include_hov2(bool value) {
-  if (!_internal_has_include_hov2()) {
-    clear_has_include_hov2();
-    set_has_include_hov2();
-  }
-  has_include_hov2_.include_hov2_ = value;
+  return include_hov2_;
 }
 inline bool Costing_Options::include_hov2() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.include_hov2)
   return _internal_include_hov2();
+}
+inline void Costing_Options::_internal_set_include_hov2(bool value) {
+  
+  include_hov2_ = value;
 }
 inline void Costing_Options::set_include_hov2(bool value) {
   _internal_set_include_hov2(value);
@@ -8900,37 +10209,19 @@ inline void Costing_Options::set_include_hov2(bool value) {
 }
 
 // bool include_hov3 = 75;
-inline bool Costing_Options::_internal_has_include_hov3() const {
-  return has_include_hov3_case() == kIncludeHov3;
-}
-inline bool Costing_Options::has_include_hov3() const {
-  return _internal_has_include_hov3();
-}
-inline void Costing_Options::set_has_include_hov3() {
-  _oneof_case_[68] = kIncludeHov3;
-}
 inline void Costing_Options::clear_include_hov3() {
-  if (_internal_has_include_hov3()) {
-    has_include_hov3_.include_hov3_ = false;
-    clear_has_has_include_hov3();
-  }
+  include_hov3_ = false;
 }
 inline bool Costing_Options::_internal_include_hov3() const {
-  if (_internal_has_include_hov3()) {
-    return has_include_hov3_.include_hov3_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_include_hov3(bool value) {
-  if (!_internal_has_include_hov3()) {
-    clear_has_include_hov3();
-    set_has_include_hov3();
-  }
-  has_include_hov3_.include_hov3_ = value;
+  return include_hov3_;
 }
 inline bool Costing_Options::include_hov3() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.include_hov3)
   return _internal_include_hov3();
+}
+inline void Costing_Options::_internal_set_include_hov3(bool value) {
+  
+  include_hov3_ = value;
 }
 inline void Costing_Options::set_include_hov3(bool value) {
   _internal_set_include_hov3(value);
@@ -8938,37 +10229,19 @@ inline void Costing_Options::set_include_hov3(bool value) {
 }
 
 // bool exclude_cash_only_tolls = 76;
-inline bool Costing_Options::_internal_has_exclude_cash_only_tolls() const {
-  return has_exclude_cash_only_tolls_case() == kExcludeCashOnlyTolls;
-}
-inline bool Costing_Options::has_exclude_cash_only_tolls() const {
-  return _internal_has_exclude_cash_only_tolls();
-}
-inline void Costing_Options::set_has_exclude_cash_only_tolls() {
-  _oneof_case_[69] = kExcludeCashOnlyTolls;
-}
 inline void Costing_Options::clear_exclude_cash_only_tolls() {
-  if (_internal_has_exclude_cash_only_tolls()) {
-    has_exclude_cash_only_tolls_.exclude_cash_only_tolls_ = false;
-    clear_has_has_exclude_cash_only_tolls();
-  }
+  exclude_cash_only_tolls_ = false;
 }
 inline bool Costing_Options::_internal_exclude_cash_only_tolls() const {
-  if (_internal_has_exclude_cash_only_tolls()) {
-    return has_exclude_cash_only_tolls_.exclude_cash_only_tolls_;
-  }
-  return false;
-}
-inline void Costing_Options::_internal_set_exclude_cash_only_tolls(bool value) {
-  if (!_internal_has_exclude_cash_only_tolls()) {
-    clear_has_exclude_cash_only_tolls();
-    set_has_exclude_cash_only_tolls();
-  }
-  has_exclude_cash_only_tolls_.exclude_cash_only_tolls_ = value;
+  return exclude_cash_only_tolls_;
 }
 inline bool Costing_Options::exclude_cash_only_tolls() const {
   // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_cash_only_tolls)
   return _internal_exclude_cash_only_tolls();
+}
+inline void Costing_Options::_internal_set_exclude_cash_only_tolls(bool value) {
+  
+  exclude_cash_only_tolls_ = value;
 }
 inline void Costing_Options::set_exclude_cash_only_tolls(bool value) {
   _internal_set_exclude_cash_only_tolls(value);
@@ -8983,7 +10256,7 @@ inline bool Costing_Options::has_restriction_probability() const {
   return _internal_has_restriction_probability();
 }
 inline void Costing_Options::set_has_restriction_probability() {
-  _oneof_case_[70] = kRestrictionProbability;
+  _oneof_case_[58] = kRestrictionProbability;
 }
 inline void Costing_Options::clear_restriction_probability() {
   if (_internal_has_restriction_probability()) {
@@ -9061,7 +10334,7 @@ inline bool Costing_Options::has_elevator_penalty() const {
   return _internal_has_elevator_penalty();
 }
 inline void Costing_Options::set_has_elevator_penalty() {
-  _oneof_case_[71] = kElevatorPenalty;
+  _oneof_case_[59] = kElevatorPenalty;
 }
 inline void Costing_Options::clear_elevator_penalty() {
   if (_internal_has_elevator_penalty()) {
@@ -9199,7 +10472,7 @@ inline bool Costing_Options::has_hgv_no_access_penalty() const {
   return _internal_has_hgv_no_access_penalty();
 }
 inline void Costing_Options::set_has_hgv_no_access_penalty() {
-  _oneof_case_[72] = kHgvNoAccessPenalty;
+  _oneof_case_[60] = kHgvNoAccessPenalty;
 }
 inline void Costing_Options::clear_hgv_no_access_penalty() {
   if (_internal_has_hgv_no_access_penalty()) {
@@ -9249,7 +10522,310 @@ inline void Costing_Options::set_use_truck_route(float value) {
   // @@protoc_insertion_point(field_set:valhalla.Costing.Options.use_truck_route)
 }
 
-// float non_network_penalty = 92;
+// bool exclude_bridges = 87;
+inline void Costing_Options::clear_exclude_bridges() {
+  exclude_bridges_ = false;
+}
+inline bool Costing_Options::_internal_exclude_bridges() const {
+  return exclude_bridges_;
+}
+inline bool Costing_Options::exclude_bridges() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_bridges)
+  return _internal_exclude_bridges();
+}
+inline void Costing_Options::_internal_set_exclude_bridges(bool value) {
+  
+  exclude_bridges_ = value;
+}
+inline void Costing_Options::set_exclude_bridges(bool value) {
+  _internal_set_exclude_bridges(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.exclude_bridges)
+}
+
+// bool exclude_tunnels = 88;
+inline void Costing_Options::clear_exclude_tunnels() {
+  exclude_tunnels_ = false;
+}
+inline bool Costing_Options::_internal_exclude_tunnels() const {
+  return exclude_tunnels_;
+}
+inline bool Costing_Options::exclude_tunnels() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_tunnels)
+  return _internal_exclude_tunnels();
+}
+inline void Costing_Options::_internal_set_exclude_tunnels(bool value) {
+  
+  exclude_tunnels_ = value;
+}
+inline void Costing_Options::set_exclude_tunnels(bool value) {
+  _internal_set_exclude_tunnels(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.exclude_tunnels)
+}
+
+// bool exclude_tolls = 89;
+inline void Costing_Options::clear_exclude_tolls() {
+  exclude_tolls_ = false;
+}
+inline bool Costing_Options::_internal_exclude_tolls() const {
+  return exclude_tolls_;
+}
+inline bool Costing_Options::exclude_tolls() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_tolls)
+  return _internal_exclude_tolls();
+}
+inline void Costing_Options::_internal_set_exclude_tolls(bool value) {
+  
+  exclude_tolls_ = value;
+}
+inline void Costing_Options::set_exclude_tolls(bool value) {
+  _internal_set_exclude_tolls(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.exclude_tolls)
+}
+
+// bool exclude_highways = 90;
+inline void Costing_Options::clear_exclude_highways() {
+  exclude_highways_ = false;
+}
+inline bool Costing_Options::_internal_exclude_highways() const {
+  return exclude_highways_;
+}
+inline bool Costing_Options::exclude_highways() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_highways)
+  return _internal_exclude_highways();
+}
+inline void Costing_Options::_internal_set_exclude_highways(bool value) {
+  
+  exclude_highways_ = value;
+}
+inline void Costing_Options::set_exclude_highways(bool value) {
+  _internal_set_exclude_highways(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.exclude_highways)
+}
+
+// bool exclude_ferries = 91;
+inline void Costing_Options::clear_exclude_ferries() {
+  exclude_ferries_ = false;
+}
+inline bool Costing_Options::_internal_exclude_ferries() const {
+  return exclude_ferries_;
+}
+inline bool Costing_Options::exclude_ferries() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.exclude_ferries)
+  return _internal_exclude_ferries();
+}
+inline void Costing_Options::_internal_set_exclude_ferries(bool value) {
+  
+  exclude_ferries_ = value;
+}
+inline void Costing_Options::set_exclude_ferries(bool value) {
+  _internal_set_exclude_ferries(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.exclude_ferries)
+}
+
+// map<uint32, .valhalla.HierarchyLimits> hierarchy_limits = 92;
+inline int Costing_Options::_internal_hierarchy_limits_size() const {
+  return hierarchy_limits_.size();
+}
+inline int Costing_Options::hierarchy_limits_size() const {
+  return _internal_hierarchy_limits_size();
+}
+inline void Costing_Options::clear_hierarchy_limits() {
+  hierarchy_limits_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >&
+Costing_Options::_internal_hierarchy_limits() const {
+  return hierarchy_limits_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >&
+Costing_Options::hierarchy_limits() const {
+  // @@protoc_insertion_point(field_map:valhalla.Costing.Options.hierarchy_limits)
+  return _internal_hierarchy_limits();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >*
+Costing_Options::_internal_mutable_hierarchy_limits() {
+  return hierarchy_limits_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< uint32_t, ::valhalla::HierarchyLimits >*
+Costing_Options::mutable_hierarchy_limits() {
+  // @@protoc_insertion_point(field_mutable_map:valhalla.Costing.Options.hierarchy_limits)
+  return _internal_mutable_hierarchy_limits();
+}
+
+// bool ignore_construction = 93;
+inline void Costing_Options::clear_ignore_construction() {
+  ignore_construction_ = false;
+}
+inline bool Costing_Options::_internal_ignore_construction() const {
+  return ignore_construction_;
+}
+inline bool Costing_Options::ignore_construction() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.ignore_construction)
+  return _internal_ignore_construction();
+}
+inline void Costing_Options::_internal_set_ignore_construction(bool value) {
+  
+  ignore_construction_ = value;
+}
+inline void Costing_Options::set_ignore_construction(bool value) {
+  _internal_set_ignore_construction(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.ignore_construction)
+}
+
+// repeated .valhalla.CostFactorEdge cost_factor_edges = 94;
+inline int Costing_Options::_internal_cost_factor_edges_size() const {
+  return cost_factor_edges_.size();
+}
+inline int Costing_Options::cost_factor_edges_size() const {
+  return _internal_cost_factor_edges_size();
+}
+inline void Costing_Options::clear_cost_factor_edges() {
+  cost_factor_edges_.Clear();
+}
+inline ::valhalla::CostFactorEdge* Costing_Options::mutable_cost_factor_edges(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.Costing.Options.cost_factor_edges)
+  return cost_factor_edges_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::CostFactorEdge >*
+Costing_Options::mutable_cost_factor_edges() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Costing.Options.cost_factor_edges)
+  return &cost_factor_edges_;
+}
+inline const ::valhalla::CostFactorEdge& Costing_Options::_internal_cost_factor_edges(int index) const {
+  return cost_factor_edges_.Get(index);
+}
+inline const ::valhalla::CostFactorEdge& Costing_Options::cost_factor_edges(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.cost_factor_edges)
+  return _internal_cost_factor_edges(index);
+}
+inline ::valhalla::CostFactorEdge* Costing_Options::_internal_add_cost_factor_edges() {
+  return cost_factor_edges_.Add();
+}
+inline ::valhalla::CostFactorEdge* Costing_Options::add_cost_factor_edges() {
+  ::valhalla::CostFactorEdge* _add = _internal_add_cost_factor_edges();
+  // @@protoc_insertion_point(field_add:valhalla.Costing.Options.cost_factor_edges)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::CostFactorEdge >&
+Costing_Options::cost_factor_edges() const {
+  // @@protoc_insertion_point(field_list:valhalla.Costing.Options.cost_factor_edges)
+  return cost_factor_edges_;
+}
+
+// float speed_penalty_factor = 95;
+inline bool Costing_Options::_internal_has_speed_penalty_factor() const {
+  return has_speed_penalty_factor_case() == kSpeedPenaltyFactor;
+}
+inline bool Costing_Options::has_speed_penalty_factor() const {
+  return _internal_has_speed_penalty_factor();
+}
+inline void Costing_Options::set_has_speed_penalty_factor() {
+  _oneof_case_[61] = kSpeedPenaltyFactor;
+}
+inline void Costing_Options::clear_speed_penalty_factor() {
+  if (_internal_has_speed_penalty_factor()) {
+    has_speed_penalty_factor_.speed_penalty_factor_ = 0;
+    clear_has_has_speed_penalty_factor();
+  }
+}
+inline float Costing_Options::_internal_speed_penalty_factor() const {
+  if (_internal_has_speed_penalty_factor()) {
+    return has_speed_penalty_factor_.speed_penalty_factor_;
+  }
+  return 0;
+}
+inline void Costing_Options::_internal_set_speed_penalty_factor(float value) {
+  if (!_internal_has_speed_penalty_factor()) {
+    clear_has_speed_penalty_factor();
+    set_has_speed_penalty_factor();
+  }
+  has_speed_penalty_factor_.speed_penalty_factor_ = value;
+}
+inline float Costing_Options::speed_penalty_factor() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.speed_penalty_factor)
+  return _internal_speed_penalty_factor();
+}
+inline void Costing_Options::set_speed_penalty_factor(float value) {
+  _internal_set_speed_penalty_factor(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.speed_penalty_factor)
+}
+
+// uint32 multimodal_start_end_max_distance = 96;
+inline bool Costing_Options::_internal_has_multimodal_start_end_max_distance() const {
+  return has_multimodal_start_end_max_distance_case() == kMultimodalStartEndMaxDistance;
+}
+inline bool Costing_Options::has_multimodal_start_end_max_distance() const {
+  return _internal_has_multimodal_start_end_max_distance();
+}
+inline void Costing_Options::set_has_multimodal_start_end_max_distance() {
+  _oneof_case_[62] = kMultimodalStartEndMaxDistance;
+}
+inline void Costing_Options::clear_multimodal_start_end_max_distance() {
+  if (_internal_has_multimodal_start_end_max_distance()) {
+    has_multimodal_start_end_max_distance_.multimodal_start_end_max_distance_ = 0u;
+    clear_has_has_multimodal_start_end_max_distance();
+  }
+}
+inline uint32_t Costing_Options::_internal_multimodal_start_end_max_distance() const {
+  if (_internal_has_multimodal_start_end_max_distance()) {
+    return has_multimodal_start_end_max_distance_.multimodal_start_end_max_distance_;
+  }
+  return 0u;
+}
+inline void Costing_Options::_internal_set_multimodal_start_end_max_distance(uint32_t value) {
+  if (!_internal_has_multimodal_start_end_max_distance()) {
+    clear_has_multimodal_start_end_max_distance();
+    set_has_multimodal_start_end_max_distance();
+  }
+  has_multimodal_start_end_max_distance_.multimodal_start_end_max_distance_ = value;
+}
+inline uint32_t Costing_Options::multimodal_start_end_max_distance() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.multimodal_start_end_max_distance)
+  return _internal_multimodal_start_end_max_distance();
+}
+inline void Costing_Options::set_multimodal_start_end_max_distance(uint32_t value) {
+  _internal_set_multimodal_start_end_max_distance(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.multimodal_start_end_max_distance)
+}
+
+// float low_class_factor = 97;
+inline bool Costing_Options::_internal_has_low_class_factor() const {
+  return has_low_class_factor_case() == kLowClassFactor;
+}
+inline bool Costing_Options::has_low_class_factor() const {
+  return _internal_has_low_class_factor();
+}
+inline void Costing_Options::set_has_low_class_factor() {
+  _oneof_case_[63] = kLowClassFactor;
+}
+inline void Costing_Options::clear_low_class_factor() {
+  if (_internal_has_low_class_factor()) {
+    has_low_class_factor_.low_class_factor_ = 0;
+    clear_has_has_low_class_factor();
+  }
+}
+inline float Costing_Options::_internal_low_class_factor() const {
+  if (_internal_has_low_class_factor()) {
+    return has_low_class_factor_.low_class_factor_;
+  }
+  return 0;
+}
+inline void Costing_Options::_internal_set_low_class_factor(float value) {
+  if (!_internal_has_low_class_factor()) {
+    clear_has_low_class_factor();
+    set_has_low_class_factor();
+  }
+  has_low_class_factor_.low_class_factor_ = value;
+}
+inline float Costing_Options::low_class_factor() const {
+  // @@protoc_insertion_point(field_get:valhalla.Costing.Options.low_class_factor)
+  return _internal_low_class_factor();
+}
+inline void Costing_Options::set_low_class_factor(float value) {
+  _internal_set_low_class_factor(value);
+  // @@protoc_insertion_point(field_set:valhalla.Costing.Options.low_class_factor)
+}
+
+// float non_network_penalty = 200;
 inline bool Costing_Options::_internal_has_non_network_penalty() const {
   return has_non_network_penalty_case() == kNonNetworkPenalty;
 }
@@ -9257,7 +10833,7 @@ inline bool Costing_Options::has_non_network_penalty() const {
   return _internal_has_non_network_penalty();
 }
 inline void Costing_Options::set_has_non_network_penalty() {
-  _oneof_case_[73] = kNonNetworkPenalty;
+  _oneof_case_[64] = kNonNetworkPenalty;
 }
 inline void Costing_Options::clear_non_network_penalty() {
   if (_internal_has_non_network_penalty()) {
@@ -9491,245 +11067,191 @@ inline bool Costing_Options::has_has_low_class_penalty() const {
 inline void Costing_Options::clear_has_has_low_class_penalty() {
   _oneof_case_[33] = HAS_LOW_CLASS_PENALTY_NOT_SET;
 }
-inline bool Costing_Options::has_has_hazmat() const {
-  return has_hazmat_case() != HAS_HAZMAT_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_hazmat() {
-  _oneof_case_[34] = HAS_HAZMAT_NOT_SET;
-}
 inline bool Costing_Options::has_has_weight() const {
   return has_weight_case() != HAS_WEIGHT_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_weight() {
-  _oneof_case_[35] = HAS_WEIGHT_NOT_SET;
+  _oneof_case_[34] = HAS_WEIGHT_NOT_SET;
 }
 inline bool Costing_Options::has_has_axle_load() const {
   return has_axle_load_case() != HAS_AXLE_LOAD_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_axle_load() {
-  _oneof_case_[36] = HAS_AXLE_LOAD_NOT_SET;
+  _oneof_case_[35] = HAS_AXLE_LOAD_NOT_SET;
 }
 inline bool Costing_Options::has_has_height() const {
   return has_height_case() != HAS_HEIGHT_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_height() {
-  _oneof_case_[37] = HAS_HEIGHT_NOT_SET;
+  _oneof_case_[36] = HAS_HEIGHT_NOT_SET;
 }
 inline bool Costing_Options::has_has_width() const {
   return has_width_case() != HAS_WIDTH_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_width() {
-  _oneof_case_[38] = HAS_WIDTH_NOT_SET;
+  _oneof_case_[37] = HAS_WIDTH_NOT_SET;
 }
 inline bool Costing_Options::has_has_length() const {
   return has_length_case() != HAS_LENGTH_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_length() {
-  _oneof_case_[39] = HAS_LENGTH_NOT_SET;
+  _oneof_case_[38] = HAS_LENGTH_NOT_SET;
 }
 inline bool Costing_Options::has_has_cycling_speed() const {
   return has_cycling_speed_case() != HAS_CYCLING_SPEED_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_cycling_speed() {
-  _oneof_case_[40] = HAS_CYCLING_SPEED_NOT_SET;
-}
-inline bool Costing_Options::has_has_wheelchair() const {
-  return has_wheelchair_case() != HAS_WHEELCHAIR_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_wheelchair() {
-  _oneof_case_[41] = HAS_WHEELCHAIR_NOT_SET;
-}
-inline bool Costing_Options::has_has_bicycle() const {
-  return has_bicycle_case() != HAS_BICYCLE_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_bicycle() {
-  _oneof_case_[42] = HAS_BICYCLE_NOT_SET;
+  _oneof_case_[39] = HAS_CYCLING_SPEED_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_bus() const {
   return has_use_bus_case() != HAS_USE_BUS_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_bus() {
-  _oneof_case_[43] = HAS_USE_BUS_NOT_SET;
+  _oneof_case_[40] = HAS_USE_BUS_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_rail() const {
   return has_use_rail_case() != HAS_USE_RAIL_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_rail() {
-  _oneof_case_[44] = HAS_USE_RAIL_NOT_SET;
+  _oneof_case_[41] = HAS_USE_RAIL_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_transfers() const {
   return has_use_transfers_case() != HAS_USE_TRANSFERS_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_transfers() {
-  _oneof_case_[45] = HAS_USE_TRANSFERS_NOT_SET;
+  _oneof_case_[42] = HAS_USE_TRANSFERS_NOT_SET;
 }
 inline bool Costing_Options::has_has_transfer_cost() const {
   return has_transfer_cost_case() != HAS_TRANSFER_COST_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_transfer_cost() {
-  _oneof_case_[46] = HAS_TRANSFER_COST_NOT_SET;
+  _oneof_case_[43] = HAS_TRANSFER_COST_NOT_SET;
 }
 inline bool Costing_Options::has_has_transfer_penalty() const {
   return has_transfer_penalty_case() != HAS_TRANSFER_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_transfer_penalty() {
-  _oneof_case_[47] = HAS_TRANSFER_PENALTY_NOT_SET;
+  _oneof_case_[44] = HAS_TRANSFER_PENALTY_NOT_SET;
 }
 inline bool Costing_Options::has_has_flow_mask() const {
   return has_flow_mask_case() != HAS_FLOW_MASK_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_flow_mask() {
-  _oneof_case_[48] = HAS_FLOW_MASK_NOT_SET;
+  _oneof_case_[45] = HAS_FLOW_MASK_NOT_SET;
 }
 inline bool Costing_Options::has_has_bike_share_cost() const {
   return has_bike_share_cost_case() != HAS_BIKE_SHARE_COST_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_bike_share_cost() {
-  _oneof_case_[49] = HAS_BIKE_SHARE_COST_NOT_SET;
+  _oneof_case_[46] = HAS_BIKE_SHARE_COST_NOT_SET;
 }
 inline bool Costing_Options::has_has_bike_share_penalty() const {
   return has_bike_share_penalty_case() != HAS_BIKE_SHARE_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_bike_share_penalty() {
-  _oneof_case_[50] = HAS_BIKE_SHARE_PENALTY_NOT_SET;
+  _oneof_case_[47] = HAS_BIKE_SHARE_PENALTY_NOT_SET;
 }
 inline bool Costing_Options::has_has_rail_ferry_cost() const {
   return has_rail_ferry_cost_case() != HAS_RAIL_FERRY_COST_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_rail_ferry_cost() {
-  _oneof_case_[51] = HAS_RAIL_FERRY_COST_NOT_SET;
+  _oneof_case_[48] = HAS_RAIL_FERRY_COST_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_rail_ferry() const {
   return has_use_rail_ferry_case() != HAS_USE_RAIL_FERRY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_rail_ferry() {
-  _oneof_case_[52] = HAS_USE_RAIL_FERRY_NOT_SET;
-}
-inline bool Costing_Options::has_has_ignore_restrictions() const {
-  return has_ignore_restrictions_case() != HAS_IGNORE_RESTRICTIONS_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_ignore_restrictions() {
-  _oneof_case_[53] = HAS_IGNORE_RESTRICTIONS_NOT_SET;
-}
-inline bool Costing_Options::has_has_ignore_oneways() const {
-  return has_ignore_oneways_case() != HAS_IGNORE_ONEWAYS_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_ignore_oneways() {
-  _oneof_case_[54] = HAS_IGNORE_ONEWAYS_NOT_SET;
-}
-inline bool Costing_Options::has_has_ignore_access() const {
-  return has_ignore_access_case() != HAS_IGNORE_ACCESS_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_ignore_access() {
-  _oneof_case_[55] = HAS_IGNORE_ACCESS_NOT_SET;
+  _oneof_case_[49] = HAS_USE_RAIL_FERRY_NOT_SET;
 }
 inline bool Costing_Options::has_has_ignore_closures() const {
   return has_ignore_closures_case() != HAS_IGNORE_CLOSURES_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_ignore_closures() {
-  _oneof_case_[56] = HAS_IGNORE_CLOSURES_NOT_SET;
-}
-inline bool Costing_Options::has_has_shortest() const {
-  return has_shortest_case() != HAS_SHORTEST_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_shortest() {
-  _oneof_case_[57] = HAS_SHORTEST_NOT_SET;
+  _oneof_case_[50] = HAS_IGNORE_CLOSURES_NOT_SET;
 }
 inline bool Costing_Options::has_has_service_penalty() const {
   return has_service_penalty_case() != HAS_SERVICE_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_service_penalty() {
-  _oneof_case_[58] = HAS_SERVICE_PENALTY_NOT_SET;
+  _oneof_case_[51] = HAS_SERVICE_PENALTY_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_tracks() const {
   return has_use_tracks_case() != HAS_USE_TRACKS_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_tracks() {
-  _oneof_case_[59] = HAS_USE_TRACKS_NOT_SET;
+  _oneof_case_[52] = HAS_USE_TRACKS_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_distance() const {
   return has_use_distance_case() != HAS_USE_DISTANCE_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_distance() {
-  _oneof_case_[60] = HAS_USE_DISTANCE_NOT_SET;
+  _oneof_case_[53] = HAS_USE_DISTANCE_NOT_SET;
 }
 inline bool Costing_Options::has_has_use_living_streets() const {
   return has_use_living_streets_case() != HAS_USE_LIVING_STREETS_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_use_living_streets() {
-  _oneof_case_[61] = HAS_USE_LIVING_STREETS_NOT_SET;
+  _oneof_case_[54] = HAS_USE_LIVING_STREETS_NOT_SET;
 }
 inline bool Costing_Options::has_has_service_factor() const {
   return has_service_factor_case() != HAS_SERVICE_FACTOR_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_service_factor() {
-  _oneof_case_[62] = HAS_SERVICE_FACTOR_NOT_SET;
+  _oneof_case_[55] = HAS_SERVICE_FACTOR_NOT_SET;
 }
 inline bool Costing_Options::has_has_closure_factor() const {
   return has_closure_factor_case() != HAS_CLOSURE_FACTOR_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_closure_factor() {
-  _oneof_case_[63] = HAS_CLOSURE_FACTOR_NOT_SET;
+  _oneof_case_[56] = HAS_CLOSURE_FACTOR_NOT_SET;
 }
 inline bool Costing_Options::has_has_private_access_penalty() const {
   return has_private_access_penalty_case() != HAS_PRIVATE_ACCESS_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_private_access_penalty() {
-  _oneof_case_[64] = HAS_PRIVATE_ACCESS_PENALTY_NOT_SET;
-}
-inline bool Costing_Options::has_has_exclude_unpaved() const {
-  return has_exclude_unpaved_case() != HAS_EXCLUDE_UNPAVED_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_exclude_unpaved() {
-  _oneof_case_[65] = HAS_EXCLUDE_UNPAVED_NOT_SET;
-}
-inline bool Costing_Options::has_has_include_hot() const {
-  return has_include_hot_case() != HAS_INCLUDE_HOT_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_include_hot() {
-  _oneof_case_[66] = HAS_INCLUDE_HOT_NOT_SET;
-}
-inline bool Costing_Options::has_has_include_hov2() const {
-  return has_include_hov2_case() != HAS_INCLUDE_HOV2_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_include_hov2() {
-  _oneof_case_[67] = HAS_INCLUDE_HOV2_NOT_SET;
-}
-inline bool Costing_Options::has_has_include_hov3() const {
-  return has_include_hov3_case() != HAS_INCLUDE_HOV3_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_include_hov3() {
-  _oneof_case_[68] = HAS_INCLUDE_HOV3_NOT_SET;
-}
-inline bool Costing_Options::has_has_exclude_cash_only_tolls() const {
-  return has_exclude_cash_only_tolls_case() != HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET;
-}
-inline void Costing_Options::clear_has_has_exclude_cash_only_tolls() {
-  _oneof_case_[69] = HAS_EXCLUDE_CASH_ONLY_TOLLS_NOT_SET;
+  _oneof_case_[57] = HAS_PRIVATE_ACCESS_PENALTY_NOT_SET;
 }
 inline bool Costing_Options::has_has_restriction_probability() const {
   return has_restriction_probability_case() != HAS_RESTRICTION_PROBABILITY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_restriction_probability() {
-  _oneof_case_[70] = HAS_RESTRICTION_PROBABILITY_NOT_SET;
+  _oneof_case_[58] = HAS_RESTRICTION_PROBABILITY_NOT_SET;
 }
 inline bool Costing_Options::has_has_elevator_penalty() const {
   return has_elevator_penalty_case() != HAS_ELEVATOR_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_elevator_penalty() {
-  _oneof_case_[71] = HAS_ELEVATOR_PENALTY_NOT_SET;
+  _oneof_case_[59] = HAS_ELEVATOR_PENALTY_NOT_SET;
 }
 inline bool Costing_Options::has_has_hgv_no_access_penalty() const {
   return has_hgv_no_access_penalty_case() != HAS_HGV_NO_ACCESS_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_hgv_no_access_penalty() {
-  _oneof_case_[72] = HAS_HGV_NO_ACCESS_PENALTY_NOT_SET;
+  _oneof_case_[60] = HAS_HGV_NO_ACCESS_PENALTY_NOT_SET;
+}
+inline bool Costing_Options::has_has_speed_penalty_factor() const {
+  return has_speed_penalty_factor_case() != HAS_SPEED_PENALTY_FACTOR_NOT_SET;
+}
+inline void Costing_Options::clear_has_has_speed_penalty_factor() {
+  _oneof_case_[61] = HAS_SPEED_PENALTY_FACTOR_NOT_SET;
+}
+inline bool Costing_Options::has_has_multimodal_start_end_max_distance() const {
+  return has_multimodal_start_end_max_distance_case() != HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET;
+}
+inline void Costing_Options::clear_has_has_multimodal_start_end_max_distance() {
+  _oneof_case_[62] = HAS_MULTIMODAL_START_END_MAX_DISTANCE_NOT_SET;
+}
+inline bool Costing_Options::has_has_low_class_factor() const {
+  return has_low_class_factor_case() != HAS_LOW_CLASS_FACTOR_NOT_SET;
+}
+inline void Costing_Options::clear_has_has_low_class_factor() {
+  _oneof_case_[63] = HAS_LOW_CLASS_FACTOR_NOT_SET;
 }
 inline bool Costing_Options::has_has_non_network_penalty() const {
   return has_non_network_penalty_case() != HAS_NON_NETWORK_PENALTY_NOT_SET;
 }
 inline void Costing_Options::clear_has_has_non_network_penalty() {
-  _oneof_case_[73] = HAS_NON_NETWORK_PENALTY_NOT_SET;
+  _oneof_case_[64] = HAS_NON_NETWORK_PENALTY_NOT_SET;
 }
 inline Costing_Options::HasManeuverPenaltyCase Costing_Options::has_maneuver_penalty_case() const {
   return Costing_Options::HasManeuverPenaltyCase(_oneof_case_[0]);
@@ -9833,125 +11355,98 @@ inline Costing_Options::HasUseTrailsCase Costing_Options::has_use_trails_case() 
 inline Costing_Options::HasLowClassPenaltyCase Costing_Options::has_low_class_penalty_case() const {
   return Costing_Options::HasLowClassPenaltyCase(_oneof_case_[33]);
 }
-inline Costing_Options::HasHazmatCase Costing_Options::has_hazmat_case() const {
-  return Costing_Options::HasHazmatCase(_oneof_case_[34]);
-}
 inline Costing_Options::HasWeightCase Costing_Options::has_weight_case() const {
-  return Costing_Options::HasWeightCase(_oneof_case_[35]);
+  return Costing_Options::HasWeightCase(_oneof_case_[34]);
 }
 inline Costing_Options::HasAxleLoadCase Costing_Options::has_axle_load_case() const {
-  return Costing_Options::HasAxleLoadCase(_oneof_case_[36]);
+  return Costing_Options::HasAxleLoadCase(_oneof_case_[35]);
 }
 inline Costing_Options::HasHeightCase Costing_Options::has_height_case() const {
-  return Costing_Options::HasHeightCase(_oneof_case_[37]);
+  return Costing_Options::HasHeightCase(_oneof_case_[36]);
 }
 inline Costing_Options::HasWidthCase Costing_Options::has_width_case() const {
-  return Costing_Options::HasWidthCase(_oneof_case_[38]);
+  return Costing_Options::HasWidthCase(_oneof_case_[37]);
 }
 inline Costing_Options::HasLengthCase Costing_Options::has_length_case() const {
-  return Costing_Options::HasLengthCase(_oneof_case_[39]);
+  return Costing_Options::HasLengthCase(_oneof_case_[38]);
 }
 inline Costing_Options::HasCyclingSpeedCase Costing_Options::has_cycling_speed_case() const {
-  return Costing_Options::HasCyclingSpeedCase(_oneof_case_[40]);
-}
-inline Costing_Options::HasWheelchairCase Costing_Options::has_wheelchair_case() const {
-  return Costing_Options::HasWheelchairCase(_oneof_case_[41]);
-}
-inline Costing_Options::HasBicycleCase Costing_Options::has_bicycle_case() const {
-  return Costing_Options::HasBicycleCase(_oneof_case_[42]);
+  return Costing_Options::HasCyclingSpeedCase(_oneof_case_[39]);
 }
 inline Costing_Options::HasUseBusCase Costing_Options::has_use_bus_case() const {
-  return Costing_Options::HasUseBusCase(_oneof_case_[43]);
+  return Costing_Options::HasUseBusCase(_oneof_case_[40]);
 }
 inline Costing_Options::HasUseRailCase Costing_Options::has_use_rail_case() const {
-  return Costing_Options::HasUseRailCase(_oneof_case_[44]);
+  return Costing_Options::HasUseRailCase(_oneof_case_[41]);
 }
 inline Costing_Options::HasUseTransfersCase Costing_Options::has_use_transfers_case() const {
-  return Costing_Options::HasUseTransfersCase(_oneof_case_[45]);
+  return Costing_Options::HasUseTransfersCase(_oneof_case_[42]);
 }
 inline Costing_Options::HasTransferCostCase Costing_Options::has_transfer_cost_case() const {
-  return Costing_Options::HasTransferCostCase(_oneof_case_[46]);
+  return Costing_Options::HasTransferCostCase(_oneof_case_[43]);
 }
 inline Costing_Options::HasTransferPenaltyCase Costing_Options::has_transfer_penalty_case() const {
-  return Costing_Options::HasTransferPenaltyCase(_oneof_case_[47]);
+  return Costing_Options::HasTransferPenaltyCase(_oneof_case_[44]);
 }
 inline Costing_Options::HasFlowMaskCase Costing_Options::has_flow_mask_case() const {
-  return Costing_Options::HasFlowMaskCase(_oneof_case_[48]);
+  return Costing_Options::HasFlowMaskCase(_oneof_case_[45]);
 }
 inline Costing_Options::HasBikeShareCostCase Costing_Options::has_bike_share_cost_case() const {
-  return Costing_Options::HasBikeShareCostCase(_oneof_case_[49]);
+  return Costing_Options::HasBikeShareCostCase(_oneof_case_[46]);
 }
 inline Costing_Options::HasBikeSharePenaltyCase Costing_Options::has_bike_share_penalty_case() const {
-  return Costing_Options::HasBikeSharePenaltyCase(_oneof_case_[50]);
+  return Costing_Options::HasBikeSharePenaltyCase(_oneof_case_[47]);
 }
 inline Costing_Options::HasRailFerryCostCase Costing_Options::has_rail_ferry_cost_case() const {
-  return Costing_Options::HasRailFerryCostCase(_oneof_case_[51]);
+  return Costing_Options::HasRailFerryCostCase(_oneof_case_[48]);
 }
 inline Costing_Options::HasUseRailFerryCase Costing_Options::has_use_rail_ferry_case() const {
-  return Costing_Options::HasUseRailFerryCase(_oneof_case_[52]);
-}
-inline Costing_Options::HasIgnoreRestrictionsCase Costing_Options::has_ignore_restrictions_case() const {
-  return Costing_Options::HasIgnoreRestrictionsCase(_oneof_case_[53]);
-}
-inline Costing_Options::HasIgnoreOnewaysCase Costing_Options::has_ignore_oneways_case() const {
-  return Costing_Options::HasIgnoreOnewaysCase(_oneof_case_[54]);
-}
-inline Costing_Options::HasIgnoreAccessCase Costing_Options::has_ignore_access_case() const {
-  return Costing_Options::HasIgnoreAccessCase(_oneof_case_[55]);
+  return Costing_Options::HasUseRailFerryCase(_oneof_case_[49]);
 }
 inline Costing_Options::HasIgnoreClosuresCase Costing_Options::has_ignore_closures_case() const {
-  return Costing_Options::HasIgnoreClosuresCase(_oneof_case_[56]);
-}
-inline Costing_Options::HasShortestCase Costing_Options::has_shortest_case() const {
-  return Costing_Options::HasShortestCase(_oneof_case_[57]);
+  return Costing_Options::HasIgnoreClosuresCase(_oneof_case_[50]);
 }
 inline Costing_Options::HasServicePenaltyCase Costing_Options::has_service_penalty_case() const {
-  return Costing_Options::HasServicePenaltyCase(_oneof_case_[58]);
+  return Costing_Options::HasServicePenaltyCase(_oneof_case_[51]);
 }
 inline Costing_Options::HasUseTracksCase Costing_Options::has_use_tracks_case() const {
-  return Costing_Options::HasUseTracksCase(_oneof_case_[59]);
+  return Costing_Options::HasUseTracksCase(_oneof_case_[52]);
 }
 inline Costing_Options::HasUseDistanceCase Costing_Options::has_use_distance_case() const {
-  return Costing_Options::HasUseDistanceCase(_oneof_case_[60]);
+  return Costing_Options::HasUseDistanceCase(_oneof_case_[53]);
 }
 inline Costing_Options::HasUseLivingStreetsCase Costing_Options::has_use_living_streets_case() const {
-  return Costing_Options::HasUseLivingStreetsCase(_oneof_case_[61]);
+  return Costing_Options::HasUseLivingStreetsCase(_oneof_case_[54]);
 }
 inline Costing_Options::HasServiceFactorCase Costing_Options::has_service_factor_case() const {
-  return Costing_Options::HasServiceFactorCase(_oneof_case_[62]);
+  return Costing_Options::HasServiceFactorCase(_oneof_case_[55]);
 }
 inline Costing_Options::HasClosureFactorCase Costing_Options::has_closure_factor_case() const {
-  return Costing_Options::HasClosureFactorCase(_oneof_case_[63]);
+  return Costing_Options::HasClosureFactorCase(_oneof_case_[56]);
 }
 inline Costing_Options::HasPrivateAccessPenaltyCase Costing_Options::has_private_access_penalty_case() const {
-  return Costing_Options::HasPrivateAccessPenaltyCase(_oneof_case_[64]);
-}
-inline Costing_Options::HasExcludeUnpavedCase Costing_Options::has_exclude_unpaved_case() const {
-  return Costing_Options::HasExcludeUnpavedCase(_oneof_case_[65]);
-}
-inline Costing_Options::HasIncludeHotCase Costing_Options::has_include_hot_case() const {
-  return Costing_Options::HasIncludeHotCase(_oneof_case_[66]);
-}
-inline Costing_Options::HasIncludeHov2Case Costing_Options::has_include_hov2_case() const {
-  return Costing_Options::HasIncludeHov2Case(_oneof_case_[67]);
-}
-inline Costing_Options::HasIncludeHov3Case Costing_Options::has_include_hov3_case() const {
-  return Costing_Options::HasIncludeHov3Case(_oneof_case_[68]);
-}
-inline Costing_Options::HasExcludeCashOnlyTollsCase Costing_Options::has_exclude_cash_only_tolls_case() const {
-  return Costing_Options::HasExcludeCashOnlyTollsCase(_oneof_case_[69]);
+  return Costing_Options::HasPrivateAccessPenaltyCase(_oneof_case_[57]);
 }
 inline Costing_Options::HasRestrictionProbabilityCase Costing_Options::has_restriction_probability_case() const {
-  return Costing_Options::HasRestrictionProbabilityCase(_oneof_case_[70]);
+  return Costing_Options::HasRestrictionProbabilityCase(_oneof_case_[58]);
 }
 inline Costing_Options::HasElevatorPenaltyCase Costing_Options::has_elevator_penalty_case() const {
-  return Costing_Options::HasElevatorPenaltyCase(_oneof_case_[71]);
+  return Costing_Options::HasElevatorPenaltyCase(_oneof_case_[59]);
 }
 inline Costing_Options::HasHgvNoAccessPenaltyCase Costing_Options::has_hgv_no_access_penalty_case() const {
-  return Costing_Options::HasHgvNoAccessPenaltyCase(_oneof_case_[72]);
+  return Costing_Options::HasHgvNoAccessPenaltyCase(_oneof_case_[60]);
+}
+inline Costing_Options::HasSpeedPenaltyFactorCase Costing_Options::has_speed_penalty_factor_case() const {
+  return Costing_Options::HasSpeedPenaltyFactorCase(_oneof_case_[61]);
+}
+inline Costing_Options::HasMultimodalStartEndMaxDistanceCase Costing_Options::has_multimodal_start_end_max_distance_case() const {
+  return Costing_Options::HasMultimodalStartEndMaxDistanceCase(_oneof_case_[62]);
+}
+inline Costing_Options::HasLowClassFactorCase Costing_Options::has_low_class_factor_case() const {
+  return Costing_Options::HasLowClassFactorCase(_oneof_case_[63]);
 }
 inline Costing_Options::HasNonNetworkPenaltyCase Costing_Options::has_non_network_penalty_case() const {
-  return Costing_Options::HasNonNetworkPenaltyCase(_oneof_case_[73]);
+  return Costing_Options::HasNonNetworkPenaltyCase(_oneof_case_[64]);
 }
 // -------------------------------------------------------------------
 
@@ -10195,6 +11690,124 @@ inline Costing::HasFilterClosuresCase Costing::has_filter_closures_case() const 
 }
 // -------------------------------------------------------------------
 
+// LinearFeatureCost
+
+// repeated .valhalla.Location locations = 1;
+inline int LinearFeatureCost::_internal_locations_size() const {
+  return locations_.size();
+}
+inline int LinearFeatureCost::locations_size() const {
+  return _internal_locations_size();
+}
+inline ::valhalla::Location* LinearFeatureCost::mutable_locations(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.LinearFeatureCost.locations)
+  return locations_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >*
+LinearFeatureCost::mutable_locations() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.LinearFeatureCost.locations)
+  return &locations_;
+}
+inline const ::valhalla::Location& LinearFeatureCost::_internal_locations(int index) const {
+  return locations_.Get(index);
+}
+inline const ::valhalla::Location& LinearFeatureCost::locations(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.LinearFeatureCost.locations)
+  return _internal_locations(index);
+}
+inline ::valhalla::Location* LinearFeatureCost::_internal_add_locations() {
+  return locations_.Add();
+}
+inline ::valhalla::Location* LinearFeatureCost::add_locations() {
+  ::valhalla::Location* _add = _internal_add_locations();
+  // @@protoc_insertion_point(field_add:valhalla.LinearFeatureCost.locations)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >&
+LinearFeatureCost::locations() const {
+  // @@protoc_insertion_point(field_list:valhalla.LinearFeatureCost.locations)
+  return locations_;
+}
+
+// repeated .valhalla.Location shape = 2;
+inline int LinearFeatureCost::_internal_shape_size() const {
+  return shape_.size();
+}
+inline int LinearFeatureCost::shape_size() const {
+  return _internal_shape_size();
+}
+inline ::valhalla::Location* LinearFeatureCost::mutable_shape(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.LinearFeatureCost.shape)
+  return shape_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >*
+LinearFeatureCost::mutable_shape() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.LinearFeatureCost.shape)
+  return &shape_;
+}
+inline const ::valhalla::Location& LinearFeatureCost::_internal_shape(int index) const {
+  return shape_.Get(index);
+}
+inline const ::valhalla::Location& LinearFeatureCost::shape(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.LinearFeatureCost.shape)
+  return _internal_shape(index);
+}
+inline ::valhalla::Location* LinearFeatureCost::_internal_add_shape() {
+  return shape_.Add();
+}
+inline ::valhalla::Location* LinearFeatureCost::add_shape() {
+  ::valhalla::Location* _add = _internal_add_shape();
+  // @@protoc_insertion_point(field_add:valhalla.LinearFeatureCost.shape)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location >&
+LinearFeatureCost::shape() const {
+  // @@protoc_insertion_point(field_list:valhalla.LinearFeatureCost.shape)
+  return shape_;
+}
+
+// double cost_factor = 3;
+inline void LinearFeatureCost::clear_cost_factor() {
+  cost_factor_ = 0;
+}
+inline double LinearFeatureCost::_internal_cost_factor() const {
+  return cost_factor_;
+}
+inline double LinearFeatureCost::cost_factor() const {
+  // @@protoc_insertion_point(field_get:valhalla.LinearFeatureCost.cost_factor)
+  return _internal_cost_factor();
+}
+inline void LinearFeatureCost::_internal_set_cost_factor(double value) {
+  
+  cost_factor_ = value;
+}
+inline void LinearFeatureCost::set_cost_factor(double value) {
+  _internal_set_cost_factor(value);
+  // @@protoc_insertion_point(field_set:valhalla.LinearFeatureCost.cost_factor)
+}
+
+// bool ignore_access_restrictions = 4;
+inline void LinearFeatureCost::clear_ignore_access_restrictions() {
+  ignore_access_restrictions_ = false;
+}
+inline bool LinearFeatureCost::_internal_ignore_access_restrictions() const {
+  return ignore_access_restrictions_;
+}
+inline bool LinearFeatureCost::ignore_access_restrictions() const {
+  // @@protoc_insertion_point(field_get:valhalla.LinearFeatureCost.ignore_access_restrictions)
+  return _internal_ignore_access_restrictions();
+}
+inline void LinearFeatureCost::_internal_set_ignore_access_restrictions(bool value) {
+  
+  ignore_access_restrictions_ = value;
+}
+inline void LinearFeatureCost::set_ignore_access_restrictions(bool value) {
+  _internal_set_ignore_access_restrictions(value);
+  // @@protoc_insertion_point(field_set:valhalla.LinearFeatureCost.ignore_access_restrictions)
+}
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -10415,7 +12028,7 @@ inline void Options::set_allocated_id(std::string* id) {
   // @@protoc_insertion_point(field_set_allocated:valhalla.Options.id)
 }
 
-// string jsonp = 6;
+// string jsonp = 6 [deprecated = true];
 inline bool Options::_internal_has_jsonp() const {
   return has_jsonp_case() == kJsonp;
 }
@@ -10590,37 +12203,19 @@ inline void Options::set_action(::valhalla::Options_Action value) {
 }
 
 // bool range = 10;
-inline bool Options::_internal_has_range() const {
-  return has_range_case() == kRange;
-}
-inline bool Options::has_range() const {
-  return _internal_has_range();
-}
-inline void Options::set_has_range() {
-  _oneof_case_[4] = kRange;
-}
 inline void Options::clear_range() {
-  if (_internal_has_range()) {
-    has_range_.range_ = false;
-    clear_has_has_range();
-  }
+  range_ = false;
 }
 inline bool Options::_internal_range() const {
-  if (_internal_has_range()) {
-    return has_range_.range_;
-  }
-  return false;
-}
-inline void Options::_internal_set_range(bool value) {
-  if (!_internal_has_range()) {
-    clear_has_range();
-    set_has_range();
-  }
-  has_range_.range_ = value;
+  return range_;
 }
 inline bool Options::range() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.range)
   return _internal_range();
+}
+inline void Options::_internal_set_range(bool value) {
+  
+  range_ = value;
 }
 inline void Options::set_range(bool value) {
   _internal_set_range(value);
@@ -10635,7 +12230,7 @@ inline bool Options::has_verbose() const {
   return _internal_has_verbose();
 }
 inline void Options::set_has_verbose() {
-  _oneof_case_[5] = kVerbose;
+  _oneof_case_[4] = kVerbose;
 }
 inline void Options::clear_verbose() {
   if (_internal_has_verbose()) {
@@ -10890,7 +12485,7 @@ inline bool Options::has_date_time() const {
   return _internal_has_date_time();
 }
 inline void Options::set_has_date_time() {
-  _oneof_case_[6] = kDateTime;
+  _oneof_case_[5] = kDateTime;
 }
 inline void Options::clear_date_time() {
   if (_internal_has_date_time()) {
@@ -11004,7 +12599,7 @@ inline bool Options::has_resample_distance() const {
   return _internal_has_resample_distance();
 }
 inline void Options::set_has_resample_distance() {
-  _oneof_case_[7] = kResampleDistance;
+  _oneof_case_[6] = kResampleDistance;
 }
 inline void Options::clear_resample_distance() {
   if (_internal_has_resample_distance()) {
@@ -11075,37 +12670,19 @@ Options::contours() const {
 }
 
 // bool polygons = 23;
-inline bool Options::_internal_has_polygons() const {
-  return has_polygons_case() == kPolygons;
-}
-inline bool Options::has_polygons() const {
-  return _internal_has_polygons();
-}
-inline void Options::set_has_polygons() {
-  _oneof_case_[8] = kPolygons;
-}
 inline void Options::clear_polygons() {
-  if (_internal_has_polygons()) {
-    has_polygons_.polygons_ = false;
-    clear_has_has_polygons();
-  }
+  polygons_ = false;
 }
 inline bool Options::_internal_polygons() const {
-  if (_internal_has_polygons()) {
-    return has_polygons_.polygons_;
-  }
-  return false;
-}
-inline void Options::_internal_set_polygons(bool value) {
-  if (!_internal_has_polygons()) {
-    clear_has_polygons();
-    set_has_polygons();
-  }
-  has_polygons_.polygons_ = value;
+  return polygons_;
 }
 inline bool Options::polygons() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.polygons)
   return _internal_polygons();
+}
+inline void Options::_internal_set_polygons(bool value) {
+  
+  polygons_ = value;
 }
 inline void Options::set_polygons(bool value) {
   _internal_set_polygons(value);
@@ -11120,7 +12697,7 @@ inline bool Options::has_denoise() const {
   return _internal_has_denoise();
 }
 inline void Options::set_has_denoise() {
-  _oneof_case_[9] = kDenoise;
+  _oneof_case_[7] = kDenoise;
 }
 inline void Options::clear_denoise() {
   if (_internal_has_denoise()) {
@@ -11158,7 +12735,7 @@ inline bool Options::has_generalize() const {
   return _internal_has_generalize();
 }
 inline void Options::set_has_generalize() {
-  _oneof_case_[10] = kGeneralize;
+  _oneof_case_[8] = kGeneralize;
 }
 inline void Options::clear_generalize() {
   if (_internal_has_generalize()) {
@@ -11189,37 +12766,19 @@ inline void Options::set_generalize(float value) {
 }
 
 // bool show_locations = 26;
-inline bool Options::_internal_has_show_locations() const {
-  return has_show_locations_case() == kShowLocations;
-}
-inline bool Options::has_show_locations() const {
-  return _internal_has_show_locations();
-}
-inline void Options::set_has_show_locations() {
-  _oneof_case_[11] = kShowLocations;
-}
 inline void Options::clear_show_locations() {
-  if (_internal_has_show_locations()) {
-    has_show_locations_.show_locations_ = false;
-    clear_has_has_show_locations();
-  }
+  show_locations_ = false;
 }
 inline bool Options::_internal_show_locations() const {
-  if (_internal_has_show_locations()) {
-    return has_show_locations_.show_locations_;
-  }
-  return false;
-}
-inline void Options::_internal_set_show_locations(bool value) {
-  if (!_internal_has_show_locations()) {
-    clear_has_show_locations();
-    set_has_show_locations();
-  }
-  has_show_locations_.show_locations_ = value;
+  return show_locations_;
 }
 inline bool Options::show_locations() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.show_locations)
   return _internal_show_locations();
+}
+inline void Options::_internal_set_show_locations(bool value) {
+  
+  show_locations_ = value;
 }
 inline void Options::set_show_locations(bool value) {
   _internal_set_show_locations(value);
@@ -11291,7 +12850,7 @@ inline bool Options::has_gps_accuracy() const {
   return _internal_has_gps_accuracy();
 }
 inline void Options::set_has_gps_accuracy() {
-  _oneof_case_[12] = kGpsAccuracy;
+  _oneof_case_[9] = kGpsAccuracy;
 }
 inline void Options::clear_gps_accuracy() {
   if (_internal_has_gps_accuracy()) {
@@ -11329,7 +12888,7 @@ inline bool Options::has_search_radius() const {
   return _internal_has_search_radius();
 }
 inline void Options::set_has_search_radius() {
-  _oneof_case_[13] = kSearchRadius;
+  _oneof_case_[10] = kSearchRadius;
 }
 inline void Options::clear_search_radius() {
   if (_internal_has_search_radius()) {
@@ -11367,7 +12926,7 @@ inline bool Options::has_turn_penalty_factor() const {
   return _internal_has_turn_penalty_factor();
 }
 inline void Options::set_has_turn_penalty_factor() {
-  _oneof_case_[14] = kTurnPenaltyFactor;
+  _oneof_case_[11] = kTurnPenaltyFactor;
 }
 inline void Options::clear_turn_penalty_factor() {
   if (_internal_has_turn_penalty_factor()) {
@@ -11500,7 +13059,7 @@ inline bool Options::has_breakage_distance() const {
   return _internal_has_breakage_distance();
 }
 inline void Options::set_has_breakage_distance() {
-  _oneof_case_[15] = kBreakageDistance;
+  _oneof_case_[12] = kBreakageDistance;
 }
 inline void Options::clear_breakage_distance() {
   if (_internal_has_breakage_distance()) {
@@ -11531,37 +13090,19 @@ inline void Options::set_breakage_distance(float value) {
 }
 
 // bool use_timestamps = 37;
-inline bool Options::_internal_has_use_timestamps() const {
-  return has_use_timestamps_case() == kUseTimestamps;
-}
-inline bool Options::has_use_timestamps() const {
-  return _internal_has_use_timestamps();
-}
-inline void Options::set_has_use_timestamps() {
-  _oneof_case_[16] = kUseTimestamps;
-}
 inline void Options::clear_use_timestamps() {
-  if (_internal_has_use_timestamps()) {
-    has_use_timestamps_.use_timestamps_ = false;
-    clear_has_has_use_timestamps();
-  }
+  use_timestamps_ = false;
 }
 inline bool Options::_internal_use_timestamps() const {
-  if (_internal_has_use_timestamps()) {
-    return has_use_timestamps_.use_timestamps_;
-  }
-  return false;
-}
-inline void Options::_internal_set_use_timestamps(bool value) {
-  if (!_internal_has_use_timestamps()) {
-    clear_has_use_timestamps();
-    set_has_use_timestamps();
-  }
-  has_use_timestamps_.use_timestamps_ = value;
+  return use_timestamps_;
 }
 inline bool Options::use_timestamps() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.use_timestamps)
   return _internal_use_timestamps();
+}
+inline void Options::_internal_set_use_timestamps(bool value) {
+  
+  use_timestamps_ = value;
 }
 inline void Options::set_use_timestamps(bool value) {
   _internal_set_use_timestamps(value);
@@ -11576,7 +13117,7 @@ inline bool Options::has_shape_format() const {
   return _internal_has_shape_format();
 }
 inline void Options::set_has_shape_format() {
-  _oneof_case_[17] = kShapeFormat;
+  _oneof_case_[13] = kShapeFormat;
 }
 inline void Options::clear_shape_format() {
   if (_internal_has_shape_format()) {
@@ -11614,7 +13155,7 @@ inline bool Options::has_alternates() const {
   return _internal_has_alternates();
 }
 inline void Options::set_has_alternates() {
-  _oneof_case_[18] = kAlternates;
+  _oneof_case_[14] = kAlternates;
 }
 inline void Options::clear_alternates() {
   if (_internal_has_alternates()) {
@@ -11652,7 +13193,7 @@ inline bool Options::has_interpolation_distance() const {
   return _internal_has_interpolation_distance();
 }
 inline void Options::set_has_interpolation_distance() {
-  _oneof_case_[19] = kInterpolationDistance;
+  _oneof_case_[15] = kInterpolationDistance;
 }
 inline void Options::clear_interpolation_distance() {
   if (_internal_has_interpolation_distance()) {
@@ -11683,37 +13224,19 @@ inline void Options::set_interpolation_distance(float value) {
 }
 
 // bool guidance_views = 41;
-inline bool Options::_internal_has_guidance_views() const {
-  return has_guidance_views_case() == kGuidanceViews;
-}
-inline bool Options::has_guidance_views() const {
-  return _internal_has_guidance_views();
-}
-inline void Options::set_has_guidance_views() {
-  _oneof_case_[20] = kGuidanceViews;
-}
 inline void Options::clear_guidance_views() {
-  if (_internal_has_guidance_views()) {
-    has_guidance_views_.guidance_views_ = false;
-    clear_has_has_guidance_views();
-  }
+  guidance_views_ = false;
 }
 inline bool Options::_internal_guidance_views() const {
-  if (_internal_has_guidance_views()) {
-    return has_guidance_views_.guidance_views_;
-  }
-  return false;
-}
-inline void Options::_internal_set_guidance_views(bool value) {
-  if (!_internal_has_guidance_views()) {
-    clear_has_guidance_views();
-    set_has_guidance_views();
-  }
-  has_guidance_views_.guidance_views_ = value;
+  return guidance_views_;
 }
 inline bool Options::guidance_views() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.guidance_views)
   return _internal_guidance_views();
+}
+inline void Options::_internal_set_guidance_views(bool value) {
+  
+  guidance_views_ = value;
 }
 inline void Options::set_guidance_views(bool value) {
   _internal_set_guidance_views(value);
@@ -11728,7 +13251,7 @@ inline bool Options::has_height_precision() const {
   return _internal_has_height_precision();
 }
 inline void Options::set_has_height_precision() {
-  _oneof_case_[21] = kHeightPrecision;
+  _oneof_case_[16] = kHeightPrecision;
 }
 inline void Options::clear_height_precision() {
   if (_internal_has_height_precision()) {
@@ -11766,7 +13289,7 @@ inline bool Options::has_roundabout_exits() const {
   return _internal_has_roundabout_exits();
 }
 inline void Options::set_has_roundabout_exits() {
-  _oneof_case_[22] = kRoundaboutExits;
+  _oneof_case_[17] = kRoundaboutExits;
 }
 inline void Options::clear_roundabout_exits() {
   if (_internal_has_roundabout_exits()) {
@@ -11797,37 +13320,19 @@ inline void Options::set_roundabout_exits(bool value) {
 }
 
 // bool linear_references = 45;
-inline bool Options::_internal_has_linear_references() const {
-  return has_linear_references_case() == kLinearReferences;
-}
-inline bool Options::has_linear_references() const {
-  return _internal_has_linear_references();
-}
-inline void Options::set_has_linear_references() {
-  _oneof_case_[23] = kLinearReferences;
-}
 inline void Options::clear_linear_references() {
-  if (_internal_has_linear_references()) {
-    has_linear_references_.linear_references_ = false;
-    clear_has_has_linear_references();
-  }
+  linear_references_ = false;
 }
 inline bool Options::_internal_linear_references() const {
-  if (_internal_has_linear_references()) {
-    return has_linear_references_.linear_references_;
-  }
-  return false;
-}
-inline void Options::_internal_set_linear_references(bool value) {
-  if (!_internal_has_linear_references()) {
-    clear_has_linear_references();
-    set_has_linear_references();
-  }
-  has_linear_references_.linear_references_ = value;
+  return linear_references_;
 }
 inline bool Options::linear_references() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.linear_references)
   return _internal_linear_references();
+}
+inline void Options::_internal_set_linear_references(bool value) {
+  
+  linear_references_ = value;
 }
 inline void Options::set_linear_references(bool value) {
   _internal_set_linear_references(value);
@@ -11915,37 +13420,19 @@ Options::exclude_polygons() const {
 }
 
 // bool prioritize_bidirectional = 48;
-inline bool Options::_internal_has_prioritize_bidirectional() const {
-  return has_prioritize_bidirectional_case() == kPrioritizeBidirectional;
-}
-inline bool Options::has_prioritize_bidirectional() const {
-  return _internal_has_prioritize_bidirectional();
-}
-inline void Options::set_has_prioritize_bidirectional() {
-  _oneof_case_[24] = kPrioritizeBidirectional;
-}
 inline void Options::clear_prioritize_bidirectional() {
-  if (_internal_has_prioritize_bidirectional()) {
-    has_prioritize_bidirectional_.prioritize_bidirectional_ = false;
-    clear_has_has_prioritize_bidirectional();
-  }
+  prioritize_bidirectional_ = false;
 }
 inline bool Options::_internal_prioritize_bidirectional() const {
-  if (_internal_has_prioritize_bidirectional()) {
-    return has_prioritize_bidirectional_.prioritize_bidirectional_;
-  }
-  return false;
-}
-inline void Options::_internal_set_prioritize_bidirectional(bool value) {
-  if (!_internal_has_prioritize_bidirectional()) {
-    clear_has_prioritize_bidirectional();
-    set_has_prioritize_bidirectional();
-  }
-  has_prioritize_bidirectional_.prioritize_bidirectional_ = value;
+  return prioritize_bidirectional_;
 }
 inline bool Options::prioritize_bidirectional() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.prioritize_bidirectional)
   return _internal_prioritize_bidirectional();
+}
+inline void Options::_internal_set_prioritize_bidirectional(bool value) {
+  
+  prioritize_bidirectional_ = value;
 }
 inline void Options::set_prioritize_bidirectional(bool value) {
   _internal_set_prioritize_bidirectional(value);
@@ -11960,7 +13447,7 @@ inline bool Options::has_expansion_action() const {
   return _internal_has_expansion_action();
 }
 inline void Options::set_has_expansion_action() {
-  _oneof_case_[25] = kExpansionAction;
+  _oneof_case_[18] = kExpansionAction;
 }
 inline void Options::clear_expansion_action() {
   if (_internal_has_expansion_action()) {
@@ -11991,37 +13478,19 @@ inline void Options::set_expansion_action(::valhalla::Options_Action value) {
 }
 
 // bool skip_opposites = 50;
-inline bool Options::_internal_has_skip_opposites() const {
-  return has_skip_opposites_case() == kSkipOpposites;
-}
-inline bool Options::has_skip_opposites() const {
-  return _internal_has_skip_opposites();
-}
-inline void Options::set_has_skip_opposites() {
-  _oneof_case_[26] = kSkipOpposites;
-}
 inline void Options::clear_skip_opposites() {
-  if (_internal_has_skip_opposites()) {
-    has_skip_opposites_.skip_opposites_ = false;
-    clear_has_has_skip_opposites();
-  }
+  skip_opposites_ = false;
 }
 inline bool Options::_internal_skip_opposites() const {
-  if (_internal_has_skip_opposites()) {
-    return has_skip_opposites_.skip_opposites_;
-  }
-  return false;
-}
-inline void Options::_internal_set_skip_opposites(bool value) {
-  if (!_internal_has_skip_opposites()) {
-    clear_has_skip_opposites();
-    set_has_skip_opposites();
-  }
-  has_skip_opposites_.skip_opposites_ = value;
+  return skip_opposites_;
 }
 inline bool Options::skip_opposites() const {
   // @@protoc_insertion_point(field_get:valhalla.Options.skip_opposites)
   return _internal_skip_opposites();
+}
+inline void Options::_internal_set_skip_opposites(bool value) {
+  
+  skip_opposites_ = value;
 }
 inline void Options::set_skip_opposites(bool value) {
   _internal_set_skip_opposites(value);
@@ -12189,7 +13658,7 @@ inline bool Options::has_matrix_locations() const {
   return _internal_has_matrix_locations();
 }
 inline void Options::set_has_matrix_locations() {
-  _oneof_case_[27] = kMatrixLocations;
+  _oneof_case_[19] = kMatrixLocations;
 }
 inline void Options::clear_matrix_locations() {
   if (_internal_has_matrix_locations()) {
@@ -12299,6 +13768,346 @@ inline void Options::set_dedupe(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.Options.dedupe)
 }
 
+// bool admin_crossings = 59;
+inline void Options::clear_admin_crossings() {
+  admin_crossings_ = false;
+}
+inline bool Options::_internal_admin_crossings() const {
+  return admin_crossings_;
+}
+inline bool Options::admin_crossings() const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.admin_crossings)
+  return _internal_admin_crossings();
+}
+inline void Options::_internal_set_admin_crossings(bool value) {
+  
+  admin_crossings_ = value;
+}
+inline void Options::set_admin_crossings(bool value) {
+  _internal_set_admin_crossings(value);
+  // @@protoc_insertion_point(field_set:valhalla.Options.admin_crossings)
+}
+
+// bool turn_lanes = 60;
+inline void Options::clear_turn_lanes() {
+  turn_lanes_ = false;
+}
+inline bool Options::_internal_turn_lanes() const {
+  return turn_lanes_;
+}
+inline bool Options::turn_lanes() const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.turn_lanes)
+  return _internal_turn_lanes();
+}
+inline void Options::_internal_set_turn_lanes(bool value) {
+  
+  turn_lanes_ = value;
+}
+inline void Options::set_turn_lanes(bool value) {
+  _internal_set_turn_lanes(value);
+  // @@protoc_insertion_point(field_set:valhalla.Options.turn_lanes)
+}
+
+// repeated .valhalla.LinearFeatureCost cost_factor_lines = 61;
+inline int Options::_internal_cost_factor_lines_size() const {
+  return cost_factor_lines_.size();
+}
+inline int Options::cost_factor_lines_size() const {
+  return _internal_cost_factor_lines_size();
+}
+inline void Options::clear_cost_factor_lines() {
+  cost_factor_lines_.Clear();
+}
+inline ::valhalla::LinearFeatureCost* Options::mutable_cost_factor_lines(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.Options.cost_factor_lines)
+  return cost_factor_lines_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LinearFeatureCost >*
+Options::mutable_cost_factor_lines() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Options.cost_factor_lines)
+  return &cost_factor_lines_;
+}
+inline const ::valhalla::LinearFeatureCost& Options::_internal_cost_factor_lines(int index) const {
+  return cost_factor_lines_.Get(index);
+}
+inline const ::valhalla::LinearFeatureCost& Options::cost_factor_lines(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.cost_factor_lines)
+  return _internal_cost_factor_lines(index);
+}
+inline ::valhalla::LinearFeatureCost* Options::_internal_add_cost_factor_lines() {
+  return cost_factor_lines_.Add();
+}
+inline ::valhalla::LinearFeatureCost* Options::add_cost_factor_lines() {
+  ::valhalla::LinearFeatureCost* _add = _internal_add_cost_factor_lines();
+  // @@protoc_insertion_point(field_add:valhalla.Options.cost_factor_lines)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LinearFeatureCost >&
+Options::cost_factor_lines() const {
+  // @@protoc_insertion_point(field_list:valhalla.Options.cost_factor_lines)
+  return cost_factor_lines_;
+}
+
+// .valhalla.Options.ReverseTimeTracking reverse_time_tracking = 62;
+inline void Options::clear_reverse_time_tracking() {
+  reverse_time_tracking_ = 0;
+}
+inline ::valhalla::Options_ReverseTimeTracking Options::_internal_reverse_time_tracking() const {
+  return static_cast< ::valhalla::Options_ReverseTimeTracking >(reverse_time_tracking_);
+}
+inline ::valhalla::Options_ReverseTimeTracking Options::reverse_time_tracking() const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.reverse_time_tracking)
+  return _internal_reverse_time_tracking();
+}
+inline void Options::_internal_set_reverse_time_tracking(::valhalla::Options_ReverseTimeTracking value) {
+  
+  reverse_time_tracking_ = value;
+}
+inline void Options::set_reverse_time_tracking(::valhalla::Options_ReverseTimeTracking value) {
+  _internal_set_reverse_time_tracking(value);
+  // @@protoc_insertion_point(field_set:valhalla.Options.reverse_time_tracking)
+}
+
+// .valhalla.Tile tile_xyz = 63;
+inline bool Options::_internal_has_tile_xyz() const {
+  return this != internal_default_instance() && tile_xyz_ != nullptr;
+}
+inline bool Options::has_tile_xyz() const {
+  return _internal_has_tile_xyz();
+}
+inline void Options::clear_tile_xyz() {
+  if (GetArenaForAllocation() == nullptr && tile_xyz_ != nullptr) {
+    delete tile_xyz_;
+  }
+  tile_xyz_ = nullptr;
+}
+inline const ::valhalla::Tile& Options::_internal_tile_xyz() const {
+  const ::valhalla::Tile* p = tile_xyz_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::Tile&>(
+      ::valhalla::_Tile_default_instance_);
+}
+inline const ::valhalla::Tile& Options::tile_xyz() const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.tile_xyz)
+  return _internal_tile_xyz();
+}
+inline void Options::unsafe_arena_set_allocated_tile_xyz(
+    ::valhalla::Tile* tile_xyz) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tile_xyz_);
+  }
+  tile_xyz_ = tile_xyz;
+  if (tile_xyz) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.Options.tile_xyz)
+}
+inline ::valhalla::Tile* Options::release_tile_xyz() {
+  
+  ::valhalla::Tile* temp = tile_xyz_;
+  tile_xyz_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::Tile* Options::unsafe_arena_release_tile_xyz() {
+  // @@protoc_insertion_point(field_release:valhalla.Options.tile_xyz)
+  
+  ::valhalla::Tile* temp = tile_xyz_;
+  tile_xyz_ = nullptr;
+  return temp;
+}
+inline ::valhalla::Tile* Options::_internal_mutable_tile_xyz() {
+  
+  if (tile_xyz_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::Tile>(GetArenaForAllocation());
+    tile_xyz_ = p;
+  }
+  return tile_xyz_;
+}
+inline ::valhalla::Tile* Options::mutable_tile_xyz() {
+  ::valhalla::Tile* _msg = _internal_mutable_tile_xyz();
+  // @@protoc_insertion_point(field_mutable:valhalla.Options.tile_xyz)
+  return _msg;
+}
+inline void Options::set_allocated_tile_xyz(::valhalla::Tile* tile_xyz) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete tile_xyz_;
+  }
+  if (tile_xyz) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(tile_xyz);
+    if (message_arena != submessage_arena) {
+      tile_xyz = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, tile_xyz, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  tile_xyz_ = tile_xyz;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.Options.tile_xyz)
+}
+
+// .valhalla.TileOptions tile_options = 64;
+inline bool Options::_internal_has_tile_options() const {
+  return this != internal_default_instance() && tile_options_ != nullptr;
+}
+inline bool Options::has_tile_options() const {
+  return _internal_has_tile_options();
+}
+inline void Options::clear_tile_options() {
+  if (GetArenaForAllocation() == nullptr && tile_options_ != nullptr) {
+    delete tile_options_;
+  }
+  tile_options_ = nullptr;
+}
+inline const ::valhalla::TileOptions& Options::_internal_tile_options() const {
+  const ::valhalla::TileOptions* p = tile_options_;
+  return p != nullptr ? *p : reinterpret_cast<const ::valhalla::TileOptions&>(
+      ::valhalla::_TileOptions_default_instance_);
+}
+inline const ::valhalla::TileOptions& Options::tile_options() const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.tile_options)
+  return _internal_tile_options();
+}
+inline void Options::unsafe_arena_set_allocated_tile_options(
+    ::valhalla::TileOptions* tile_options) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tile_options_);
+  }
+  tile_options_ = tile_options;
+  if (tile_options) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.Options.tile_options)
+}
+inline ::valhalla::TileOptions* Options::release_tile_options() {
+  
+  ::valhalla::TileOptions* temp = tile_options_;
+  tile_options_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::valhalla::TileOptions* Options::unsafe_arena_release_tile_options() {
+  // @@protoc_insertion_point(field_release:valhalla.Options.tile_options)
+  
+  ::valhalla::TileOptions* temp = tile_options_;
+  tile_options_ = nullptr;
+  return temp;
+}
+inline ::valhalla::TileOptions* Options::_internal_mutable_tile_options() {
+  
+  if (tile_options_ == nullptr) {
+    auto* p = CreateMaybeMessage<::valhalla::TileOptions>(GetArenaForAllocation());
+    tile_options_ = p;
+  }
+  return tile_options_;
+}
+inline ::valhalla::TileOptions* Options::mutable_tile_options() {
+  ::valhalla::TileOptions* _msg = _internal_mutable_tile_options();
+  // @@protoc_insertion_point(field_mutable:valhalla.Options.tile_options)
+  return _msg;
+}
+inline void Options::set_allocated_tile_options(::valhalla::TileOptions* tile_options) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete tile_options_;
+  }
+  if (tile_options) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(tile_options);
+    if (message_arena != submessage_arena) {
+      tile_options = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, tile_options, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  tile_options_ = tile_options;
+  // @@protoc_insertion_point(field_set_allocated:valhalla.Options.tile_options)
+}
+
+// repeated .valhalla.Levels exclude_levels = 65;
+inline int Options::_internal_exclude_levels_size() const {
+  return exclude_levels_.size();
+}
+inline int Options::exclude_levels_size() const {
+  return _internal_exclude_levels_size();
+}
+inline void Options::clear_exclude_levels() {
+  exclude_levels_.Clear();
+}
+inline ::valhalla::Levels* Options::mutable_exclude_levels(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.Options.exclude_levels)
+  return exclude_levels_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Levels >*
+Options::mutable_exclude_levels() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Options.exclude_levels)
+  return &exclude_levels_;
+}
+inline const ::valhalla::Levels& Options::_internal_exclude_levels(int index) const {
+  return exclude_levels_.Get(index);
+}
+inline const ::valhalla::Levels& Options::exclude_levels(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.exclude_levels)
+  return _internal_exclude_levels(index);
+}
+inline ::valhalla::Levels* Options::_internal_add_exclude_levels() {
+  return exclude_levels_.Add();
+}
+inline ::valhalla::Levels* Options::add_exclude_levels() {
+  ::valhalla::Levels* _add = _internal_add_exclude_levels();
+  // @@protoc_insertion_point(field_add:valhalla.Options.exclude_levels)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Levels >&
+Options::exclude_levels() const {
+  // @@protoc_insertion_point(field_list:valhalla.Options.exclude_levels)
+  return exclude_levels_;
+}
+
+// uint32 expansion_max_distance = 66;
+inline void Options::clear_expansion_max_distance() {
+  expansion_max_distance_ = 0u;
+}
+inline uint32_t Options::_internal_expansion_max_distance() const {
+  return expansion_max_distance_;
+}
+inline uint32_t Options::expansion_max_distance() const {
+  // @@protoc_insertion_point(field_get:valhalla.Options.expansion_max_distance)
+  return _internal_expansion_max_distance();
+}
+inline void Options::_internal_set_expansion_max_distance(uint32_t value) {
+  
+  expansion_max_distance_ = value;
+}
+inline void Options::set_expansion_max_distance(uint32_t value) {
+  _internal_set_expansion_max_distance(value);
+  // @@protoc_insertion_point(field_set:valhalla.Options.expansion_max_distance)
+}
+
 // map<string, string> customLocales = 200;
 inline int Options::_internal_customlocales_size() const {
   return customlocales_.size();
@@ -12352,149 +14161,101 @@ inline bool Options::has_has_encoded_polyline() const {
 inline void Options::clear_has_has_encoded_polyline() {
   _oneof_case_[3] = HAS_ENCODED_POLYLINE_NOT_SET;
 }
-inline bool Options::has_has_range() const {
-  return has_range_case() != HAS_RANGE_NOT_SET;
-}
-inline void Options::clear_has_has_range() {
-  _oneof_case_[4] = HAS_RANGE_NOT_SET;
-}
 inline bool Options::has_has_verbose() const {
   return has_verbose_case() != HAS_VERBOSE_NOT_SET;
 }
 inline void Options::clear_has_has_verbose() {
-  _oneof_case_[5] = HAS_VERBOSE_NOT_SET;
+  _oneof_case_[4] = HAS_VERBOSE_NOT_SET;
 }
 inline bool Options::has_has_date_time() const {
   return has_date_time_case() != HAS_DATE_TIME_NOT_SET;
 }
 inline void Options::clear_has_has_date_time() {
-  _oneof_case_[6] = HAS_DATE_TIME_NOT_SET;
+  _oneof_case_[5] = HAS_DATE_TIME_NOT_SET;
 }
 inline bool Options::has_has_resample_distance() const {
   return has_resample_distance_case() != HAS_RESAMPLE_DISTANCE_NOT_SET;
 }
 inline void Options::clear_has_has_resample_distance() {
-  _oneof_case_[7] = HAS_RESAMPLE_DISTANCE_NOT_SET;
-}
-inline bool Options::has_has_polygons() const {
-  return has_polygons_case() != HAS_POLYGONS_NOT_SET;
-}
-inline void Options::clear_has_has_polygons() {
-  _oneof_case_[8] = HAS_POLYGONS_NOT_SET;
+  _oneof_case_[6] = HAS_RESAMPLE_DISTANCE_NOT_SET;
 }
 inline bool Options::has_has_denoise() const {
   return has_denoise_case() != HAS_DENOISE_NOT_SET;
 }
 inline void Options::clear_has_has_denoise() {
-  _oneof_case_[9] = HAS_DENOISE_NOT_SET;
+  _oneof_case_[7] = HAS_DENOISE_NOT_SET;
 }
 inline bool Options::has_has_generalize() const {
   return has_generalize_case() != HAS_GENERALIZE_NOT_SET;
 }
 inline void Options::clear_has_has_generalize() {
-  _oneof_case_[10] = HAS_GENERALIZE_NOT_SET;
-}
-inline bool Options::has_has_show_locations() const {
-  return has_show_locations_case() != HAS_SHOW_LOCATIONS_NOT_SET;
-}
-inline void Options::clear_has_has_show_locations() {
-  _oneof_case_[11] = HAS_SHOW_LOCATIONS_NOT_SET;
+  _oneof_case_[8] = HAS_GENERALIZE_NOT_SET;
 }
 inline bool Options::has_has_gps_accuracy() const {
   return has_gps_accuracy_case() != HAS_GPS_ACCURACY_NOT_SET;
 }
 inline void Options::clear_has_has_gps_accuracy() {
-  _oneof_case_[12] = HAS_GPS_ACCURACY_NOT_SET;
+  _oneof_case_[9] = HAS_GPS_ACCURACY_NOT_SET;
 }
 inline bool Options::has_has_search_radius() const {
   return has_search_radius_case() != HAS_SEARCH_RADIUS_NOT_SET;
 }
 inline void Options::clear_has_has_search_radius() {
-  _oneof_case_[13] = HAS_SEARCH_RADIUS_NOT_SET;
+  _oneof_case_[10] = HAS_SEARCH_RADIUS_NOT_SET;
 }
 inline bool Options::has_has_turn_penalty_factor() const {
   return has_turn_penalty_factor_case() != HAS_TURN_PENALTY_FACTOR_NOT_SET;
 }
 inline void Options::clear_has_has_turn_penalty_factor() {
-  _oneof_case_[14] = HAS_TURN_PENALTY_FACTOR_NOT_SET;
+  _oneof_case_[11] = HAS_TURN_PENALTY_FACTOR_NOT_SET;
 }
 inline bool Options::has_has_breakage_distance() const {
   return has_breakage_distance_case() != HAS_BREAKAGE_DISTANCE_NOT_SET;
 }
 inline void Options::clear_has_has_breakage_distance() {
-  _oneof_case_[15] = HAS_BREAKAGE_DISTANCE_NOT_SET;
-}
-inline bool Options::has_has_use_timestamps() const {
-  return has_use_timestamps_case() != HAS_USE_TIMESTAMPS_NOT_SET;
-}
-inline void Options::clear_has_has_use_timestamps() {
-  _oneof_case_[16] = HAS_USE_TIMESTAMPS_NOT_SET;
+  _oneof_case_[12] = HAS_BREAKAGE_DISTANCE_NOT_SET;
 }
 inline bool Options::has_has_shape_format() const {
   return has_shape_format_case() != HAS_SHAPE_FORMAT_NOT_SET;
 }
 inline void Options::clear_has_has_shape_format() {
-  _oneof_case_[17] = HAS_SHAPE_FORMAT_NOT_SET;
+  _oneof_case_[13] = HAS_SHAPE_FORMAT_NOT_SET;
 }
 inline bool Options::has_has_alternates() const {
   return has_alternates_case() != HAS_ALTERNATES_NOT_SET;
 }
 inline void Options::clear_has_has_alternates() {
-  _oneof_case_[18] = HAS_ALTERNATES_NOT_SET;
+  _oneof_case_[14] = HAS_ALTERNATES_NOT_SET;
 }
 inline bool Options::has_has_interpolation_distance() const {
   return has_interpolation_distance_case() != HAS_INTERPOLATION_DISTANCE_NOT_SET;
 }
 inline void Options::clear_has_has_interpolation_distance() {
-  _oneof_case_[19] = HAS_INTERPOLATION_DISTANCE_NOT_SET;
-}
-inline bool Options::has_has_guidance_views() const {
-  return has_guidance_views_case() != HAS_GUIDANCE_VIEWS_NOT_SET;
-}
-inline void Options::clear_has_has_guidance_views() {
-  _oneof_case_[20] = HAS_GUIDANCE_VIEWS_NOT_SET;
+  _oneof_case_[15] = HAS_INTERPOLATION_DISTANCE_NOT_SET;
 }
 inline bool Options::has_has_height_precision() const {
   return has_height_precision_case() != HAS_HEIGHT_PRECISION_NOT_SET;
 }
 inline void Options::clear_has_has_height_precision() {
-  _oneof_case_[21] = HAS_HEIGHT_PRECISION_NOT_SET;
+  _oneof_case_[16] = HAS_HEIGHT_PRECISION_NOT_SET;
 }
 inline bool Options::has_has_roundabout_exits() const {
   return has_roundabout_exits_case() != HAS_ROUNDABOUT_EXITS_NOT_SET;
 }
 inline void Options::clear_has_has_roundabout_exits() {
-  _oneof_case_[22] = HAS_ROUNDABOUT_EXITS_NOT_SET;
-}
-inline bool Options::has_has_linear_references() const {
-  return has_linear_references_case() != HAS_LINEAR_REFERENCES_NOT_SET;
-}
-inline void Options::clear_has_has_linear_references() {
-  _oneof_case_[23] = HAS_LINEAR_REFERENCES_NOT_SET;
-}
-inline bool Options::has_has_prioritize_bidirectional() const {
-  return has_prioritize_bidirectional_case() != HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET;
-}
-inline void Options::clear_has_has_prioritize_bidirectional() {
-  _oneof_case_[24] = HAS_PRIORITIZE_BIDIRECTIONAL_NOT_SET;
+  _oneof_case_[17] = HAS_ROUNDABOUT_EXITS_NOT_SET;
 }
 inline bool Options::has_has_expansion_action() const {
   return has_expansion_action_case() != HAS_EXPANSION_ACTION_NOT_SET;
 }
 inline void Options::clear_has_has_expansion_action() {
-  _oneof_case_[25] = HAS_EXPANSION_ACTION_NOT_SET;
-}
-inline bool Options::has_has_skip_opposites() const {
-  return has_skip_opposites_case() != HAS_SKIP_OPPOSITES_NOT_SET;
-}
-inline void Options::clear_has_has_skip_opposites() {
-  _oneof_case_[26] = HAS_SKIP_OPPOSITES_NOT_SET;
+  _oneof_case_[18] = HAS_EXPANSION_ACTION_NOT_SET;
 }
 inline bool Options::has_has_matrix_locations() const {
   return has_matrix_locations_case() != HAS_MATRIX_LOCATIONS_NOT_SET;
 }
 inline void Options::clear_has_has_matrix_locations() {
-  _oneof_case_[27] = HAS_MATRIX_LOCATIONS_NOT_SET;
+  _oneof_case_[19] = HAS_MATRIX_LOCATIONS_NOT_SET;
 }
 inline Options::HasLanguageCase Options::has_language_case() const {
   return Options::HasLanguageCase(_oneof_case_[0]);
@@ -12508,81 +14269,71 @@ inline Options::HasJsonpCase Options::has_jsonp_case() const {
 inline Options::HasEncodedPolylineCase Options::has_encoded_polyline_case() const {
   return Options::HasEncodedPolylineCase(_oneof_case_[3]);
 }
-inline Options::HasRangeCase Options::has_range_case() const {
-  return Options::HasRangeCase(_oneof_case_[4]);
-}
 inline Options::HasVerboseCase Options::has_verbose_case() const {
-  return Options::HasVerboseCase(_oneof_case_[5]);
+  return Options::HasVerboseCase(_oneof_case_[4]);
 }
 inline Options::HasDateTimeCase Options::has_date_time_case() const {
-  return Options::HasDateTimeCase(_oneof_case_[6]);
+  return Options::HasDateTimeCase(_oneof_case_[5]);
 }
 inline Options::HasResampleDistanceCase Options::has_resample_distance_case() const {
-  return Options::HasResampleDistanceCase(_oneof_case_[7]);
-}
-inline Options::HasPolygonsCase Options::has_polygons_case() const {
-  return Options::HasPolygonsCase(_oneof_case_[8]);
+  return Options::HasResampleDistanceCase(_oneof_case_[6]);
 }
 inline Options::HasDenoiseCase Options::has_denoise_case() const {
-  return Options::HasDenoiseCase(_oneof_case_[9]);
+  return Options::HasDenoiseCase(_oneof_case_[7]);
 }
 inline Options::HasGeneralizeCase Options::has_generalize_case() const {
-  return Options::HasGeneralizeCase(_oneof_case_[10]);
-}
-inline Options::HasShowLocationsCase Options::has_show_locations_case() const {
-  return Options::HasShowLocationsCase(_oneof_case_[11]);
+  return Options::HasGeneralizeCase(_oneof_case_[8]);
 }
 inline Options::HasGpsAccuracyCase Options::has_gps_accuracy_case() const {
-  return Options::HasGpsAccuracyCase(_oneof_case_[12]);
+  return Options::HasGpsAccuracyCase(_oneof_case_[9]);
 }
 inline Options::HasSearchRadiusCase Options::has_search_radius_case() const {
-  return Options::HasSearchRadiusCase(_oneof_case_[13]);
+  return Options::HasSearchRadiusCase(_oneof_case_[10]);
 }
 inline Options::HasTurnPenaltyFactorCase Options::has_turn_penalty_factor_case() const {
-  return Options::HasTurnPenaltyFactorCase(_oneof_case_[14]);
+  return Options::HasTurnPenaltyFactorCase(_oneof_case_[11]);
 }
 inline Options::HasBreakageDistanceCase Options::has_breakage_distance_case() const {
-  return Options::HasBreakageDistanceCase(_oneof_case_[15]);
-}
-inline Options::HasUseTimestampsCase Options::has_use_timestamps_case() const {
-  return Options::HasUseTimestampsCase(_oneof_case_[16]);
+  return Options::HasBreakageDistanceCase(_oneof_case_[12]);
 }
 inline Options::HasShapeFormatCase Options::has_shape_format_case() const {
-  return Options::HasShapeFormatCase(_oneof_case_[17]);
+  return Options::HasShapeFormatCase(_oneof_case_[13]);
 }
 inline Options::HasAlternatesCase Options::has_alternates_case() const {
-  return Options::HasAlternatesCase(_oneof_case_[18]);
+  return Options::HasAlternatesCase(_oneof_case_[14]);
 }
 inline Options::HasInterpolationDistanceCase Options::has_interpolation_distance_case() const {
-  return Options::HasInterpolationDistanceCase(_oneof_case_[19]);
-}
-inline Options::HasGuidanceViewsCase Options::has_guidance_views_case() const {
-  return Options::HasGuidanceViewsCase(_oneof_case_[20]);
+  return Options::HasInterpolationDistanceCase(_oneof_case_[15]);
 }
 inline Options::HasHeightPrecisionCase Options::has_height_precision_case() const {
-  return Options::HasHeightPrecisionCase(_oneof_case_[21]);
+  return Options::HasHeightPrecisionCase(_oneof_case_[16]);
 }
 inline Options::HasRoundaboutExitsCase Options::has_roundabout_exits_case() const {
-  return Options::HasRoundaboutExitsCase(_oneof_case_[22]);
-}
-inline Options::HasLinearReferencesCase Options::has_linear_references_case() const {
-  return Options::HasLinearReferencesCase(_oneof_case_[23]);
-}
-inline Options::HasPrioritizeBidirectionalCase Options::has_prioritize_bidirectional_case() const {
-  return Options::HasPrioritizeBidirectionalCase(_oneof_case_[24]);
+  return Options::HasRoundaboutExitsCase(_oneof_case_[17]);
 }
 inline Options::HasExpansionActionCase Options::has_expansion_action_case() const {
-  return Options::HasExpansionActionCase(_oneof_case_[25]);
-}
-inline Options::HasSkipOppositesCase Options::has_skip_opposites_case() const {
-  return Options::HasSkipOppositesCase(_oneof_case_[26]);
+  return Options::HasExpansionActionCase(_oneof_case_[18]);
 }
 inline Options::HasMatrixLocationsCase Options::has_matrix_locations_case() const {
-  return Options::HasMatrixLocationsCase(_oneof_case_[27]);
+  return Options::HasMatrixLocationsCase(_oneof_case_[19]);
 }
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -12612,6 +14363,7 @@ template <> struct is_proto_enum< ::valhalla::Options_Format> : ::std::true_type
 template <> struct is_proto_enum< ::valhalla::Options_Action> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::Options_DateTimeType> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::Options_ExpansionProperties> : ::std::true_type {};
+template <> struct is_proto_enum< ::valhalla::Options_ReverseTimeTracking> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::ShapeMatch> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::FilterAction> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::DirectionsType> : ::std::true_type {};

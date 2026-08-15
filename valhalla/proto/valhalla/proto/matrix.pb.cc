@@ -32,6 +32,12 @@ PROTOBUF_CONSTEXPR Matrix::Matrix(
   , time_zone_offsets_()
   , time_zone_names_()
   , second_pass_()
+  , begin_heading_()
+  , end_heading_()
+  , begin_lat_()
+  , begin_lon_()
+  , end_lat_()
+  , end_lon_()
   , algorithm_(0)
 {}
 struct MatrixDefaultTypeInternal {
@@ -126,7 +132,13 @@ Matrix::Matrix(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   shapes_(arena),
   time_zone_offsets_(arena),
   time_zone_names_(arena),
-  second_pass_(arena) {
+  second_pass_(arena),
+  begin_heading_(arena),
+  end_heading_(arena),
+  begin_lat_(arena),
+  begin_lon_(arena),
+  end_lat_(arena),
+  end_lon_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:valhalla.Matrix)
 }
@@ -140,7 +152,13 @@ Matrix::Matrix(const Matrix& from)
       shapes_(from.shapes_),
       time_zone_offsets_(from.time_zone_offsets_),
       time_zone_names_(from.time_zone_names_),
-      second_pass_(from.second_pass_) {
+      second_pass_(from.second_pass_),
+      begin_heading_(from.begin_heading_),
+      end_heading_(from.end_heading_),
+      begin_lat_(from.begin_lat_),
+      begin_lon_(from.begin_lon_),
+      end_lat_(from.end_lat_),
+      end_lon_(from.end_lon_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   algorithm_ = from.algorithm_;
   // @@protoc_insertion_point(copy_constructor:valhalla.Matrix)
@@ -182,6 +200,12 @@ void Matrix::Clear() {
   time_zone_offsets_.Clear();
   time_zone_names_.Clear();
   second_pass_.Clear();
+  begin_heading_.Clear();
+  end_heading_.Clear();
+  begin_lat_.Clear();
+  begin_lon_.Clear();
+  end_lat_.Clear();
+  end_lon_.Clear();
   algorithm_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -316,6 +340,72 @@ const char* Matrix::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
+      // repeated float begin_heading = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_begin_heading(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 101) {
+          _internal_add_begin_heading(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated float end_heading = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_end_heading(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 109) {
+          _internal_add_end_heading(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated double begin_lat = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_begin_lat(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 113) {
+          _internal_add_begin_lat(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated double begin_lon = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_begin_lon(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 121) {
+          _internal_add_begin_lon(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated double end_lat = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_end_lat(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 129) {
+          _internal_add_end_lat(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated double end_lon = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedDoubleParser(_internal_mutable_end_lon(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 137) {
+          _internal_add_end_lon(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -427,6 +517,36 @@ uint8_t* Matrix::_InternalSerialize(
   // repeated bool second_pass = 11;
   if (this->_internal_second_pass_size() > 0) {
     target = stream->WriteFixedPacked(11, _internal_second_pass(), target);
+  }
+
+  // repeated float begin_heading = 12;
+  if (this->_internal_begin_heading_size() > 0) {
+    target = stream->WriteFixedPacked(12, _internal_begin_heading(), target);
+  }
+
+  // repeated float end_heading = 13;
+  if (this->_internal_end_heading_size() > 0) {
+    target = stream->WriteFixedPacked(13, _internal_end_heading(), target);
+  }
+
+  // repeated double begin_lat = 14;
+  if (this->_internal_begin_lat_size() > 0) {
+    target = stream->WriteFixedPacked(14, _internal_begin_lat(), target);
+  }
+
+  // repeated double begin_lon = 15;
+  if (this->_internal_begin_lon_size() > 0) {
+    target = stream->WriteFixedPacked(15, _internal_begin_lon(), target);
+  }
+
+  // repeated double end_lat = 16;
+  if (this->_internal_end_lat_size() > 0) {
+    target = stream->WriteFixedPacked(16, _internal_end_lat(), target);
+  }
+
+  // repeated double end_lon = 17;
+  if (this->_internal_end_lon_size() > 0) {
+    target = stream->WriteFixedPacked(17, _internal_end_lon(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -541,6 +661,72 @@ size_t Matrix::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated float begin_heading = 12;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_begin_heading_size());
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // repeated float end_heading = 13;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_end_heading_size());
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // repeated double begin_lat = 14;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_begin_lat_size());
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // repeated double begin_lon = 15;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_begin_lon_size());
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // repeated double end_lat = 16;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_end_lat_size());
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
+  // repeated double end_lon = 17;
+  {
+    unsigned int count = static_cast<unsigned int>(this->_internal_end_lon_size());
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    total_size += data_size;
+  }
+
   // .valhalla.Matrix.Algorithm algorithm = 7;
   if (this->_internal_algorithm() != 0) {
     total_size += 1 +
@@ -576,6 +762,12 @@ void Matrix::MergeFrom(const Matrix& from) {
   time_zone_offsets_.MergeFrom(from.time_zone_offsets_);
   time_zone_names_.MergeFrom(from.time_zone_names_);
   second_pass_.MergeFrom(from.second_pass_);
+  begin_heading_.MergeFrom(from.begin_heading_);
+  end_heading_.MergeFrom(from.end_heading_);
+  begin_lat_.MergeFrom(from.begin_lat_);
+  begin_lon_.MergeFrom(from.begin_lon_);
+  end_lat_.MergeFrom(from.end_lat_);
+  end_lon_.MergeFrom(from.end_lon_);
   if (from._internal_algorithm() != 0) {
     _internal_set_algorithm(from._internal_algorithm());
   }
@@ -605,6 +797,12 @@ void Matrix::InternalSwap(Matrix* other) {
   time_zone_offsets_.InternalSwap(&other->time_zone_offsets_);
   time_zone_names_.InternalSwap(&other->time_zone_names_);
   second_pass_.InternalSwap(&other->second_pass_);
+  begin_heading_.InternalSwap(&other->begin_heading_);
+  end_heading_.InternalSwap(&other->end_heading_);
+  begin_lat_.InternalSwap(&other->begin_lat_);
+  begin_lon_.InternalSwap(&other->begin_lon_);
+  end_lat_.InternalSwap(&other->end_lat_);
+  end_lon_.InternalSwap(&other->end_lon_);
   swap(algorithm_, other->algorithm_);
 }
 
