@@ -23,6 +23,17 @@ set(zstd_SRC_FILES
   ${ZSTD_TOP}
 )
 
+set(zstd_FLAGS "")
+
+# Mac Catalyst is built as a macOS Xcode project with -target ...-macabi forced onto the compiles,
+# so Xcode's prelink (ld -r, macOS) rejects any real Mach-O object stamped Mac Catalyst. Under
+# -flto every other translation unit is bitcode and carries no platform, which leaves this .S as
+# the only object that trips it. Drop it there and take zstd's C huffman path.
+if(APPLE AND (NOT IOS))
+  list(REMOVE_ITEM zstd_SRC_FILES "${ZSTD_ROOT}/decompress/huf_decompress_amd64.S")
+  set(zstd_FLAGS ${zstd_FLAGS} "-DZSTD_DISABLE_ASM")
+endif()
+
 set(zstd_INCLUDE_DIRS
   "${ZSTD_ROOT}/common"
   "${ZSTD_ROOT}/decompress"
@@ -41,9 +52,11 @@ endif()
 if(SINGLE_LIBRARY)
   # propagate sources to parent scope for single-library build
   set(zstd_SRC_FILES ${zstd_SRC_FILES} PARENT_SCOPE)
+  set(zstd_FLAGS ${zstd_FLAGS} PARENT_SCOPE)
   add_library(zstd INTERFACE)
 else()
   include_directories("${ZSTD_ROOT}/common" "${ZSTD_ROOT}/decompress" "${ZSTD_ROOT}")
+  add_compile_options(${zstd_FLAGS})
 
   # create object library to be linked into your project
   add_library(zstd OBJECT ${zstd_SRC_FILES})
