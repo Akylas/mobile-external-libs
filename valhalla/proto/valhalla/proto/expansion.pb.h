@@ -29,6 +29,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
+#include "common.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_expansion_2eproto
@@ -409,6 +410,8 @@ class Expansion final :
     kPredEdgeIdFieldNumber = 6,
     kGeometriesFieldNumber = 7,
     kExpansionTypeFieldNumber = 8,
+    kFlowSourcesFieldNumber = 9,
+    kTravelModesFieldNumber = 10,
   };
   // repeated uint32 costs = 1 [packed = true];
   int costs_size() const;
@@ -493,48 +496,48 @@ class Expansion final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& edge_status() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_edge_status();
 
-  // repeated uint32 edge_id = 5 [packed = true];
+  // repeated uint64 edge_id = 5 [packed = true];
   int edge_id_size() const;
   private:
   int _internal_edge_id_size() const;
   public:
   void clear_edge_id();
   private:
-  uint32_t _internal_edge_id(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+  uint64_t _internal_edge_id(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
       _internal_edge_id() const;
-  void _internal_add_edge_id(uint32_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+  void _internal_add_edge_id(uint64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
       _internal_mutable_edge_id();
   public:
-  uint32_t edge_id(int index) const;
-  void set_edge_id(int index, uint32_t value);
-  void add_edge_id(uint32_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+  uint64_t edge_id(int index) const;
+  void set_edge_id(int index, uint64_t value);
+  void add_edge_id(uint64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
       edge_id() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
       mutable_edge_id();
 
-  // repeated uint32 pred_edge_id = 6 [packed = true];
+  // repeated uint64 pred_edge_id = 6 [packed = true];
   int pred_edge_id_size() const;
   private:
   int _internal_pred_edge_id_size() const;
   public:
   void clear_pred_edge_id();
   private:
-  uint32_t _internal_pred_edge_id(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+  uint64_t _internal_pred_edge_id(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
       _internal_pred_edge_id() const;
-  void _internal_add_pred_edge_id(uint32_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+  void _internal_add_pred_edge_id(uint64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
       _internal_mutable_pred_edge_id();
   public:
-  uint32_t pred_edge_id(int index) const;
-  void set_pred_edge_id(int index, uint32_t value);
-  void add_pred_edge_id(uint32_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+  uint64_t pred_edge_id(int index) const;
+  void set_pred_edge_id(int index, uint64_t value);
+  void add_pred_edge_id(uint64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
       pred_edge_id() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
       mutable_pred_edge_id();
 
   // repeated .valhalla.Expansion.Geometry geometries = 7;
@@ -572,6 +575,45 @@ class Expansion final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& expansion_type() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_expansion_type();
 
+  // repeated uint32 flow_sources = 9 [packed = true];
+  int flow_sources_size() const;
+  private:
+  int _internal_flow_sources_size() const;
+  public:
+  void clear_flow_sources();
+  private:
+  uint32_t _internal_flow_sources(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_flow_sources() const;
+  void _internal_add_flow_sources(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_flow_sources();
+  public:
+  uint32_t flow_sources(int index) const;
+  void set_flow_sources(int index, uint32_t value);
+  void add_flow_sources(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      flow_sources() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_flow_sources();
+
+  // repeated .valhalla.TravelMode travel_modes = 10 [packed = true];
+  int travel_modes_size() const;
+  private:
+  int _internal_travel_modes_size() const;
+  public:
+  void clear_travel_modes();
+  private:
+  ::valhalla::TravelMode _internal_travel_modes(int index) const;
+  void _internal_add_travel_modes(::valhalla::TravelMode value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_travel_modes();
+  public:
+  ::valhalla::TravelMode travel_modes(int index) const;
+  void set_travel_modes(int index, ::valhalla::TravelMode value);
+  void add_travel_modes(::valhalla::TravelMode value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& travel_modes() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_travel_modes();
+
   // @@protoc_insertion_point(class_scope:valhalla.Expansion)
  private:
   class _Internal;
@@ -587,13 +629,17 @@ class Expansion final :
   mutable std::atomic<int> _distances_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> edge_status_;
   mutable std::atomic<int> _edge_status_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > edge_id_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > edge_id_;
   mutable std::atomic<int> _edge_id_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > pred_edge_id_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > pred_edge_id_;
   mutable std::atomic<int> _pred_edge_id_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Expansion_Geometry > geometries_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> expansion_type_;
   mutable std::atomic<int> _expansion_type_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > flow_sources_;
+  mutable std::atomic<int> _flow_sources_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> travel_modes_;
+  mutable std::atomic<int> _travel_modes_cached_byte_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_expansion_2eproto;
 };
@@ -843,7 +889,7 @@ Expansion::mutable_edge_status() {
   return _internal_mutable_edge_status();
 }
 
-// repeated uint32 edge_id = 5 [packed = true];
+// repeated uint64 edge_id = 5 [packed = true];
 inline int Expansion::_internal_edge_id_size() const {
   return edge_id_.size();
 }
@@ -853,44 +899,44 @@ inline int Expansion::edge_id_size() const {
 inline void Expansion::clear_edge_id() {
   edge_id_.Clear();
 }
-inline uint32_t Expansion::_internal_edge_id(int index) const {
+inline uint64_t Expansion::_internal_edge_id(int index) const {
   return edge_id_.Get(index);
 }
-inline uint32_t Expansion::edge_id(int index) const {
+inline uint64_t Expansion::edge_id(int index) const {
   // @@protoc_insertion_point(field_get:valhalla.Expansion.edge_id)
   return _internal_edge_id(index);
 }
-inline void Expansion::set_edge_id(int index, uint32_t value) {
+inline void Expansion::set_edge_id(int index, uint64_t value) {
   edge_id_.Set(index, value);
   // @@protoc_insertion_point(field_set:valhalla.Expansion.edge_id)
 }
-inline void Expansion::_internal_add_edge_id(uint32_t value) {
+inline void Expansion::_internal_add_edge_id(uint64_t value) {
   edge_id_.Add(value);
 }
-inline void Expansion::add_edge_id(uint32_t value) {
+inline void Expansion::add_edge_id(uint64_t value) {
   _internal_add_edge_id(value);
   // @@protoc_insertion_point(field_add:valhalla.Expansion.edge_id)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
 Expansion::_internal_edge_id() const {
   return edge_id_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
 Expansion::edge_id() const {
   // @@protoc_insertion_point(field_list:valhalla.Expansion.edge_id)
   return _internal_edge_id();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
 Expansion::_internal_mutable_edge_id() {
   return &edge_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
 Expansion::mutable_edge_id() {
   // @@protoc_insertion_point(field_mutable_list:valhalla.Expansion.edge_id)
   return _internal_mutable_edge_id();
 }
 
-// repeated uint32 pred_edge_id = 6 [packed = true];
+// repeated uint64 pred_edge_id = 6 [packed = true];
 inline int Expansion::_internal_pred_edge_id_size() const {
   return pred_edge_id_.size();
 }
@@ -900,38 +946,38 @@ inline int Expansion::pred_edge_id_size() const {
 inline void Expansion::clear_pred_edge_id() {
   pred_edge_id_.Clear();
 }
-inline uint32_t Expansion::_internal_pred_edge_id(int index) const {
+inline uint64_t Expansion::_internal_pred_edge_id(int index) const {
   return pred_edge_id_.Get(index);
 }
-inline uint32_t Expansion::pred_edge_id(int index) const {
+inline uint64_t Expansion::pred_edge_id(int index) const {
   // @@protoc_insertion_point(field_get:valhalla.Expansion.pred_edge_id)
   return _internal_pred_edge_id(index);
 }
-inline void Expansion::set_pred_edge_id(int index, uint32_t value) {
+inline void Expansion::set_pred_edge_id(int index, uint64_t value) {
   pred_edge_id_.Set(index, value);
   // @@protoc_insertion_point(field_set:valhalla.Expansion.pred_edge_id)
 }
-inline void Expansion::_internal_add_pred_edge_id(uint32_t value) {
+inline void Expansion::_internal_add_pred_edge_id(uint64_t value) {
   pred_edge_id_.Add(value);
 }
-inline void Expansion::add_pred_edge_id(uint32_t value) {
+inline void Expansion::add_pred_edge_id(uint64_t value) {
   _internal_add_pred_edge_id(value);
   // @@protoc_insertion_point(field_add:valhalla.Expansion.pred_edge_id)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
 Expansion::_internal_pred_edge_id() const {
   return pred_edge_id_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
 Expansion::pred_edge_id() const {
   // @@protoc_insertion_point(field_list:valhalla.Expansion.pred_edge_id)
   return _internal_pred_edge_id();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
 Expansion::_internal_mutable_pred_edge_id() {
   return &pred_edge_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
 Expansion::mutable_pred_edge_id() {
   // @@protoc_insertion_point(field_mutable_list:valhalla.Expansion.pred_edge_id)
   return _internal_mutable_pred_edge_id();
@@ -1018,6 +1064,96 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Expansion_Ge
 Expansion::geometries() const {
   // @@protoc_insertion_point(field_list:valhalla.Expansion.geometries)
   return geometries_;
+}
+
+// repeated uint32 flow_sources = 9 [packed = true];
+inline int Expansion::_internal_flow_sources_size() const {
+  return flow_sources_.size();
+}
+inline int Expansion::flow_sources_size() const {
+  return _internal_flow_sources_size();
+}
+inline void Expansion::clear_flow_sources() {
+  flow_sources_.Clear();
+}
+inline uint32_t Expansion::_internal_flow_sources(int index) const {
+  return flow_sources_.Get(index);
+}
+inline uint32_t Expansion::flow_sources(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Expansion.flow_sources)
+  return _internal_flow_sources(index);
+}
+inline void Expansion::set_flow_sources(int index, uint32_t value) {
+  flow_sources_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Expansion.flow_sources)
+}
+inline void Expansion::_internal_add_flow_sources(uint32_t value) {
+  flow_sources_.Add(value);
+}
+inline void Expansion::add_flow_sources(uint32_t value) {
+  _internal_add_flow_sources(value);
+  // @@protoc_insertion_point(field_add:valhalla.Expansion.flow_sources)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+Expansion::_internal_flow_sources() const {
+  return flow_sources_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+Expansion::flow_sources() const {
+  // @@protoc_insertion_point(field_list:valhalla.Expansion.flow_sources)
+  return _internal_flow_sources();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+Expansion::_internal_mutable_flow_sources() {
+  return &flow_sources_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+Expansion::mutable_flow_sources() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Expansion.flow_sources)
+  return _internal_mutable_flow_sources();
+}
+
+// repeated .valhalla.TravelMode travel_modes = 10 [packed = true];
+inline int Expansion::_internal_travel_modes_size() const {
+  return travel_modes_.size();
+}
+inline int Expansion::travel_modes_size() const {
+  return _internal_travel_modes_size();
+}
+inline void Expansion::clear_travel_modes() {
+  travel_modes_.Clear();
+}
+inline ::valhalla::TravelMode Expansion::_internal_travel_modes(int index) const {
+  return static_cast< ::valhalla::TravelMode >(travel_modes_.Get(index));
+}
+inline ::valhalla::TravelMode Expansion::travel_modes(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Expansion.travel_modes)
+  return _internal_travel_modes(index);
+}
+inline void Expansion::set_travel_modes(int index, ::valhalla::TravelMode value) {
+  travel_modes_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Expansion.travel_modes)
+}
+inline void Expansion::_internal_add_travel_modes(::valhalla::TravelMode value) {
+  travel_modes_.Add(value);
+}
+inline void Expansion::add_travel_modes(::valhalla::TravelMode value) {
+  _internal_add_travel_modes(value);
+  // @@protoc_insertion_point(field_add:valhalla.Expansion.travel_modes)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+Expansion::travel_modes() const {
+  // @@protoc_insertion_point(field_list:valhalla.Expansion.travel_modes)
+  return travel_modes_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+Expansion::_internal_mutable_travel_modes() {
+  return &travel_modes_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+Expansion::mutable_travel_modes() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Expansion.travel_modes)
+  return _internal_mutable_travel_modes();
 }
 
 #ifdef __GNUC__

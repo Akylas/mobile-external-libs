@@ -45,6 +45,18 @@ struct IncidentsTile_Metadata_CongestionDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncidentsTile_Metadata_CongestionDefaultTypeInternal _IncidentsTile_Metadata_Congestion_default_instance_;
+PROTOBUF_CONSTEXPR IncidentsTile_Metadata_LatLng::IncidentsTile_Metadata_LatLng(
+    ::_pbi::ConstantInitialized)
+  : _oneof_case_{}{}
+struct IncidentsTile_Metadata_LatLngDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR IncidentsTile_Metadata_LatLngDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~IncidentsTile_Metadata_LatLngDefaultTypeInternal() {}
+  union {
+    IncidentsTile_Metadata_LatLng _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IncidentsTile_Metadata_LatLngDefaultTypeInternal _IncidentsTile_Metadata_LatLng_default_instance_;
 PROTOBUF_CONSTEXPR IncidentsTile_Metadata::IncidentsTile_Metadata(
     ::_pbi::ConstantInitialized)
   : alertc_codes_()
@@ -58,6 +70,7 @@ PROTOBUF_CONSTEXPR IncidentsTile_Metadata::IncidentsTile_Metadata(
   , iso_3166_1_alpha2_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , iso_3166_1_alpha3_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , congestion_(nullptr)
+  , display_ll_(nullptr)
   , type_(0)
 
   , impact_(0)
@@ -715,14 +728,290 @@ std::string IncidentsTile_Metadata_Congestion::GetTypeName() const {
 
 // ===================================================================
 
+class IncidentsTile_Metadata_LatLng::_Internal {
+ public:
+};
+
+IncidentsTile_Metadata_LatLng::IncidentsTile_Metadata_LatLng(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:valhalla.IncidentsTile.Metadata.LatLng)
+}
+IncidentsTile_Metadata_LatLng::IncidentsTile_Metadata_LatLng(const IncidentsTile_Metadata_LatLng& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  clear_has_has_lat();
+  switch (from.has_lat_case()) {
+    case kLat: {
+      _internal_set_lat(from._internal_lat());
+      break;
+    }
+    case HAS_LAT_NOT_SET: {
+      break;
+    }
+  }
+  clear_has_has_lng();
+  switch (from.has_lng_case()) {
+    case kLng: {
+      _internal_set_lng(from._internal_lng());
+      break;
+    }
+    case HAS_LNG_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:valhalla.IncidentsTile.Metadata.LatLng)
+}
+
+inline void IncidentsTile_Metadata_LatLng::SharedCtor() {
+clear_has_has_lat();
+clear_has_has_lng();
+}
+
+IncidentsTile_Metadata_LatLng::~IncidentsTile_Metadata_LatLng() {
+  // @@protoc_insertion_point(destructor:valhalla.IncidentsTile.Metadata.LatLng)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void IncidentsTile_Metadata_LatLng::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_has_lat()) {
+    clear_has_lat();
+  }
+  if (has_has_lng()) {
+    clear_has_lng();
+  }
+}
+
+void IncidentsTile_Metadata_LatLng::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void IncidentsTile_Metadata_LatLng::clear_has_lat() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.IncidentsTile.Metadata.LatLng)
+  switch (has_lat_case()) {
+    case kLat: {
+      // No need to clear
+      break;
+    }
+    case HAS_LAT_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = HAS_LAT_NOT_SET;
+}
+
+void IncidentsTile_Metadata_LatLng::clear_has_lng() {
+// @@protoc_insertion_point(one_of_clear_start:valhalla.IncidentsTile.Metadata.LatLng)
+  switch (has_lng_case()) {
+    case kLng: {
+      // No need to clear
+      break;
+    }
+    case HAS_LNG_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[1] = HAS_LNG_NOT_SET;
+}
+
+
+void IncidentsTile_Metadata_LatLng::Clear() {
+// @@protoc_insertion_point(message_clear_start:valhalla.IncidentsTile.Metadata.LatLng)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clear_has_lat();
+  clear_has_lng();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* IncidentsTile_Metadata_LatLng::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // double lat = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
+          _internal_set_lat(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      // double lng = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
+          _internal_set_lng(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* IncidentsTile_Metadata_LatLng::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:valhalla.IncidentsTile.Metadata.LatLng)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // double lat = 1;
+  if (_internal_has_lat()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_lat(), target);
+  }
+
+  // double lng = 2;
+  if (_internal_has_lng()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_lng(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:valhalla.IncidentsTile.Metadata.LatLng)
+  return target;
+}
+
+size_t IncidentsTile_Metadata_LatLng::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:valhalla.IncidentsTile.Metadata.LatLng)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  switch (has_lat_case()) {
+    // double lat = 1;
+    case kLat: {
+      total_size += 1 + 8;
+      break;
+    }
+    case HAS_LAT_NOT_SET: {
+      break;
+    }
+  }
+  switch (has_lng_case()) {
+    // double lng = 2;
+    case kLng: {
+      total_size += 1 + 8;
+      break;
+    }
+    case HAS_LNG_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void IncidentsTile_Metadata_LatLng::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const IncidentsTile_Metadata_LatLng*>(
+      &from));
+}
+
+void IncidentsTile_Metadata_LatLng::MergeFrom(const IncidentsTile_Metadata_LatLng& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:valhalla.IncidentsTile.Metadata.LatLng)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (from.has_lat_case()) {
+    case kLat: {
+      _internal_set_lat(from._internal_lat());
+      break;
+    }
+    case HAS_LAT_NOT_SET: {
+      break;
+    }
+  }
+  switch (from.has_lng_case()) {
+    case kLng: {
+      _internal_set_lng(from._internal_lng());
+      break;
+    }
+    case HAS_LNG_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void IncidentsTile_Metadata_LatLng::CopyFrom(const IncidentsTile_Metadata_LatLng& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:valhalla.IncidentsTile.Metadata.LatLng)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IncidentsTile_Metadata_LatLng::IsInitialized() const {
+  return true;
+}
+
+void IncidentsTile_Metadata_LatLng::InternalSwap(IncidentsTile_Metadata_LatLng* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(has_lat_, other->has_lat_);
+  swap(has_lng_, other->has_lng_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_oneof_case_[1], other->_oneof_case_[1]);
+}
+
+std::string IncidentsTile_Metadata_LatLng::GetTypeName() const {
+  return "valhalla.IncidentsTile.Metadata.LatLng";
+}
+
+
+// ===================================================================
+
 class IncidentsTile_Metadata::_Internal {
  public:
   static const ::valhalla::IncidentsTile_Metadata_Congestion& congestion(const IncidentsTile_Metadata* msg);
+  static const ::valhalla::IncidentsTile_Metadata_LatLng& display_ll(const IncidentsTile_Metadata* msg);
 };
 
 const ::valhalla::IncidentsTile_Metadata_Congestion&
 IncidentsTile_Metadata::_Internal::congestion(const IncidentsTile_Metadata* msg) {
   return *msg->congestion_;
+}
+const ::valhalla::IncidentsTile_Metadata_LatLng&
+IncidentsTile_Metadata::_Internal::display_ll(const IncidentsTile_Metadata* msg) {
+  return *msg->display_ll_;
 }
 IncidentsTile_Metadata::IncidentsTile_Metadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -798,6 +1087,11 @@ IncidentsTile_Metadata::IncidentsTile_Metadata(const IncidentsTile_Metadata& fro
   } else {
     congestion_ = nullptr;
   }
+  if (from._internal_has_display_ll()) {
+    display_ll_ = new ::valhalla::IncidentsTile_Metadata_LatLng(*from.display_ll_);
+  } else {
+    display_ll_ = nullptr;
+  }
   ::memcpy(&type_, &from.type_,
     static_cast<size_t>(reinterpret_cast<char*>(&id_) -
     reinterpret_cast<char*>(&type_)) + sizeof(id_));
@@ -858,6 +1152,7 @@ inline void IncidentsTile_Metadata::SharedDtor() {
   iso_3166_1_alpha2_.Destroy();
   iso_3166_1_alpha3_.Destroy();
   if (this != internal_default_instance()) delete congestion_;
+  if (this != internal_default_instance()) delete display_ll_;
 }
 
 void IncidentsTile_Metadata::SetCachedSize(int size) const {
@@ -883,6 +1178,10 @@ void IncidentsTile_Metadata::Clear() {
     delete congestion_;
   }
   congestion_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && display_ll_ != nullptr) {
+    delete display_ll_;
+  }
+  display_ll_ = nullptr;
   ::memset(&type_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&id_) -
       reinterpret_cast<char*>(&type_)) + sizeof(id_));
@@ -1041,6 +1340,14 @@ const char* IncidentsTile_Metadata::_InternalParse(const char* ptr, ::_pbi::Pars
       case 17:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
           length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .valhalla.IncidentsTile.Metadata.LatLng display_ll = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
+          ptr = ctx->ParseMessage(_internal_mutable_display_ll(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1228,6 +1535,13 @@ uint8_t* IncidentsTile_Metadata::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(17, this->_internal_length(), target);
   }
 
+  // .valhalla.IncidentsTile.Metadata.LatLng display_ll = 18;
+  if (this->_internal_has_display_ll()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(18, _Internal::display_ll(this),
+        _Internal::display_ll(this).GetCachedSize(), target, stream);
+  }
+
   // uint64 id = 128;
   if (this->_internal_id() != 0) {
     target = stream->EnsureSpace(target);
@@ -1348,6 +1662,13 @@ size_t IncidentsTile_Metadata::ByteSizeLong() const {
         *congestion_);
   }
 
+  // .valhalla.IncidentsTile.Metadata.LatLng display_ll = 18;
+  if (this->_internal_has_display_ll()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *display_ll_);
+  }
+
   // .valhalla.IncidentsTile.Metadata.Type type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
@@ -1446,6 +1767,9 @@ void IncidentsTile_Metadata::MergeFrom(const IncidentsTile_Metadata& from) {
   }
   if (from._internal_has_congestion()) {
     _internal_mutable_congestion()->::valhalla::IncidentsTile_Metadata_Congestion::MergeFrom(from._internal_congestion());
+  }
+  if (from._internal_has_display_ll()) {
+    _internal_mutable_display_ll()->::valhalla::IncidentsTile_Metadata_LatLng::MergeFrom(from._internal_display_ll());
   }
   if (from._internal_type() != 0) {
     _internal_set_type(from._internal_type());
@@ -1754,6 +2078,10 @@ Arena::CreateMaybeMessage< ::valhalla::IncidentsTile_Location >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::valhalla::IncidentsTile_Metadata_Congestion*
 Arena::CreateMaybeMessage< ::valhalla::IncidentsTile_Metadata_Congestion >(Arena* arena) {
   return Arena::CreateMessageInternal< ::valhalla::IncidentsTile_Metadata_Congestion >(arena);
+}
+template<> PROTOBUF_NOINLINE ::valhalla::IncidentsTile_Metadata_LatLng*
+Arena::CreateMaybeMessage< ::valhalla::IncidentsTile_Metadata_LatLng >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::valhalla::IncidentsTile_Metadata_LatLng >(arena);
 }
 template<> PROTOBUF_NOINLINE ::valhalla::IncidentsTile_Metadata*
 Arena::CreateMaybeMessage< ::valhalla::IncidentsTile_Metadata >(Arena* arena) {

@@ -170,12 +170,14 @@ enum DirectionsLeg_Maneuver_Type : int {
   DirectionsLeg_Maneuver_Type_kEscalatorEnter = 41,
   DirectionsLeg_Maneuver_Type_kBuildingEnter = 42,
   DirectionsLeg_Maneuver_Type_kBuildingExit = 43,
+  DirectionsLeg_Maneuver_Type_kLevelChange = 44,
+  DirectionsLeg_Maneuver_Type_kParkVehicle = 45,
   DirectionsLeg_Maneuver_Type_DirectionsLeg_Maneuver_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   DirectionsLeg_Maneuver_Type_DirectionsLeg_Maneuver_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool DirectionsLeg_Maneuver_Type_IsValid(int value);
 constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver_Type_Type_MIN = DirectionsLeg_Maneuver_Type_kNone;
-constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver_Type_Type_MAX = DirectionsLeg_Maneuver_Type_kBuildingExit;
+constexpr DirectionsLeg_Maneuver_Type DirectionsLeg_Maneuver_Type_Type_MAX = DirectionsLeg_Maneuver_Type_kParkVehicle;
 constexpr int DirectionsLeg_Maneuver_Type_Type_ARRAYSIZE = DirectionsLeg_Maneuver_Type_Type_MAX + 1;
 
 const std::string& DirectionsLeg_Maneuver_Type_Name(DirectionsLeg_Maneuver_Type value);
@@ -664,6 +666,10 @@ class DirectionsLeg_Maneuver final :
     DirectionsLeg_Maneuver_Type_kBuildingEnter;
   static constexpr Type kBuildingExit =
     DirectionsLeg_Maneuver_Type_kBuildingExit;
+  static constexpr Type kLevelChange =
+    DirectionsLeg_Maneuver_Type_kLevelChange;
+  static constexpr Type kParkVehicle =
+    DirectionsLeg_Maneuver_Type_kParkVehicle;
   static inline bool Type_IsValid(int value) {
     return DirectionsLeg_Maneuver_Type_IsValid(value);
   }
@@ -1405,6 +1411,7 @@ class DirectionsLeg final :
   enum : int {
     kLocationFieldNumber = 4,
     kManeuverFieldNumber = 6,
+    kLevelChangesFieldNumber = 8,
     kShapeFieldNumber = 7,
     kSummaryFieldNumber = 5,
     kTripIdFieldNumber = 1,
@@ -1446,6 +1453,24 @@ class DirectionsLeg final :
   ::valhalla::DirectionsLeg_Maneuver* add_maneuver();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::DirectionsLeg_Maneuver >&
       maneuver() const;
+
+  // repeated .valhalla.LevelChange level_changes = 8;
+  int level_changes_size() const;
+  private:
+  int _internal_level_changes_size() const;
+  public:
+  void clear_level_changes();
+  ::valhalla::LevelChange* mutable_level_changes(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >*
+      mutable_level_changes();
+  private:
+  const ::valhalla::LevelChange& _internal_level_changes(int index) const;
+  ::valhalla::LevelChange* _internal_add_level_changes();
+  public:
+  const ::valhalla::LevelChange& level_changes(int index) const;
+  ::valhalla::LevelChange* add_level_changes();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >&
+      level_changes() const;
 
   // string shape = 7;
   void clear_shape();
@@ -1515,6 +1540,7 @@ class DirectionsLeg final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::Location > location_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::DirectionsLeg_Maneuver > maneuver_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange > level_changes_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shape_;
   ::valhalla::Summary* summary_;
   uint64_t trip_id_;
@@ -3652,6 +3678,43 @@ inline void DirectionsLeg::set_allocated_shape(std::string* shape) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:valhalla.DirectionsLeg.shape)
+}
+
+// repeated .valhalla.LevelChange level_changes = 8;
+inline int DirectionsLeg::_internal_level_changes_size() const {
+  return level_changes_.size();
+}
+inline int DirectionsLeg::level_changes_size() const {
+  return _internal_level_changes_size();
+}
+inline ::valhalla::LevelChange* DirectionsLeg::mutable_level_changes(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.DirectionsLeg.level_changes)
+  return level_changes_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >*
+DirectionsLeg::mutable_level_changes() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.DirectionsLeg.level_changes)
+  return &level_changes_;
+}
+inline const ::valhalla::LevelChange& DirectionsLeg::_internal_level_changes(int index) const {
+  return level_changes_.Get(index);
+}
+inline const ::valhalla::LevelChange& DirectionsLeg::level_changes(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.DirectionsLeg.level_changes)
+  return _internal_level_changes(index);
+}
+inline ::valhalla::LevelChange* DirectionsLeg::_internal_add_level_changes() {
+  return level_changes_.Add();
+}
+inline ::valhalla::LevelChange* DirectionsLeg::add_level_changes() {
+  ::valhalla::LevelChange* _add = _internal_add_level_changes();
+  // @@protoc_insertion_point(field_add:valhalla.DirectionsLeg.level_changes)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >&
+DirectionsLeg::level_changes() const {
+  // @@protoc_insertion_point(field_list:valhalla.DirectionsLeg.level_changes)
+  return level_changes_;
 }
 
 // -------------------------------------------------------------------

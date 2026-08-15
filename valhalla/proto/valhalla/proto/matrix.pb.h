@@ -217,6 +217,12 @@ class Matrix final :
     kTimeZoneOffsetsFieldNumber = 9,
     kTimeZoneNamesFieldNumber = 10,
     kSecondPassFieldNumber = 11,
+    kBeginHeadingFieldNumber = 12,
+    kEndHeadingFieldNumber = 13,
+    kBeginLatFieldNumber = 14,
+    kBeginLonFieldNumber = 15,
+    kEndLatFieldNumber = 16,
+    kEndLonFieldNumber = 17,
     kAlgorithmFieldNumber = 7,
   };
   // repeated uint32 distances = 2;
@@ -425,6 +431,138 @@ class Matrix final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >*
       mutable_second_pass();
 
+  // repeated float begin_heading = 12;
+  int begin_heading_size() const;
+  private:
+  int _internal_begin_heading_size() const;
+  public:
+  void clear_begin_heading();
+  private:
+  float _internal_begin_heading(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      _internal_begin_heading() const;
+  void _internal_add_begin_heading(float value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      _internal_mutable_begin_heading();
+  public:
+  float begin_heading(int index) const;
+  void set_begin_heading(int index, float value);
+  void add_begin_heading(float value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      begin_heading() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      mutable_begin_heading();
+
+  // repeated float end_heading = 13;
+  int end_heading_size() const;
+  private:
+  int _internal_end_heading_size() const;
+  public:
+  void clear_end_heading();
+  private:
+  float _internal_end_heading(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      _internal_end_heading() const;
+  void _internal_add_end_heading(float value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      _internal_mutable_end_heading();
+  public:
+  float end_heading(int index) const;
+  void set_end_heading(int index, float value);
+  void add_end_heading(float value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+      end_heading() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+      mutable_end_heading();
+
+  // repeated double begin_lat = 14;
+  int begin_lat_size() const;
+  private:
+  int _internal_begin_lat_size() const;
+  public:
+  void clear_begin_lat();
+  private:
+  double _internal_begin_lat(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_begin_lat() const;
+  void _internal_add_begin_lat(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_begin_lat();
+  public:
+  double begin_lat(int index) const;
+  void set_begin_lat(int index, double value);
+  void add_begin_lat(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      begin_lat() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_begin_lat();
+
+  // repeated double begin_lon = 15;
+  int begin_lon_size() const;
+  private:
+  int _internal_begin_lon_size() const;
+  public:
+  void clear_begin_lon();
+  private:
+  double _internal_begin_lon(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_begin_lon() const;
+  void _internal_add_begin_lon(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_begin_lon();
+  public:
+  double begin_lon(int index) const;
+  void set_begin_lon(int index, double value);
+  void add_begin_lon(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      begin_lon() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_begin_lon();
+
+  // repeated double end_lat = 16;
+  int end_lat_size() const;
+  private:
+  int _internal_end_lat_size() const;
+  public:
+  void clear_end_lat();
+  private:
+  double _internal_end_lat(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_end_lat() const;
+  void _internal_add_end_lat(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_end_lat();
+  public:
+  double end_lat(int index) const;
+  void set_end_lat(int index, double value);
+  void add_end_lat(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      end_lat() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_end_lat();
+
+  // repeated double end_lon = 17;
+  int end_lon_size() const;
+  private:
+  int _internal_end_lon_size() const;
+  public:
+  void clear_end_lon();
+  private:
+  double _internal_end_lon(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      _internal_end_lon() const;
+  void _internal_add_end_lon(double value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      _internal_mutable_end_lon();
+  public:
+  double end_lon(int index) const;
+  void set_end_lon(int index, double value);
+  void add_end_lon(double value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+      end_lon() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+      mutable_end_lon();
+
   // .valhalla.Matrix.Algorithm algorithm = 7;
   void clear_algorithm();
   ::valhalla::Matrix_Algorithm algorithm() const;
@@ -453,6 +591,12 @@ class Matrix final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> time_zone_offsets_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> time_zone_names_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool > second_pass_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > begin_heading_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > end_heading_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > begin_lat_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > begin_lon_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > end_lat_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< double > end_lon_;
   int algorithm_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_matrix_2eproto;
@@ -1021,6 +1165,288 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >*
 Matrix::mutable_second_pass() {
   // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.second_pass)
   return _internal_mutable_second_pass();
+}
+
+// repeated float begin_heading = 12;
+inline int Matrix::_internal_begin_heading_size() const {
+  return begin_heading_.size();
+}
+inline int Matrix::begin_heading_size() const {
+  return _internal_begin_heading_size();
+}
+inline void Matrix::clear_begin_heading() {
+  begin_heading_.Clear();
+}
+inline float Matrix::_internal_begin_heading(int index) const {
+  return begin_heading_.Get(index);
+}
+inline float Matrix::begin_heading(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Matrix.begin_heading)
+  return _internal_begin_heading(index);
+}
+inline void Matrix::set_begin_heading(int index, float value) {
+  begin_heading_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Matrix.begin_heading)
+}
+inline void Matrix::_internal_add_begin_heading(float value) {
+  begin_heading_.Add(value);
+}
+inline void Matrix::add_begin_heading(float value) {
+  _internal_add_begin_heading(value);
+  // @@protoc_insertion_point(field_add:valhalla.Matrix.begin_heading)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Matrix::_internal_begin_heading() const {
+  return begin_heading_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Matrix::begin_heading() const {
+  // @@protoc_insertion_point(field_list:valhalla.Matrix.begin_heading)
+  return _internal_begin_heading();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+Matrix::_internal_mutable_begin_heading() {
+  return &begin_heading_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+Matrix::mutable_begin_heading() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.begin_heading)
+  return _internal_mutable_begin_heading();
+}
+
+// repeated float end_heading = 13;
+inline int Matrix::_internal_end_heading_size() const {
+  return end_heading_.size();
+}
+inline int Matrix::end_heading_size() const {
+  return _internal_end_heading_size();
+}
+inline void Matrix::clear_end_heading() {
+  end_heading_.Clear();
+}
+inline float Matrix::_internal_end_heading(int index) const {
+  return end_heading_.Get(index);
+}
+inline float Matrix::end_heading(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Matrix.end_heading)
+  return _internal_end_heading(index);
+}
+inline void Matrix::set_end_heading(int index, float value) {
+  end_heading_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Matrix.end_heading)
+}
+inline void Matrix::_internal_add_end_heading(float value) {
+  end_heading_.Add(value);
+}
+inline void Matrix::add_end_heading(float value) {
+  _internal_add_end_heading(value);
+  // @@protoc_insertion_point(field_add:valhalla.Matrix.end_heading)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Matrix::_internal_end_heading() const {
+  return end_heading_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Matrix::end_heading() const {
+  // @@protoc_insertion_point(field_list:valhalla.Matrix.end_heading)
+  return _internal_end_heading();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+Matrix::_internal_mutable_end_heading() {
+  return &end_heading_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
+Matrix::mutable_end_heading() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.end_heading)
+  return _internal_mutable_end_heading();
+}
+
+// repeated double begin_lat = 14;
+inline int Matrix::_internal_begin_lat_size() const {
+  return begin_lat_.size();
+}
+inline int Matrix::begin_lat_size() const {
+  return _internal_begin_lat_size();
+}
+inline void Matrix::clear_begin_lat() {
+  begin_lat_.Clear();
+}
+inline double Matrix::_internal_begin_lat(int index) const {
+  return begin_lat_.Get(index);
+}
+inline double Matrix::begin_lat(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Matrix.begin_lat)
+  return _internal_begin_lat(index);
+}
+inline void Matrix::set_begin_lat(int index, double value) {
+  begin_lat_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Matrix.begin_lat)
+}
+inline void Matrix::_internal_add_begin_lat(double value) {
+  begin_lat_.Add(value);
+}
+inline void Matrix::add_begin_lat(double value) {
+  _internal_add_begin_lat(value);
+  // @@protoc_insertion_point(field_add:valhalla.Matrix.begin_lat)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::_internal_begin_lat() const {
+  return begin_lat_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::begin_lat() const {
+  // @@protoc_insertion_point(field_list:valhalla.Matrix.begin_lat)
+  return _internal_begin_lat();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::_internal_mutable_begin_lat() {
+  return &begin_lat_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::mutable_begin_lat() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.begin_lat)
+  return _internal_mutable_begin_lat();
+}
+
+// repeated double begin_lon = 15;
+inline int Matrix::_internal_begin_lon_size() const {
+  return begin_lon_.size();
+}
+inline int Matrix::begin_lon_size() const {
+  return _internal_begin_lon_size();
+}
+inline void Matrix::clear_begin_lon() {
+  begin_lon_.Clear();
+}
+inline double Matrix::_internal_begin_lon(int index) const {
+  return begin_lon_.Get(index);
+}
+inline double Matrix::begin_lon(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Matrix.begin_lon)
+  return _internal_begin_lon(index);
+}
+inline void Matrix::set_begin_lon(int index, double value) {
+  begin_lon_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Matrix.begin_lon)
+}
+inline void Matrix::_internal_add_begin_lon(double value) {
+  begin_lon_.Add(value);
+}
+inline void Matrix::add_begin_lon(double value) {
+  _internal_add_begin_lon(value);
+  // @@protoc_insertion_point(field_add:valhalla.Matrix.begin_lon)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::_internal_begin_lon() const {
+  return begin_lon_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::begin_lon() const {
+  // @@protoc_insertion_point(field_list:valhalla.Matrix.begin_lon)
+  return _internal_begin_lon();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::_internal_mutable_begin_lon() {
+  return &begin_lon_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::mutable_begin_lon() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.begin_lon)
+  return _internal_mutable_begin_lon();
+}
+
+// repeated double end_lat = 16;
+inline int Matrix::_internal_end_lat_size() const {
+  return end_lat_.size();
+}
+inline int Matrix::end_lat_size() const {
+  return _internal_end_lat_size();
+}
+inline void Matrix::clear_end_lat() {
+  end_lat_.Clear();
+}
+inline double Matrix::_internal_end_lat(int index) const {
+  return end_lat_.Get(index);
+}
+inline double Matrix::end_lat(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Matrix.end_lat)
+  return _internal_end_lat(index);
+}
+inline void Matrix::set_end_lat(int index, double value) {
+  end_lat_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Matrix.end_lat)
+}
+inline void Matrix::_internal_add_end_lat(double value) {
+  end_lat_.Add(value);
+}
+inline void Matrix::add_end_lat(double value) {
+  _internal_add_end_lat(value);
+  // @@protoc_insertion_point(field_add:valhalla.Matrix.end_lat)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::_internal_end_lat() const {
+  return end_lat_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::end_lat() const {
+  // @@protoc_insertion_point(field_list:valhalla.Matrix.end_lat)
+  return _internal_end_lat();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::_internal_mutable_end_lat() {
+  return &end_lat_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::mutable_end_lat() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.end_lat)
+  return _internal_mutable_end_lat();
+}
+
+// repeated double end_lon = 17;
+inline int Matrix::_internal_end_lon_size() const {
+  return end_lon_.size();
+}
+inline int Matrix::end_lon_size() const {
+  return _internal_end_lon_size();
+}
+inline void Matrix::clear_end_lon() {
+  end_lon_.Clear();
+}
+inline double Matrix::_internal_end_lon(int index) const {
+  return end_lon_.Get(index);
+}
+inline double Matrix::end_lon(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.Matrix.end_lon)
+  return _internal_end_lon(index);
+}
+inline void Matrix::set_end_lon(int index, double value) {
+  end_lon_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.Matrix.end_lon)
+}
+inline void Matrix::_internal_add_end_lon(double value) {
+  end_lon_.Add(value);
+}
+inline void Matrix::add_end_lon(double value) {
+  _internal_add_end_lon(value);
+  // @@protoc_insertion_point(field_add:valhalla.Matrix.end_lon)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::_internal_end_lon() const {
+  return end_lon_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >&
+Matrix::end_lon() const {
+  // @@protoc_insertion_point(field_list:valhalla.Matrix.end_lon)
+  return _internal_end_lon();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::_internal_mutable_end_lon() {
+  return &end_lon_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< double >*
+Matrix::mutable_end_lon() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.Matrix.end_lon)
+  return _internal_mutable_end_lon();
 }
 
 #ifdef __GNUC__

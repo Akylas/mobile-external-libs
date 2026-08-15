@@ -67,6 +67,9 @@ extern TripLeg_CostDefaultTypeInternal _TripLeg_Cost_default_instance_;
 class TripLeg_Edge;
 struct TripLeg_EdgeDefaultTypeInternal;
 extern TripLeg_EdgeDefaultTypeInternal _TripLeg_Edge_default_instance_;
+class TripLeg_Edge_Level;
+struct TripLeg_Edge_LevelDefaultTypeInternal;
+extern TripLeg_Edge_LevelDefaultTypeInternal _TripLeg_Edge_Level_default_instance_;
 class TripLeg_Incident;
 struct TripLeg_IncidentDefaultTypeInternal;
 extern TripLeg_IncidentDefaultTypeInternal _TripLeg_Incident_default_instance_;
@@ -88,6 +91,9 @@ extern TripLeg_RestrictionDefaultTypeInternal _TripLeg_Restriction_default_insta
 class TripLeg_ShapeAttributes;
 struct TripLeg_ShapeAttributesDefaultTypeInternal;
 extern TripLeg_ShapeAttributesDefaultTypeInternal _TripLeg_ShapeAttributes_default_instance_;
+class TripLeg_Speeds;
+struct TripLeg_SpeedsDefaultTypeInternal;
+extern TripLeg_SpeedsDefaultTypeInternal _TripLeg_Speeds_default_instance_;
 class TripLeg_TimeDomain;
 struct TripLeg_TimeDomainDefaultTypeInternal;
 extern TripLeg_TimeDomainDefaultTypeInternal _TripLeg_TimeDomain_default_instance_;
@@ -97,6 +103,9 @@ extern TripLeg_TrafficSegmentDefaultTypeInternal _TripLeg_TrafficSegment_default
 class TripRoute;
 struct TripRouteDefaultTypeInternal;
 extern TripRouteDefaultTypeInternal _TripRoute_default_instance_;
+class TripRoute_MatchedPoint;
+struct TripRoute_MatchedPointDefaultTypeInternal;
+extern TripRoute_MatchedPointDefaultTypeInternal _TripRoute_MatchedPoint_default_instance_;
 }  // namespace valhalla
 PROTOBUF_NAMESPACE_OPEN
 template<> ::valhalla::Trip* Arena::CreateMaybeMessage<::valhalla::Trip>(Arena*);
@@ -106,6 +115,7 @@ template<> ::valhalla::TripLeg_Closure* Arena::CreateMaybeMessage<::valhalla::Tr
 template<> ::valhalla::TripLeg_ConditionalSpeedLimit* Arena::CreateMaybeMessage<::valhalla::TripLeg_ConditionalSpeedLimit>(Arena*);
 template<> ::valhalla::TripLeg_Cost* Arena::CreateMaybeMessage<::valhalla::TripLeg_Cost>(Arena*);
 template<> ::valhalla::TripLeg_Edge* Arena::CreateMaybeMessage<::valhalla::TripLeg_Edge>(Arena*);
+template<> ::valhalla::TripLeg_Edge_Level* Arena::CreateMaybeMessage<::valhalla::TripLeg_Edge_Level>(Arena*);
 template<> ::valhalla::TripLeg_Incident* Arena::CreateMaybeMessage<::valhalla::TripLeg_Incident>(Arena*);
 template<> ::valhalla::TripLeg_IntersectingEdge* Arena::CreateMaybeMessage<::valhalla::TripLeg_IntersectingEdge>(Arena*);
 template<> ::valhalla::TripLeg_LaneConnectivity* Arena::CreateMaybeMessage<::valhalla::TripLeg_LaneConnectivity>(Arena*);
@@ -113,9 +123,11 @@ template<> ::valhalla::TripLeg_Node* Arena::CreateMaybeMessage<::valhalla::TripL
 template<> ::valhalla::TripLeg_PathCost* Arena::CreateMaybeMessage<::valhalla::TripLeg_PathCost>(Arena*);
 template<> ::valhalla::TripLeg_Restriction* Arena::CreateMaybeMessage<::valhalla::TripLeg_Restriction>(Arena*);
 template<> ::valhalla::TripLeg_ShapeAttributes* Arena::CreateMaybeMessage<::valhalla::TripLeg_ShapeAttributes>(Arena*);
+template<> ::valhalla::TripLeg_Speeds* Arena::CreateMaybeMessage<::valhalla::TripLeg_Speeds>(Arena*);
 template<> ::valhalla::TripLeg_TimeDomain* Arena::CreateMaybeMessage<::valhalla::TripLeg_TimeDomain>(Arena*);
 template<> ::valhalla::TripLeg_TrafficSegment* Arena::CreateMaybeMessage<::valhalla::TripLeg_TrafficSegment>(Arena*);
 template<> ::valhalla::TripRoute* Arena::CreateMaybeMessage<::valhalla::TripRoute>(Arena*);
+template<> ::valhalla::TripRoute_MatchedPoint* Arena::CreateMaybeMessage<::valhalla::TripRoute_MatchedPoint>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace valhalla {
 
@@ -349,6 +361,70 @@ inline const std::string& TripLeg_Sidewalk_Name(T enum_t_value) {
 }
 bool TripLeg_Sidewalk_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TripLeg_Sidewalk* value);
+enum TripLeg_HovType : int {
+  TripLeg_HovType_kHOV2 = 0,
+  TripLeg_HovType_kHOV3 = 1,
+  TripLeg_HovType_TripLeg_HovType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  TripLeg_HovType_TripLeg_HovType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool TripLeg_HovType_IsValid(int value);
+constexpr TripLeg_HovType TripLeg_HovType_HovType_MIN = TripLeg_HovType_kHOV2;
+constexpr TripLeg_HovType TripLeg_HovType_HovType_MAX = TripLeg_HovType_kHOV3;
+constexpr int TripLeg_HovType_HovType_ARRAYSIZE = TripLeg_HovType_HovType_MAX + 1;
+
+const std::string& TripLeg_HovType_Name(TripLeg_HovType value);
+template<typename T>
+inline const std::string& TripLeg_HovType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TripLeg_HovType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function TripLeg_HovType_Name.");
+  return TripLeg_HovType_Name(static_cast<TripLeg_HovType>(enum_t_value));
+}
+bool TripLeg_HovType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TripLeg_HovType* value);
+enum TripLeg_SpeedType : int {
+  TripLeg_SpeedType_kTagged = 0,
+  TripLeg_SpeedType_kClassified = 1,
+  TripLeg_SpeedType_TripLeg_SpeedType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  TripLeg_SpeedType_TripLeg_SpeedType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool TripLeg_SpeedType_IsValid(int value);
+constexpr TripLeg_SpeedType TripLeg_SpeedType_SpeedType_MIN = TripLeg_SpeedType_kTagged;
+constexpr TripLeg_SpeedType TripLeg_SpeedType_SpeedType_MAX = TripLeg_SpeedType_kClassified;
+constexpr int TripLeg_SpeedType_SpeedType_ARRAYSIZE = TripLeg_SpeedType_SpeedType_MAX + 1;
+
+const std::string& TripLeg_SpeedType_Name(TripLeg_SpeedType value);
+template<typename T>
+inline const std::string& TripLeg_SpeedType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TripLeg_SpeedType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function TripLeg_SpeedType_Name.");
+  return TripLeg_SpeedType_Name(static_cast<TripLeg_SpeedType>(enum_t_value));
+}
+bool TripLeg_SpeedType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TripLeg_SpeedType* value);
+enum TripRoute_MatchedPoint_MatchType : int {
+  TripRoute_MatchedPoint_MatchType_kUnmatched = 0,
+  TripRoute_MatchedPoint_MatchType_kInterpolated = 1,
+  TripRoute_MatchedPoint_MatchType_kMatched = 2,
+  TripRoute_MatchedPoint_MatchType_TripRoute_MatchedPoint_MatchType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  TripRoute_MatchedPoint_MatchType_TripRoute_MatchedPoint_MatchType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool TripRoute_MatchedPoint_MatchType_IsValid(int value);
+constexpr TripRoute_MatchedPoint_MatchType TripRoute_MatchedPoint_MatchType_MatchType_MIN = TripRoute_MatchedPoint_MatchType_kUnmatched;
+constexpr TripRoute_MatchedPoint_MatchType TripRoute_MatchedPoint_MatchType_MatchType_MAX = TripRoute_MatchedPoint_MatchType_kMatched;
+constexpr int TripRoute_MatchedPoint_MatchType_MatchType_ARRAYSIZE = TripRoute_MatchedPoint_MatchType_MatchType_MAX + 1;
+
+const std::string& TripRoute_MatchedPoint_MatchType_Name(TripRoute_MatchedPoint_MatchType value);
+template<typename T>
+inline const std::string& TripRoute_MatchedPoint_MatchType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TripRoute_MatchedPoint_MatchType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function TripRoute_MatchedPoint_MatchType_Name.");
+  return TripRoute_MatchedPoint_MatchType_Name(static_cast<TripRoute_MatchedPoint_MatchType>(enum_t_value));
+}
+bool TripRoute_MatchedPoint_MatchType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TripRoute_MatchedPoint_MatchType* value);
 // ===================================================================
 
 class TripLeg_LaneConnectivity final :
@@ -681,6 +757,177 @@ class TripLeg_TrafficSegment final :
 };
 // -------------------------------------------------------------------
 
+class TripLeg_Speeds final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.Speeds) */ {
+ public:
+  inline TripLeg_Speeds() : TripLeg_Speeds(nullptr) {}
+  ~TripLeg_Speeds() override;
+  explicit PROTOBUF_CONSTEXPR TripLeg_Speeds(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TripLeg_Speeds(const TripLeg_Speeds& from);
+  TripLeg_Speeds(TripLeg_Speeds&& from) noexcept
+    : TripLeg_Speeds() {
+    *this = ::std::move(from);
+  }
+
+  inline TripLeg_Speeds& operator=(const TripLeg_Speeds& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TripLeg_Speeds& operator=(TripLeg_Speeds&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const TripLeg_Speeds& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TripLeg_Speeds* internal_default_instance() {
+    return reinterpret_cast<const TripLeg_Speeds*>(
+               &_TripLeg_Speeds_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(TripLeg_Speeds& a, TripLeg_Speeds& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TripLeg_Speeds* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TripLeg_Speeds* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TripLeg_Speeds* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TripLeg_Speeds>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TripLeg_Speeds& from);
+  void MergeFrom(const TripLeg_Speeds& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TripLeg_Speeds* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.TripLeg.Speeds";
+  }
+  protected:
+  explicit TripLeg_Speeds(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPredictedFlowFieldNumber = 1,
+    kConstrainedFlowFieldNumber = 2,
+    kFreeFlowFieldNumber = 3,
+    kCurrentFlowFieldNumber = 4,
+    kNoFlowFieldNumber = 5,
+  };
+  // float predicted_flow = 1;
+  void clear_predicted_flow();
+  float predicted_flow() const;
+  void set_predicted_flow(float value);
+  private:
+  float _internal_predicted_flow() const;
+  void _internal_set_predicted_flow(float value);
+  public:
+
+  // float constrained_flow = 2;
+  void clear_constrained_flow();
+  float constrained_flow() const;
+  void set_constrained_flow(float value);
+  private:
+  float _internal_constrained_flow() const;
+  void _internal_set_constrained_flow(float value);
+  public:
+
+  // float free_flow = 3;
+  void clear_free_flow();
+  float free_flow() const;
+  void set_free_flow(float value);
+  private:
+  float _internal_free_flow() const;
+  void _internal_set_free_flow(float value);
+  public:
+
+  // float current_flow = 4;
+  void clear_current_flow();
+  float current_flow() const;
+  void set_current_flow(float value);
+  private:
+  float _internal_current_flow() const;
+  void _internal_set_current_flow(float value);
+  public:
+
+  // float no_flow = 5;
+  void clear_no_flow();
+  float no_flow() const;
+  void set_no_flow(float value);
+  private:
+  float _internal_no_flow() const;
+  void _internal_set_no_flow(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.TripLeg.Speeds)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  float predicted_flow_;
+  float constrained_flow_;
+  float free_flow_;
+  float current_flow_;
+  float no_flow_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_trip_2eproto;
+};
+// -------------------------------------------------------------------
+
 class TripLeg_Restriction final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.Restriction) */ {
  public:
@@ -720,7 +967,7 @@ class TripLeg_Restriction final :
                &_TripLeg_Restriction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(TripLeg_Restriction& a, TripLeg_Restriction& b) {
     a.Swap(&b);
@@ -847,7 +1094,7 @@ class TripLeg_TimeDomain final :
                &_TripLeg_TimeDomain_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(TripLeg_TimeDomain& a, TripLeg_TimeDomain& b) {
     a.Swap(&b);
@@ -1121,7 +1368,7 @@ class TripLeg_ConditionalSpeedLimit final :
                &_TripLeg_ConditionalSpeedLimit_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(TripLeg_ConditionalSpeedLimit& a, TripLeg_ConditionalSpeedLimit& b) {
     a.Swap(&b);
@@ -1229,6 +1476,144 @@ class TripLeg_ConditionalSpeedLimit final :
 };
 // -------------------------------------------------------------------
 
+class TripLeg_Edge_Level final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.Edge.Level) */ {
+ public:
+  inline TripLeg_Edge_Level() : TripLeg_Edge_Level(nullptr) {}
+  ~TripLeg_Edge_Level() override;
+  explicit PROTOBUF_CONSTEXPR TripLeg_Edge_Level(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TripLeg_Edge_Level(const TripLeg_Edge_Level& from);
+  TripLeg_Edge_Level(TripLeg_Edge_Level&& from) noexcept
+    : TripLeg_Edge_Level() {
+    *this = ::std::move(from);
+  }
+
+  inline TripLeg_Edge_Level& operator=(const TripLeg_Edge_Level& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TripLeg_Edge_Level& operator=(TripLeg_Edge_Level&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const TripLeg_Edge_Level& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const TripLeg_Edge_Level* internal_default_instance() {
+    return reinterpret_cast<const TripLeg_Edge_Level*>(
+               &_TripLeg_Edge_Level_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(TripLeg_Edge_Level& a, TripLeg_Edge_Level& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TripLeg_Edge_Level* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TripLeg_Edge_Level* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TripLeg_Edge_Level* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TripLeg_Edge_Level>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TripLeg_Edge_Level& from);
+  void MergeFrom(const TripLeg_Edge_Level& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TripLeg_Edge_Level* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.TripLeg.Edge.Level";
+  }
+  protected:
+  explicit TripLeg_Edge_Level(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStartFieldNumber = 1,
+    kEndFieldNumber = 2,
+  };
+  // float start = 1;
+  void clear_start();
+  float start() const;
+  void set_start(float value);
+  private:
+  float _internal_start() const;
+  void _internal_set_start(float value);
+  public:
+
+  // float end = 2;
+  void clear_end();
+  float end() const;
+  void set_end(float value);
+  private:
+  float _internal_end() const;
+  void _internal_set_end(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:valhalla.TripLeg.Edge.Level)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  float start_;
+  float end_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_trip_2eproto;
+};
+// -------------------------------------------------------------------
+
 class TripLeg_Edge final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripLeg.Edge) */ {
  public:
@@ -1263,12 +1648,32 @@ class TripLeg_Edge final :
   static const TripLeg_Edge& default_instance() {
     return *internal_default_instance();
   }
+  enum HasBeginOsmNodeIdCase {
+    kBeginOsmNodeId = 70,
+    HAS_BEGIN_OSM_NODE_ID_NOT_SET = 0,
+  };
+
+  enum HasEndOsmNodeIdCase {
+    kEndOsmNodeId = 71,
+    HAS_END_OSM_NODE_ID_NOT_SET = 0,
+  };
+
+  enum HasSpeedsFadedCase {
+    kSpeedsFaded = 63,
+    HAS_SPEEDS_FADED_NOT_SET = 0,
+  };
+
+  enum HasSpeedsNonFadedCase {
+    kSpeedsNonFaded = 64,
+    HAS_SPEEDS_NON_FADED_NOT_SET = 0,
+  };
+
   static inline const TripLeg_Edge* internal_default_instance() {
     return reinterpret_cast<const TripLeg_Edge*>(
                &_TripLeg_Edge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(TripLeg_Edge& a, TripLeg_Edge& b) {
     a.Swap(&b);
@@ -1329,6 +1734,8 @@ class TripLeg_Edge final :
 
   // nested types ----------------------------------------------------
 
+  typedef TripLeg_Edge_Level Level;
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -1341,6 +1748,7 @@ class TripLeg_Edge final :
     kTunnelNameFieldNumber = 55,
     kElevationFieldNumber = 57,
     kConditionalSpeedLimitsFieldNumber = 60,
+    kLevelsFieldNumber = 61,
     kSignFieldNumber = 19,
     kTransitRouteInfoFieldNumber = 25,
     kRestrictionFieldNumber = 45,
@@ -1392,6 +1800,15 @@ class TripLeg_Edge final :
     kCountryCrossingFieldNumber = 58,
     kForwardFieldNumber = 59,
     kElevationSamplingIntervalFieldNumber = 56,
+    kLevelPrecisionFieldNumber = 62,
+    kSpeedTypeFieldNumber = 65,
+    kTrafficSignalFieldNumber = 66,
+    kHovTypeFieldNumber = 67,
+    kCurvatureFieldNumber = 68,
+    kBeginOsmNodeIdFieldNumber = 70,
+    kEndOsmNodeIdFieldNumber = 71,
+    kSpeedsFadedFieldNumber = 63,
+    kSpeedsNonFadedFieldNumber = 64,
   };
   // repeated .valhalla.StreetName name = 1;
   int name_size() const;
@@ -1558,6 +1975,24 @@ class TripLeg_Edge final :
   ::valhalla::TripLeg_ConditionalSpeedLimit* add_conditional_speed_limits();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit >&
       conditional_speed_limits() const;
+
+  // repeated .valhalla.TripLeg.Edge.Level levels = 61;
+  int levels_size() const;
+  private:
+  int _internal_levels_size() const;
+  public:
+  void clear_levels();
+  ::valhalla::TripLeg_Edge_Level* mutable_levels(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Edge_Level >*
+      mutable_levels();
+  private:
+  const ::valhalla::TripLeg_Edge_Level& _internal_levels(int index) const;
+  ::valhalla::TripLeg_Edge_Level* _internal_add_levels();
+  public:
+  const ::valhalla::TripLeg_Edge_Level& levels(int index) const;
+  ::valhalla::TripLeg_Edge_Level* add_levels();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Edge_Level >&
+      levels() const;
 
   // .valhalla.TripSign sign = 19;
   bool has_sign() const;
@@ -2045,9 +2480,140 @@ class TripLeg_Edge final :
   void _internal_set_elevation_sampling_interval(float value);
   public:
 
+  // uint32 level_precision = 62;
+  void clear_level_precision();
+  uint32_t level_precision() const;
+  void set_level_precision(uint32_t value);
+  private:
+  uint32_t _internal_level_precision() const;
+  void _internal_set_level_precision(uint32_t value);
+  public:
+
+  // .valhalla.TripLeg.SpeedType speed_type = 65;
+  void clear_speed_type();
+  ::valhalla::TripLeg_SpeedType speed_type() const;
+  void set_speed_type(::valhalla::TripLeg_SpeedType value);
+  private:
+  ::valhalla::TripLeg_SpeedType _internal_speed_type() const;
+  void _internal_set_speed_type(::valhalla::TripLeg_SpeedType value);
+  public:
+
+  // bool traffic_signal = 66;
+  void clear_traffic_signal();
+  bool traffic_signal() const;
+  void set_traffic_signal(bool value);
+  private:
+  bool _internal_traffic_signal() const;
+  void _internal_set_traffic_signal(bool value);
+  public:
+
+  // .valhalla.TripLeg.HovType hov_type = 67;
+  void clear_hov_type();
+  ::valhalla::TripLeg_HovType hov_type() const;
+  void set_hov_type(::valhalla::TripLeg_HovType value);
+  private:
+  ::valhalla::TripLeg_HovType _internal_hov_type() const;
+  void _internal_set_hov_type(::valhalla::TripLeg_HovType value);
+  public:
+
+  // uint32 curvature = 68;
+  void clear_curvature();
+  uint32_t curvature() const;
+  void set_curvature(uint32_t value);
+  private:
+  uint32_t _internal_curvature() const;
+  void _internal_set_curvature(uint32_t value);
+  public:
+
+  // uint64 begin_osm_node_id = 70;
+  bool has_begin_osm_node_id() const;
+  private:
+  bool _internal_has_begin_osm_node_id() const;
+  public:
+  void clear_begin_osm_node_id();
+  uint64_t begin_osm_node_id() const;
+  void set_begin_osm_node_id(uint64_t value);
+  private:
+  uint64_t _internal_begin_osm_node_id() const;
+  void _internal_set_begin_osm_node_id(uint64_t value);
+  public:
+
+  // uint64 end_osm_node_id = 71;
+  bool has_end_osm_node_id() const;
+  private:
+  bool _internal_has_end_osm_node_id() const;
+  public:
+  void clear_end_osm_node_id();
+  uint64_t end_osm_node_id() const;
+  void set_end_osm_node_id(uint64_t value);
+  private:
+  uint64_t _internal_end_osm_node_id() const;
+  void _internal_set_end_osm_node_id(uint64_t value);
+  public:
+
+  // .valhalla.TripLeg.Speeds speeds_faded = 63;
+  bool has_speeds_faded() const;
+  private:
+  bool _internal_has_speeds_faded() const;
+  public:
+  void clear_speeds_faded();
+  const ::valhalla::TripLeg_Speeds& speeds_faded() const;
+  PROTOBUF_NODISCARD ::valhalla::TripLeg_Speeds* release_speeds_faded();
+  ::valhalla::TripLeg_Speeds* mutable_speeds_faded();
+  void set_allocated_speeds_faded(::valhalla::TripLeg_Speeds* speeds_faded);
+  private:
+  const ::valhalla::TripLeg_Speeds& _internal_speeds_faded() const;
+  ::valhalla::TripLeg_Speeds* _internal_mutable_speeds_faded();
+  public:
+  void unsafe_arena_set_allocated_speeds_faded(
+      ::valhalla::TripLeg_Speeds* speeds_faded);
+  ::valhalla::TripLeg_Speeds* unsafe_arena_release_speeds_faded();
+
+  // .valhalla.TripLeg.Speeds speeds_non_faded = 64;
+  bool has_speeds_non_faded() const;
+  private:
+  bool _internal_has_speeds_non_faded() const;
+  public:
+  void clear_speeds_non_faded();
+  const ::valhalla::TripLeg_Speeds& speeds_non_faded() const;
+  PROTOBUF_NODISCARD ::valhalla::TripLeg_Speeds* release_speeds_non_faded();
+  ::valhalla::TripLeg_Speeds* mutable_speeds_non_faded();
+  void set_allocated_speeds_non_faded(::valhalla::TripLeg_Speeds* speeds_non_faded);
+  private:
+  const ::valhalla::TripLeg_Speeds& _internal_speeds_non_faded() const;
+  ::valhalla::TripLeg_Speeds* _internal_mutable_speeds_non_faded();
+  public:
+  void unsafe_arena_set_allocated_speeds_non_faded(
+      ::valhalla::TripLeg_Speeds* speeds_non_faded);
+  ::valhalla::TripLeg_Speeds* unsafe_arena_release_speeds_non_faded();
+
+  void clear_has_begin_osm_node_id();
+  HasBeginOsmNodeIdCase has_begin_osm_node_id_case() const;
+  void clear_has_end_osm_node_id();
+  HasEndOsmNodeIdCase has_end_osm_node_id_case() const;
+  void clear_has_speeds_faded();
+  HasSpeedsFadedCase has_speeds_faded_case() const;
+  void clear_has_speeds_non_faded();
+  HasSpeedsNonFadedCase has_speeds_non_faded_case() const;
   // @@protoc_insertion_point(class_scope:valhalla.TripLeg.Edge)
  private:
   class _Internal;
+  void set_has_begin_osm_node_id();
+  void set_has_end_osm_node_id();
+  void set_has_speeds_faded();
+  void set_has_speeds_non_faded();
+
+  inline bool has_has_begin_osm_node_id() const;
+  inline void clear_has_has_begin_osm_node_id();
+
+  inline bool has_has_end_osm_node_id() const;
+  inline void clear_has_has_end_osm_node_id();
+
+  inline bool has_has_speeds_faded() const;
+  inline void clear_has_has_speeds_faded();
+
+  inline bool has_has_speeds_non_faded() const;
+  inline void clear_has_has_speeds_non_faded();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -2061,6 +2627,7 @@ class TripLeg_Edge final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::StreetName > tunnel_name_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > elevation_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_ConditionalSpeedLimit > conditional_speed_limits_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Edge_Level > levels_;
   ::valhalla::TripSign* sign_;
   ::valhalla::TransitRouteInfo* transit_route_info_;
   ::valhalla::TripLeg_Restriction* restriction_;
@@ -2112,7 +2679,34 @@ class TripLeg_Edge final :
   bool country_crossing_;
   bool forward_;
   float elevation_sampling_interval_;
+  uint32_t level_precision_;
+  int speed_type_;
+  bool traffic_signal_;
+  int hov_type_;
+  uint32_t curvature_;
+  union HasBeginOsmNodeIdUnion {
+    constexpr HasBeginOsmNodeIdUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint64_t begin_osm_node_id_;
+  } has_begin_osm_node_id_;
+  union HasEndOsmNodeIdUnion {
+    constexpr HasEndOsmNodeIdUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint64_t end_osm_node_id_;
+  } has_end_osm_node_id_;
+  union HasSpeedsFadedUnion {
+    constexpr HasSpeedsFadedUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::valhalla::TripLeg_Speeds* speeds_faded_;
+  } has_speeds_faded_;
+  union HasSpeedsNonFadedUnion {
+    constexpr HasSpeedsNonFadedUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::valhalla::TripLeg_Speeds* speeds_non_faded_;
+  } has_speeds_non_faded_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[4];
+
   friend struct ::TableStruct_trip_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2156,7 +2750,7 @@ class TripLeg_IntersectingEdge final :
                &_TripLeg_IntersectingEdge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(TripLeg_IntersectingEdge& a, TripLeg_IntersectingEdge& b) {
     a.Swap(&b);
@@ -2411,7 +3005,7 @@ class TripLeg_Cost final :
                &_TripLeg_Cost_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(TripLeg_Cost& a, TripLeg_Cost& b) {
     a.Swap(&b);
@@ -2549,7 +3143,7 @@ class TripLeg_PathCost final :
                &_TripLeg_PathCost_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(TripLeg_PathCost& a, TripLeg_PathCost& b) {
     a.Swap(&b);
@@ -2705,7 +3299,7 @@ class TripLeg_Node final :
                &_TripLeg_Node_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(TripLeg_Node& a, TripLeg_Node& b) {
     a.Swap(&b);
@@ -3093,7 +3687,7 @@ class TripLeg_Admin final :
                &_TripLeg_Admin_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(TripLeg_Admin& a, TripLeg_Admin& b) {
     a.Swap(&b);
@@ -3273,7 +3867,7 @@ class TripLeg_ShapeAttributes final :
                &_TripLeg_ShapeAttributes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(TripLeg_ShapeAttributes& a, TripLeg_ShapeAttributes& b) {
     a.Swap(&b);
@@ -3341,6 +3935,7 @@ class TripLeg_ShapeAttributes final :
     kLengthFieldNumber = 2,
     kSpeedFieldNumber = 3,
     kSpeedLimitFieldNumber = 5,
+    kCongestionFieldNumber = 6,
   };
   // repeated uint32 time = 1 [packed = true];
   int time_size() const;
@@ -3430,6 +4025,28 @@ class TripLeg_ShapeAttributes final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
       mutable_speed_limit();
 
+  // repeated uint32 congestion = 6 [packed = true];
+  int congestion_size() const;
+  private:
+  int _internal_congestion_size() const;
+  public:
+  void clear_congestion();
+  private:
+  uint32_t _internal_congestion(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_congestion() const;
+  void _internal_add_congestion(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_congestion();
+  public:
+  uint32_t congestion(int index) const;
+  void set_congestion(int index, uint32_t value);
+  void add_congestion(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      congestion() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_congestion();
+
   // @@protoc_insertion_point(class_scope:valhalla.TripLeg.ShapeAttributes)
  private:
   class _Internal;
@@ -3445,6 +4062,8 @@ class TripLeg_ShapeAttributes final :
   mutable std::atomic<int> _speed_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > speed_limit_;
   mutable std::atomic<int> _speed_limit_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > congestion_;
+  mutable std::atomic<int> _congestion_cached_byte_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_trip_2eproto;
 };
@@ -3489,7 +4108,7 @@ class TripLeg_Incident final :
                &_TripLeg_Incident_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(TripLeg_Incident& a, TripLeg_Incident& b) {
     a.Swap(&b);
@@ -3657,7 +4276,7 @@ class TripLeg_Closure final :
                &_TripLeg_Closure_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(TripLeg_Closure& a, TripLeg_Closure& b) {
     a.Swap(&b);
@@ -3825,7 +4444,7 @@ class TripLeg final :
                &_TripLeg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(TripLeg& a, TripLeg& b) {
     a.Swap(&b);
@@ -3888,6 +4507,7 @@ class TripLeg final :
 
   typedef TripLeg_LaneConnectivity LaneConnectivity;
   typedef TripLeg_TrafficSegment TrafficSegment;
+  typedef TripLeg_Speeds Speeds;
   typedef TripLeg_Restriction Restriction;
   typedef TripLeg_TimeDomain TimeDomain;
   typedef TripLeg_ConditionalSpeedLimit ConditionalSpeedLimit;
@@ -4155,6 +4775,58 @@ class TripLeg final :
     return TripLeg_Sidewalk_Parse(name, value);
   }
 
+  typedef TripLeg_HovType HovType;
+  static constexpr HovType kHOV2 =
+    TripLeg_HovType_kHOV2;
+  static constexpr HovType kHOV3 =
+    TripLeg_HovType_kHOV3;
+  static inline bool HovType_IsValid(int value) {
+    return TripLeg_HovType_IsValid(value);
+  }
+  static constexpr HovType HovType_MIN =
+    TripLeg_HovType_HovType_MIN;
+  static constexpr HovType HovType_MAX =
+    TripLeg_HovType_HovType_MAX;
+  static constexpr int HovType_ARRAYSIZE =
+    TripLeg_HovType_HovType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& HovType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, HovType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function HovType_Name.");
+    return TripLeg_HovType_Name(enum_t_value);
+  }
+  static inline bool HovType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      HovType* value) {
+    return TripLeg_HovType_Parse(name, value);
+  }
+
+  typedef TripLeg_SpeedType SpeedType;
+  static constexpr SpeedType kTagged =
+    TripLeg_SpeedType_kTagged;
+  static constexpr SpeedType kClassified =
+    TripLeg_SpeedType_kClassified;
+  static inline bool SpeedType_IsValid(int value) {
+    return TripLeg_SpeedType_IsValid(value);
+  }
+  static constexpr SpeedType SpeedType_MIN =
+    TripLeg_SpeedType_SpeedType_MIN;
+  static constexpr SpeedType SpeedType_MAX =
+    TripLeg_SpeedType_SpeedType_MAX;
+  static constexpr int SpeedType_ARRAYSIZE =
+    TripLeg_SpeedType_SpeedType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& SpeedType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, SpeedType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function SpeedType_Name.");
+    return TripLeg_SpeedType_Name(enum_t_value);
+  }
+  static inline bool SpeedType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      SpeedType* value) {
+    return TripLeg_SpeedType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -4164,6 +4836,7 @@ class TripLeg final :
     kIncidentsFieldNumber = 11,
     kAlgorithmsFieldNumber = 12,
     kClosuresFieldNumber = 13,
+    kLevelChangesFieldNumber = 15,
     kShapeFieldNumber = 8,
     kBboxFieldNumber = 9,
     kShapeAttributesFieldNumber = 10,
@@ -4287,6 +4960,24 @@ class TripLeg final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Closure >&
       closures() const;
 
+  // repeated .valhalla.LevelChange level_changes = 15;
+  int level_changes_size() const;
+  private:
+  int _internal_level_changes_size() const;
+  public:
+  void clear_level_changes();
+  ::valhalla::LevelChange* mutable_level_changes(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >*
+      mutable_level_changes();
+  private:
+  const ::valhalla::LevelChange& _internal_level_changes(int index) const;
+  ::valhalla::LevelChange* _internal_add_level_changes();
+  public:
+  const ::valhalla::LevelChange& level_changes(int index) const;
+  ::valhalla::LevelChange* add_level_changes();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >&
+      level_changes() const;
+
   // string shape = 8;
   void clear_shape();
   const std::string& shape() const;
@@ -4404,6 +5095,7 @@ class TripLeg final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Incident > incidents_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> algorithms_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Closure > closures_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange > level_changes_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shape_;
   ::valhalla::BoundingBox* bbox_;
   ::valhalla::TripLeg_ShapeAttributes* shape_attributes_;
@@ -4413,6 +5105,310 @@ class TripLeg final :
   uint32_t leg_id_;
   uint32_t leg_count_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_trip_2eproto;
+};
+// -------------------------------------------------------------------
+
+class TripRoute_MatchedPoint final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:valhalla.TripRoute.MatchedPoint) */ {
+ public:
+  inline TripRoute_MatchedPoint() : TripRoute_MatchedPoint(nullptr) {}
+  ~TripRoute_MatchedPoint() override;
+  explicit PROTOBUF_CONSTEXPR TripRoute_MatchedPoint(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  TripRoute_MatchedPoint(const TripRoute_MatchedPoint& from);
+  TripRoute_MatchedPoint(TripRoute_MatchedPoint&& from) noexcept
+    : TripRoute_MatchedPoint() {
+    *this = ::std::move(from);
+  }
+
+  inline TripRoute_MatchedPoint& operator=(const TripRoute_MatchedPoint& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline TripRoute_MatchedPoint& operator=(TripRoute_MatchedPoint&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const TripRoute_MatchedPoint& default_instance() {
+    return *internal_default_instance();
+  }
+  enum HasEdgeIndexCase {
+    kEdgeIndex = 2,
+    HAS_EDGE_INDEX_NOT_SET = 0,
+  };
+
+  enum HasDistanceAlongEdgeCase {
+    kDistanceAlongEdge = 5,
+    HAS_DISTANCE_ALONG_EDGE_NOT_SET = 0,
+  };
+
+  enum HasDistanceFromTracePointCase {
+    kDistanceFromTracePoint = 6,
+    HAS_DISTANCE_FROM_TRACE_POINT_NOT_SET = 0,
+  };
+
+  enum HasLatlngCase {
+    kLatlng = 7,
+    HAS_LATLNG_NOT_SET = 0,
+  };
+
+  static inline const TripRoute_MatchedPoint* internal_default_instance() {
+    return reinterpret_cast<const TripRoute_MatchedPoint*>(
+               &_TripRoute_MatchedPoint_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(TripRoute_MatchedPoint& a, TripRoute_MatchedPoint& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(TripRoute_MatchedPoint* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(TripRoute_MatchedPoint* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  TripRoute_MatchedPoint* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TripRoute_MatchedPoint>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const TripRoute_MatchedPoint& from);
+  void MergeFrom(const TripRoute_MatchedPoint& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(TripRoute_MatchedPoint* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "valhalla.TripRoute.MatchedPoint";
+  }
+  protected:
+  explicit TripRoute_MatchedPoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef TripRoute_MatchedPoint_MatchType MatchType;
+  static constexpr MatchType kUnmatched =
+    TripRoute_MatchedPoint_MatchType_kUnmatched;
+  static constexpr MatchType kInterpolated =
+    TripRoute_MatchedPoint_MatchType_kInterpolated;
+  static constexpr MatchType kMatched =
+    TripRoute_MatchedPoint_MatchType_kMatched;
+  static inline bool MatchType_IsValid(int value) {
+    return TripRoute_MatchedPoint_MatchType_IsValid(value);
+  }
+  static constexpr MatchType MatchType_MIN =
+    TripRoute_MatchedPoint_MatchType_MatchType_MIN;
+  static constexpr MatchType MatchType_MAX =
+    TripRoute_MatchedPoint_MatchType_MatchType_MAX;
+  static constexpr int MatchType_ARRAYSIZE =
+    TripRoute_MatchedPoint_MatchType_MatchType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& MatchType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, MatchType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function MatchType_Name.");
+    return TripRoute_MatchedPoint_MatchType_Name(enum_t_value);
+  }
+  static inline bool MatchType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      MatchType* value) {
+    return TripRoute_MatchedPoint_MatchType_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTypeFieldNumber = 1,
+    kBeginsDiscontinuityFieldNumber = 3,
+    kEndsDiscontinuityFieldNumber = 4,
+    kEdgeIndexFieldNumber = 2,
+    kDistanceAlongEdgeFieldNumber = 5,
+    kDistanceFromTracePointFieldNumber = 6,
+    kLatlngFieldNumber = 7,
+  };
+  // .valhalla.TripRoute.MatchedPoint.MatchType type = 1;
+  void clear_type();
+  ::valhalla::TripRoute_MatchedPoint_MatchType type() const;
+  void set_type(::valhalla::TripRoute_MatchedPoint_MatchType value);
+  private:
+  ::valhalla::TripRoute_MatchedPoint_MatchType _internal_type() const;
+  void _internal_set_type(::valhalla::TripRoute_MatchedPoint_MatchType value);
+  public:
+
+  // bool begins_discontinuity = 3;
+  void clear_begins_discontinuity();
+  bool begins_discontinuity() const;
+  void set_begins_discontinuity(bool value);
+  private:
+  bool _internal_begins_discontinuity() const;
+  void _internal_set_begins_discontinuity(bool value);
+  public:
+
+  // bool ends_discontinuity = 4;
+  void clear_ends_discontinuity();
+  bool ends_discontinuity() const;
+  void set_ends_discontinuity(bool value);
+  private:
+  bool _internal_ends_discontinuity() const;
+  void _internal_set_ends_discontinuity(bool value);
+  public:
+
+  // uint32 edge_index = 2;
+  bool has_edge_index() const;
+  private:
+  bool _internal_has_edge_index() const;
+  public:
+  void clear_edge_index();
+  uint32_t edge_index() const;
+  void set_edge_index(uint32_t value);
+  private:
+  uint32_t _internal_edge_index() const;
+  void _internal_set_edge_index(uint32_t value);
+  public:
+
+  // double distance_along_edge = 5;
+  bool has_distance_along_edge() const;
+  private:
+  bool _internal_has_distance_along_edge() const;
+  public:
+  void clear_distance_along_edge();
+  double distance_along_edge() const;
+  void set_distance_along_edge(double value);
+  private:
+  double _internal_distance_along_edge() const;
+  void _internal_set_distance_along_edge(double value);
+  public:
+
+  // double distance_from_trace_point = 6;
+  bool has_distance_from_trace_point() const;
+  private:
+  bool _internal_has_distance_from_trace_point() const;
+  public:
+  void clear_distance_from_trace_point();
+  double distance_from_trace_point() const;
+  void set_distance_from_trace_point(double value);
+  private:
+  double _internal_distance_from_trace_point() const;
+  void _internal_set_distance_from_trace_point(double value);
+  public:
+
+  // .valhalla.LatLng latlng = 7;
+  bool has_latlng() const;
+  private:
+  bool _internal_has_latlng() const;
+  public:
+  void clear_latlng();
+  const ::valhalla::LatLng& latlng() const;
+  PROTOBUF_NODISCARD ::valhalla::LatLng* release_latlng();
+  ::valhalla::LatLng* mutable_latlng();
+  void set_allocated_latlng(::valhalla::LatLng* latlng);
+  private:
+  const ::valhalla::LatLng& _internal_latlng() const;
+  ::valhalla::LatLng* _internal_mutable_latlng();
+  public:
+  void unsafe_arena_set_allocated_latlng(
+      ::valhalla::LatLng* latlng);
+  ::valhalla::LatLng* unsafe_arena_release_latlng();
+
+  void clear_has_edge_index();
+  HasEdgeIndexCase has_edge_index_case() const;
+  void clear_has_distance_along_edge();
+  HasDistanceAlongEdgeCase has_distance_along_edge_case() const;
+  void clear_has_distance_from_trace_point();
+  HasDistanceFromTracePointCase has_distance_from_trace_point_case() const;
+  void clear_has_latlng();
+  HasLatlngCase has_latlng_case() const;
+  // @@protoc_insertion_point(class_scope:valhalla.TripRoute.MatchedPoint)
+ private:
+  class _Internal;
+  void set_has_edge_index();
+  void set_has_distance_along_edge();
+  void set_has_distance_from_trace_point();
+  void set_has_latlng();
+
+  inline bool has_has_edge_index() const;
+  inline void clear_has_has_edge_index();
+
+  inline bool has_has_distance_along_edge() const;
+  inline void clear_has_has_distance_along_edge();
+
+  inline bool has_has_distance_from_trace_point() const;
+  inline void clear_has_has_distance_from_trace_point();
+
+  inline bool has_has_latlng() const;
+  inline void clear_has_has_latlng();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int type_;
+  bool begins_discontinuity_;
+  bool ends_discontinuity_;
+  union HasEdgeIndexUnion {
+    constexpr HasEdgeIndexUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    uint32_t edge_index_;
+  } has_edge_index_;
+  union HasDistanceAlongEdgeUnion {
+    constexpr HasDistanceAlongEdgeUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    double distance_along_edge_;
+  } has_distance_along_edge_;
+  union HasDistanceFromTracePointUnion {
+    constexpr HasDistanceFromTracePointUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    double distance_from_trace_point_;
+  } has_distance_from_trace_point_;
+  union HasLatlngUnion {
+    constexpr HasLatlngUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::valhalla::LatLng* latlng_;
+  } has_latlng_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[4];
+
   friend struct ::TableStruct_trip_2eproto;
 };
 // -------------------------------------------------------------------
@@ -4456,7 +5452,7 @@ class TripRoute final :
                &_TripRoute_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    18;
 
   friend void swap(TripRoute& a, TripRoute& b) {
     a.Swap(&b);
@@ -4517,10 +5513,16 @@ class TripRoute final :
 
   // nested types ----------------------------------------------------
 
+  typedef TripRoute_MatchedPoint MatchedPoint;
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kLegsFieldNumber = 1,
+    kMatchedPointsFieldNumber = 2,
+    kConfidenceScoreFieldNumber = 3,
+    kRawScoreFieldNumber = 4,
+    kIsBestFieldNumber = 5,
   };
   // repeated .valhalla.TripLeg legs = 1;
   int legs_size() const;
@@ -4540,6 +5542,51 @@ class TripRoute final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg >&
       legs() const;
 
+  // repeated .valhalla.TripRoute.MatchedPoint matched_points = 2;
+  int matched_points_size() const;
+  private:
+  int _internal_matched_points_size() const;
+  public:
+  void clear_matched_points();
+  ::valhalla::TripRoute_MatchedPoint* mutable_matched_points(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripRoute_MatchedPoint >*
+      mutable_matched_points();
+  private:
+  const ::valhalla::TripRoute_MatchedPoint& _internal_matched_points(int index) const;
+  ::valhalla::TripRoute_MatchedPoint* _internal_add_matched_points();
+  public:
+  const ::valhalla::TripRoute_MatchedPoint& matched_points(int index) const;
+  ::valhalla::TripRoute_MatchedPoint* add_matched_points();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripRoute_MatchedPoint >&
+      matched_points() const;
+
+  // float confidence_score = 3;
+  void clear_confidence_score();
+  float confidence_score() const;
+  void set_confidence_score(float value);
+  private:
+  float _internal_confidence_score() const;
+  void _internal_set_confidence_score(float value);
+  public:
+
+  // float raw_score = 4;
+  void clear_raw_score();
+  float raw_score() const;
+  void set_raw_score(float value);
+  private:
+  float _internal_raw_score() const;
+  void _internal_set_raw_score(float value);
+  public:
+
+  // bool is_best = 5;
+  void clear_is_best();
+  bool is_best() const;
+  void set_is_best(bool value);
+  private:
+  bool _internal_is_best() const;
+  void _internal_set_is_best(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:valhalla.TripRoute)
  private:
   class _Internal;
@@ -4548,6 +5595,10 @@ class TripRoute final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg > legs_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripRoute_MatchedPoint > matched_points_;
+  float confidence_score_;
+  float raw_score_;
+  bool is_best_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_trip_2eproto;
 };
@@ -4592,7 +5643,7 @@ class Trip final :
                &_Trip_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    19;
 
   friend void swap(Trip& a, Trip& b) {
     a.Swap(&b);
@@ -4920,6 +5971,110 @@ inline void TripLeg_TrafficSegment::_internal_set_ends_segment(bool value) {
 inline void TripLeg_TrafficSegment::set_ends_segment(bool value) {
   _internal_set_ends_segment(value);
   // @@protoc_insertion_point(field_set:valhalla.TripLeg.TrafficSegment.ends_segment)
+}
+
+// -------------------------------------------------------------------
+
+// TripLeg_Speeds
+
+// float predicted_flow = 1;
+inline void TripLeg_Speeds::clear_predicted_flow() {
+  predicted_flow_ = 0;
+}
+inline float TripLeg_Speeds::_internal_predicted_flow() const {
+  return predicted_flow_;
+}
+inline float TripLeg_Speeds::predicted_flow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Speeds.predicted_flow)
+  return _internal_predicted_flow();
+}
+inline void TripLeg_Speeds::_internal_set_predicted_flow(float value) {
+  
+  predicted_flow_ = value;
+}
+inline void TripLeg_Speeds::set_predicted_flow(float value) {
+  _internal_set_predicted_flow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Speeds.predicted_flow)
+}
+
+// float constrained_flow = 2;
+inline void TripLeg_Speeds::clear_constrained_flow() {
+  constrained_flow_ = 0;
+}
+inline float TripLeg_Speeds::_internal_constrained_flow() const {
+  return constrained_flow_;
+}
+inline float TripLeg_Speeds::constrained_flow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Speeds.constrained_flow)
+  return _internal_constrained_flow();
+}
+inline void TripLeg_Speeds::_internal_set_constrained_flow(float value) {
+  
+  constrained_flow_ = value;
+}
+inline void TripLeg_Speeds::set_constrained_flow(float value) {
+  _internal_set_constrained_flow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Speeds.constrained_flow)
+}
+
+// float free_flow = 3;
+inline void TripLeg_Speeds::clear_free_flow() {
+  free_flow_ = 0;
+}
+inline float TripLeg_Speeds::_internal_free_flow() const {
+  return free_flow_;
+}
+inline float TripLeg_Speeds::free_flow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Speeds.free_flow)
+  return _internal_free_flow();
+}
+inline void TripLeg_Speeds::_internal_set_free_flow(float value) {
+  
+  free_flow_ = value;
+}
+inline void TripLeg_Speeds::set_free_flow(float value) {
+  _internal_set_free_flow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Speeds.free_flow)
+}
+
+// float current_flow = 4;
+inline void TripLeg_Speeds::clear_current_flow() {
+  current_flow_ = 0;
+}
+inline float TripLeg_Speeds::_internal_current_flow() const {
+  return current_flow_;
+}
+inline float TripLeg_Speeds::current_flow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Speeds.current_flow)
+  return _internal_current_flow();
+}
+inline void TripLeg_Speeds::_internal_set_current_flow(float value) {
+  
+  current_flow_ = value;
+}
+inline void TripLeg_Speeds::set_current_flow(float value) {
+  _internal_set_current_flow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Speeds.current_flow)
+}
+
+// float no_flow = 5;
+inline void TripLeg_Speeds::clear_no_flow() {
+  no_flow_ = 0;
+}
+inline float TripLeg_Speeds::_internal_no_flow() const {
+  return no_flow_;
+}
+inline float TripLeg_Speeds::no_flow() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Speeds.no_flow)
+  return _internal_no_flow();
+}
+inline void TripLeg_Speeds::_internal_set_no_flow(float value) {
+  
+  no_flow_ = value;
+}
+inline void TripLeg_Speeds::set_no_flow(float value) {
+  _internal_set_no_flow(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Speeds.no_flow)
 }
 
 // -------------------------------------------------------------------
@@ -5302,6 +6457,50 @@ inline void TripLeg_ConditionalSpeedLimit::set_allocated_condition(::valhalla::T
   }
   condition_ = condition;
   // @@protoc_insertion_point(field_set_allocated:valhalla.TripLeg.ConditionalSpeedLimit.condition)
+}
+
+// -------------------------------------------------------------------
+
+// TripLeg_Edge_Level
+
+// float start = 1;
+inline void TripLeg_Edge_Level::clear_start() {
+  start_ = 0;
+}
+inline float TripLeg_Edge_Level::_internal_start() const {
+  return start_;
+}
+inline float TripLeg_Edge_Level::start() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.Level.start)
+  return _internal_start();
+}
+inline void TripLeg_Edge_Level::_internal_set_start(float value) {
+  
+  start_ = value;
+}
+inline void TripLeg_Edge_Level::set_start(float value) {
+  _internal_set_start(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.Level.start)
+}
+
+// float end = 2;
+inline void TripLeg_Edge_Level::clear_end() {
+  end_ = 0;
+}
+inline float TripLeg_Edge_Level::_internal_end() const {
+  return end_;
+}
+inline float TripLeg_Edge_Level::end() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.Level.end)
+  return _internal_end();
+}
+inline void TripLeg_Edge_Level::_internal_set_end(float value) {
+  
+  end_ = value;
+}
+inline void TripLeg_Edge_Level::set_end(float value) {
+  _internal_set_end(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.Level.end)
 }
 
 // -------------------------------------------------------------------
@@ -6840,6 +8039,82 @@ inline void TripLeg_Edge::set_forward(bool value) {
   // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.forward)
 }
 
+// uint64 begin_osm_node_id = 70;
+inline bool TripLeg_Edge::_internal_has_begin_osm_node_id() const {
+  return has_begin_osm_node_id_case() == kBeginOsmNodeId;
+}
+inline bool TripLeg_Edge::has_begin_osm_node_id() const {
+  return _internal_has_begin_osm_node_id();
+}
+inline void TripLeg_Edge::set_has_begin_osm_node_id() {
+  _oneof_case_[0] = kBeginOsmNodeId;
+}
+inline void TripLeg_Edge::clear_begin_osm_node_id() {
+  if (_internal_has_begin_osm_node_id()) {
+    has_begin_osm_node_id_.begin_osm_node_id_ = uint64_t{0u};
+    clear_has_has_begin_osm_node_id();
+  }
+}
+inline uint64_t TripLeg_Edge::_internal_begin_osm_node_id() const {
+  if (_internal_has_begin_osm_node_id()) {
+    return has_begin_osm_node_id_.begin_osm_node_id_;
+  }
+  return uint64_t{0u};
+}
+inline void TripLeg_Edge::_internal_set_begin_osm_node_id(uint64_t value) {
+  if (!_internal_has_begin_osm_node_id()) {
+    clear_has_begin_osm_node_id();
+    set_has_begin_osm_node_id();
+  }
+  has_begin_osm_node_id_.begin_osm_node_id_ = value;
+}
+inline uint64_t TripLeg_Edge::begin_osm_node_id() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.begin_osm_node_id)
+  return _internal_begin_osm_node_id();
+}
+inline void TripLeg_Edge::set_begin_osm_node_id(uint64_t value) {
+  _internal_set_begin_osm_node_id(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.begin_osm_node_id)
+}
+
+// uint64 end_osm_node_id = 71;
+inline bool TripLeg_Edge::_internal_has_end_osm_node_id() const {
+  return has_end_osm_node_id_case() == kEndOsmNodeId;
+}
+inline bool TripLeg_Edge::has_end_osm_node_id() const {
+  return _internal_has_end_osm_node_id();
+}
+inline void TripLeg_Edge::set_has_end_osm_node_id() {
+  _oneof_case_[1] = kEndOsmNodeId;
+}
+inline void TripLeg_Edge::clear_end_osm_node_id() {
+  if (_internal_has_end_osm_node_id()) {
+    has_end_osm_node_id_.end_osm_node_id_ = uint64_t{0u};
+    clear_has_has_end_osm_node_id();
+  }
+}
+inline uint64_t TripLeg_Edge::_internal_end_osm_node_id() const {
+  if (_internal_has_end_osm_node_id()) {
+    return has_end_osm_node_id_.end_osm_node_id_;
+  }
+  return uint64_t{0u};
+}
+inline void TripLeg_Edge::_internal_set_end_osm_node_id(uint64_t value) {
+  if (!_internal_has_end_osm_node_id()) {
+    clear_has_end_osm_node_id();
+    set_has_end_osm_node_id();
+  }
+  has_end_osm_node_id_.end_osm_node_id_ = value;
+}
+inline uint64_t TripLeg_Edge::end_osm_node_id() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.end_osm_node_id)
+  return _internal_end_osm_node_id();
+}
+inline void TripLeg_Edge::set_end_osm_node_id(uint64_t value) {
+  _internal_set_end_osm_node_id(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.end_osm_node_id)
+}
+
 // repeated .valhalla.TripLeg.ConditionalSpeedLimit conditional_speed_limits = 60;
 inline int TripLeg_Edge::_internal_conditional_speed_limits_size() const {
   return conditional_speed_limits_.size();
@@ -6880,6 +8155,330 @@ TripLeg_Edge::conditional_speed_limits() const {
   return conditional_speed_limits_;
 }
 
+// repeated .valhalla.TripLeg.Edge.Level levels = 61;
+inline int TripLeg_Edge::_internal_levels_size() const {
+  return levels_.size();
+}
+inline int TripLeg_Edge::levels_size() const {
+  return _internal_levels_size();
+}
+inline void TripLeg_Edge::clear_levels() {
+  levels_.Clear();
+}
+inline ::valhalla::TripLeg_Edge_Level* TripLeg_Edge::mutable_levels(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.Edge.levels)
+  return levels_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Edge_Level >*
+TripLeg_Edge::mutable_levels() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.Edge.levels)
+  return &levels_;
+}
+inline const ::valhalla::TripLeg_Edge_Level& TripLeg_Edge::_internal_levels(int index) const {
+  return levels_.Get(index);
+}
+inline const ::valhalla::TripLeg_Edge_Level& TripLeg_Edge::levels(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.levels)
+  return _internal_levels(index);
+}
+inline ::valhalla::TripLeg_Edge_Level* TripLeg_Edge::_internal_add_levels() {
+  return levels_.Add();
+}
+inline ::valhalla::TripLeg_Edge_Level* TripLeg_Edge::add_levels() {
+  ::valhalla::TripLeg_Edge_Level* _add = _internal_add_levels();
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.Edge.levels)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg_Edge_Level >&
+TripLeg_Edge::levels() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.Edge.levels)
+  return levels_;
+}
+
+// uint32 level_precision = 62;
+inline void TripLeg_Edge::clear_level_precision() {
+  level_precision_ = 0u;
+}
+inline uint32_t TripLeg_Edge::_internal_level_precision() const {
+  return level_precision_;
+}
+inline uint32_t TripLeg_Edge::level_precision() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.level_precision)
+  return _internal_level_precision();
+}
+inline void TripLeg_Edge::_internal_set_level_precision(uint32_t value) {
+  
+  level_precision_ = value;
+}
+inline void TripLeg_Edge::set_level_precision(uint32_t value) {
+  _internal_set_level_precision(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.level_precision)
+}
+
+// .valhalla.TripLeg.Speeds speeds_faded = 63;
+inline bool TripLeg_Edge::_internal_has_speeds_faded() const {
+  return has_speeds_faded_case() == kSpeedsFaded;
+}
+inline bool TripLeg_Edge::has_speeds_faded() const {
+  return _internal_has_speeds_faded();
+}
+inline void TripLeg_Edge::set_has_speeds_faded() {
+  _oneof_case_[2] = kSpeedsFaded;
+}
+inline void TripLeg_Edge::clear_speeds_faded() {
+  if (_internal_has_speeds_faded()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete has_speeds_faded_.speeds_faded_;
+    }
+    clear_has_has_speeds_faded();
+  }
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::release_speeds_faded() {
+  // @@protoc_insertion_point(field_release:valhalla.TripLeg.Edge.speeds_faded)
+  if (_internal_has_speeds_faded()) {
+    clear_has_has_speeds_faded();
+    ::valhalla::TripLeg_Speeds* temp = has_speeds_faded_.speeds_faded_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    has_speeds_faded_.speeds_faded_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::valhalla::TripLeg_Speeds& TripLeg_Edge::_internal_speeds_faded() const {
+  return _internal_has_speeds_faded()
+      ? *has_speeds_faded_.speeds_faded_
+      : reinterpret_cast< ::valhalla::TripLeg_Speeds&>(::valhalla::_TripLeg_Speeds_default_instance_);
+}
+inline const ::valhalla::TripLeg_Speeds& TripLeg_Edge::speeds_faded() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.speeds_faded)
+  return _internal_speeds_faded();
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::unsafe_arena_release_speeds_faded() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:valhalla.TripLeg.Edge.speeds_faded)
+  if (_internal_has_speeds_faded()) {
+    clear_has_has_speeds_faded();
+    ::valhalla::TripLeg_Speeds* temp = has_speeds_faded_.speeds_faded_;
+    has_speeds_faded_.speeds_faded_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void TripLeg_Edge::unsafe_arena_set_allocated_speeds_faded(::valhalla::TripLeg_Speeds* speeds_faded) {
+  clear_has_speeds_faded();
+  if (speeds_faded) {
+    set_has_speeds_faded();
+    has_speeds_faded_.speeds_faded_ = speeds_faded;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.TripLeg.Edge.speeds_faded)
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::_internal_mutable_speeds_faded() {
+  if (!_internal_has_speeds_faded()) {
+    clear_has_speeds_faded();
+    set_has_speeds_faded();
+    has_speeds_faded_.speeds_faded_ = CreateMaybeMessage< ::valhalla::TripLeg_Speeds >(GetArenaForAllocation());
+  }
+  return has_speeds_faded_.speeds_faded_;
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::mutable_speeds_faded() {
+  ::valhalla::TripLeg_Speeds* _msg = _internal_mutable_speeds_faded();
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.Edge.speeds_faded)
+  return _msg;
+}
+
+// .valhalla.TripLeg.Speeds speeds_non_faded = 64;
+inline bool TripLeg_Edge::_internal_has_speeds_non_faded() const {
+  return has_speeds_non_faded_case() == kSpeedsNonFaded;
+}
+inline bool TripLeg_Edge::has_speeds_non_faded() const {
+  return _internal_has_speeds_non_faded();
+}
+inline void TripLeg_Edge::set_has_speeds_non_faded() {
+  _oneof_case_[3] = kSpeedsNonFaded;
+}
+inline void TripLeg_Edge::clear_speeds_non_faded() {
+  if (_internal_has_speeds_non_faded()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete has_speeds_non_faded_.speeds_non_faded_;
+    }
+    clear_has_has_speeds_non_faded();
+  }
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::release_speeds_non_faded() {
+  // @@protoc_insertion_point(field_release:valhalla.TripLeg.Edge.speeds_non_faded)
+  if (_internal_has_speeds_non_faded()) {
+    clear_has_has_speeds_non_faded();
+    ::valhalla::TripLeg_Speeds* temp = has_speeds_non_faded_.speeds_non_faded_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    has_speeds_non_faded_.speeds_non_faded_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::valhalla::TripLeg_Speeds& TripLeg_Edge::_internal_speeds_non_faded() const {
+  return _internal_has_speeds_non_faded()
+      ? *has_speeds_non_faded_.speeds_non_faded_
+      : reinterpret_cast< ::valhalla::TripLeg_Speeds&>(::valhalla::_TripLeg_Speeds_default_instance_);
+}
+inline const ::valhalla::TripLeg_Speeds& TripLeg_Edge::speeds_non_faded() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.speeds_non_faded)
+  return _internal_speeds_non_faded();
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::unsafe_arena_release_speeds_non_faded() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:valhalla.TripLeg.Edge.speeds_non_faded)
+  if (_internal_has_speeds_non_faded()) {
+    clear_has_has_speeds_non_faded();
+    ::valhalla::TripLeg_Speeds* temp = has_speeds_non_faded_.speeds_non_faded_;
+    has_speeds_non_faded_.speeds_non_faded_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void TripLeg_Edge::unsafe_arena_set_allocated_speeds_non_faded(::valhalla::TripLeg_Speeds* speeds_non_faded) {
+  clear_has_speeds_non_faded();
+  if (speeds_non_faded) {
+    set_has_speeds_non_faded();
+    has_speeds_non_faded_.speeds_non_faded_ = speeds_non_faded;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.TripLeg.Edge.speeds_non_faded)
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::_internal_mutable_speeds_non_faded() {
+  if (!_internal_has_speeds_non_faded()) {
+    clear_has_speeds_non_faded();
+    set_has_speeds_non_faded();
+    has_speeds_non_faded_.speeds_non_faded_ = CreateMaybeMessage< ::valhalla::TripLeg_Speeds >(GetArenaForAllocation());
+  }
+  return has_speeds_non_faded_.speeds_non_faded_;
+}
+inline ::valhalla::TripLeg_Speeds* TripLeg_Edge::mutable_speeds_non_faded() {
+  ::valhalla::TripLeg_Speeds* _msg = _internal_mutable_speeds_non_faded();
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.Edge.speeds_non_faded)
+  return _msg;
+}
+
+// .valhalla.TripLeg.SpeedType speed_type = 65;
+inline void TripLeg_Edge::clear_speed_type() {
+  speed_type_ = 0;
+}
+inline ::valhalla::TripLeg_SpeedType TripLeg_Edge::_internal_speed_type() const {
+  return static_cast< ::valhalla::TripLeg_SpeedType >(speed_type_);
+}
+inline ::valhalla::TripLeg_SpeedType TripLeg_Edge::speed_type() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.speed_type)
+  return _internal_speed_type();
+}
+inline void TripLeg_Edge::_internal_set_speed_type(::valhalla::TripLeg_SpeedType value) {
+  
+  speed_type_ = value;
+}
+inline void TripLeg_Edge::set_speed_type(::valhalla::TripLeg_SpeedType value) {
+  _internal_set_speed_type(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.speed_type)
+}
+
+// bool traffic_signal = 66;
+inline void TripLeg_Edge::clear_traffic_signal() {
+  traffic_signal_ = false;
+}
+inline bool TripLeg_Edge::_internal_traffic_signal() const {
+  return traffic_signal_;
+}
+inline bool TripLeg_Edge::traffic_signal() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.traffic_signal)
+  return _internal_traffic_signal();
+}
+inline void TripLeg_Edge::_internal_set_traffic_signal(bool value) {
+  
+  traffic_signal_ = value;
+}
+inline void TripLeg_Edge::set_traffic_signal(bool value) {
+  _internal_set_traffic_signal(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.traffic_signal)
+}
+
+// .valhalla.TripLeg.HovType hov_type = 67;
+inline void TripLeg_Edge::clear_hov_type() {
+  hov_type_ = 0;
+}
+inline ::valhalla::TripLeg_HovType TripLeg_Edge::_internal_hov_type() const {
+  return static_cast< ::valhalla::TripLeg_HovType >(hov_type_);
+}
+inline ::valhalla::TripLeg_HovType TripLeg_Edge::hov_type() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.hov_type)
+  return _internal_hov_type();
+}
+inline void TripLeg_Edge::_internal_set_hov_type(::valhalla::TripLeg_HovType value) {
+  
+  hov_type_ = value;
+}
+inline void TripLeg_Edge::set_hov_type(::valhalla::TripLeg_HovType value) {
+  _internal_set_hov_type(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.hov_type)
+}
+
+// uint32 curvature = 68;
+inline void TripLeg_Edge::clear_curvature() {
+  curvature_ = 0u;
+}
+inline uint32_t TripLeg_Edge::_internal_curvature() const {
+  return curvature_;
+}
+inline uint32_t TripLeg_Edge::curvature() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.Edge.curvature)
+  return _internal_curvature();
+}
+inline void TripLeg_Edge::_internal_set_curvature(uint32_t value) {
+  
+  curvature_ = value;
+}
+inline void TripLeg_Edge::set_curvature(uint32_t value) {
+  _internal_set_curvature(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.Edge.curvature)
+}
+
+inline bool TripLeg_Edge::has_has_begin_osm_node_id() const {
+  return has_begin_osm_node_id_case() != HAS_BEGIN_OSM_NODE_ID_NOT_SET;
+}
+inline void TripLeg_Edge::clear_has_has_begin_osm_node_id() {
+  _oneof_case_[0] = HAS_BEGIN_OSM_NODE_ID_NOT_SET;
+}
+inline bool TripLeg_Edge::has_has_end_osm_node_id() const {
+  return has_end_osm_node_id_case() != HAS_END_OSM_NODE_ID_NOT_SET;
+}
+inline void TripLeg_Edge::clear_has_has_end_osm_node_id() {
+  _oneof_case_[1] = HAS_END_OSM_NODE_ID_NOT_SET;
+}
+inline bool TripLeg_Edge::has_has_speeds_faded() const {
+  return has_speeds_faded_case() != HAS_SPEEDS_FADED_NOT_SET;
+}
+inline void TripLeg_Edge::clear_has_has_speeds_faded() {
+  _oneof_case_[2] = HAS_SPEEDS_FADED_NOT_SET;
+}
+inline bool TripLeg_Edge::has_has_speeds_non_faded() const {
+  return has_speeds_non_faded_case() != HAS_SPEEDS_NON_FADED_NOT_SET;
+}
+inline void TripLeg_Edge::clear_has_has_speeds_non_faded() {
+  _oneof_case_[3] = HAS_SPEEDS_NON_FADED_NOT_SET;
+}
+inline TripLeg_Edge::HasBeginOsmNodeIdCase TripLeg_Edge::has_begin_osm_node_id_case() const {
+  return TripLeg_Edge::HasBeginOsmNodeIdCase(_oneof_case_[0]);
+}
+inline TripLeg_Edge::HasEndOsmNodeIdCase TripLeg_Edge::has_end_osm_node_id_case() const {
+  return TripLeg_Edge::HasEndOsmNodeIdCase(_oneof_case_[1]);
+}
+inline TripLeg_Edge::HasSpeedsFadedCase TripLeg_Edge::has_speeds_faded_case() const {
+  return TripLeg_Edge::HasSpeedsFadedCase(_oneof_case_[2]);
+}
+inline TripLeg_Edge::HasSpeedsNonFadedCase TripLeg_Edge::has_speeds_non_faded_case() const {
+  return TripLeg_Edge::HasSpeedsNonFadedCase(_oneof_case_[3]);
+}
 // -------------------------------------------------------------------
 
 // TripLeg_IntersectingEdge
@@ -8544,6 +10143,53 @@ TripLeg_ShapeAttributes::mutable_speed_limit() {
   return _internal_mutable_speed_limit();
 }
 
+// repeated uint32 congestion = 6 [packed = true];
+inline int TripLeg_ShapeAttributes::_internal_congestion_size() const {
+  return congestion_.size();
+}
+inline int TripLeg_ShapeAttributes::congestion_size() const {
+  return _internal_congestion_size();
+}
+inline void TripLeg_ShapeAttributes::clear_congestion() {
+  congestion_.Clear();
+}
+inline uint32_t TripLeg_ShapeAttributes::_internal_congestion(int index) const {
+  return congestion_.Get(index);
+}
+inline uint32_t TripLeg_ShapeAttributes::congestion(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.ShapeAttributes.congestion)
+  return _internal_congestion(index);
+}
+inline void TripLeg_ShapeAttributes::set_congestion(int index, uint32_t value) {
+  congestion_.Set(index, value);
+  // @@protoc_insertion_point(field_set:valhalla.TripLeg.ShapeAttributes.congestion)
+}
+inline void TripLeg_ShapeAttributes::_internal_add_congestion(uint32_t value) {
+  congestion_.Add(value);
+}
+inline void TripLeg_ShapeAttributes::add_congestion(uint32_t value) {
+  _internal_add_congestion(value);
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.ShapeAttributes.congestion)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+TripLeg_ShapeAttributes::_internal_congestion() const {
+  return congestion_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+TripLeg_ShapeAttributes::congestion() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.ShapeAttributes.congestion)
+  return _internal_congestion();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+TripLeg_ShapeAttributes::_internal_mutable_congestion() {
+  return &congestion_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+TripLeg_ShapeAttributes::mutable_congestion() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.ShapeAttributes.congestion)
+  return _internal_mutable_congestion();
+}
+
 // -------------------------------------------------------------------
 
 // TripLeg_Incident
@@ -9437,6 +11083,323 @@ inline void TripLeg::set_allocated_summary(::valhalla::Summary* summary) {
   // @@protoc_insertion_point(field_set_allocated:valhalla.TripLeg.summary)
 }
 
+// repeated .valhalla.LevelChange level_changes = 15;
+inline int TripLeg::_internal_level_changes_size() const {
+  return level_changes_.size();
+}
+inline int TripLeg::level_changes_size() const {
+  return _internal_level_changes_size();
+}
+inline ::valhalla::LevelChange* TripLeg::mutable_level_changes(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripLeg.level_changes)
+  return level_changes_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >*
+TripLeg::mutable_level_changes() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripLeg.level_changes)
+  return &level_changes_;
+}
+inline const ::valhalla::LevelChange& TripLeg::_internal_level_changes(int index) const {
+  return level_changes_.Get(index);
+}
+inline const ::valhalla::LevelChange& TripLeg::level_changes(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripLeg.level_changes)
+  return _internal_level_changes(index);
+}
+inline ::valhalla::LevelChange* TripLeg::_internal_add_level_changes() {
+  return level_changes_.Add();
+}
+inline ::valhalla::LevelChange* TripLeg::add_level_changes() {
+  ::valhalla::LevelChange* _add = _internal_add_level_changes();
+  // @@protoc_insertion_point(field_add:valhalla.TripLeg.level_changes)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::LevelChange >&
+TripLeg::level_changes() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripLeg.level_changes)
+  return level_changes_;
+}
+
+// -------------------------------------------------------------------
+
+// TripRoute_MatchedPoint
+
+// .valhalla.TripRoute.MatchedPoint.MatchType type = 1;
+inline void TripRoute_MatchedPoint::clear_type() {
+  type_ = 0;
+}
+inline ::valhalla::TripRoute_MatchedPoint_MatchType TripRoute_MatchedPoint::_internal_type() const {
+  return static_cast< ::valhalla::TripRoute_MatchedPoint_MatchType >(type_);
+}
+inline ::valhalla::TripRoute_MatchedPoint_MatchType TripRoute_MatchedPoint::type() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.type)
+  return _internal_type();
+}
+inline void TripRoute_MatchedPoint::_internal_set_type(::valhalla::TripRoute_MatchedPoint_MatchType value) {
+  
+  type_ = value;
+}
+inline void TripRoute_MatchedPoint::set_type(::valhalla::TripRoute_MatchedPoint_MatchType value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.MatchedPoint.type)
+}
+
+// uint32 edge_index = 2;
+inline bool TripRoute_MatchedPoint::_internal_has_edge_index() const {
+  return has_edge_index_case() == kEdgeIndex;
+}
+inline bool TripRoute_MatchedPoint::has_edge_index() const {
+  return _internal_has_edge_index();
+}
+inline void TripRoute_MatchedPoint::set_has_edge_index() {
+  _oneof_case_[0] = kEdgeIndex;
+}
+inline void TripRoute_MatchedPoint::clear_edge_index() {
+  if (_internal_has_edge_index()) {
+    has_edge_index_.edge_index_ = 0u;
+    clear_has_has_edge_index();
+  }
+}
+inline uint32_t TripRoute_MatchedPoint::_internal_edge_index() const {
+  if (_internal_has_edge_index()) {
+    return has_edge_index_.edge_index_;
+  }
+  return 0u;
+}
+inline void TripRoute_MatchedPoint::_internal_set_edge_index(uint32_t value) {
+  if (!_internal_has_edge_index()) {
+    clear_has_edge_index();
+    set_has_edge_index();
+  }
+  has_edge_index_.edge_index_ = value;
+}
+inline uint32_t TripRoute_MatchedPoint::edge_index() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.edge_index)
+  return _internal_edge_index();
+}
+inline void TripRoute_MatchedPoint::set_edge_index(uint32_t value) {
+  _internal_set_edge_index(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.MatchedPoint.edge_index)
+}
+
+// bool begins_discontinuity = 3;
+inline void TripRoute_MatchedPoint::clear_begins_discontinuity() {
+  begins_discontinuity_ = false;
+}
+inline bool TripRoute_MatchedPoint::_internal_begins_discontinuity() const {
+  return begins_discontinuity_;
+}
+inline bool TripRoute_MatchedPoint::begins_discontinuity() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.begins_discontinuity)
+  return _internal_begins_discontinuity();
+}
+inline void TripRoute_MatchedPoint::_internal_set_begins_discontinuity(bool value) {
+  
+  begins_discontinuity_ = value;
+}
+inline void TripRoute_MatchedPoint::set_begins_discontinuity(bool value) {
+  _internal_set_begins_discontinuity(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.MatchedPoint.begins_discontinuity)
+}
+
+// bool ends_discontinuity = 4;
+inline void TripRoute_MatchedPoint::clear_ends_discontinuity() {
+  ends_discontinuity_ = false;
+}
+inline bool TripRoute_MatchedPoint::_internal_ends_discontinuity() const {
+  return ends_discontinuity_;
+}
+inline bool TripRoute_MatchedPoint::ends_discontinuity() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.ends_discontinuity)
+  return _internal_ends_discontinuity();
+}
+inline void TripRoute_MatchedPoint::_internal_set_ends_discontinuity(bool value) {
+  
+  ends_discontinuity_ = value;
+}
+inline void TripRoute_MatchedPoint::set_ends_discontinuity(bool value) {
+  _internal_set_ends_discontinuity(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.MatchedPoint.ends_discontinuity)
+}
+
+// double distance_along_edge = 5;
+inline bool TripRoute_MatchedPoint::_internal_has_distance_along_edge() const {
+  return has_distance_along_edge_case() == kDistanceAlongEdge;
+}
+inline bool TripRoute_MatchedPoint::has_distance_along_edge() const {
+  return _internal_has_distance_along_edge();
+}
+inline void TripRoute_MatchedPoint::set_has_distance_along_edge() {
+  _oneof_case_[1] = kDistanceAlongEdge;
+}
+inline void TripRoute_MatchedPoint::clear_distance_along_edge() {
+  if (_internal_has_distance_along_edge()) {
+    has_distance_along_edge_.distance_along_edge_ = 0;
+    clear_has_has_distance_along_edge();
+  }
+}
+inline double TripRoute_MatchedPoint::_internal_distance_along_edge() const {
+  if (_internal_has_distance_along_edge()) {
+    return has_distance_along_edge_.distance_along_edge_;
+  }
+  return 0;
+}
+inline void TripRoute_MatchedPoint::_internal_set_distance_along_edge(double value) {
+  if (!_internal_has_distance_along_edge()) {
+    clear_has_distance_along_edge();
+    set_has_distance_along_edge();
+  }
+  has_distance_along_edge_.distance_along_edge_ = value;
+}
+inline double TripRoute_MatchedPoint::distance_along_edge() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.distance_along_edge)
+  return _internal_distance_along_edge();
+}
+inline void TripRoute_MatchedPoint::set_distance_along_edge(double value) {
+  _internal_set_distance_along_edge(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.MatchedPoint.distance_along_edge)
+}
+
+// double distance_from_trace_point = 6;
+inline bool TripRoute_MatchedPoint::_internal_has_distance_from_trace_point() const {
+  return has_distance_from_trace_point_case() == kDistanceFromTracePoint;
+}
+inline bool TripRoute_MatchedPoint::has_distance_from_trace_point() const {
+  return _internal_has_distance_from_trace_point();
+}
+inline void TripRoute_MatchedPoint::set_has_distance_from_trace_point() {
+  _oneof_case_[2] = kDistanceFromTracePoint;
+}
+inline void TripRoute_MatchedPoint::clear_distance_from_trace_point() {
+  if (_internal_has_distance_from_trace_point()) {
+    has_distance_from_trace_point_.distance_from_trace_point_ = 0;
+    clear_has_has_distance_from_trace_point();
+  }
+}
+inline double TripRoute_MatchedPoint::_internal_distance_from_trace_point() const {
+  if (_internal_has_distance_from_trace_point()) {
+    return has_distance_from_trace_point_.distance_from_trace_point_;
+  }
+  return 0;
+}
+inline void TripRoute_MatchedPoint::_internal_set_distance_from_trace_point(double value) {
+  if (!_internal_has_distance_from_trace_point()) {
+    clear_has_distance_from_trace_point();
+    set_has_distance_from_trace_point();
+  }
+  has_distance_from_trace_point_.distance_from_trace_point_ = value;
+}
+inline double TripRoute_MatchedPoint::distance_from_trace_point() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.distance_from_trace_point)
+  return _internal_distance_from_trace_point();
+}
+inline void TripRoute_MatchedPoint::set_distance_from_trace_point(double value) {
+  _internal_set_distance_from_trace_point(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.MatchedPoint.distance_from_trace_point)
+}
+
+// .valhalla.LatLng latlng = 7;
+inline bool TripRoute_MatchedPoint::_internal_has_latlng() const {
+  return has_latlng_case() == kLatlng;
+}
+inline bool TripRoute_MatchedPoint::has_latlng() const {
+  return _internal_has_latlng();
+}
+inline void TripRoute_MatchedPoint::set_has_latlng() {
+  _oneof_case_[3] = kLatlng;
+}
+inline ::valhalla::LatLng* TripRoute_MatchedPoint::release_latlng() {
+  // @@protoc_insertion_point(field_release:valhalla.TripRoute.MatchedPoint.latlng)
+  if (_internal_has_latlng()) {
+    clear_has_has_latlng();
+    ::valhalla::LatLng* temp = has_latlng_.latlng_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    has_latlng_.latlng_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::valhalla::LatLng& TripRoute_MatchedPoint::_internal_latlng() const {
+  return _internal_has_latlng()
+      ? *has_latlng_.latlng_
+      : reinterpret_cast< ::valhalla::LatLng&>(::valhalla::_LatLng_default_instance_);
+}
+inline const ::valhalla::LatLng& TripRoute_MatchedPoint::latlng() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.MatchedPoint.latlng)
+  return _internal_latlng();
+}
+inline ::valhalla::LatLng* TripRoute_MatchedPoint::unsafe_arena_release_latlng() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:valhalla.TripRoute.MatchedPoint.latlng)
+  if (_internal_has_latlng()) {
+    clear_has_has_latlng();
+    ::valhalla::LatLng* temp = has_latlng_.latlng_;
+    has_latlng_.latlng_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void TripRoute_MatchedPoint::unsafe_arena_set_allocated_latlng(::valhalla::LatLng* latlng) {
+  clear_has_latlng();
+  if (latlng) {
+    set_has_latlng();
+    has_latlng_.latlng_ = latlng;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:valhalla.TripRoute.MatchedPoint.latlng)
+}
+inline ::valhalla::LatLng* TripRoute_MatchedPoint::_internal_mutable_latlng() {
+  if (!_internal_has_latlng()) {
+    clear_has_latlng();
+    set_has_latlng();
+    has_latlng_.latlng_ = CreateMaybeMessage< ::valhalla::LatLng >(GetArenaForAllocation());
+  }
+  return has_latlng_.latlng_;
+}
+inline ::valhalla::LatLng* TripRoute_MatchedPoint::mutable_latlng() {
+  ::valhalla::LatLng* _msg = _internal_mutable_latlng();
+  // @@protoc_insertion_point(field_mutable:valhalla.TripRoute.MatchedPoint.latlng)
+  return _msg;
+}
+
+inline bool TripRoute_MatchedPoint::has_has_edge_index() const {
+  return has_edge_index_case() != HAS_EDGE_INDEX_NOT_SET;
+}
+inline void TripRoute_MatchedPoint::clear_has_has_edge_index() {
+  _oneof_case_[0] = HAS_EDGE_INDEX_NOT_SET;
+}
+inline bool TripRoute_MatchedPoint::has_has_distance_along_edge() const {
+  return has_distance_along_edge_case() != HAS_DISTANCE_ALONG_EDGE_NOT_SET;
+}
+inline void TripRoute_MatchedPoint::clear_has_has_distance_along_edge() {
+  _oneof_case_[1] = HAS_DISTANCE_ALONG_EDGE_NOT_SET;
+}
+inline bool TripRoute_MatchedPoint::has_has_distance_from_trace_point() const {
+  return has_distance_from_trace_point_case() != HAS_DISTANCE_FROM_TRACE_POINT_NOT_SET;
+}
+inline void TripRoute_MatchedPoint::clear_has_has_distance_from_trace_point() {
+  _oneof_case_[2] = HAS_DISTANCE_FROM_TRACE_POINT_NOT_SET;
+}
+inline bool TripRoute_MatchedPoint::has_has_latlng() const {
+  return has_latlng_case() != HAS_LATLNG_NOT_SET;
+}
+inline void TripRoute_MatchedPoint::clear_has_has_latlng() {
+  _oneof_case_[3] = HAS_LATLNG_NOT_SET;
+}
+inline TripRoute_MatchedPoint::HasEdgeIndexCase TripRoute_MatchedPoint::has_edge_index_case() const {
+  return TripRoute_MatchedPoint::HasEdgeIndexCase(_oneof_case_[0]);
+}
+inline TripRoute_MatchedPoint::HasDistanceAlongEdgeCase TripRoute_MatchedPoint::has_distance_along_edge_case() const {
+  return TripRoute_MatchedPoint::HasDistanceAlongEdgeCase(_oneof_case_[1]);
+}
+inline TripRoute_MatchedPoint::HasDistanceFromTracePointCase TripRoute_MatchedPoint::has_distance_from_trace_point_case() const {
+  return TripRoute_MatchedPoint::HasDistanceFromTracePointCase(_oneof_case_[2]);
+}
+inline TripRoute_MatchedPoint::HasLatlngCase TripRoute_MatchedPoint::has_latlng_case() const {
+  return TripRoute_MatchedPoint::HasLatlngCase(_oneof_case_[3]);
+}
 // -------------------------------------------------------------------
 
 // TripRoute
@@ -9479,6 +11442,106 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripLeg >&
 TripRoute::legs() const {
   // @@protoc_insertion_point(field_list:valhalla.TripRoute.legs)
   return legs_;
+}
+
+// repeated .valhalla.TripRoute.MatchedPoint matched_points = 2;
+inline int TripRoute::_internal_matched_points_size() const {
+  return matched_points_.size();
+}
+inline int TripRoute::matched_points_size() const {
+  return _internal_matched_points_size();
+}
+inline void TripRoute::clear_matched_points() {
+  matched_points_.Clear();
+}
+inline ::valhalla::TripRoute_MatchedPoint* TripRoute::mutable_matched_points(int index) {
+  // @@protoc_insertion_point(field_mutable:valhalla.TripRoute.matched_points)
+  return matched_points_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripRoute_MatchedPoint >*
+TripRoute::mutable_matched_points() {
+  // @@protoc_insertion_point(field_mutable_list:valhalla.TripRoute.matched_points)
+  return &matched_points_;
+}
+inline const ::valhalla::TripRoute_MatchedPoint& TripRoute::_internal_matched_points(int index) const {
+  return matched_points_.Get(index);
+}
+inline const ::valhalla::TripRoute_MatchedPoint& TripRoute::matched_points(int index) const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.matched_points)
+  return _internal_matched_points(index);
+}
+inline ::valhalla::TripRoute_MatchedPoint* TripRoute::_internal_add_matched_points() {
+  return matched_points_.Add();
+}
+inline ::valhalla::TripRoute_MatchedPoint* TripRoute::add_matched_points() {
+  ::valhalla::TripRoute_MatchedPoint* _add = _internal_add_matched_points();
+  // @@protoc_insertion_point(field_add:valhalla.TripRoute.matched_points)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::valhalla::TripRoute_MatchedPoint >&
+TripRoute::matched_points() const {
+  // @@protoc_insertion_point(field_list:valhalla.TripRoute.matched_points)
+  return matched_points_;
+}
+
+// float confidence_score = 3;
+inline void TripRoute::clear_confidence_score() {
+  confidence_score_ = 0;
+}
+inline float TripRoute::_internal_confidence_score() const {
+  return confidence_score_;
+}
+inline float TripRoute::confidence_score() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.confidence_score)
+  return _internal_confidence_score();
+}
+inline void TripRoute::_internal_set_confidence_score(float value) {
+  
+  confidence_score_ = value;
+}
+inline void TripRoute::set_confidence_score(float value) {
+  _internal_set_confidence_score(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.confidence_score)
+}
+
+// float raw_score = 4;
+inline void TripRoute::clear_raw_score() {
+  raw_score_ = 0;
+}
+inline float TripRoute::_internal_raw_score() const {
+  return raw_score_;
+}
+inline float TripRoute::raw_score() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.raw_score)
+  return _internal_raw_score();
+}
+inline void TripRoute::_internal_set_raw_score(float value) {
+  
+  raw_score_ = value;
+}
+inline void TripRoute::set_raw_score(float value) {
+  _internal_set_raw_score(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.raw_score)
+}
+
+// bool is_best = 5;
+inline void TripRoute::clear_is_best() {
+  is_best_ = false;
+}
+inline bool TripRoute::_internal_is_best() const {
+  return is_best_;
+}
+inline bool TripRoute::is_best() const {
+  // @@protoc_insertion_point(field_get:valhalla.TripRoute.is_best)
+  return _internal_is_best();
+}
+inline void TripRoute::_internal_set_is_best(bool value) {
+  
+  is_best_ = value;
+}
+inline void TripRoute::set_is_best(bool value) {
+  _internal_set_is_best(value);
+  // @@protoc_insertion_point(field_set:valhalla.TripRoute.is_best)
 }
 
 // -------------------------------------------------------------------
@@ -9560,6 +11623,12 @@ Trip::routes() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -9575,6 +11644,9 @@ template <> struct is_proto_enum< ::valhalla::TripLeg_Surface> : ::std::true_typ
 template <> struct is_proto_enum< ::valhalla::TripLeg_CycleLane> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::TripLeg_SacScale> : ::std::true_type {};
 template <> struct is_proto_enum< ::valhalla::TripLeg_Sidewalk> : ::std::true_type {};
+template <> struct is_proto_enum< ::valhalla::TripLeg_HovType> : ::std::true_type {};
+template <> struct is_proto_enum< ::valhalla::TripLeg_SpeedType> : ::std::true_type {};
+template <> struct is_proto_enum< ::valhalla::TripRoute_MatchedPoint_MatchType> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 
