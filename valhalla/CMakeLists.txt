@@ -4,6 +4,12 @@ file(GLOB valhalla_SRC_FILES "proto/valhalla/proto/*.pb.cc" "valhalla/src/worker
 # tz_alt.cpp is date's tz implementation with the IANA database embedded (config/tzdb),
 # which is why the date subproject here is headers only.
 list(APPEND valhalla_SRC_FILES "${PROJECT_SOURCE_DIR}/valhalla/src/baldr/tz_alt.cpp")
+
+# On Apple, tz_alt.cpp resolves the local zone through date::iOSUtils (NSTimeZone), implemented
+# here. Upstream adds it the same way in src/baldr/CMakeLists.txt.
+if(APPLE)
+  list(APPEND valhalla_SRC_FILES "${PROJECT_SOURCE_DIR}/valhalla/third_party/date/src/ios.mm")
+endif()
 # list(REMOVE_ITEM valhalla_SRC_FILES "${PROJECT_SOURCE_DIR}/valhalla/src/baldr/curler.cc")
 list(REMOVE_ITEM valhalla_SRC_FILES "${PROJECT_SOURCE_DIR}/valhalla/src/meili/valhalla_run_map_match.cc" "${PROJECT_SOURCE_DIR}/valhalla/src/meili/traffic_segment_matcher.cc")
 list(REMOVE_ITEM valhalla_SRC_FILES "${PROJECT_SOURCE_DIR}/valhalla/src/thor/formlocalpath.cc" "${PROJECT_SOURCE_DIR}/valhalla/src/thor/expandfromnode.cc")
