@@ -531,7 +531,10 @@ namespace unistring {
         }
     }
 
-    using unichar_t = std::uint32_t;
+    // char32_t, not uint32_t: std::char_traits is only specialized for the character types, and a
+    // libc++ new enough to have dropped its generic primary template (emscripten's) then rejects
+    // basic_string<unsigned int> outright. Same size and representation, so every use converts.
+    using unichar_t = char32_t;
     using unistring = std::basic_string<unichar_t>;
 
     inline unistring to_unistring(const std::string& utf8str) {
