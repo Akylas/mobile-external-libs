@@ -39,7 +39,11 @@ namespace utf8_filesystem {
         return ::_fseeki64(fp, offset, whence);
 #elif defined(__ANDROID__)
         return ::lseek64(fileno(fp), offset, whence);
-#elif defined(__APPLE__)
+#else
+        // Every other POSIX platform, emscripten included. Without this the function had no body
+        // at all off Windows/Android/Apple, which is undefined behaviour: the compiler folded the
+        // whole caller away, so on the web build every file:// read failed as if the file could
+        // not be opened - the file was never even looked at.
         return ::fseeko(fp, offset, whence);
 #endif
     }
@@ -49,7 +53,7 @@ namespace utf8_filesystem {
         return ::_ftelli64(fp);
 #elif defined(__ANDROID__)
         return ::lseek64(fileno(fp), 0, SEEK_CUR);
-#elif defined(__APPLE__)
+#else
         return ::ftello(fp);
 #endif
     }
@@ -63,7 +67,7 @@ namespace utf8_filesystem {
     #else
         return ::ftruncate(fileno(fp), size);
     #endif
-#elif defined(__APPLE__)
+#else
         return ::ftruncate(fileno(fp), size);
 #endif
     }
